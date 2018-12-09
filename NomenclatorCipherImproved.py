@@ -1,6 +1,6 @@
 import random
 import numpy as np
-from PrepareText import preptext
+from PrepareText import preptext1
 
 def find_all(a_str, sub):
     start = 0
@@ -78,7 +78,7 @@ def createCodeGroups(n,decode=False):
 
 
 def nomenclator(text,key=1,decode=False):
-
+    
     D = createCodeGroups(key,decode)
     
     ngrams1 = open('1grams.csv', 'r')
@@ -91,9 +91,13 @@ def nomenclator(text,key=1,decode=False):
     ngrams1.seek(0)
     
     if decode == False:
-    
+        # If the text is short we need more nulls to break up the text
+        # If the text is long we can use fewer nulls overall especially since
+        # we don't want to inflate the text too much
+        numNulls = min(int(np.ceil(np.sqrt(len(text))))*5,len(text)//5)
+
         ## Insert nulls to break up words
-        for i in range(len(text)//11):
+        for i in range(numNulls):
             r = random.randint(0,len(text))
             text = text[:r] + '_' + text[r:]
         #for i in range(len(text)//35):
@@ -139,7 +143,10 @@ def nomenclator(text,key=1,decode=False):
             ops = len(D[T]) 
             while T in text:
                 text = text.replace(T,D[T][np.random.randint(0,ops)],1)
- 
+        
+        #print(numNulls)
+        #print(sum([1 for i in text if i == " "]))
+         
         return text,D
     
     if decode == True:
@@ -152,13 +159,16 @@ def nomenclator(text,key=1,decode=False):
             
 
 
-textfile = open('text2.txt', 'r')
-ptext = preptext(textfile.readline())
+textfile = open('text2.txt','r')
+ptext = preptext1(textfile.readline())
 
-KEY = random.getrandbits(64)
+#ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOGTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOGTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+
+#KEY = random.getrandbits(64)
+KEY = 2394877234429
 
 ctext,D = nomenclator(ptext,KEY)
-print(ctext)
+#print(ctext)
 
 decoded,D = nomenclator(ctext,KEY,decode=True)
 print("\n\nDoes the Text Decode Correctly?",decoded == ptext)

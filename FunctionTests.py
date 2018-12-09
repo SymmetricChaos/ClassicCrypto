@@ -1,40 +1,50 @@
-from PrepareText import preptext
+from PrepareText import preptext1
 from VigenereCipher import vigenere,multiVigenere,vigenereAutokey,affineVigenere
 from ColumnarTransport import columnarTransport,doubleColumnarTransport
-from CaesarCipher import caesar,affine
+from Monoalphabetic import caesar,affine,substitution
+
+def decodetest(T1,T2,fun):
+    if T1 == T2:
+        print("Success")
+    else:
+        raise Exception("Decode Error With {}".format(fun.__name__))
 
 textfile = open('text1.txt', 'r')
-ptext = preptext(textfile.readline())
+ptext = preptext1(textfile.readline())
+
 
 ctext = caesar(ptext,1)
 dtext = caesar(ctext,1,decode=True)
-print("Ceasar decode matches plaintext: {}\n".format(dtext == ptext))
+decodetest(ptext,dtext,caesar)
 
-ctext = affine(ptext,2,3)
-dtext = affine(ctext,2,3,decode=True)
-print("Affine decode matches plaintext: {}\n".format(dtext == ptext))
+ctext = affine(ptext,[2,3])
+dtext = affine(ctext,[2,3],decode=True)
+decodetest(ptext,dtext,affine)
 
+ctext = substitution(ptext,"IOWNAXYLOPHONE",)
+dtext = substitution(ctext,"IOWNAXYLOPHONE",decode=True)
+decodetest(ptext,dtext,substitution)
+    
 ctext = vigenere(ptext,"THISISABOUTFARMING")
 dtext = vigenere(ctext,"THISISABOUTFARMING",decode=True)
-print("Vigenere Cipher decode matches plaintext: {}\n".format(dtext == ptext))
-
+decodetest(ptext,dtext,vigenere)
+    
 ctext = multiVigenere(ptext,["SUGAR","CANE","HARVEST"])
 dtext = multiVigenere(ctext,["SUGAR","CANE","HARVEST"],decode=True)
-print("MultiVigenere decode matches plaintext: {}\n".format(dtext == ptext))
+decodetest(ptext,dtext,multiVigenere)
 
 ctext = vigenereAutokey(ptext,"FARMING")
 dtext = vigenereAutokey(ctext,"FARMING",decode=True)
-print("VigenereAutokey decode matches plaintext: {}\n".format(dtext == ptext))
+decodetest(ptext,dtext,vigenereAutokey)
 
-ctext = affineVigenere(ptext,"SUGAR","FARMING")
-dtext = affineVigenere(ctext,"SUGAR","FARMING",decode=True)
-print("AffineVigenere decode matches plaintext: {}\n".format(dtext == ptext))
+ctext = affineVigenere(ptext,["SUGAR","FARMING"])
+dtext = affineVigenere(ctext,["SUGAR","FARMING"],decode=True)
+decodetest(ptext,dtext,affineVigenere)
 
 ctext = columnarTransport(ptext,[5,3,4,1,2,0])
 dtext = columnarTransport(ctext,[5,3,4,1,2,0],decode=True)
-print("Single Columnar decode matches plaintext: {}\n".format(dtext[:len(ptext)] == ptext))
+decodetest(ptext,dtext[:len(ptext)],columnarTransport)
 
-ctext = doubleColumnarTransport(ptext,[5,3,4,1,6,2,0],[3,1,6,2,0,4,5])
-dtext = doubleColumnarTransport(ctext,[5,3,4,1,6,2,0],[3,1,6,2,0,4,5],decode=True)
-print("Double Columnar decode matches plaintext: {}\n".format(dtext[:len(ptext)] == ptext))
-
+ctext = doubleColumnarTransport(ptext,[[5,3,4,1,6,2,0],[3,1,6,2,0,4,5]])
+dtext = doubleColumnarTransport(ctext,[[5,3,4,1,6,2,0],[3,1,6,2,0,4,5]],decode=True)
+decodetest(ptext,dtext[:len(ptext)],doubleColumnarTransport)

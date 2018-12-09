@@ -43,11 +43,13 @@ def columnarTransport(s,k,decode=False):
 ### Double columnar transport is a significant improvement on the single columnar
 ### transport cipher. With long keys it is even somewhat resistant to computer attack.
 
-def doubleColumnarTransport(s,k0,k1,decode=False):
+def doubleColumnarTransport(s,k=[[0,1,2],[0,1,2]],decode=False):
+    if len(k) != 2:
+        raise Exception("Must have exactly two keys")
     if decode == True:
-        return columnarTransport(columnarTransport(s,k1,True),k0,True)
+        return columnarTransport(columnarTransport(s,k[1],True),k[0],True)
     else:
-        return columnarTransport(columnarTransport(s,k0),k1)
+        return columnarTransport(columnarTransport(s,k[0]),k[1])
 
 
 #plaintext = "THECITYOFNEWYORKWASNAMEDAGYERTHEDUKEOFYORKINTHEYEAR1644ALTHOUGHITHADBEENSETTLEDLONGBEFORETHEEARLIESTKNOWNINHABITANTSLIVEDTHERE9000YEARSAGOINFACTTHOUSANDSOFSITESHAVEBEENFOUNDTHROUGHOUTTHECITYTHEMODERNWEKNOWTODAYWASCREATEDBYTHEDUTCHANDCALLEDNEWAMSTERDAMALARGEFORTRESSTHATSTILLEXISTSTODAYWASTHEHEARTOFTHECITYUNFORTUNATELYFORTHEDUTCHITWASEVENTUALLYCAPTUREDBYTHEBRITISHINTHEYEAR1664AYEARLATERTHOMASWILLETTBECAMETHE1STMAYORHEWOULDALSOBETHECITYSTHIRDMAYORIN1667XX"

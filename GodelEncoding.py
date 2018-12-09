@@ -14,18 +14,40 @@ def primes():
             del D[q]
         q += 1
 
-def godelencoding(S):
-    alpha = string.ascii_uppercase
-    D = {x:ord(x)-64 for x in alpha}
-
-    out = 1
+def godelencoding(S,decode=False):
     
-    for let,pr in zip(S,primes()):
-        out *= pr**D[let]
+    if decode == False:
+        alpha = string.ascii_uppercase
+        D = {x:ord(x)-64 for x in alpha}
         
-    print(out)
-    return out
+        out = 1
+            
+        for let,pr in zip(S,primes()):
+            out *= pr**D[let]
+                
+        return out
 
-for i in ["THIS","FORM","OF","ENCODING","IS","DUE","TO","GODEL","BUT","IS","OBVIOUSLY","MUCH","TOO","INEFFICIENT","TO","USE","IN","THE","WAY","THAT","I","AM","USING","IT","BUT","I","HOPE","YOU","HAD","FUN","WITH","THE","PUZZLE","ANYWAY"]:
-    godelencoding(i)
-    print()
+def godelcode(S,decode=False):
+    if decode == False:
+        T = S.split(" ")
+        L = []
+        for i in T:
+            L.append(str(godelencoding(i)))
+        return "|".join(L)
+
+    if decode == True:
+        out = []
+        N = S.split("|")
+        for n in N:
+            t = int(n)
+            for p in primes():
+                ctr = 0
+                while t % p == 0:
+                   ctr += 1
+                   t = t // p
+                out.append(chr(ctr+64))
+                if t == 1:
+                    break
+            out.append(" ")
+        return "".join(out)
+    

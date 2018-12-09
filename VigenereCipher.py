@@ -1,7 +1,6 @@
 def vigenere(text,key,decode=False):
 
-    alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P",
-        "Q","R","S","T","U","V","W","X","Y","Z"]
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     T = []
     kLen = len(key)
     
@@ -37,8 +36,7 @@ def multiVigenere(text,keys=["A"],decode=False):
 
 def vigenereAutokey(text,key,decode=False):
 
-    alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P",
-        "Q","R","S","T","U","V","W","X","Y","Z"]
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     T = []
     
     # convert the keys to lists of numbers
@@ -83,21 +81,21 @@ def modinv(a, m):
     else:
         return x % m
 
-def affineVigenere(text,key1,key2,decode=False):
+def affineVigenere(text,k=[0,1],decode=False):
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#"
     T = []
-    kLen1 = len(key1)
-    kLen2 = len(key2)
+    kLen1 = len(k[0])
+    kLen2 = len(k[1])
     
-    if "#" in key2:
+    if "#" in k[1]:
         raise Exception('cannot use # symbol in multiplicative key')
     
     # convert the keys to lists of numbers
     K1, K2, = [],[]
-    for i in key1:
+    for i in k[0]:
         K1.append(alphabet.find(i))
     
-    for i in key2:
+    for i in k[1]:
         K2.append(alphabet.find(i))
 
     for ind,let in enumerate(text):
