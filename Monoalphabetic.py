@@ -1,22 +1,10 @@
+from ModularArithmetic import *
+
 def caesar(s,k,decode=False):
     s = s.upper()
     if decode == True:
         k = 26-k
     return "".join([chr((ord(i)-65+k)%26+65) for i in s])
-
-def egcd(a, b):
-    if a == 0:
-        return (b, 0, 1)
-    else:
-        g, y, x = egcd(b % a, a)
-        return (g, x - (b // a) * y, y)
-
-def modinv(a, m):
-    g, x, y = egcd(a, m)
-    if g != 1:
-        raise Exception('modular inverse does not exist')
-    else:
-        return x % m
 
 def affine(s,k=[0,1],decode=False):
     
@@ -67,3 +55,5 @@ def substitution(s,k,decode=False):
             out.append(alpha[key.index(i)])
     
     return "".join(out)
+
+

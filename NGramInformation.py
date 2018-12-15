@@ -1,5 +1,6 @@
 # http://norvig.com/mayzner.html
 # Uses Google data
+ngrams1 = open('1grams.csv', 'r')
 ngrams2 = open('2grams.csv', 'r')
 ngrams3 = open('3grams.csv', 'r')
 ngrams4 = open('4grams.csv', 'r')
@@ -22,4 +23,9 @@ for i,line in enumerate(ngrams2):
     print(L[0],end = " ")
     if (i + 1)%20 == 0:
         print()
+print("\n")
         
+ngrams1.seek(0)
+N = ngrams1.readlines()
+letters = [i.split(",")[0] for i in N]
+print("".join(letters))

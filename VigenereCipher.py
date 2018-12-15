@@ -1,3 +1,5 @@
+from ModularArithmetic import modinv
+
 def vigenere(text,key,decode=False):
 
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -67,19 +69,7 @@ def vigenereAutokey(text,key,decode=False):
         
     return "".join(T)
 
-def egcd(a, b):
-    if a == 0:
-        return (b, 0, 1)
-    else:
-        g, y, x = egcd(b % a, a)
-        return (g, x - (b // a) * y, y)
 
-def modinv(a, m):
-    g, x, y = egcd(a, m)
-    if g != 1:
-        raise Exception('modular inverse does not exist')
-    else:
-        return x % m
 
 def affineVigenere(text,k=[0,1],decode=False):
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#"
