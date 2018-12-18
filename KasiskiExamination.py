@@ -6,6 +6,7 @@ from VigenereCipher import vigenere
 from PrepareText import preptext1
 from FrequencyAnalysis import frequencyTable
 from MathFunctions import factors
+from TextScoring import bigramScore
 
 def find_all(a_str, sub):
     start = 0
@@ -18,17 +19,6 @@ def find_all(a_str, sub):
 def diffs(L):
     for i in range(len(L)-1):
         yield L[i+1]-L[i]
-
-def bigramScoring(text):
-    ngrams2 = open('2grams.csv', 'r')
-    bigrams = {}
-    for n,line in enumerate(ngrams2):
-        L = line.split(",")
-        bigrams[L[0]] = 676-n
-    score = 0
-    for i in range(len(text)-1):
-        score += bigrams[text[i:i+2]]
-    return score
 
 def vigenereKeyLength(s):
     
@@ -55,7 +45,7 @@ def solveVigenere(s,verbose=True):
     ## Knowing that the Vigenere cipher is made of many Caesar ciphers we
     ## can simply check for the most common letter and shift to make it appear
     ## as the letter E
-    bestscore = 0
+    bestscore = float("-inf")
     finalKEY = ""
     finalDECODE = "" 
     for k in keylens:
@@ -71,7 +61,7 @@ def solveVigenere(s,verbose=True):
             k.append( chr((ord(c)-69)%26+65) )
         KEY = "".join(k)
         dtext = vigenere(ctext,KEY,decode=True)
-        score = bigramScoring(dtext)
+        score = bigramScore(dtext)
         if score > bestscore:
             bestscore = score
             finalKEY = KEY
@@ -81,7 +71,7 @@ def solveVigenere(s,verbose=True):
         print("They key length is probably: {}".format(len(finalKEY)))
         print("Based on that the key should be: {}".format(finalKEY))
         print("The text begins:\n{}".format(finalDECODE[:70]))
-        print("This translation scores: {}".format(bestscore))
+        print("This translation scores: {0:0.0f}".format(bestscore))
 
     return finalDECODE,finalKEY,bestscore
 
