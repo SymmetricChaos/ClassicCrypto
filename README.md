@@ -5,6 +5,25 @@ All implemented ciphers are functions of the form cipherName(text,key,decode=Fal
   text must be a string
   key is whatever kind of key the cipher uses, if it requires multiple keys they must be in a list
   decode is boolean and sets the function to either encode or decode
-There are currently no guarantees on what the cipher functions return. Most give a string but a few return a list. For example the nomenclator cipher returns a list that contains the encoded or decoded text along with a dictionary that serves as the key.
+All ciphers will return a string containing either the ciphertext or the decoded text.
+The nomenclator cipher has an alternate mode that returns the dictionary that serves as the internal key.
 
-This is a hobby project. Suggestions for improvements are welcome but I'm prioritizing clarity and explicitness over things like checking for valid inputs.
+Available Ciphers:
+Caesar and Affine ciphers
+Simple Substitution cipher
+Columnar Transport and Double Columnar Transport
+Rail Fence Cipher
+Hill's Matrix Cipher
+Vigenre Cipher
+Affine Vigenere Cipher using an extended 37 letter alphabet
+Vigenre Autokey Cipher
+Multiple Vigenre Cipher
+Nomenclator cipher
+
+Available Attacks:
+Kasiski Examination attack on the Vigenere cipher
+Brute force attack on Columnar Transport
+Brute force attack on Caesar cipher
+
+
+This is a hobby project. Suggestions for improvements are welcome but I'm prioritizing clarity and explicitness over things like speed or checking for valid inputs.
