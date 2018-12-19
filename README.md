@@ -2,9 +2,9 @@
 Python repo for implementing classic methods of encryption and techniques for breaking them.
 
 All implemented ciphers are functions of the form cipherName(text,key,decode=False)
-...text must be a string
-...key is whatever kind of key the cipher uses, if it requires multiple keys they must be in a list
-...decode is boolean and sets the function to either encode or decode
+..*text must be a string
+..*key is whatever kind of key the cipher uses, if it requires multiple keys they must be in a list
+..*decode is boolean and sets the function to either encode or decode
 All ciphers will return a string containing either the ciphertext or the decoded text.
 The nomenclator cipher has an alternate mode that returns the dictionary that serves as the internal key.
 
