@@ -1,12 +1,27 @@
-# Reference thesse sites for some improvements
-# https://www.guballa.de/vigenere-solver
-# https://en.wikipedia.org/wiki/Kasiski_examination
-
 from VigenereCipher import vigenere
 from PrepareText import preptext1
 from FrequencyAnalysis import frequencyTable
 from MathFunctions import factors
 from TextScoring import bigramScore
+
+
+# While a Vigenere cipher does effectively resist traditional frequency
+# analysis a critical weakness is that is it made up of several very weak
+# Caesar ciphers. If the key length is known then each of those ciphers can be
+# broken individually with little effort.
+
+# Kasiski examination is a way of estimating the length of they key when only
+# the ciphertext is known. Because the key is repeated and because certain
+# letter sequences are common in language it will happen that they line up
+# occasionally. The distance between these repetitions will be some multiple of
+# the key length.
+
+# This attack on the Vigenere cipher works by finding these repetitions and
+# then factoring the distances between them to make a list of possible key
+# lengths. Then each of these possible key lengths is attacked and the output
+# checked for how well it matches English text. The best of these results is
+# returned.
+
 
 def find_all(a_str, sub):
     start = 0

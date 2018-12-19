@@ -2,6 +2,7 @@ from PrepareText import preptext1
 from VigenereCipher import vigenere,multiVigenere,vigenereAutokey,affineVigenere
 from ColumnarTransport import columnarTransport,doubleColumnarTransport
 from Monoalphabetic import caesar,affine,substitution
+from RailfenceCipher import railfence
 
 def decodetest(T1,T2,fun):
     if T1 == T2:
@@ -48,3 +49,7 @@ decodetest(ptext,dtext[:len(ptext)],columnarTransport)
 ctext = doubleColumnarTransport(ptext,[[5,3,4,1,6,2,0],[3,1,6,2,0,4,5]])
 dtext = doubleColumnarTransport(ctext,[[5,3,4,1,6,2,0],[3,1,6,2,0,4,5]],decode=True)
 decodetest(ptext,dtext[:len(ptext)],doubleColumnarTransport)
+
+ctext = railfence(ptext,8)
+dtext = railfence(ctext,8,decode=True)
+decodetest(ptext,dtext,railfence)
