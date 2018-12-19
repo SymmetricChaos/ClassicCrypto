@@ -9,7 +9,7 @@ All ciphers will return a string containing either the ciphertext or the decoded
 The nomenclator cipher has an alternate mode that returns the dictionary that serves as the internal key.
 
 Available Ciphers:
-Caesar and Affine ciphers
+  Caesar and Affine ciphers
 Simple Substitution cipher
 Columnar Transport and Double Columnar Transport
 Rail Fence Cipher
