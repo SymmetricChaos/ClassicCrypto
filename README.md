@@ -10,17 +10,18 @@ All ciphers will return a string containing either the ciphertext or the decoded
 The nomenclator cipher has an alternate mode that returns the dictionary that serves as the internal key.
 
 ### Substitution Ciphers:
-* Caesar and Affine ciphers
+* Caesar cipher
+* Affine cipher
 * Simple Substitution cipher
 * Hill's Matrix Cipher
 * Vigenre Cipher
 * Affine Vigenere Cipher using an extended 37 letter alphabet
 * Vigenre Autokey Cipher
 * Multiple Vigenre Cipher
-* Nomenclator cipher
-* Polybius Square
-* Nihilist Cipher
+* Nomenclator cipher (variation on Le Grand Chiffre)
+* Polybius Square (three variants)
 * Straddling Checkerboard
+* Nihilist Cipher
 
 ### Transposition Ciphers:
 * Columnar Transport and Double Columnar Transport
