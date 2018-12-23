@@ -4,6 +4,7 @@ from ColumnarTransport import columnarTransport,doubleColumnarTransport
 from Monoalphabetic import caesar,affine,substitution
 from RailfenceCipher import railfence
 from PolybiusSquare import polybiusSquare
+from Nihilist import nihilistCipher
 
 def decodetest(T1,T2,fun):
     if T1 == T2:
@@ -53,8 +54,12 @@ decodetest(ptext,dtext[:len(ptext)],doubleColumnarTransport)
 
 ctext = polybiusSquare(ptext,"35ZEBRAS26")
 dtext = polybiusSquare(ctext,"35ZEBRAS26",decode=True)
-decodetest(ptext,dtext,railfence)
+decodetest(ptext,dtext,polybiusSquare)
 
 ctext = railfence(ptext,8)
 dtext = railfence(ctext,8,decode=True)
 decodetest(ptext,dtext,railfence)
+
+ctext = nihilistCipher(ptext,["NIHILIST","CIPHER"])
+dtext = nihilistCipher(ctext,["NIHILIST","CIPHER"],decode=True)
+decodetest(ptext,dtext,nihilistCipher)

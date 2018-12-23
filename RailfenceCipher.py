@@ -6,9 +6,9 @@
 # THEQUICKBROWNFOX
 # is rewritten as
 
-# T...U...B...N...
-# .H.Q.I.K.R.W.F.X
-# ..E...C...O...O.
+# T___U___B___N___
+# _H_Q_I_K_R_W_F_X
+# __E___C___O___O.
 
 # Then it is read as TUBNHQIKRWFXECOO 
 

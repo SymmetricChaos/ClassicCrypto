@@ -20,20 +20,20 @@ def modmatinv(M,n):
     
     return(invM)
 
-def hillcipher(s,k,decode=False):
+def hillcipher(text,key,decode=False):
     if decode == True:
-        k = modmatinv(k,26)
+        key = modmatinv(key,26)
         
-    N = k.shape[0]
+    N = key.shape[0]
     
-    b,rem = divmod(len(s),N)
+    b,rem = divmod(len(text),N)
     if rem != 0:
-        s += "X"*(N-rem)
+        text += "X"*(N-rem)
 
     out = ""
-    for i in range(len(s)//N):
-        x = [ord(j)-65 for j in s[i*N:N+i*N]]
-        y = (x*k%26)+65
+    for i in range(len(text)//N):
+        x = [ord(j)-65 for j in text[i*N:N+i*N]]
+        y = (x*key%26)+65
         out += "".join([chr(j) for j in y.flat])
     
     return out

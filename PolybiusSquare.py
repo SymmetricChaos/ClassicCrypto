@@ -11,7 +11,11 @@ from itertools import product
 # Technically the polybiusSquare is just a simple substitution cipher. However
 # it is extremely useful in other ciphers.
 
-def polybiusSquare(text,key="",decode=False,mode="EX"):
+# The "sep" keyword allows the symbol that separates the codegroups of the
+# polybius square. By default there is no separation at all. This setting is
+# useful for better readbility or the nihilist cipher.
+
+def polybiusSquare(text,key="",decode=False,mode="EX",sep=""):
     #the IJ version of the polybius (25 characters)
     if mode == "IJ":
         alpha = "ABCEDFGHIKLMNOPQRSTUVWXYZ"
@@ -52,23 +56,25 @@ def polybiusSquare(text,key="",decode=False,mode="EX"):
         
         ctext = [D[let] for let in text]
     
-        return "".join(ctext)
+        return sep.join(ctext)
     
     if decode == True:
         # Pair each codegrou with a letter
         D = {}
         for i,j in zip(k,codegroups):
             D[j] = i
-        
-        pairs = [text[2*j:2*j+2] for j in range(len(text)//2)]
-        dtext = [D[pair] for pair in pairs]
+        if sep != "":
+            grps = text.split(sep)
+        else:
+            grps = [text[2*j:2*j+2] for j in range(len(text)//2)]
+        dtext = [D[pair] for pair in grps]
     
         return "".join(dtext)
          
 #ptext = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG"
 
 #for mode in ["IJ","CK","EX"]:
-#    ctext = polybiusSquare(ptext,"FIVEZEBRAS",mode=mode)
+#    ctext = polybiusSquare(ptext,"FIVEZEBRAS",mode=mode,sep=" ")
 #    print(ctext)
-#    dtext = polybiusSquare(ctext,"FIVEZEBRAS",decode=True,mode=mode)
+#    dtext = polybiusSquare(ctext,"FIVEZEBRAS",decode=True,mode=mode,sep=" ")
 #    print(dtext)

@@ -71,21 +71,21 @@ def vigenereAutokey(text,key,decode=False):
 
 
 
-def affineVigenere(text,k=[0,1],decode=False):
+def affineVigenere(text,key=[0,1],decode=False):
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#"
     T = []
-    kLen1 = len(k[0])
-    kLen2 = len(k[1])
+    kLen1 = len(key[0])
+    kLen2 = len(key[1])
     
-    if "#" in k[1]:
+    if "#" in key[1]:
         raise Exception('cannot use # symbol in multiplicative key')
     
     # convert the keys to lists of numbers
     K1, K2, = [],[]
-    for i in k[0]:
+    for i in key[0]:
         K1.append(alphabet.find(i))
     
-    for i in k[1]:
+    for i in key[1]:
         K2.append(alphabet.find(i))
 
     for ind,let in enumerate(text):

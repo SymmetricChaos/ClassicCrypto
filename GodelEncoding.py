@@ -14,6 +14,9 @@ from MathFunctions import primes
 # Godel encoding is extremely inefficient in terms of storage space. The 
 # resulting numbers are often extremely large.
 
+# The "sep" keyword allows the user to specify what it used to separate the
+# numbers of the godel encoding. By default it is simply a space.
+
 def godelencoding(S,decode=False):
     
     if decode == False:
@@ -27,17 +30,17 @@ def godelencoding(S,decode=False):
                 
         return out
 
-def godelcode(S,decode=False):
+def godelcode(S,decode=False,sep=" "):
     if decode == False:
         T = S.split(" ")
         L = []
         for i in T:
             L.append(str(godelencoding(i)))
-        return " ".join(L)
+        return sep.join(L)
 
     if decode == True:
         out = []
-        N = S.split(" ")
+        N = S.split(sep)
         for n in N:
             t = int(n)
             for p in primes():
@@ -50,3 +53,4 @@ def godelcode(S,decode=False):
                     break
             out.append(" ")
         return "".join(out)
+

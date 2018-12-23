@@ -1,4 +1,5 @@
 from ModularArithmetic import modinv
+from UtilityFunctions import alphabetPermutation
 
 # Monoalphabetic ciphers transform every letter in the message using exactly
 # the same method. There are three methods provided here.
@@ -21,60 +22,56 @@ from ModularArithmetic import modinv
 # letter of the word, the letter B is turned into the second letter of the
 # word and so on. If the word repeats letters those repetitions are skipped.
 
-def caesar(s,k,decode=False):
-    s = s.upper()
-    if decode == True:
-        k = 26-k
-    return "".join([chr((ord(i)-65+k)%26+65) for i in s])
+# The atbash cipher is a special case of the substitution cipher that just uses
+# a reversed alphabet. Since it has no key it is not a true cipher.
 
-def affine(s,k=[0,1],decode=False):
+def caesar(text,key,decode=False):
+    text = text.upper()
+    if decode == True:
+        key = 26-key
+    return "".join([chr((ord(i)-65+key)%26+65) for i in text])
+
+def affine(text,key=[0,1],decode=False):
     
     # In this basic form of affine cipher the multiplication cannot be a
     # multiple of 2 or 13 since they have no inverse modulo 26.
-    if k[1] % 2 == 0:
+    if key[1] % 2 == 0:
         raise Exception('multiplicative part has no inverse')
-    if k[1] % 13 == 0:
+    if key[1] % 13 == 0:
         raise Exception('multiplicative part has no inverse')
     
     T = []
     
-    for i in s:
+    for i in text:
         N = ord(i)-65
         
         if decode == False:
-            N = (N+k[0])%26
-            N = (N*k[1])%26
+            N = (N+key[0])%26
+            N = (N*key[1])%26
         else:
-            inv = modinv(k[1],26)
+            inv = modinv(key[1],26)
             N = (N*inv)%26
-            N = (N-k[0])%26
+            N = (N-key[0])%26
         
         T.append(chr(N+65))
         
     return "".join(T)
 
-def substitution(s,k,decode=False):
+def substitution(text,key,decode=False):
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     out = []
     
     # Derive the internally used key from the input
-    # We use only the unique letters of the key and then
-    # follow them with the remaining letters of the alphabet
-    key = ""
-    for letter in k:
-        if letter not in key:
-            key += letter
-    for letter in alpha:
-        if letter not in key:
-            key += letter
+    KEY = alphabetPermutation(key)
             
     if decode == False:
-        for i in s:
-            out.append(key[alpha.index(i)])
+        for i in text:
+            out.append(KEY[alpha.index(i)])
     if decode == True:
-        for i in s:
-            out.append(alpha[key.index(i)])
+        for i in text:
+            out.append(alpha[KEY.index(i)])
     
     return "".join(out)
 
-
+def atbash(text,decode=False):
+    return substitution(text,"ZYXWVUTSRQPONMLKJIHGFEDCBA",decode=decode)
