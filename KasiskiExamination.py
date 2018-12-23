@@ -53,47 +53,74 @@ def vigenereKeyLength(s):
                 
     return frequencyTable(sizes)
 
-def solveVigenere(s,verbose=True):
-    ftable = vigenereKeyLength(s)
-    keylens = [i[0] for i in ftable]
+def solveVigenere(s,klen=0,verbose=True):
     
-    ## Knowing that the Vigenere cipher is made of many Caesar ciphers we
-    ## can simply check for the most common letter and shift to make it appear
-    ## as the letter E
-    bestscore = float("-inf")
-    finalKEY = ""
-    finalDECODE = "" 
-    for k in keylens:
-        slices = [[] for i in range(k)]
+    if klen == 0:
+    
+        ftable = vigenereKeyLength(s)
+        keylens = [i[0] for i in ftable]
         
-        for i,let in enumerate(s):
-            slices[i%k].append(let)
+        ## Knowing that the Vigenere cipher is made of many Caesar ciphers we
+        ## can simply check for the most common letter and shift to make it appear
+        ## as the letter E
+        bestscore = float("-inf")
+        finalKEY = ""
+        finalDECODE = "" 
+        for k in keylens:
+            slices = [[] for i in range(k)]
             
-        k = []
+            for i,let in enumerate(s):
+                slices[i%k].append(let)
+                
+            x = []
+            for i in slices:
+                # Most common letter
+                c = frequencyTable(i)[0][0]
+                x.append( chr((ord(c)-69)%26+65) )
+                
+            KEY = "".join(x)
+            dtext = vigenere(ctext,KEY,decode=True)
+            score = bigramScore(dtext)
+            if score > bestscore:
+                bestscore = score
+                finalKEY = KEY
+                finalDECODE = dtext
+                
+        if verbose == True:
+            print("They key length is probably: {}".format(len(finalKEY)))
+            print("Based on that the key should be: {}".format(finalKEY))
+            print("The text begins:\n{}".format(finalDECODE[:70]))
+            print("This translation scores: {0:0.0f}".format(bestscore))
+    
+        return finalDECODE,finalKEY,bestscore
+    
+    else:
+        slices = [[] for i in range(klen)]
+            
+        for i,let in enumerate(s):
+            slices[i%klen].append(let)
+                
+        x = []
         for i in slices:
             # Most common letter
             c = frequencyTable(i)[0][0]
-            k.append( chr((ord(c)-69)%26+65) )
-        KEY = "".join(k)
+            x.append( chr((ord(c)-69)%26+65) )
+                
+        KEY = "".join(x)
         dtext = vigenere(ctext,KEY,decode=True)
         score = bigramScore(dtext)
-        if score > bestscore:
-            bestscore = score
-            finalKEY = KEY
-            finalDECODE = dtext
 
-    if verbose == True:
-        print("They key length is probably: {}".format(len(finalKEY)))
-        print("Based on that the key should be: {}".format(finalKEY))
-        print("The text begins:\n{}".format(finalDECODE[:70]))
-        print("This translation scores: {0:0.0f}".format(bestscore))
-
-    return finalDECODE,finalKEY,bestscore
+        if verbose == True:
+            print("Assuming a key length of: {}".format(klen))
+            print("Based on that the key should be: {}".format(KEY))
+            print("The text begins:\n{}".format(dtext[:70]))
+            print("This translation scores: {0:0.0f}".format(score))
+    
 
 
 textfile = open('text1.txt', 'r')
 ptext = preptext1(textfile.readline())
 ctext = vigenere(ptext,"ZEBRASPIZZA")
 
-solveVigenere(ctext)
+solveVigenere(ctext,11)
 
