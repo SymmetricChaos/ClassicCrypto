@@ -47,3 +47,43 @@ def groups(text,n):
         raise Exception("groups cannot be larger than text")
         
     return [text[i*n:i*n+n] for i in range(len(text)//n)]
+
+
+## Get prime numbers.
+def primes():
+    D = {}
+    q = 2
+    while True:
+        if q not in D:
+
+            yield q
+            D[q * q] = [q]
+        else:
+            for p in D[q]:
+                D.setdefault(p + q, []).append(p)
+            del D[q]
+        q += 1
+
+# This is an excessively simple way of finding all the factors btu we're only
+# using it on very small numbers.
+def factors(n):
+    L = []
+    for i in range(2,n):
+        if n % i == 0:
+            L.append(i)
+    return L
+
+# Functions for doing modular arithmetic.
+def egcd(a, b):
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        g, y, x = egcd(b % a, a)
+        return (g, x - (b // a) * y, y)
+
+def modinv(a, m):
+    g, x, y = egcd(a, m)
+    if g != 1:
+        raise Exception('modular inverse does not exist')
+    else:
+        return x % m

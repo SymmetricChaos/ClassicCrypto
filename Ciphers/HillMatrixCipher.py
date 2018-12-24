@@ -6,7 +6,7 @@
 ## first serious block ciphers.
 
 import numpy as np
-from ModularArithmetic import modinv
+from UtilityFunctions import modinv
 from numpy.linalg import det,inv
 
 

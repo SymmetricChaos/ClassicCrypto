@@ -8,6 +8,9 @@ from Monoalphabetic import caesar,affine,substitution
 from PolybiusSquare import polybiusSquare
 from Nihilist import nihilistCipher
 from StraddlingCheckerboard import straddlingCheckerboard
+from RailfenceCipher import railfence
+from ColumnarTransport import columnarTransport,doubleColumnarTransport
+
 
 textfile = open('text1.txt', 'r')
 ptext = preptext1(textfile.readline())
@@ -31,3 +34,9 @@ decodetest(ptext,"ZEBRAS",polybiusSquare)
 decodetest(ptext,["NIHILIST","CIPHER"],nihilistCipher)
 
 decodetest(ptext,["CIPHER",[5,7]],straddlingCheckerboard)
+
+decodetest(ptext,[0,4,2,3,1],columnarTransport)
+
+decodetest(ptext,[[0,4,2,3,1],[0,4,2,3,1]],doubleColumnarTransport)
+
+decodetest(ptext,5,railfence)

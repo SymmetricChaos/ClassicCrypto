@@ -1,4 +1,4 @@
-from ModularArithmetic import modinv
+from UtilityFunctions import modinv
 
 def vigenere(text,key,decode=False):
 

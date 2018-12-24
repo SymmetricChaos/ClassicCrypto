@@ -1,5 +1,4 @@
-from ModularArithmetic import modinv
-from UtilityFunctions import alphabetPermutation
+from UtilityFunctions import alphabetPermutation, modinv
 
 # Monoalphabetic ciphers transform every letter in the message using exactly
 # the same method. There are three methods provided here.

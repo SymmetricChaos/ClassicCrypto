@@ -1,8 +1,5 @@
 from itertools import product
-import sys
-#sys.path.insert(0, 'C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto')
 from UtilityFunctions import alphabetPermutation, groups
-sys.path.insert(0, 'C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SubstitutionCiphers\\')
 from ColumnarTransport import columnarTransport
 
 
