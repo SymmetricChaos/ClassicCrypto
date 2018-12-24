@@ -1,5 +1,5 @@
 import string
-from MathFunctions import primes
+from UtilityFunctions import primes
 
 # Godel's encoding is not technically a cipher, it is a code, but it is 
 # included here simply because it is an interesting method of encoding text
