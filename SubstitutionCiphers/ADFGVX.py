@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(0, 'C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto')
 from UtilityFunctions import alphabetPermutation, groups
 from ColumnarTransport import columnarTransport
 from itertools import product
@@ -34,3 +36,5 @@ def ADFGVX(text,keys=["A",[0,1]],decode=False):
 ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
 ctext = ADFGVX(ptext,["17ZEBRAS529",[1,4,2,5,0,3]])
 dtext = ADFGVX(ctext,["17ZEBRAS529",[1,4,2,5,0,3]],decode=True)
+print(ptext)
+print(ctext)

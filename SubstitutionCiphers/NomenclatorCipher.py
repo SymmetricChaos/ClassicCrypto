@@ -1,6 +1,9 @@
+import sys
+sys.path.insert(0, 'C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto')
 import random
 import numpy as np
 from PrepareText import preptext1
+
 
 # A nomenclator is a cipher that operates on common pieces of language in order
 # to defeat frequency analysis. The Great Cipher designed by Antoine Rossignol
@@ -195,7 +198,7 @@ def nomenclator(text,key=1,decode=False,dictionary=False,showgroups=False):
 
 
 
-textfile = open('text2.txt','r')
+textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\Text2.txt','r')
 ptext = preptext1(textfile.readline())
 
 
