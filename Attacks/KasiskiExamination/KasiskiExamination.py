@@ -1,7 +1,7 @@
 from VigenereCipher import vigenere
 from PrepareText import preptext1
 from FrequencyAnalysis import frequencyTable
-from MathFunctions import factors
+from UtilityFunctions import factors
 from TextScoring import bigramScore
 
 
