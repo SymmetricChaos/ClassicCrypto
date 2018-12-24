@@ -27,18 +27,18 @@ def columnarTransport(text,key,decode=False):
                 out += i[j]
         
         return out 
-    
-    ## Create the rows
-    L = []
-    for i in range(numrow):
-        L.append(text[i*numcol:numcol+i*numcol])
-    
-    ## Read the columns 
-    out = ""
-    for x in argsort(key):
-        out += "".join([i[x] for i in L])
+    if decode == False:
+        ## Create the rows
+        L = []
+        for i in range(numrow):
+            L.append(text[i*numcol:numcol+i*numcol])
         
-    return out
+        ## Read the columns 
+        out = ""
+        for x in argsort(key):
+            out += "".join([i[x] for i in L])
+            
+        return out
 
 ### Double columnar transport is a significant improvement on the single columnar
 ### transport cipher. With long keys it is even somewhat resistant to computer attack.
