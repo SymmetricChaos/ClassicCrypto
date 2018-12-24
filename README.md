@@ -9,6 +9,10 @@ All implemented ciphers are functions of the form `cipherName(text,key,decode=Fa
 All ciphers will return a string containing either the ciphertext or the decoded text.
 The nomenclator cipher has an alternate mode that returns the dictionary that serves as the internal key.
 
+### Transposition Ciphers:
+* Columnar Transport (Single and Double)
+* Rail Fence Cipher
+
 ### Substitution Ciphers:
 * Caesar cipher
 * Affine cipher
@@ -22,10 +26,8 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Polybius Square (three variants)
 * Straddling Checkerboard
 * Nihilist Cipher
-
-### Transposition Ciphers:
-* Columnar Transport and Double Columnar Transport
-* Rail Fence Cipher
+* ADFGVX
+* Rotor Machine Simulator (UNDER CONSTRUCTION)
 
 ### Available Attacks:
 * Kasiski Examination attack on the Vigenere cipher
