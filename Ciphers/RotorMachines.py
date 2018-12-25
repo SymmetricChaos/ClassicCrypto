@@ -1,4 +1,7 @@
-# An engima style rotor machine.
+# An engima style rotor machine. The method is actually quite simple. Each
+# letter is encrypted by a series of simple substitution ciphers that change
+# automatically for each letter. However because this behavior is quite regular
+# it is not especially hard to break the resulting cipher. 
 
 # Pass a singal through a rotor
 def rotor(letter,key,decode=False):
@@ -11,6 +14,14 @@ def rotor(letter,key,decode=False):
 # Step a rotor forward by one
 def step(R):
     return R[1:] + R[0]
+
+# The plugboard (Steckerbrett) flips pairs of letters
+def plugboard(text,keys):
+    for key in keys:
+        text = text.replace(key[0],"*")
+        text = text.replace(key[1],key[0])
+        text = text.replace("*",key[1])
+    return text
 
 # Implement the rotor machine itself
 def rotorMachine(text,keys,decode=False):
