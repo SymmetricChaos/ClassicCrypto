@@ -9,25 +9,23 @@ All implemented ciphers are functions of the form `cipherName(text,key,decode=Fa
 All ciphers will return a string containing either the ciphertext or the decoded text.
 The nomenclator cipher has an alternate mode that returns the dictionary that serves as the internal key.
 
-### Transposition Ciphers:
-* Columnar Transport (Single and Double)
-* Rail Fence Cipher
-
 ### Substitution Ciphers:
 * Caesar cipher
 * Affine cipher
 * Simple Substitution cipher
 * Hill's Matrix Cipher
-* Vigenre Cipher
-* Affine Vigenere Cipher using an extended 37 letter alphabet
-* Vigenre Autokey Cipher
+* Vigenere Cipher
+* Affine Vigenere Cipher (using an extended 37 letter alphabet)
+* Vigenere Autokey Cipher
 * Multiple Vigenre Cipher
 * Nomenclator cipher (variation on Le Grand Chiffre)
 * Polybius Square (three variants)
 * Straddling Checkerboard
 * Nihilist Cipher
-* ADFGVX
+* ADFGX and ADFGVX Ciphers
 * Simple Rotor Machine (styled after Engima but not a simulator)
+* Columnar Transport (Single and Double)
+* Rail Fence Cipher
 
 ### Available Attacks:
 * Kasiski Examination attack on the Vigenere cipher
