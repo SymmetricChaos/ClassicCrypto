@@ -1,7 +1,14 @@
-# An engima style rotor machine. The method is actually quite simple. Each
+# An Engima style rotor machine. The method is actually quite simple. Each
 # letter is encrypted by a series of simple substitution ciphers that change
 # automatically for each letter. However because this behavior is quite regular
-# it is not especially hard to break the resulting cipher. 
+# it is not especially hard to break the resulting cipher. Using the plugboard
+# to swap letters makes it significantly more secure. The military Enigma
+# historically chose ten letter pairs.
+
+# Because this simulated rotor machine can accept arbitrary rotors even if the
+# number of rotors in use is known the key space is absurdly large. However
+# rotor machines like this are very well analyzed and should not be considered
+# secure simply because of the number of possible keys.
 
 # Pass a singal through a rotor
 def rotor(letter,key,decode=False):
@@ -16,7 +23,18 @@ def step(R):
     return R[1:] + R[0]
 
 # The plugboard (Steckerbrett) flips pairs of letters
+# Pairs of letters are not allowed to overlap
 def plugboard(text,keys):
+    
+    # A very messy bit of code that makes sure only unique pairs of letters
+    # are swapped.
+    for pos,key in enumerate(keys):
+        for let in key:
+            for i in range(pos+1,len(keys)):
+                if let in keys[i]:
+                    raise Exception('pairs of letters cannot overlap')
+    
+    # Do the swapping
     for key in keys:
         text = text.replace(key[0],"*")
         text = text.replace(key[1],key[0])
@@ -25,10 +43,26 @@ def plugboard(text,keys):
 
 # Implement the rotor machine itself
 def rotorMachine(text,keys,decode=False):
-
-    rotors = keys[0]
-    notches = keys[1]
     
+    # The rotor list will be changed while the machine is in operation to
+    # prevent this from causing issues we will use a copy of the list instead
+    rotors = keys[0][:]
+    notches = keys[1]
+    plugs = keys[2]
+    
+    # Make sure that every rotor has a notch
+    if len(rotors) != len(notches):
+        raise Exception('there must be an equal number of rotors and notch positions')
+    
+    # Make sure that every rotor is correct
+    for pos,rtr in enumerate(rotors):
+        if "".join(sorted(rtr)) != "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+            raise Exception('rotor {} is invalid'.format(pos+1))
+    
+    
+    text = plugboard(text,plugs)
+    
+
     out = []
     
 
@@ -54,16 +88,19 @@ def rotorMachine(text,keys,decode=False):
             if rotors[n][0] == notches[n]:
                 rotors[n+1] = step(rotors[n+1])
 
+    out = "".join(out)
 
-    return "".join(out)
+    return plugboard(out,plugs)
 
 R1 = "DMTWSILRUYQNKFEJCAZBPGXOHV"
 R2 = "HQZGPJTMOBLNCIFDYAWVEUSRKX"
 R3 = "UQNTLSZFMREHDPXKIBVYGJCWOA"
 
+keySettings = [[R1,R2,R3],["R","F","W"],["AB","CD","XJ","ZY"]]
+
 ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-ctext = rotorMachine(ptext,keys=[[R1,R2,R3],["R","F","W"]])
-dtext = rotorMachine(ctext,keys=[[R1,R2,R3],["R","F","W"]],decode=True)
-print(ptext)
-print(ctext)
+ctext = rotorMachine(ptext,keys=keySettings)
+dtext = rotorMachine(ctext,keys=keySettings,decode=True)
+print(ptext,"\n")
+print(ctext,"\n")
 print(dtext)
