@@ -27,7 +27,7 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Straddling Checkerboard
 * Nihilist Cipher
 * ADFGVX
-* Rotor Machine Simulator (UNDER CONSTRUCTION)
+* Enigma Machine Simulator (allows arbitrary rotor designs)
 
 ### Available Attacks:
 * Kasiski Examination attack on the Vigenere cipher
