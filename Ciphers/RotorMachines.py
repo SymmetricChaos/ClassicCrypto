@@ -1,45 +1,58 @@
-from UtilityFunctions import alphabetPermutation
+# An engima style rotor machine.
 
-def substitution(text,key,decode=False):
+# Pass a singal through a rotor
+def rotor(letter,key,decode=False):
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    out = []
-    
-    # Derive the internally used key from the input
-    KEY = alphabetPermutation(key)
-            
     if decode == False:
-        for i in text:
-            out.append(KEY[alpha.index(i)])
+        return key[alpha.index(letter)]
     if decode == True:
-        for i in text:
-            out.append(alpha[KEY.index(i)])
-    
-    return "".join(out)
+        return alpha[key.index(letter)]
 
-def rotate(R):
-    return R[-1] + R[:-1]
+# Step a rotor forward by one
+def step(R):
+    return R[1:] + R[0]
 
-def rotors(text,decode=False):
-    R1 = "DMTWSILRUYQNKFEJCAZBPGXOHV"
-    R2 = "HQZGPJTMOBLNCIFDYAWVEUSRKX"
-    R3 = "UQNTLSZFMREHDPXKIBVYGJCWOA"
+# Implement the rotor machine itself
+def rotorMachine(text,keys,decode=False):
+
+    rotors = keys[0]
+    notches = keys[1]
     
     out = []
     
+
+    # For each letter
     for letter in text:
-        t = substitution(letter,R1)
-        t = substitution(t,R2)
-        t = substitution(t,R3)
+        #Pass that letter through the rotors
+        t = letter
+        for r in rotors:
+            t = rotor(t,r,decode=decode)
         
-        R1 = rotate(R1)
-        if R1[0] == "Q":
-            R2 = rotate(R2)
-        if R2[0] == "E":
-            R3 = rotate(R3)
+        # The last rotors is assumed to be the reflector
+        # Now go through the other rotors in reverse 
+        for r in rotors[1::-1]:
+            t = rotor(t,r,decode=decode)
         
+
+        # Save the result
         out.append(t)
+        
+        # Step the rotors forward.
+        rotors[0] = step(rotors[0])
+        for n in range(len(notches)-1):
+            if rotors[n][0] == notches[n]:
+                rotors[n+1] = step(rotors[n+1])
+
+
     return "".join(out)
-    
+
+R1 = "DMTWSILRUYQNKFEJCAZBPGXOHV"
+R2 = "HQZGPJTMOBLNCIFDYAWVEUSRKX"
+R3 = "UQNTLSZFMREHDPXKIBVYGJCWOA"
+
 ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-ctext = rotors(ptext)
+ctext = rotorMachine(ptext,keys=[[R1,R2,R3],["R","F","W"]])
+dtext = rotorMachine(ctext,keys=[[R1,R2,R3],["R","F","W"]],decode=True)
+print(ptext)
 print(ctext)
+print(dtext)
