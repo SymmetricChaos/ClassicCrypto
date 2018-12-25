@@ -10,7 +10,8 @@ from Nihilist import nihilistCipher
 from StraddlingCheckerboard import straddlingCheckerboard
 from RailfenceCipher import railfence
 from ColumnarTransport import columnarTransport,doubleColumnarTransport
-
+from RotorMachines import rotorMachine
+from ADFGVX import ADFGVX
 
 textfile = open('text1.txt', 'r')
 ptext = preptext1(textfile.readline())
@@ -40,3 +41,11 @@ decodetest(ptext,[0,4,2,3,1],columnarTransport)
 decodetest(ptext,[[0,4,2,3,1],[0,4,2,3,1]],doubleColumnarTransport)
 
 decodetest(ptext,5,railfence)
+
+R1 = "DMTWSILRUYQNKFEJCAZBPGXOHV"
+R2 = "HQZGPJTMOBLNCIFDYAWVEUSRKX"
+R3 = "UQNTLSZFMREHDPXKIBVYGJCWOA"
+keySettings = [[R1,R2,R3],["R","F","W"],["AB","CD","XJ","ZY"]]
+decodetest(ptext,keySettings,rotorMachine)
+
+decodetest(ptext,["17ZEBRAS529",[1,4,2,5,0,3]],ADFGVX)

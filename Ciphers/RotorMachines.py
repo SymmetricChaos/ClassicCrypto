@@ -10,6 +10,10 @@
 # rotor machines like this are very well analyzed and should not be considered
 # secure simply because of the number of possible keys.
 
+# This is NOT a simulation of the actual Enigma machine as that included a
+# some mechanisms this does not such as rotors that stepped at two different
+# places.
+
 # Pass a singal through a rotor
 def rotor(letter,key,decode=False):
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -25,6 +29,9 @@ def step(R):
 # The plugboard (Steckerbrett) flips pairs of letters
 # Pairs of letters are not allowed to overlap
 def plugboard(text,keys):
+    
+    if keys == []:
+        return text
     
     # A very messy bit of code that makes sure only unique pairs of letters
     # are swapped.
@@ -42,7 +49,11 @@ def plugboard(text,keys):
     return text
 
 # Implement the rotor machine itself
+# The keys argument must 
 def rotorMachine(text,keys,decode=False):
+    
+    if len(keys) != 3:
+        raise Exception('the "keys" argument must provide rotors, notches, and plug settings\nfor an empty plugboard use []')
     
     # The rotor list will be changed while the machine is in operation to
     # prevent this from causing issues we will use a copy of the list instead
@@ -92,15 +103,17 @@ def rotorMachine(text,keys,decode=False):
 
     return plugboard(out,plugs)
 
-R1 = "DMTWSILRUYQNKFEJCAZBPGXOHV"
-R2 = "HQZGPJTMOBLNCIFDYAWVEUSRKX"
-R3 = "UQNTLSZFMREHDPXKIBVYGJCWOA"
+def rotorMachineExample():
 
-keySettings = [[R1,R2,R3],["R","F","W"],["AB","CD","XJ","ZY"]]
-
-ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-ctext = rotorMachine(ptext,keys=keySettings)
-dtext = rotorMachine(ctext,keys=keySettings,decode=True)
-print(ptext,"\n")
-print(ctext,"\n")
-print(dtext)
+    R1 = "DMTWSILRUYQNKFEJCAZBPGXOHV"
+    R2 = "HQZGPJTMOBLNCIFDYAWVEUSRKX"
+    R3 = "UQNTLSZFMREHDPXKIBVYGJCWOA"
+    
+    keySettings = [[R1,R2,R3],["R","F","W"],["AB","CD","XJ","ZY"]]
+    
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = rotorMachine(ptext,keys=keySettings)
+    dtext = rotorMachine(ctext,keys=keySettings,decode=True)
+    print(ptext,"\n")
+    print(ctext,"\n")
+    print(dtext)

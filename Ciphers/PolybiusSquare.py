@@ -1,4 +1,5 @@
 from itertools import product
+from UtilityFunctions import alphabetPermutation
 
 # The polybius square is a way of converting each letter of an alphabet into a
 # a pair of numbers. In order for this to work the size of the alphabet should
@@ -34,13 +35,7 @@ def polybiusSquare(text,key="",decode=False,mode="EX",sep=""):
 
     
     # Generate the internal key using user key
-    k = ""
-    for letter in key:
-        if letter not in k:
-            k += letter
-    for letter in alpha:
-        if letter not in k:
-            k += letter
+    k = alphabetPermutation(key,alphabet=alpha)
 
     if mode == "EX":
         codegroups = ["".join(i) for i in product("123456",repeat=2)]
@@ -70,11 +65,20 @@ def polybiusSquare(text,key="",decode=False,mode="EX",sep=""):
         dtext = [D[pair] for pair in grps]
     
         return "".join(dtext)
-         
-#ptext = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG"
 
-#for mode in ["IJ","CK","EX"]:
-#    ctext = polybiusSquare(ptext,"FIVEZEBRAS",mode=mode,sep=" ")
-#    print(ctext)
-#    dtext = polybiusSquare(ctext,"FIVEZEBRAS",decode=True,mode=mode,sep=" ")
-#    print(dtext)
+def polybiusSquareExample():
+    ptext = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG"
+    key = "FIVEZEBRAS"
+    print("Example Of A Polybius Square\n\nKey is {}\n".format(key))
+    
+    print("Plaintext is:  {}\n\n".format(ptext))
+    
+    for mode in ["IJ","CK","EX"]:
+        print("Using Mode {}".format(mode))
+        ctext = polybiusSquare(ptext,key,mode=mode,sep=" ")
+        print("Ciphertext is: {}".format(ctext))
+        dtext = polybiusSquare(ctext,key,decode=True,mode=mode,sep=" ")
+        print("Decodes As:    {}".format(dtext))
+        print()
+
+#polybiusSquareExample()
