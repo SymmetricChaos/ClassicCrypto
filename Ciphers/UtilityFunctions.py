@@ -8,6 +8,8 @@
 # For example the keyword CRYPTOGRAM produces
 # CRYPTOGAMBDEFHIJKLNQSUVWXZ
 
+import numpy as np
+
 def alphabetPermutation(key,alphabet=""):
     if alphabet == "":
         alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -87,3 +89,30 @@ def modinv(a, m):
         raise Exception('modular inverse does not exist')
     else:
         return x % m
+
+# Unique rank for each element of a list
+# Uses two dictionaries and a counter.
+# First the list is sorted then it is stepped through symbol by symbol
+# At each symbol in the list the counter goes up by one.
+# If it is new the symbol is added to the 'a' and 'b' dictionaries
+# If it is old its value in the 'b' dictionary is increased
+# Then when ranking we subtract the 'b' value of the symbol from the greatest
+# 'b' value it reach, then decrement the 'b' value
+def uniqueRank(text):
+    a={}
+    b={}
+    rank=0
+    for num in sorted(text):
+        if num in b:
+            b[num] += 1
+            rank=rank+1
+        if num not in a:
+            a[num] = rank
+            b[num] = 0
+            rank=rank+1
+    out = []
+    bmax = b.copy()
+    for i in text:
+        out.append(a[i]+bmax[i]-b[i])
+        b[i] -= 1
+    return out

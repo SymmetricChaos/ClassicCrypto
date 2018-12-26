@@ -122,5 +122,5 @@ textfile = open('text1.txt', 'r')
 ptext = preptext1(textfile.readline())
 ctext = vigenere(ptext,"ZEBRASPIZZA")
 
-solveVigenere(ctext,11)
+solveVigenere(ctext)
 

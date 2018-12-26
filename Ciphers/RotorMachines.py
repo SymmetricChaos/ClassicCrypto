@@ -105,15 +105,24 @@ def rotorMachine(text,keys,decode=False):
 
 def rotorMachineExample():
 
+    print("Example of the Simple Rotor Machine\n")
+    
+    
     R1 = "DMTWSILRUYQNKFEJCAZBPGXOHV"
     R2 = "HQZGPJTMOBLNCIFDYAWVEUSRKX"
     R3 = "UQNTLSZFMREHDPXKIBVYGJCWOA"
     
     keySettings = [[R1,R2,R3],["R","F","W"],["AB","CD","XJ","ZY"]]
     
+    print("The initial rotor settings are:")
+    for r in keySettings[0]:
+        print(r)
+    print("\nThe notches are placed at: {}".format(keySettings[1]))
+    print("The plugboard pairs are: {}\n".format(keySettings[2]))
+    
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = rotorMachine(ptext,keys=keySettings)
     dtext = rotorMachine(ctext,keys=keySettings,decode=True)
-    print(ptext,"\n")
-    print(ctext,"\n")
-    print(dtext)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))

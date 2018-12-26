@@ -76,9 +76,14 @@ def straddlingCheckerboard(text,keys=["A",[0,1]],decode=False):
                 L.append(text.pop(0))
                 
         return "".join([D[i] for i in L])
-    
-#ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-#ctext = straddlingCheckerboard(ptext,["ZEBRA",[1,3]])
-#dtext = straddlingCheckerboard(ctext,["ZEBRA",[1,3]],decode=True)
-#print(ctext)
-#print(dtext)
+
+def straddlingCheckerboardExample():
+    print("Example of the Straddling Checkerboard\n")
+    keys = ["ZEBRA",[1,3]]
+    print("The key is {}\n".format(keys))
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = straddlingCheckerboard(ptext,keys)
+    dtext = straddlingCheckerboard(ctext,keys,decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))

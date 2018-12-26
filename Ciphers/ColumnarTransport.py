@@ -5,11 +5,14 @@
 
 ## The order of the arguments
 from numpy import argsort
+from UtilityFunctions import uniqueRank
 
 def columnarTransport(text,key,decode=False):
     
+    k = uniqueRank(key)
+    
     ## Add nulls if necessary
-    numcol = len(key)
+    numcol = len(k)
     numrow,rem = divmod(len(text),numcol)
     if rem != 0:
         text += "X"*(numcol-rem)
@@ -23,7 +26,7 @@ def columnarTransport(text,key,decode=False):
             
         out = ""
         for i in L:
-            for j in key:
+            for j in k:
                 out += i[j]
         
         return out 
@@ -35,7 +38,7 @@ def columnarTransport(text,key,decode=False):
         
         ## Read the columns 
         out = ""
-        for x in argsort(key):
+        for x in argsort(k):
             out += "".join([i[x] for i in L])
             
         return out
@@ -52,13 +55,13 @@ def doubleColumnarTransport(text,key=[[0,1,2],[0,1,2]],decode=False):
         return columnarTransport(columnarTransport(text,key[0]),key[1])
 
 
-#plaintext = "THECITYOFNEWYORKWASNAMEDAGYERTHEDUKEOFYORKINTHEYEAR1644ALTHOUGHITHADBEENSETTLEDLONGBEFORETHEEARLIESTKNOWNINHABITANTSLIVEDTHERE9000YEARSAGOINFACTTHOUSANDSOFSITESHAVEBEENFOUNDTHROUGHOUTTHECITYTHEMODERNWEKNOWTODAYWASCREATEDBYTHEDUTCHANDCALLEDNEWAMSTERDAMALARGEFORTRESSTHATSTILLEXISTSTODAYWASTHEHEARTOFTHECITYUNFORTUNATELYFORTHEDUTCHITWASEVENTUALLYCAPTUREDBYTHEBRITISHINTHEYEAR1664AYEARLATERTHOMASWILLETTBECAMETHE1STMAYORHEWOULDALSOBETHECITYSTHIRDMAYORIN1667XX"
-#ctext = columnarTransport(plaintext,[5,3,4,1,2,0])
-#print(ctext)
-#decoded = columnarTransport(ctext,[5,3,4,1,2,0],decode=True)
-#print("Decode Matches Plaintext:",decoded == plaintext)
-#print(decoded)
-#print()
+plaintext = "THECITYOFNEWYORKWASNAMEDAGYERTHEDUKEOFYORKINTHEYEAR1644ALTHOUGHITHADBEENSETTLEDLONGBEFORETHEEARLIESTKNOWNINHABITANTSLIVEDTHERE9000YEARSAGOINFACTTHOUSANDSOFSITESHAVEBEENFOUNDTHROUGHOUTTHECITYTHEMODERNWEKNOWTODAYWASCREATEDBYTHEDUTCHANDCALLEDNEWAMSTERDAMALARGEFORTRESSTHATSTILLEXISTSTODAYWASTHEHEARTOFTHECITYUNFORTUNATELYFORTHEDUTCHITWASEVENTUALLYCAPTUREDBYTHEBRITISHINTHEYEAR1664AYEARLATERTHOMASWILLETTBECAMETHE1STMAYORHEWOULDALSOBETHECITYSTHIRDMAYORIN1667XX"
+ctext = columnarTransport(plaintext,"ZEBRAS")
+print(ctext)
+decoded = columnarTransport(ctext,[5,3,4,1,2,0],decode=True)
+print("Decode Matches Plaintext:",decoded == plaintext)
+print(decoded)
+print()
 
 #plaintext = "THECITYOFNEWYORKWASNAMEDAGYERTHEDUKEOFYORKINTHEYEAR1644ALTHOUGHITHADBEENSETTLEDLONGBEFORETHEEARLIESTKNOWNINHABITANTSLIVEDTHERE9000YEARSAGOINFACTTHOUSANDSOFSITESHAVEBEENFOUNDTHROUGHOUTTHECITYTHEMODERNWEKNOWTODAYWASCREATEDBYTHEDUTCHANDCALLEDNEWAMSTERDAMALARGEFORTRESSTHATSTILLEXISTSTODAYWASTHEHEARTOFTHECITYUNFORTUNATELYFORTHEDUTCHITWASEVENTUALLYCAPTUREDBYTHEBRITISHINTHEYEAR1664AYEARLATERTHOMASWILLETTBECAMETHE1STMAYORHEWOULDALSOBETHECITYSTHIRDMAYORIN1667XX"
 #ctext = doubleColumnarTransport(plaintext,[5,3,4,1,2,0],[3,7,1,2,0,4,5,6])

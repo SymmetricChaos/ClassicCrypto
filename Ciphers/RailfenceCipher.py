@@ -63,3 +63,17 @@ def railfence(text,key,decode=False):
                 inc *= -1
                 
         return "".join(out)
+
+
+def railfenceExample():
+    print("Example of the Rail Fence Cipher\n")
+    key = 5
+    print("They key is {}\n".format(key))
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = railfence(ptext,key)
+    dtext = railfence(ctext,key,decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+    
+railfenceExample()
