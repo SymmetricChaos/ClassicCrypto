@@ -39,18 +39,20 @@ def hillcipher(text,key,decode=False):
     return out
 
 
-key = np.matrix([[12,14,24,4,6,4,13],
+
+def hillCipherExample():
+    print("Example of the Hill Cipher\n")
+    key = np.matrix([[12,14,24,4,6,4,13],
                 [23,24,4,17,24,10,15],
                 [17,0,18,6,22,22,11],
                 [1,15,11,9,10,13,1],
                 [9,9,16,9,18,24,6],
                 [1,9,17,15,14,4,19],
                 [24,20,5,0,15,21,12]])
-
-
-plaintext = "THISFORMOFMATRIXCIPHERWASDEVELOPEDBYLESTERHILLITWASONEOFTHEFIRSTCIPHERSTOALLOWENCRYPTIONTHATOPERATEDONALARGENUMBEROFSYMBOLSATONCEXXXX"
-
-ctext = hillcipher(plaintext,key)
-print(ctext)
-decoded = hillcipher(ctext,key,decode=True)
-print("Decode Matches Plaintext:",decoded == plaintext)
+    print("The key is \n{}\n".format(key))
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = hillcipher(ptext,key)
+    dtext = hillcipher(ctext,key,decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))

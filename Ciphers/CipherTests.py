@@ -1,3 +1,6 @@
+# These tests are extremely simple and are used to confirm that decoding works
+# properly.
+
 # Some stuff we need for testing
 from UtilityFunctions import decodetest
 from PrepareText import preptext1
