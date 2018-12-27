@@ -5,6 +5,7 @@
 
 ## The order of the arguments
 from numpy import argsort
+from numpy.random import choice
 from UtilityFunctions import uniqueRank
 
 def columnarTransport(text,key,decode=False):
@@ -12,10 +13,12 @@ def columnarTransport(text,key,decode=False):
     k = uniqueRank(key)
     
     ## Add nulls if necessary
+    # The nulls are uncommon consonants so that they cannot accidentally form
+    # words at the end of the true message
     numcol = len(k)
     numrow,rem = divmod(len(text),numcol)
     if rem != 0:
-        text += "X"*(numcol-rem)
+        text += "".join(choice(["Z","Q","J","X","V","W"],numcol-rem))
         numrow += 1
 
     ## In case of decrypting
@@ -46,27 +49,42 @@ def columnarTransport(text,key,decode=False):
 ### Double columnar transport is a significant improvement on the single columnar
 ### transport cipher. With long keys it is even somewhat resistant to computer attack.
 
-def doubleColumnarTransport(text,key=[[0,1,2],[0,1,2]],decode=False):
+def doubleColumnarTransport(text,key=["ABC","ABC"],decode=False):
     if len(key) != 2:
         raise Exception("Must have exactly two keys")
+    while len(key[0]) > len(key[1]):
+        key[1] += "Z"
+    while len(key[1]) > len(key[0]):
+        key[0] += "Z"
     if decode == True:
         return columnarTransport(columnarTransport(text,key[1],True),key[0],True)
     else:
         return columnarTransport(columnarTransport(text,key[0]),key[1])
 
 
-plaintext = "THECITYOFNEWYORKWASNAMEDAGYERTHEDUKEOFYORKINTHEYEAR1644ALTHOUGHITHADBEENSETTLEDLONGBEFORETHEEARLIESTKNOWNINHABITANTSLIVEDTHERE9000YEARSAGOINFACTTHOUSANDSOFSITESHAVEBEENFOUNDTHROUGHOUTTHECITYTHEMODERNWEKNOWTODAYWASCREATEDBYTHEDUTCHANDCALLEDNEWAMSTERDAMALARGEFORTRESSTHATSTILLEXISTSTODAYWASTHEHEARTOFTHECITYUNFORTUNATELYFORTHEDUTCHITWASEVENTUALLYCAPTUREDBYTHEBRITISHINTHEYEAR1664AYEARLATERTHOMASWILLETTBECAMETHE1STMAYORHEWOULDALSOBETHECITYSTHIRDMAYORIN1667XX"
-ctext = columnarTransport(plaintext,"ZEBRAS")
-print(ctext)
-decoded = columnarTransport(ctext,[5,3,4,1,2,0],decode=True)
-print("Decode Matches Plaintext:",decoded == plaintext)
-print(decoded)
-print()
 
-#plaintext = "THECITYOFNEWYORKWASNAMEDAGYERTHEDUKEOFYORKINTHEYEAR1644ALTHOUGHITHADBEENSETTLEDLONGBEFORETHEEARLIESTKNOWNINHABITANTSLIVEDTHERE9000YEARSAGOINFACTTHOUSANDSOFSITESHAVEBEENFOUNDTHROUGHOUTTHECITYTHEMODERNWEKNOWTODAYWASCREATEDBYTHEDUTCHANDCALLEDNEWAMSTERDAMALARGEFORTRESSTHATSTILLEXISTSTODAYWASTHEHEARTOFTHECITYUNFORTUNATELYFORTHEDUTCHITWASEVENTUALLYCAPTUREDBYTHEBRITISHINTHEYEAR1664AYEARLATERTHOMASWILLETTBECAMETHE1STMAYORHEWOULDALSOBETHECITYSTHIRDMAYORIN1667XX"
-#ctext = doubleColumnarTransport(plaintext,[5,3,4,1,2,0],[3,7,1,2,0,4,5,6])
-#print(ctext)
-#decoded = doubleColumnarTransport(ctext,[5,3,4,1,2,0],[3,7,1,2,0,4,5,6],decode=True)
-#print("Decode Matches Plaintext:",decoded == plaintext)
-#print(decoded)
+def columnarTransportExample():
 
+    print("Columnar Transport Example")
+    key = "ILIKECHICKENEGGS"
+    print("The Key Is {}".format(key))
+    
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = columnarTransport(ptext,key)
+    dtext = columnarTransport(ctext,key,decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+    
+def doubleColumnarTransportExample():
+
+    print("Columnar Transport Example")
+    keys = ["ILIKEEGGS","BLAHDIBLAHBLAH"]
+    print("The Key Is {}".format(keys))
+    
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = doubleColumnarTransport(ptext,keys)
+    dtext = doubleColumnarTransport(ctext,keys,decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))

@@ -116,3 +116,8 @@ def uniqueRank(text):
         out.append(a[i]+bmax[i]-b[i])
         b[i] -= 1
     return out
+
+def removeTrailingSpaces(text):
+    while text[-1] == " ":
+        text = text[:-1]
+    return text
