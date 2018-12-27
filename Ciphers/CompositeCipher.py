@@ -1,6 +1,3 @@
-from VigenereCipher import vigenere
-from ColumnarTransport import columnarTransport
-
 # A composite cipher is simply the application of multiple ciphers in sequence
 # in order to make decoding more difficult. This is usually beneficial as
 # ciphers of different kinds can interfere with methods used for attacking
@@ -29,11 +26,3 @@ def compositeCipher(text,ciphers,keys,decode=False):
         for cipher,key in zip(ciphers,keys):
             dtext = cipher(dtext,key,decode=True)
         return dtext    
-
-ptext = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG"
-ctext = compositeCipher(ptext,[vigenere,columnarTransport],["APPLE",[0,5,1,6,3,4,2]])
-dtext = compositeCipher(ctext,[vigenere,columnarTransport],["APPLE",[0,5,1,6,3,4,2]],decode=True)
-
-print(ptext)
-print(ctext)
-print(dtext)

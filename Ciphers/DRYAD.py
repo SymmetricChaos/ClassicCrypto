@@ -16,6 +16,10 @@ from UtilityFunctions import groups
 
 def DRYAD(text,key,decode=False,codepage=False):
     
+    # Extend the text with zeroes so groups are all the same size
+    while len(text) % 5 != 0:
+        text += "0"
+    
     # Use the key value to generate a random DRYAD page
     page = []
     random.seed(key)
@@ -65,11 +69,12 @@ def DRYAD(text,key,decode=False,codepage=False):
                         out.append(str(x))
         return "".join(out)
 
-page = random.getrandbits(64)
-ptext = "213165587194201"
-ctext = DRYAD(ptext,page)
-dtext = DRYAD(ctext,page,decode=True)
-
-print(ptext)
-print(ctext)
-print(dtext)
+def DRYADexample():
+    page = random.getrandbits(64)
+    ptext = "213165587194201"
+    ctext = DRYAD(ptext,page)
+    dtext = DRYAD(ctext,page,decode=True)
+    
+    print(ptext)
+    print(ctext)
+    print(dtext)

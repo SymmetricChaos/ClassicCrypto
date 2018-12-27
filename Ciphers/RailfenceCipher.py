@@ -75,5 +75,3 @@ def railfenceExample():
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
-    
-railfenceExample()
