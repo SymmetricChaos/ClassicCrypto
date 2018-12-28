@@ -34,6 +34,11 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Simple Rotor Machine (styled after Engima but not a simulator)
 * Columnar Transport (Single and Double)
 * Rail Fence Cipher
+* DRYAD
+
+### Codes:
+* Morse Code
+* Godel Numbering
 
 ### Available Attacks:
 * Kasiski Examination attack on the Vigenere cipher
