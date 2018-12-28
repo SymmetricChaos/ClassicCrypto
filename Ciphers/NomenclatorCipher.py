@@ -1,5 +1,3 @@
-import sys
-sys.path.insert(0, 'C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto')
 import random
 import numpy as np
 from PrepareText import preptext1
@@ -11,7 +9,7 @@ from PrepareText import preptext1
 # symbols for distinctive words that showed up often like the names of various
 # generals. In fact syllables could be written using any of several "code 
 # groups". 
-# This variant is designed for# modern English and rather than syllables it 
+# This variant is designed for modern English and rather than syllables it 
 # uses common letter groups. So a code group could indicate four letters or
 # three or two or one. There are also "nulls" randomly inserted. These symbols
 # don't translate to anything and are meannt to be ignored. There is also a
@@ -101,7 +99,7 @@ def createCodeGroups(n,decode=False):
         
 
 
-def nomenclator(text,key=1,decode=False,dictionary=False,showgroups=False):
+def nomenclator(text,key=1,decode=False,usenulls=True,dictionary=False,showgroups=False):
     
     D = createCodeGroups(key,decode)
     if dictionary == True:
@@ -118,19 +116,21 @@ def nomenclator(text,key=1,decode=False,dictionary=False,showgroups=False):
     
     if decode == False:
         codegroups = ["{0:03} ".format(i) for i in range(1000)]
-        # If the text is short we need more nulls to break up the text
-        # If the text is long we can use fewer nulls overall especially since
-        # we don't want to inflate the text too much
-        numNulls = min(int(np.ceil(np.sqrt(len(text))*3.5)),len(text)//7)
-
-        ## Insert nulls to break up words
-        for i in range(numNulls):
-            r = random.randint(0,len(text))
-            text = text[:r] + '_' + text[r:]
-            
-        for i in range(numNulls//3):
-            r = random.randint(0,len(text))
-            text = text[:r] + '>' + text[r:]
+        
+        if usenulls == True:
+            # If the text is short we need more nulls to break up the text
+            # If the text is long we can use fewer nulls overall especially since
+            # we don't want to inflate the text too much
+            numNulls = min(int(np.ceil(np.sqrt(len(text))*3)),len(text)//12)
+    
+            ## Insert nulls to break up words
+            for i in range(numNulls):
+                r = random.randint(0,len(text))
+                text = text[:r] + '_' + text[r:]
+                
+            for i in range(numNulls//3):
+                r = random.randint(0,len(text))
+                text = text[:r] + '>' + text[r:]
     
         while "_" in text:
             text = text.replace("_",D["_"][np.random.randint(0,63)],1)
@@ -198,17 +198,14 @@ def nomenclator(text,key=1,decode=False,dictionary=False,showgroups=False):
 
 
 
-textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\Text2.txt','r')
+textfile = open('Text2.txt','r')
 ptext = preptext1(textfile.readline())
 
 
 KEY = random.getrandbits(64)
 
-
 ctext = nomenclator(ptext,KEY)
-#print(ctext)
 
-decoded = nomenclator(ctext,KEY,decode=True,showgroups=False)
+decoded = nomenclator(ctext,KEY,decode=True)
 #print(decoded)
 print("\n\nDoes the Text Decode Correctly?",decoded == ptext)
-#D = nomenclator("",KEY,decode=True,dictionary=True)
