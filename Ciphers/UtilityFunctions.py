@@ -1,14 +1,14 @@
 # A bunch of functions we need for various reasons kept here for neatness.
 
+
+
 # Many ciphers need to create a permutation of the alphabet. A common way to do
 # this for classical cryptography is to specify a key. The letters of the key
 # are form the beginning of the new alphabet, skipping any repetition, and then
 # the remaining letters of the alphabet are placed in order after them.
 
-# For example the keyword CRYPTOGRAM produces
+# For example the keyword CRYPTOGRAM produces the alphabet
 # CRYPTOGAMBDEFHIJKLNQSUVWXZ
-
-import numpy as np
 
 def alphabetPermutation(key,alphabet=""):
     if alphabet == "":

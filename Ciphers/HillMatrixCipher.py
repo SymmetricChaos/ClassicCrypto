@@ -6,7 +6,7 @@
 ## first serious block ciphers.
 
 import numpy as np
-from UtilityFunctions import modinv
+from UtilityFunctions import modinv,egcd
 from numpy.linalg import det,inv
 
 
@@ -18,14 +18,26 @@ def modmatinv(M,n):
     invM = np.matrix.round(invM)
     invM = invM.astype(int)%n
     
-    return(invM)
+    return invM
 
-def hillcipher(text,key,decode=False):
+# The crudest possible method of creating keys. Pick a size and randomly
+# generate matrices until one of them is truly invertible.
+# It can take a while to generate a key if n is more than about 9.
+def createMatrixKey(n):
+    while True:
+        M = np.matrix(np.random.randint(26, size=(n, n)))
+        d = int(det(M))
+        g,x,y = egcd(d%26,26)
+        if g == 1:
+            if np.all( M.dot(modmatinv(M,26))%26 == np.identity(n) ):
+                return M
+ 
+def hillCipher(text,key,decode=False):
     if decode == True:
         key = modmatinv(key,26)
-        
+
     N = key.shape[0]
-    
+
     b,rem = divmod(len(text),N)
     if rem != 0:
         text += "X"*(N-rem)
@@ -35,24 +47,22 @@ def hillcipher(text,key,decode=False):
         x = [ord(j)-65 for j in text[i*N:N+i*N]]
         y = (x*key%26)+65
         out += "".join([chr(j) for j in y.flat])
-    
-    return out
 
+    return out
 
 
 def hillCipherExample():
     print("Example of the Hill Cipher\n")
-    key = np.matrix([[12,14,24,4,6,4,13],
-                [23,24,4,17,24,10,15],
-                [17,0,18,6,22,22,11],
-                [1,15,11,9,10,13,1],
-                [9,9,16,9,18,24,6],
-                [1,9,17,15,14,4,19],
-                [24,20,5,0,15,21,12]])
+
+    key = createMatrixKey(8)
+    
     print("The key is \n{}\n".format(key))
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = hillcipher(ptext,key)
-    dtext = hillcipher(ctext,key,decode=True)
+    ctext = hillCipher(ptext,key)
+    dtext = hillCipher(ctext,key,decode=True)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
+
+hillCipherExample()
+
