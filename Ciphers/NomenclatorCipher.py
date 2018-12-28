@@ -121,8 +121,9 @@ def nomenclator(text,key=1,decode=False,usenulls=True,dictionary=False,showgroup
             # If the text is short we need more nulls to break up the text
             # If the text is long we can use fewer nulls overall especially since
             # we don't want to inflate the text too much
-            numNulls = min(int(np.ceil(np.sqrt(len(text))*3)),len(text)//12)
-    
+            numNulls = min(int(np.ceil(np.sqrt(len(text))*3)),len(text)//15)
+
+
             ## Insert nulls to break up words
             for i in range(numNulls):
                 r = random.randint(0,len(text))
