@@ -46,15 +46,29 @@ def makeCodebook(decode=False):
     
 def prefixCode(text,decode=False):
     D = makeCodebook(decode=decode)
-    out = []
-    for letter in text:
-        out.append(D[letter])
-    return "".join(out)
+    if decode == False:
+        out = []
+        for letter in text:
+            out.append(D[letter])
+        return "".join(out)
+    
 
-ptext = "THEQUICKBROWNFOXJUMPSPOVERTHELAZYDOG"
+    if decode == True:
+        out = []
+        bits = [b for b in text]
+        code = ""
+        while len(bits) > 0:
+            code += bits.pop(0)[0]
+            if code in list(D.keys()):
+                out.append(D[code])
+                code = ""
+        return "".join(out)
+            
+
+ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
 ctext = prefixCode(ptext)
+dtext = prefixCode(ctext,decode=True)
 
 print(ptext)
 print(ctext)
-print(len(ctext))
-print(len(ptext)*5)
+print(dtext)
