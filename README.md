@@ -39,6 +39,7 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 ### Codes:
 * Morse Code
 * Godel Numbering
+* Bacon Cipher
 
 ### Available Attacks:
 * Kasiski Examination attack on the Vigenere cipher
