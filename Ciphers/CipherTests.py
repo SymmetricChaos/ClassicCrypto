@@ -45,13 +45,18 @@ decodetest(ptext,[[0,4,2,3,1],[0,4,2,3,1]],doubleColumnarTransport)
 
 decodetest(ptext,5,railfence)
 
+decodetest(ptext,["17ZEBRAS529",[1,4,2,5,0,3]],ADFGVX)
+
+decodetest(ptext,"GIANTUNICORNS",bifidCipher)
+
+
 R1 = "DMTWSILRUYQNKFEJCAZBPGXOHV"
 R2 = "HQZGPJTMOBLNCIFDYAWVEUSRKX"
 R3 = "UQNTLSZFMREHDPXKIBVYGJCWOA"
 keySettings = [[R1,R2,R3],["R","F","W"],["AB","CD","XJ","ZY"]]
 decodetest(ptext,keySettings,rotorMachine)
 
-decodetest(ptext,["17ZEBRAS529",[1,4,2,5,0,3]],ADFGVX)
+
 
 key = np.matrix([[12,14,24,4,6,4,13],
                 [23,24,4,17,24,10,15],
