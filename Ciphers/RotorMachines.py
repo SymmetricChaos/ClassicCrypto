@@ -49,7 +49,6 @@ def plugboard(text,keys):
     return text
 
 # Implement the rotor machine itself
-# The keys argument must 
 def rotorMachine(text,keys,decode=False):
     
     if len(keys) != 3:

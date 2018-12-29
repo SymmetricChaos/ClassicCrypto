@@ -104,25 +104,14 @@ def nomenclator(text,key=1,decode=False,usenulls=True,dictionary=False,showgroup
     D = createCodeGroups(key,decode)
     if dictionary == True:
         return D
-    
-    ngrams1 = open('1grams.csv', 'r')
-    ngrams2 = open('2grams.csv', 'r')
-    ngrams3 = open('3grams.csv', 'r')
-    ngrams4 = open('4grams.csv', 'r')
-    ngrams1.seek(0)
-    ngrams2.seek(0)
-    ngrams3.seek(0)
-    ngrams4.seek(0)
+
     
     if decode == False:
         codegroups = ["{0:03} ".format(i) for i in range(1000)]
         
         if usenulls == True:
-            # If the text is short we need more nulls to break up the text
-            # If the text is long we can use fewer nulls overall especially since
-            # we don't want to inflate the text too much
-            numNulls = min(int(np.ceil(np.sqrt(len(text))*3)),len(text)//15)
 
+            numNulls = len(text)//20
 
             ## Insert nulls to break up words
             for i in range(numNulls):
@@ -133,38 +122,34 @@ def nomenclator(text,key=1,decode=False,usenulls=True,dictionary=False,showgroup
                 r = random.randint(0,len(text))
                 text = text[:r] + '>' + text[r:]
     
+        # Replace the nulls
         while "_" in text:
             text = text.replace("_",D["_"][np.random.randint(0,63)],1)
         
         while ">" in text:
             gr = random.choice(codegroups)
             text = text.replace(">",D[">"][np.random.randint(0,30)]+gr,1)
-            
-        for n,d in enumerate(ngrams4):
+        
+        # Starting with the longer ngrams replace 
+        for d in [i for i in D.keys() if len(i) == 4]:
             T = d.split(",")[0]
             ops = len(D[T]) 
             while T in text:
                 text = text.replace(T,D[T][np.random.randint(0,ops)],1)
-            if n > 30:
-                break
 
-        for n,d in enumerate(ngrams3):
+        for d in [i for i in D.keys() if len(i) == 3]:
             T = d.split(",")[0]
             ops = len(D[T]) 
             while T in text:
                 text = text.replace(T,D[T][np.random.randint(0,ops)],1)
-            if n > 40:
-                break
             
-        for n,d in enumerate(ngrams2):
+        for d in [i for i in D.keys() if len(i) == 2]:
             T = d.split(",")[0]
             ops = len(D[T]) 
             while T in text:
                 text = text.replace(T,D[T][np.random.randint(0,ops)],1)
-            if n > 50:
-                break
             
-        for n,d in enumerate(ngrams1):
+        for d in [i for i in D.keys() if len(i) == 1]:
             T = d.split(",")[0]
             ops = len(D[T]) 
             while T in text:
