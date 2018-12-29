@@ -54,7 +54,7 @@ def hillCipher(text,key,decode=False):
 def hillCipherExample():
     print("Example of the Hill Cipher\n")
 
-    key = createMatrixKey(8)
+    key = createMatrixKey(7)
     
     print("The key is \n{}\n".format(key))
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
@@ -64,5 +64,5 @@ def hillCipherExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
 
-hillCipherExample()
+#hillCipherExample()
 

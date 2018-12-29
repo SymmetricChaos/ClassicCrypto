@@ -1,3 +1,7 @@
+import sys
+sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
+from Ciphers import StraddlingCheckerboard
+
 from StraddlingCheckerboard import straddlingCheckerboard
 from DRYAD import DRYAD
 from VigenereCipher import vigenere

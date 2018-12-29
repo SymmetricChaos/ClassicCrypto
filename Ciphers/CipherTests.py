@@ -9,13 +9,11 @@ import numpy as np
 # Import the various ciphers
 from VigenereCipher import vigenere,multiVigenere,vigenereAutokey,affineVigenere
 from Monoalphabetic import caesar,affine,substitution
-from PolybiusSquare import polybiusSquare
-from Nihilist import nihilistCipher
+from PolybiusSquare import polybiusSquare, nihilistCipher, ADFGVX, bifidCipher
 from StraddlingCheckerboard import straddlingCheckerboard
 from RailfenceCipher import railfence
 from ColumnarTransport import columnarTransport,doubleColumnarTransport
 from RotorMachines import rotorMachine
-from ADFGVX import ADFGVX
 from HillMatrixCipher import hillCipher
 
 textfile = open('text1.txt', 'r')

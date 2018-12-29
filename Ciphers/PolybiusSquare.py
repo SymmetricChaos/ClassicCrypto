@@ -1,5 +1,6 @@
 from itertools import product
-from UtilityFunctions import alphabetPermutation
+from UtilityFunctions import alphabetPermutation, groups
+from ColumnarTransport import columnarTransport
 
 # The polybius square is a way of converting each letter of an alphabet into a
 # a pair of numbers. In order for this to work the size of the alphabet should
@@ -65,6 +66,152 @@ def polybiusSquare(text,key="",decode=False,mode="EX",sep=""):
         dtext = [D[pair] for pair in grps]
     
         return "".join(dtext)
+    
+    
+# The nihilist cipher is a composite cipher that uses the polybius square
+# along with a modified vigenere cipher. Rather than wrapping around modulo 26
+# addition and subtraction and performed normally.
+def nihilistCipher(text,key=["A","A"],decode=False,mode="EX"):
+    
+    if mode == "EX":
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    else:
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    
+    K = []
+    for letter in key[1]:
+        K.append(alphabet.index(letter))
+    kLen = len(K)
+    
+    
+    if decode == False:
+    
+        ps = polybiusSquare(text,key[0],mode=mode,sep=" ")
+        nm = [int(p) for p in ps.split(" ")]
+        
+        for i in range(len(nm)):
+            nm[i] = (nm[i]+K[i%kLen])
+            
+        return " ".join([str(i) for i in nm])
+    
+    if decode == True:
+        
+        nm = [int(p) for p in text.split(" ")]
+        
+        for i in range(len(nm)):
+            nm[i] = (nm[i]-K[i%kLen])
+        
+        ps = " ".join([str(i) for i in nm])
+        
+        dtext = polybiusSquare(ps,key[0],decode=True,mode=mode,sep=" ")
+            
+        return dtext
+    
+# The bifid cipher is a very simple composite cipher that uses the polybius
+# square followed by a simple transposition followed by the polybius square
+# in reverse.
+
+def bifidCipher(text,key,decode=False):
+    
+    nums = polybiusSquare(text,key)
+
+    if decode == False:
+  
+        A = ""
+        B = ""
+        for i in range(len(text)):
+            A += nums[i*2]
+            B += nums[i*2+1]
+        return polybiusSquare(A+B,key,decode=True)
+
+    if decode == True:
+        A = nums[:len(nums)//2]
+        B = nums[len(nums)//2:]
+        out = "".join([i+j for i,j in zip(A,B)])
+    
+        return polybiusSquare(out,key,decode=True)
+
+
+# The ADFGX cipher is an important early example of a fractionated cipher that
+# produces Shannon's "confusion" in the ciphertext. That is the symbols of the
+# ciphertext depend on many parts of the plaintext.
+        
+# A modified polybius square is used. Historically it used ADFGX rather than 
+# 12345, hence the name.
+
+# A significantly more secure cipher is the ADFGVX variant which extends the
+# alphabet to also contain numbers. This allows shorter messages that give the
+# attacker less to work with.
+
+def ADFGX(text,keys=["A",[0,1]],decode=False):
+    alpha = "ABCDEFGHIKLMNOPQRSTUVWXYZ"
+    alpha = alphabetPermutation(keys[0],alpha)
+    
+    # Replace 
+    text = text.replace("J","I")
+    
+    pairs = product("ADFGX",repeat=2)
+    
+    D1 = {}
+    D2 = {}
+    for letter,pair in zip(alpha,pairs):
+        D1[letter] = "".join(pair)
+        D2["".join(pair)] = letter
+
+    # The ADFGX cipher has a roughly symmetric encode and decoding process
+    # the only difference is that the columnar transport is reversed.
+
+    # Turn every letter into a pair of symbols
+    ctext = "".join([D1[i] for i in text])
+    # Scramble the symbols, this will break apart some of the pairs
+    ctext = columnarTransport(ctext,keys[1],decode=decode)
+    # Now take the scrambled symbols and turn them back into letters
+    ctext = groups(ctext,2)
+    ctext = "".join([D2[i] for i in ctext])
+
+    return ctext
+
+def ADFGVX(text,keys=["A",[0,1]],decode=False):
+    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    alpha = alphabetPermutation(keys[0],alpha)
+    
+    pairs = product("ADFGVX",repeat=2)
+    
+    D1 = {}
+    D2 = {}
+    for letter,pair in zip(alpha,pairs):
+        D1[letter] = "".join(pair)
+        D2["".join(pair)] = letter
+
+    # Turn every letter into a pair of symbols
+    ctext = "".join([D1[i] for i in text])
+    # Scramble the symbols, this will break apart some of the pairs
+    ctext = columnarTransport(ctext,keys[1],decode=decode)
+    # Now take the scrambled symbols and turn them back into letters
+    ctext = groups(ctext,2)
+    ctext = "".join([D2[i] for i in ctext])
+
+    return ctext
+    
+def ADFGXexample():
+
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = ADFGX(ptext,["ZEBRAS",[1,4,2,5,0,3]])
+    dtext = ADFGX(ctext,["ZEBRAS",[1,4,2,5,0,3]],decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+    
+
+def ADFGVXexample():
+
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = ADFGVX(ptext,["17ZEBRAS529",[1,4,2,5,0,3]])
+    dtext = ADFGVX(ctext,["17ZEBRAS529",[1,4,2,5,0,3]],decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+
 
 def polybiusSquareExample():
     ptext = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG"
@@ -81,4 +228,13 @@ def polybiusSquareExample():
         print("Decodes As:    {}".format(dtext))
         print()
 
-#polybiusSquareExample()
+        
+#for md in ["CK","IJ","EX"]:
+#    print(md)
+#    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+#    ctext = nihilistCipher(ptext,["ZEBRA","PLOTS"],mode=md)
+#    dtext = nihilistCipher(ctext,["ZEBRA","PLOTS"],decode=True,mode=md)
+#    print(ptext)
+#    print(ctext)
+#    print(dtext)
+#    print()
