@@ -35,6 +35,7 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Columnar Transport (Single and Double)
 * Rail Fence Cipher
 * DRYAD
+* Bifid
 
 ### Codes:
 * Morse Code
