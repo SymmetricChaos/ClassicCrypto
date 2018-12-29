@@ -22,14 +22,6 @@ from PrepareText import preptext1
 # implementation seeds the Mersenne Twister algorithm in order to randomize
 # the meaning of the code groups. 
 
-def find_all(a_str, sub):
-    start = 0
-    while True:
-        start = a_str.find(sub, start)
-        if start == -1: return
-        yield start
-        start += len(sub)
-
 def createCodeGroups(n,decode=False):
     
     # Generate the code groups. Note that there is a space in this so that the

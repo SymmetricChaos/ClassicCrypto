@@ -1,5 +1,6 @@
-# A bunch of functions we need for various reasons kept here for neatness.
-
+###############################################################################
+## A bunch of functions we need for various reasons kept here for neatness.  ##
+###############################################################################
 
 
 # Many ciphers need to create a permutation of the alphabet. A common way to do
@@ -121,3 +122,12 @@ def removeTrailingSpaces(text):
     while text[-1] == " ":
         text = text[:-1]
     return text
+
+
+def find_all(a_str, sub):
+    start = 0
+    while True:
+        start = a_str.find(sub, start)
+        if start == -1: return
+        yield start
+        start += len(sub)
