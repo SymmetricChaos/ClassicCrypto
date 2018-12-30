@@ -17,7 +17,7 @@ All implemented ciphers are functions of the form `cipherName(text,key,decode=Fa
 All ciphers will return a string containing either the ciphertext or the decoded text.
 The nomenclator cipher has an alternate mode that returns the dictionary that serves as the internal key.
 
-###  Ciphers:
+##  Ciphers:
 #### Monoalphabetic Substitution:
 * Caesar cipher
 * Affine cipher
@@ -48,13 +48,13 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Checkboard/DRYAD
 * Vigenere/Columnar
 
-### Codes:
+## Codes:
 * Morse Code
 * Godel Numbering
 * Bacon Cipher
 * Prefix Code
 
-### Available Attacks:
+## Available Attacks:
 * Kasiski Examination attack on the Vigenere cipher
 * Brute force attack on Columnar Transport
 * Brute force attack on Caesar cipher
