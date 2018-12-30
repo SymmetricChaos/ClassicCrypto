@@ -9,11 +9,10 @@ import numpy as np
 # Import the various ciphers
 from VigenereCipher import vigenere,multiVigenere,vigenereAutokey,affineVigenere
 from Monoalphabetic import caesar,affine,substitution
+from Substitution import hillCipher, straddlingCheckerboard
 from PolybiusSquare import polybiusSquare, nihilistCipher, ADFGVX, bifidCipher
-from StraddlingCheckerboard import straddlingCheckerboard
 from Transposition import columnarTransport,doubleColumnarTransport,railfence
 from RotorMachines import rotorMachine
-from HillMatrixCipher import hillCipher
 from NomenclatorCipher import nomenclator
 
 textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')

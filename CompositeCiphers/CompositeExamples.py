@@ -1,12 +1,8 @@
+from CompositeCipher import compositeCipher
 import sys
 sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
-from Ciphers import StraddlingCheckerboard
+from Ciphers import *
 
-from StraddlingCheckerboard import straddlingCheckerboard
-from DRYAD import DRYAD
-from VigenereCipher import vigenere
-from ColumnarTransport import columnarTransport
-from CompositeCipher import compositeCipher
 
 def Checkerboard_DRYAD(text,keys,decode=False):
     return compositeCipher(text,[straddlingCheckerboard,DRYAD],keys,decode=decode)
