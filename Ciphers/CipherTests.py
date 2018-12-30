@@ -14,6 +14,7 @@ from StraddlingCheckerboard import straddlingCheckerboard
 from Transposition import columnarTransport,doubleColumnarTransport,railfence
 from RotorMachines import rotorMachine
 from HillMatrixCipher import hillCipher
+from NomenclatorCipher import nomenclator
 
 textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
 ptext = preptext1(textfile.readline())
@@ -47,6 +48,8 @@ decodetest(ptext,5,railfence)
 decodetest(ptext,["17ZEBRAS529",[1,4,2,5,0,3]],ADFGVX)
 
 decodetest(ptext,"GIANTUNICORNS",bifidCipher)
+
+decodetest(ptext,5766645,nomenclator)
 
 
 R1 = "DMTWSILRUYQNKFEJCAZBPGXOHV"

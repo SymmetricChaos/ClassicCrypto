@@ -36,10 +36,10 @@ def createCodeGroups(n,decode=False):
     
     
     ## Our list of text symbols is taken from the Ngram data that we have
-    ngrams1 = open('1grams.csv', 'r')
-    ngrams2 = open('2grams.csv', 'r')
-    ngrams3 = open('3grams.csv', 'r')
-    ngrams4 = open('4grams.csv', 'r')
+    ngrams1 = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\NGrams\\1grams.csv', 'r')
+    ngrams2 = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\NGrams\\2grams.csv', 'r')
+    ngrams3 = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\NGrams\\3grams.csv', 'r')
+    ngrams4 = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\NGrams\\4grams.csv', 'r')
     
     codeDict = {}
     
@@ -176,14 +176,14 @@ def nomenclator(text,key=1,decode=False,usenulls=True,dictionary=False,showgroup
 
 
 
-textfile = open('Text2.txt','r')
-ptext = preptext1(textfile.readline())
+#textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\Text2.txt','r')
+#ptext = preptext1(textfile.readline())
 
 
-KEY = random.getrandbits(64)
+#KEY = random.getrandbits(64)
 
-ctext = nomenclator(ptext,KEY)
+#ctext = nomenclator(ptext,KEY)
 
-decoded = nomenclator(ctext,KEY,decode=True)
+#decoded = nomenclator(ctext,KEY,decode=True)
 #print(decoded)
-print("\n\nDoes the Text Decode Correctly?",decoded == ptext)
+#print("\n\nDoes the Text Decode Correctly?",decoded == ptext)
