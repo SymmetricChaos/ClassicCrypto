@@ -11,12 +11,11 @@ from VigenereCipher import vigenere,multiVigenere,vigenereAutokey,affineVigenere
 from Monoalphabetic import caesar,affine,substitution
 from PolybiusSquare import polybiusSquare, nihilistCipher, ADFGVX, bifidCipher
 from StraddlingCheckerboard import straddlingCheckerboard
-from RailfenceCipher import railfence
-from ColumnarTransport import columnarTransport,doubleColumnarTransport
+from Transposition import columnarTransport,doubleColumnarTransport,railfence
 from RotorMachines import rotorMachine
 from HillMatrixCipher import hillCipher
 
-textfile = open('text1.txt', 'r')
+textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
 ptext = preptext1(textfile.readline())
 
 decodetest(ptext,1,caesar)

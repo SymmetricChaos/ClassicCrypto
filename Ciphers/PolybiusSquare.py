@@ -1,6 +1,6 @@
 from itertools import product
 from UtilityFunctions import alphabetPermutation, groups
-from ColumnarTransport import columnarTransport
+from Transposition import columnarTransport
 
 # The polybius square is a way of converting each letter of an alphabet into a
 # a pair of numbers. In order for this to work the size of the alphabet should
