@@ -1,6 +1,5 @@
 # ClassicCrypto
-Python repo for implementing classic methods of encryption and techniques for breaking them.
-Requires Numpy.
+Python repo for implementing classic methods of encryption and techniques for breaking them. This is a hobby project. Suggestions for improvements are welcome but I'm prioritizing clarity and explicitness over things like speed or checking for valid inputs.
 
 ## Classical Cryptography
 The term "classical cryptography" refers broadly to two different concepts.
@@ -44,20 +43,19 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 #### Variable Codebooks
 * Nomenclator cipher (variation on Le Grand Chiffre)
 
-### Composite Ciphers:
+#### Composite Ciphers:
 * Checkboard/DRYAD
 * Vigenere/Columnar
 
 ## Codes:
+#### Binary Codes:
 * Morse Code
-* Godel Numbering
 * Bacon Cipher
 * Prefix Code
+#### Mathematical Codes:
+* Godel Numbering
 
 ## Available Attacks:
 * Kasiski Examination attack on the Vigenere cipher
 * Brute force attack on Columnar Transport
 * Brute force attack on Caesar cipher
-
-
-This is a hobby project. Suggestions for improvements are welcome but I'm prioritizing clarity and explicitness over things like speed or checking for valid inputs.
