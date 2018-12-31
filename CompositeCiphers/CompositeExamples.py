@@ -4,6 +4,7 @@ sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
 from Ciphers import Substitution as sub
 from Ciphers import Transposition as trans
 from Ciphers import VigenereCipher as vig
+from Codes import BinaryCodes as bc
 
 def Checkerboard_DRYAD(text,keys,decode=False):
     return compositeCipher(text,[sub.straddlingCheckerboard,sub.DRYAD],keys,decode=decode)
@@ -11,7 +12,8 @@ def Checkerboard_DRYAD(text,keys,decode=False):
 def Vigenere_Columnar(text,keys,decode=False):
     return compositeCipher(text,[vig.vigenere,trans.columnarTransport],keys,decode=decode)
 
-
+def VernamCipher(text):
+    print(bc.morseCode(text))
 
 def Checkerboard_DRYAD_Example():
     print("Example of the Checkerboard Dryad Cipher\n")
@@ -39,3 +41,4 @@ def Vigenere_Columnar_Example():
 Checkerboard_DRYAD_Example()
 print("\n\n")
 Vigenere_Columnar_Example()
+print(VernamCipher("THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"))
