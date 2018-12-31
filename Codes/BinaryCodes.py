@@ -1,3 +1,5 @@
+
+
 # Morse code is a very popular method of encoding letters and numbers
 # variations exist for languages other than English.
 
@@ -43,11 +45,7 @@ def morseCode(text,decode=False):
         return "".join(out)
 
     
-ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-ctext = morseCode(ptext)
-dtext = morseCode(ctext,decode=True)
-print(ctext)
-print(dtext)
+
 
 # The so-called Bacon Cipher is actually a simple code that is well suited to 
 # being hidden. This implementation hides the code as uppercase and lower case 
@@ -188,24 +186,30 @@ def prefixCode(text,decode=False):
                 out.append(D[code])
                 code = ""
         return "".join(out)
-            
+       
+        
+#ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+#ctext = morseCode(ptext)
+#dtext = morseCode(ctext,decode=True)
+#print(ctext)
+#print(dtext)
 
-ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-ctext = prefixCode(ptext)
-dtext = prefixCode(ctext,decode=True)
+#ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+#ctext = prefixCode(ptext)
+#dtext = prefixCode(ctext,decode=True)
 
-print(ptext)
-print(ctext)
-print(dtext)
+#print(ptext)
+#print(ctext)
+#print(dtext)
 
-ctext = baconCipher("THEQUICK","thisisasomewhatlongpieceoftextthatityped")
-dtext = baconCipher(ctext,decode=True)
-print(ctext)
-print(dtext)
+#ctext = baconCipher("THEQUICK","thisisasomewhatlongpieceoftextthatityped")
+#dtext = baconCipher(ctext,decode=True)
+#print(ctext)
+#print(dtext)
 
-print()
+#print()
 
-ctext = baconCipher("THEQUICK")
-dtext = baconCipher(ctext,decode=True)
-print(ctext)
-print(dtext)
+#ctext = baconCipher("THEQUICK")
+#dtext = baconCipher(ctext,decode=True)
+#print(ctext)
+#print(dtext)
