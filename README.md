@@ -6,6 +6,8 @@ The term "classical cryptography" refers broadly to two different concepts.
 * Firstly it is used for ciphers that allow an ordinary person to encrypt and decrypt a useful amount of information in a reasonable amount of time without anything but simple tools. Most of the ciphers presented here are of that form. Using a computer many of these techniques can be performed much faster and more accurately.
 * Secondly classical cryptography includes any method of cryptography that is no longer considered to be secure in practice. This includes devices like the Enigma machine from World War II but also much more recent ciphers such as RC4 and DES. For the purpose of this project the era of classical cryptography is ended, somewhat arbitrarily, in 1950 following the publication of "A Mathematical Theory of Cryptography" by Claude Shannon.
 
+### Codes vs Ciphers
+The difference between codes and ciphers in classical cryptography is fairly vague, indeed the terms are sometimes used interchangeably. Within this project a cipher must have a changeable key that is needed in order to determine the plaintext. A code on the otherhand is fixed and can be read by anyone who knows the method.
 
 ## Details
 All implemented ciphers are functions of the form `cipherName(text,key,decode=False)`
