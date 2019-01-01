@@ -6,7 +6,7 @@ The term "classical cryptography" refers broadly to two different concepts.
 * Firstly it is used for ciphers that allow an ordinary person to encrypt and decrypt a useful amount of information in a reasonable amount of time without anything but simple tools. Most of the ciphers presented here are of that form. Using a computer many of these techniques can be performed much faster and more accurately.
 * Secondly classical cryptography includes any method of cryptography that is no longer considered to be secure in practice. This includes devices like the Enigma machine from World War II but also much more recent ciphers such as RC4 and DES. For the purpose of this project the era of classical cryptography is ended, somewhat arbitrarily, in 1950 following the publication of "A Mathematical Theory of Cryptography" by Claude Shannon.
 
-### Codes vs Ciphers
+## Codes vs Ciphers
 The difference between codes and ciphers in classical cryptography is fairly vague, indeed the terms are sometimes used interchangeably. Within this project a cipher must have a changeable key that is needed in order to determine the plaintext. A code on the otherhand is fixed and can be read by anyone who knows the method.
 
 ## Details
@@ -61,5 +61,3 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Kasiski Examination attack on the Vigenere cipher
 * Brute force attack on Columnar Transport
 * Brute force attack on Caesar cipher
-
-<iframe src="https://trinket.io/embed/python3/d00cab1edc?runMode=console" width="100%" height="356" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
