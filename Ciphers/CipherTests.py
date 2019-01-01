@@ -10,7 +10,7 @@ import numpy as np
 from VigenereCipher import vigenere,multiVigenere,vigenereAutokey,affineVigenere
 from Monoalphabetic import caesar,affine,substitution
 from Substitution import hillCipher, straddlingCheckerboard
-from PolybiusSquare import polybiusSquare, nihilistCipher, ADFGVX, bifidCipher
+from PolybiusSquare import polybiusSquare, nihilistCipher, ADFGVX, bifidCipher,trifidCipher
 from Transposition import columnarTransport,doubleColumnarTransport,railfence
 from RotorMachines import rotorMachine
 from NomenclatorCipher import nomenclator
@@ -47,6 +47,8 @@ decodetest(ptext,5,railfence)
 decodetest(ptext,["17ZEBRAS529",[1,4,2,5,0,3]],ADFGVX)
 
 decodetest(ptext,"GIANTUNICORNS",bifidCipher)
+
+decodetest(ptext,"GIANTUNICORNS",trifidCipher)
 
 decodetest(ptext,5766645,nomenclator)
 

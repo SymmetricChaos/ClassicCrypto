@@ -35,7 +35,7 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 #### Polybius Square Variants:
 * Polybius Square (IJ, CK, and extended alphabet versions)
 * ADFGX and ADFGVX
-* Bifid
+* Bifid and Trifid
 * Nihilist Cipher
 
 #### Other Substitution Ciphers
