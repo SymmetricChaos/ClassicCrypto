@@ -47,6 +47,7 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 #### Transposition Ciphers
 * Columnar Transport (Single and Double)
 * Rail Fence Cipher
+* Route Cipher
 
 #### Variable Codebooks
 * Nomenclator cipher (variation on Le Grand Chiffre)

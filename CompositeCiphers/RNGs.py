@@ -22,15 +22,35 @@ def LCG(seed,mod,mult,incr):
         seed = (mult*seed+incr) % mod
         yield seed
         
-
-
-#for ctr,i in enumerate(LCG(233,100000,7,81)):
-#    print(i)
-#    if ctr > 100:
-#        break
-
-print()
-for ctr,i in enumerate(Weyel(512785,1000000)):
-    print(i)
-    if ctr > 50:
-        break
+def WeyelExample():
+    print("Example of the Weyel Random Number Generator\n")
+    modulus = 100000
+    seed = 25763
+    print("Modulus is:    {}".format(modulus))
+    print("Seed value is: {}".format(seed))
+    for ctr,i in enumerate(Weyel(seed,modulus)):
+        print(i)
+        if ctr > 20:
+            break
+    print("Notice the periodicity of the low order bits.")
+      
+        
+def LCGExample():
+    print("Example of Linear Congruential Generator\n")
+    modulus = 100000
+    multiplier  = 2991
+    increment = 2571
+    seed = 237
+    print("Modulus is:    {}".format(modulus))
+    print("Multiplier is: {}".format(multiplier))
+    print("Increment is:  {}".format(increment))
+    print("Seed value is: {}".format(seed))
+    for ctr,i in enumerate(LCG(seed,modulus,multiplier,increment)):
+        print(i)
+        if ctr > 20:
+            break
+    print("Notice the periodicity of the low order bits.")
+        
+WeyelExample()
+print("\n\n")
+LCGExample()

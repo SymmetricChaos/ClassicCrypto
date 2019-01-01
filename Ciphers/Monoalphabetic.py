@@ -69,12 +69,13 @@ def affine(text,key=[0,1],decode=False):
         
     return "".join(T)
 
+
+
 # The general substitution cipher. It simple replaces letters
 # with other letters. To make this easier the key may be any sequence of
 # letters from the English alphabet. The letter A is turned into to the first
 # letter of the word, the letter B is turned into the second letter of the
 # word and so on. If the word repeats letters those repetitions are skipped.
-
 
 def substitution(text,key,decode=False):
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -91,6 +92,8 @@ def substitution(text,key,decode=False):
             out.append(alpha[KEY.index(i)])
     
     return "".join(out)
+
+
 
 # The atbash cipher is a special case of the substitution cipher that just uses
 # a reversed alphabet. Since it has no key it is not a true cipher.

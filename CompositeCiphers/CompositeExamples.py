@@ -11,7 +11,6 @@ def Checkerboard_DRYAD(text,keys,decode=False):
 def Vigenere_Columnar(text,keys,decode=False):
     return compositeCipher(text,[vig.vigenere,trans.columnarTransport],keys,decode=decode)
 
-
 def Checkerboard_DRYAD_Example():
     print("Example of the Checkerboard Dryad Cipher\n")
     key = [["ZEBRA",[1,3]],7656751]
