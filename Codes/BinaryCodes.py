@@ -106,15 +106,15 @@ def baconCipher(text,stegotext="",decode=False):
 
 # A prefix code is any code in which words can be of various lengths but which
 # does not need commas to show the breaks between them. There are many ways to
-# accomplish this. This example uses the Fibonnaci numbers. To keep the encoded
+# accomplish this. This example uses the fibonacci numbers. To keep the encoded
 # text as short as possible short codes are given to common letters. However it
 # is still not especially compact.
 
 # Of interest for classical cryptopgrahy is that a variable length encoding can
 # disguised the actual length of the message.
 
-# Lagged fibonnaci numbers the sequence starts: 1,2,3,5,8,11
-def fibonnaci(n):
+# Lagged fibonacci numbers the sequence starts: 1,2,3,5,8,11
+def fibonacci(n):
     a = 1
     b = 1
     out = []
@@ -124,12 +124,12 @@ def fibonnaci(n):
     return out
 
 # There has to be a better way to do this, right?
-# Go through the list for the first few Fibonnaci numbers from greatest to
-# make a list of Fibonnaci numbers that add up to each code number (1,2,3...)
-# The code is then the indexes of those Fibonnaci numbers, with leading zeroes
+# Go through the list for the first few fibonacci numbers from greatest to
+# make a list of fibonacci numbers that add up to each code number (1,2,3...)
+# The code is then the indexes of those fibonacci numbers, with leading zeroes
 # removed, reversed, with an additional "1" at the end.
 def makeCodebook(decode=False):
-    F = fibonnaci(10)
+    F = fibonacci(10)
     F.reverse()
     codes = []
     for x in range(1,27):
