@@ -140,17 +140,32 @@ def trifidCipher(text,key,decode=False):
     triplets = product("123",repeat=3)
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ+"
     alphabet = alphabetPermutation(key,alphabet)
-    D = {}
-    
+    D1 = {}
+    D2 = {}
+    for trip,alph in zip(triplets,alphabet):
+        D1[alph] = "".join(trip)
+        D2["".join(trip)] = alph
     
     if decode == False:
-        for trip,alph in zip(triplets,alphabet):
-            D[alph] = "".join(trip)
-        return "".join([D[letter] for letter in text])
+
+        A, B, C = "","","" 
+        # Convert the letter into their triplets
+        for letter in text:
+            gr = D1[letter]
+            A += gr[0]
+            B += gr[1]
+            C += gr[2]
+
+        
+        ctext = ""
+        for gr in groups(A+B+C,3):
+            ctext +=  D2[gr]
+        
+        return ctext
+        
 
     if decode == True:
-        for trip,alph in zip(triplets,alphabet):
-            D[trip] = alpha
+        pass
         
     
     
