@@ -142,6 +142,7 @@ def trifidCipher(text,key,decode=False):
     alphabet = alphabetPermutation(key,alphabet)
     D1 = {}
     D2 = {}
+    
     for trip,alph in zip(triplets,alphabet):
         D1[alph] = "".join(trip)
         D2["".join(trip)] = alph
@@ -165,9 +166,17 @@ def trifidCipher(text,key,decode=False):
         
 
     if decode == True:
-        pass
+        grs = ""
+        for letter in text:
+            gr = D1[letter]
+            grs += gr
         
-    
+        A = grs[:len(grs)//3]
+        B = grs[len(grs)//3:2*len(grs)//3]
+        C = grs[2*len(grs)//3:]
+        
+        dtext = [i+j+k for i,j,k in zip(A,B,C)]
+        return "".join([D2[n] for n in dtext])
     
 
 # The ADFGX cipher is an important early example of a fractionated cipher that
@@ -270,13 +279,9 @@ def trifidEample():
     ptext = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG"
     key = "AKEY"
     print("Example Of A Trifid Cipher\n\nKey is {}\n".format(key))
-    print("Plaintext is:  {}\n\n".format(ptext))
-    
+
     ctext = trifidCipher(ptext,key)
-    #dtext = ADFGVX(ctext,["17ZEBRAS529",[1,4,2,5,0,3]],decode=True)
+    dtext = trifidCipher(ctext,key,decode=True)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
-    #print("Decodes As:    {}".format(dtext))
-
-
-trifidEample()
+    print("Decodes As:    {}".format(dtext))
