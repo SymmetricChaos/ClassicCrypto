@@ -130,7 +130,30 @@ def bifidCipher(text,key,decode=False):
         out = "".join([i+j for i,j in zip(A,B)])
     
         return polybiusSquare(out,key,decode=True)
+    
+# The trifid cipher is a slight variation on the bifid cipher that is intended
+# to produce much greater degree of diffusion by splitting each letter into
+# three digits rather than two.
+    
+def trifidCipher(text,key,decode=False):
+    
+    triplets = product("123",repeat=3)
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ+"
+    alphabet = alphabetPermutation(key,alphabet)
+    D = {}
+    
+    
+    if decode == False:
+        for trip,alph in zip(triplets,alphabet):
+            D[alph] = "".join(trip)
+        return "".join([D[letter] for letter in text])
 
+    if decode == True:
+        for trip,alph in zip(triplets,alphabet):
+            D[trip] = alpha
+        
+    
+    
 
 # The ADFGX cipher is an important early example of a fractionated cipher that
 # produces Shannon's "confusion" in the ciphertext. That is the symbols of the
@@ -228,13 +251,17 @@ def polybiusSquareExample():
         print("Decodes As:    {}".format(dtext))
         print()
 
-        
-#for md in ["CK","IJ","EX"]:
-#    print(md)
-#    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-#    ctext = nihilistCipher(ptext,["ZEBRA","PLOTS"],mode=md)
-#    dtext = nihilistCipher(ctext,["ZEBRA","PLOTS"],decode=True,mode=md)
-#    print(ptext)
-#    print(ctext)
-#    print(dtext)
-#    print()
+def trifidEample():
+    ptext = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG"
+    key = "AKEY"
+    print("Example Of A Trifid Cipher\n\nKey is {}\n".format(key))
+    print("Plaintext is:  {}\n\n".format(ptext))
+    
+    ctext = trifidCipher(ptext,key)
+    #dtext = ADFGVX(ctext,["17ZEBRAS529",[1,4,2,5,0,3]],decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    #print("Decodes As:    {}".format(dtext))
+
+
+trifidEample()
