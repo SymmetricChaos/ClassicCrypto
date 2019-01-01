@@ -6,7 +6,7 @@
 ## The order of the arguments
 from numpy import argsort
 from numpy.random import choice
-from UtilityFunctions import uniqueRank
+from UtilityFunctions import uniqueRank, groups
 
 def columnarTransport(text,key,decode=False):
     
@@ -127,6 +127,62 @@ def railfence(text,key,decode=False):
                 
         return "".join(out)
 
+# A route cipher works simply by writing down the message and then reading it
+# off in some unusual order.  There are a tremendous number of possible route
+# route ciphers this one is very simple. The text is written left to right into
+# a certain number of columns then reading up and down the columns like a
+# snake.
+        
+# THEQUIC
+# KBROWNF
+# OXJUMPS
+# OVERTHE
+# LAZYDOG
+
+# TKOOL AVXBH ERJAZ YRUOQ UWMTD OHPNI CFSEG
+        
+def routeCipher(text,key,decode=False):
+    while len(text) % key != 0:
+        text += "X"
+    
+    if decode == False:
+        G = groups(text,key)
+        out = ""
+        ctr = 0
+        while ctr < key:
+            gr = []
+            for i in G:
+                gr.append(i[ctr])
+            if ctr % 2 == 1:
+                gr.reverse()
+            out += "".join(gr)
+            ctr += 1
+    
+        return out
+    
+    if decode == True:
+        
+        key = len(text)//key
+        
+        G = groups(text,key)
+        
+        out = ""
+        
+        for passthru in range(key):
+            for pos,lets in enumerate(G):
+
+                if pos % 2 == 0:
+                    a = lets[0]
+                    G[pos] = lets[1:]
+
+                if pos % 2 == 1:
+                    a = lets[-1]
+                    G[pos] = lets[:-1]
+
+                out += a
+
+        return out
+
 
 def railfenceExample():
     print("Example of the Rail Fence Cipher\n")
@@ -138,8 +194,6 @@ def railfenceExample():
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
-
-
 
 def columnarTransportExample():
 
@@ -163,6 +217,19 @@ def doubleColumnarTransportExample():
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = doubleColumnarTransport(ptext,keys)
     dtext = doubleColumnarTransport(ctext,keys,decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+
+def routeCipherExample():
+
+    print("Route Cipher Example")
+    keys = 12
+    print("The Key Is {}".format(keys))
+    
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = routeCipher(ptext,keys)
+    dtext = routeCipher(ctext,keys,decode=True)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
