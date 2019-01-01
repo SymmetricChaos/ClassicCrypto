@@ -61,3 +61,5 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Kasiski Examination attack on the Vigenere cipher
 * Brute force attack on Columnar Transport
 * Brute force attack on Caesar cipher
+
+<iframe src="https://trinket.io/embed/python3/d00cab1edc?runMode=console" width="100%" height="356" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>
