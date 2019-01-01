@@ -19,29 +19,35 @@ All ciphers will return a string containing either the ciphertext or the decoded
 The nomenclator cipher has an alternate mode that returns the dictionary that serves as the internal key.
 
 ##  Ciphers:
+
 #### Monoalphabetic Substitution:
 * Caesar cipher
 * Affine cipher
 * Atbash cipher
 * Simple Substitution cipher
+
 #### Vigenere Variants:
 * Vigenere Cipher
 * Affine Vigenere Cipher (extended 37 letter alphabet)
 * Vigenere Autokey Cipher
 * Multiple Vigenere Cipher
+
 #### Polybius Square Variants:
 * Polybius Square (IJ, CK, and extended alphabet versions)
 * ADFGX and ADFGVX
 * Bifid
 * Nihilist Cipher
+
 #### Other Substitution Ciphers
 * Hill's Matrix Cipher
 * DRYAD
 * Straddling Checkerboard
 * Simple Rotor Machine
+
 #### Transposition Ciphers
 * Columnar Transport (Single and Double)
 * Rail Fence Cipher
+
 #### Variable Codebooks
 * Nomenclator cipher (variation on Le Grand Chiffre)
 
@@ -50,10 +56,12 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Vigenere/Columnar
 
 ## Codes:
+
 #### Binary Codes:
 * Morse Code
 * Bacon Cipher
 * Prefix Code
+
 #### Mathematical Codes:
 * Godel Numbering
 
