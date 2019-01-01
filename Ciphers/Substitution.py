@@ -208,7 +208,6 @@ def hillCipher(text,key,decode=False):
     return out
 
 
-
 def hillCipherExample():
     print("Example of the Hill Cipher\n")
 
