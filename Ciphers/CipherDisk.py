@@ -12,15 +12,18 @@ def cipherdisk(text,key,decode=False):
     inner = "1yw7usq2om8kig3eca9bd4fhj0lnp5rtvx6z"
 
     inner = step(inner,key)
-    
+
+    ctr = 0
     if decode == False:
         out = ""
         for i in text:
             out += inner[outer.index(i)]
             if random.random() < .1:
                 R = random.choice("123456789")
-                out += R
+                out += inner[outer.index(R)]
                 inner = step(inner,int(R))
+                
+            ctr += 1
         return out
     
     if decode == True:
@@ -34,7 +37,7 @@ def cipherdisk(text,key,decode=False):
         return out
 
     
-ptext = "THEQUICKBROWNFOX"
+ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
 ctext = cipherdisk(ptext,10)
 print(ctext)
 print()

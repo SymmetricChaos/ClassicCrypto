@@ -26,6 +26,13 @@ def rotor(letter,key,decode=False):
 def step(R):
     return R[1:] + R[0]
 
+# Step a rotor forward by N
+def stepN(R,n):
+    x = R[:]
+    for i in range(n):
+        x = x[1:] + x[0]
+    return x
+
 # The plugboard (Steckerbrett) flips pairs of letters
 # Pairs of letters are not allowed to overlap
 def plugboard(text,keys):
@@ -102,6 +109,41 @@ def rotorMachine(text,keys,decode=False):
 
     return plugboard(out,plugs)
 
+
+
+import random
+
+def cipherDisk(text,key,decode=False):
+    outer = "ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789"
+    inner = "1yw7usq2om8kig3eca9bd4fhj0lnp5rtvx6z"
+
+    inner = stepN(inner,key)
+
+    ctr = 0
+    if decode == False:
+        out = ""
+        for i in text:
+            out += inner[outer.index(i)]
+            if random.random() < .1:
+                R = random.choice("123456789")
+                out += inner[outer.index(R)]
+                inner = stepN(inner,int(R))
+                
+            ctr += 1
+        return out
+    
+    if decode == True:
+        out = ""
+        for i in text:
+            dec = outer[inner.index(i)]
+            if dec in "123456789":
+                inner = stepN(inner,int(dec))
+            else:
+                out += dec
+        return out
+
+    
+
 def rotorMachineExample():
 
     print("Example of the Simple Rotor Machine\n")
@@ -122,6 +164,21 @@ def rotorMachineExample():
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = rotorMachine(ptext,keys=keySettings)
     dtext = rotorMachine(ctext,keys=keySettings,decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+    
+    
+def cipherDiskExample():
+
+    print("Example of the Rotor Disk\n")
+    
+    key = 10
+    print("The initial shift is: {}".format(key))
+
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = cipherDisk(ptext,key=key)
+    dtext = cipherDisk(ctext,key=key,decode=True)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
