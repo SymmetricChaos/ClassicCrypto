@@ -12,7 +12,7 @@ from Monoalphabetic import caesar,affine,substitution
 from Substitution import hillCipher, straddlingCheckerboard
 from PolybiusSquare import polybiusSquare, nihilistCipher, ADFGVX, bifidCipher,trifidCipher
 from Transposition import columnarTransport,doubleColumnarTransport,railfence
-from RotorMachines import rotorMachine
+from RotorMachines import rotorMachine, cipherDisk
 from NomenclatorCipher import nomenclator
 
 textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
@@ -52,6 +52,7 @@ decodetest(ptext,"GIANTUNICORNS",trifidCipher)
 
 decodetest(ptext,5766645,nomenclator)
 
+decodetest(ptext,12,cipherDisk)
 
 R1 = "DMTWSILRUYQNKFEJCAZBPGXOHV"
 R2 = "HQZGPJTMOBLNCIFDYAWVEUSRKX"

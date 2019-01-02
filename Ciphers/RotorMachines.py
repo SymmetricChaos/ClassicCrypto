@@ -113,13 +113,23 @@ def rotorMachine(text,keys,decode=False):
 
 import random
 
+# This cipher is based on the Alberti Cipher Disk. Encryption works as a
+# simple substitution cipher. However the person encrypting can choose to shift
+# the key of the cipher by encrypting a digit indicating the size of the shift
+# they want. This computer implementation has a ten percent chance of shifting 
+# the wheel after each letter. When decrypting one simply checks shfits the 
+# cipher wheel whenever a digit is found.
+
+# They key is simply the arrangement of the cipher wheel, which is not easy to
+# change (here it is fixed), and the initial shift of the wheel, which is
+# trivial to change.
+
 def cipherDisk(text,key,decode=False):
     outer = "ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789"
     inner = "1yw7usq2om8kig3eca9bd4fhj0lnp5rtvx6z"
 
     inner = stepN(inner,key)
 
-    ctr = 0
     if decode == False:
         out = ""
         for i in text:
@@ -128,8 +138,7 @@ def cipherDisk(text,key,decode=False):
                 R = random.choice("123456789")
                 out += inner[outer.index(R)]
                 inner = stepN(inner,int(R))
-                
-            ctr += 1
+
         return out
     
     if decode == True:
@@ -146,7 +155,7 @@ def cipherDisk(text,key,decode=False):
 
 def rotorMachineExample():
 
-    print("Example of the Simple Rotor Machine\n")
+    print("Example of a Simple Rotor Machine\n")
     
     
     R1 = "DMTWSILRUYQNKFEJCAZBPGXOHV"
@@ -171,14 +180,14 @@ def rotorMachineExample():
     
 def cipherDiskExample():
 
-    print("Example of the Rotor Disk\n")
+    print("Example of a Rotor Disk\n")
     
     key = 10
     print("The initial shift is: {}".format(key))
 
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = cipherDisk(ptext,key=key)
-    dtext = cipherDisk(ctext,key=key,decode=True)
+    ctext = cipherDisk(ptext,10)
+    dtext = cipherDisk(ctext,10,decode=True)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))

@@ -42,7 +42,10 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Hill's Matrix Cipher
 * DRYAD
 * Straddling Checkerboard
+
+#### Rotor Machines
 * Simple Rotor Machine
+* Cipher Disk
 
 #### Transposition Ciphers
 * Columnar Transport (Single and Double)
