@@ -190,22 +190,30 @@ import numpy as np
 
 def turningGrille(text,key,decode=False,printkey=False,printgrid=False):
     
+    if len(text) > 64:
+        raise Exception("Text is too long.")
+    while len(text) < 64:
+        text += "X"
+    
     # The grille is actual key used for encryption, the key argument provided
     # specifies how to put it together.
     grille = np.zeros([8,8],dtype=int)
     # This matrix is what we will write the results into
     outmat = np.full([8,8],"")
     
-    
+    # Generate the grille to be used as the key
     for block in key:
         for digit in block:
             pos = np.divmod(digit,4)
             grille[pos[0],pos[1]] = 1
         grille = np.rot90(grille)
     
+    # If requested print out the grille
     if printkey == True:
         print(grille)
     
+    # When encoding write the letters of the text into the open spaces of the
+    # grille. Then rotate the grille 90 degrees and continue.
     if decode == False:
         for rot in range(4):
             X = np.where(grille == 1)
@@ -223,18 +231,14 @@ def turningGrille(text,key,decode=False,printkey=False,printgrid=False):
         return out
 
     if decode == True:
+        
+        gr = groups(text,8)
+        out = ""
         for rot in range(4):
             X = np.where(grille == 1)
             for i,j in zip(X[0],X[1]):
-                a,text = text[0],text[1:]
-                outmat[i,j] = a
+                out += gr[i][j]
             grille = np.rot90(grille)
-        
-        out = ""
-        for i in outmat:
-            if printgrid == True:
-                print("".join(i))
-            out += "".join(i)
             
         return out
 
@@ -296,10 +300,9 @@ def turningGrilleExample():
     key = [[0,3,6,13],[4,5,8,15],[1,7,10,11],[2,9,12,14]]
     print("The Key Is {}".format(key))
     
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOGTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOGINEEDABITMORETEXTINTHIS"
     ctext = turningGrille(ptext,key)
-    #dtext = routeCipher(ctext,key,decode=True)
+    dtext = turningGrille(ctext,key,decode=True)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
-    #print("Decodes As:    {}".format(dtext))
-turningGrilleExample()
+    print("Decodes As:    {}".format(dtext))
