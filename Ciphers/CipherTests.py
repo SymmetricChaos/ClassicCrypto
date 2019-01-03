@@ -11,7 +11,7 @@ from VigenereCipher import vigenere,multiVigenere,vigenereAutokey,affineVigenere
 from Monoalphabetic import caesar,affine,substitution
 from OtherCiphers import hillCipher, straddlingCheckerboard
 from PolybiusSquare import polybiusSquare, nihilistCipher, ADFGVX, bifidCipher,trifidCipher
-from Transposition import columnarTransport,doubleColumnarTransport,railfence
+from Transposition import columnarTransport,doubleColumnarTransport,railfence, turningGrille
 from RotorMachines import rotorMachine, cipherDisk
 from NomenclatorCipher import nomenclator
 
@@ -53,6 +53,11 @@ decodetest(ptext,"GIANTUNICORNS",trifidCipher)
 decodetest(ptext,5766645,nomenclator)
 
 decodetest(ptext,12,cipherDisk)
+
+#decodetest(ptext,[[8,0,3,4],
+#                  [1,7,16,5],
+#                  [6,12,14,15],
+#                  [2,9,10,11]],turningGrille)
 
 R1 = "DMTWSILRUYQNKFEJCAZBPGXOHV"
 R2 = "HQZGPJTMOBLNCIFDYAWVEUSRKX"
