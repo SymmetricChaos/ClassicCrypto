@@ -9,7 +9,7 @@ import numpy as np
 # Import the various ciphers
 from VigenereCipher import vigenere,multiVigenere,vigenereAutokey,affineVigenere
 from Monoalphabetic import caesar,affine,substitution
-from Substitution import hillCipher, straddlingCheckerboard
+from OtherCiphers import hillCipher, straddlingCheckerboard
 from PolybiusSquare import polybiusSquare, nihilistCipher, ADFGVX, bifidCipher,trifidCipher
 from Transposition import columnarTransport,doubleColumnarTransport,railfence
 from RotorMachines import rotorMachine, cipherDisk
