@@ -182,6 +182,31 @@ def routeCipher(text,key,decode=False):
                 out += a
 
         return out
+    
+# The turning grille was invented by Edouard Fleissner  
+
+import numpy as np
+
+def turningGrille(text,key):
+    grille = np.zeros([8,8],dtype=int)
+    key = [[0,3,6,13],[4,5,8,15],[1,7,10,11],[2,9,12,14]]
+    for block in key:
+        for digit in block:
+            pos = np.divmod(digit,4)
+            grille[pos[0],pos[1]] = 1
+        grille = np.rot90(grille)
+    
+    outgrille = np.full([8,8],"")
+    
+    for rot in range(4):
+        X = np.where(grille == 1)
+        for i,j in zip(X[0],X[1]):
+            a,text = text[0],text[1:]
+            outgrille[i,j] = a
+        grille = np.rot90(grille)
+    print(outgrille)
+
+
 
 
 def railfenceExample():
@@ -233,3 +258,5 @@ def routeCipherExample():
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
+
+turningGrille("THEQUICKBROWNFOXJUMPSOVERTHELAZYDOGTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG","")
