@@ -183,7 +183,8 @@ def routeCipher(text,key,decode=False):
 
         return out
     
-# The turning grille was invented by Edouard Fleissner  
+# The turning grille was invented by Edouard Fleissner. This version uses a
+# fixed 8x8 grid.
 
 import numpy as np
 
@@ -205,22 +206,37 @@ def turningGrille(text,key,decode=False,printkey=False,printgrid=False):
     if printkey == True:
         print(grille)
     
-    
-    for rot in range(4):
-        X = np.where(grille == 1)
-        for i,j in zip(X[0],X[1]):
-            a,text = text[0],text[1:]
-            outmat[i,j] = a
-        grille = np.rot90(grille)
-    
-    out = ""
-    for i in outmat:
-        if printgrid == True:
-            print("".join(i))
-        out += "".join(i)
+    if decode == False:
+        for rot in range(4):
+            X = np.where(grille == 1)
+            for i,j in zip(X[0],X[1]):
+                a,text = text[0],text[1:]
+                outmat[i,j] = a
+            grille = np.rot90(grille)
         
-    return out
+        out = ""
+        for i in outmat:
+            if printgrid == True:
+                print("".join(i))
+            out += "".join(i)
+            
+        return out
 
+    if decode == True:
+        for rot in range(4):
+            X = np.where(grille == 1)
+            for i,j in zip(X[0],X[1]):
+                a,text = text[0],text[1:]
+                outmat[i,j] = a
+            grille = np.rot90(grille)
+        
+        out = ""
+        for i in outmat:
+            if printgrid == True:
+                print("".join(i))
+            out += "".join(i)
+            
+        return out
 
 
 
