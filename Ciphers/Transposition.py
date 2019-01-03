@@ -187,24 +187,39 @@ def routeCipher(text,key,decode=False):
 
 import numpy as np
 
-def turningGrille(text,key):
+def turningGrille(text,key,decode=False,printkey=False,printgrid=False):
+    
+    # The grille is actual key used for encryption, the key argument provided
+    # specifies how to put it together.
     grille = np.zeros([8,8],dtype=int)
-    key = [[0,3,6,13],[4,5,8,15],[1,7,10,11],[2,9,12,14]]
+    # This matrix is what we will write the results into
+    outmat = np.full([8,8],"")
+    
+    
     for block in key:
         for digit in block:
             pos = np.divmod(digit,4)
             grille[pos[0],pos[1]] = 1
         grille = np.rot90(grille)
     
-    outgrille = np.full([8,8],"")
+    if printkey == True:
+        print(grille)
+    
     
     for rot in range(4):
         X = np.where(grille == 1)
         for i,j in zip(X[0],X[1]):
             a,text = text[0],text[1:]
-            outgrille[i,j] = a
+            outmat[i,j] = a
         grille = np.rot90(grille)
-    print(outgrille)
+    
+    out = ""
+    for i in outmat:
+        if printgrid == True:
+            print("".join(i))
+        out += "".join(i)
+        
+    return out
 
 
 
@@ -249,14 +264,26 @@ def doubleColumnarTransportExample():
 def routeCipherExample():
 
     print("Route Cipher Example")
-    keys = 12
-    print("The Key Is {}".format(keys))
+    key = 12
+    print("The Key Is {}".format(key))
     
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = routeCipher(ptext,keys)
-    dtext = routeCipher(ctext,keys,decode=True)
+    ctext = routeCipher(ptext,key)
+    dtext = routeCipher(ctext,key,decode=True)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
 
-turningGrille("THEQUICKBROWNFOXJUMPSOVERTHELAZYDOGTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG","")
+def turningGrilleExample():
+
+    print("Turning Grille Example")
+    key = [[0,3,6,13],[4,5,8,15],[1,7,10,11],[2,9,12,14]]
+    print("The Key Is {}".format(key))
+    
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOGTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = turningGrille(ptext,key)
+    #dtext = routeCipher(ctext,key,decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    #print("Decodes As:    {}".format(dtext))
+turningGrilleExample()
