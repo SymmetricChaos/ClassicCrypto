@@ -24,11 +24,11 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Caesar cipher
 * Affine cipher
 * Atbash cipher
-* Simple Substitution cipher
+* General Substitution cipher
 
 #### Vigenere Variants:
 * Vigenere Cipher
-* Affine Vigenere Cipher (extended 37 letter alphabet)
+* Affine Vigenere Cipher (37 letter alphabet)
 * Vigenere Autokey Cipher
 * Multiple Vigenere Cipher
 
@@ -38,19 +38,23 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Bifid and Trifid
 * Nihilist Cipher
 
+#### Rotor Machines
+* Simple Rotor Machine
+* Cipher Disk
+
+#### Playfair Type Cipher
+* Four Square Cipher (36 letter alphabet)
+
 #### Other Substitution Ciphers
 * Hill's Matrix Cipher
 * DRYAD
 * Straddling Checkerboard
 
-#### Rotor Machines
-* Simple Rotor Machine
-* Cipher Disk
-
 #### Transposition Ciphers
 * Columnar Transport (Single and Double)
 * Rail Fence Cipher
 * Route Cipher
+* Turning Grille
 
 #### Variable Codebooks
 * Nomenclator cipher (variation on Le Grand Chiffre)
