@@ -14,6 +14,7 @@ from PolybiusSquare import polybiusSquare, nihilistCipher, ADFGVX, bifidCipher,t
 from Transposition import columnarTransport,doubleColumnarTransport,railfence, turningGrille
 from RotorMachines import rotorMachine, cipherDisk
 from NomenclatorCipher import nomenclator
+from Playfair import fourSquareCipher
 
 textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
 ptext = preptext1(textfile.readline())
@@ -58,6 +59,8 @@ decodetest(ptext,12,cipherDisk)
 #                  [1,7,16,5],
 #                  [6,12,14,15],
 #                  [2,9,10,11]],turningGrille)
+
+decodetest(ptext,["4SQUARE2","10CODE7"],fourSquareCipher)
 
 R1 = "DMTWSILRUYQNKFEJCAZBPGXOHV"
 R2 = "HQZGPJTMOBLNCIFDYAWVEUSRKX"

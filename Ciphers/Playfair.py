@@ -38,19 +38,40 @@ def fourSquareCipher(text,keys,decode=False,printkey=False):
         text += "X"
     G = groups(text,2)
     
-    out = ""
-    for g in G:
-        A = np.where(sq1 == g[0])
-        B = np.where(sq2 == g[1])
-        
-        out += alphasq[A[0],B[1]][0]
-        out += alphasq[B[0],A[1]][0]
-        
-    return out
+    if decode == False:
+        out = ""
+        for g in G:
+            A = np.where(sq1 == g[0])
+            B = np.where(sq2 == g[1])
+            
+            out += alphasq[A[0],B[1]][0]
+            out += alphasq[B[0],A[1]][0]
+            
+        return out
     
-#playfairCipher("THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOGJAZZ")
-ctext = fourSquareCipher("THEQUICK",["2SQUARE5","738CIPHER091"],
-                 printkey=True)
+    if decode == True:
+        out = ""
+        for g in G:
+            A = np.where(alphasq == g[0])
+            B = np.where(alphasq == g[1])
+            
+            out += sq1[A[0],B[1]][0]
+            out += sq2[B[0],A[1]][0]
+            
+        return out
 
-print(ctext)
-print(dtext)
+def fourSquareExample():
+    print("Example of the Four Square Cipher\n")
+    print("The key is:")
+    keys = ["4SQUARE5","738CIPHER091"]
+    fourSquareCipher("TEST",keys,printkey=True)
+    
+    print("")
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = fourSquareCipher(ptext,["2SQUARE5","738CIPHER091"])
+    dtext = fourSquareCipher(ctext,["2SQUARE5","738CIPHER091"],decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+
+fourSquareExample()
