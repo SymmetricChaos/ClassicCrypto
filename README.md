@@ -43,6 +43,7 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Cipher Disk
 
 #### Playfair Type Cipher
+* Playfair Cipher (IJ variant)
 * Four Square Cipher (36 letter alphabet)
 
 #### Other Substitution Ciphers

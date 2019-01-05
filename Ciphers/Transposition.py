@@ -190,10 +190,21 @@ import numpy as np
 
 def turningGrille(text,key,decode=False,printkey=False,printgrid=False):
     
+    # Can't work with more than 64 characters at a time 
     if len(text) > 64:
         raise Exception("Text is too long.")
+    
+    # If we have less than 64 characters first insert Xs as nulls to indicate
+    # that we have reached the end of the message. Then put in common letters
+    # to make the less less obvious.
+    ctr = 0
     while len(text) < 64:
-        text += "X"
+
+        if ctr > 3:
+            text += choice([i for i in "ATAOINSRH"])
+        else:
+            text += "X"
+            ctr += 1
     
     # The grille is actual key used for encryption, the key argument provided
     # specifies how to put it together.
@@ -208,9 +219,11 @@ def turningGrille(text,key,decode=False,printkey=False,printgrid=False):
             grille[pos[0],pos[1]] = 1
         grille = np.rot90(grille)
     
-    # If requested print out the grille
+    # If requested print out the grille in a more human readable way
     if printkey == True:
-        print(grille)
+        for i in grille:
+            t = ["#" if j == 0 else "_" for j in i]
+            print("|","|".join(t),"|",sep="")
     
     # When encoding write the letters of the text into the open spaces of the
     # grille. Then rotate the grille 90 degrees and continue.
@@ -243,6 +256,7 @@ def turningGrille(text,key,decode=False,printkey=False,printgrid=False):
         return out
 
 
+#def turningGrilleN()
 
 def railfenceExample():
     print("Example of the Rail Fence Cipher\n")
@@ -298,11 +312,15 @@ def turningGrilleExample():
 
     print("Turning Grille Example")
     key = [[0,3,6,13],[4,5,8,15],[1,7,10,11],[2,9,12,14]]
-    print("The Key Is {}".format(key))
+    print("The Grille Is:")
+    turningGrille("",key,printkey=True)
     
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOGINEEDABITMORETEXTINTHIS"
+    
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = turningGrille(ptext,key)
     dtext = turningGrille(ctext,key,decode=True)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
+
+turningGrilleExample()
