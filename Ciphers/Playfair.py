@@ -1,18 +1,94 @@
 from UtilityFunctions import groups, alphabetPermutation
 import numpy as np
 
-def playfairCipher(text,keys,decode=False):
+
+            
+
+def playfairCipher(text,key,decode=False,printkey=False):
+    
+    text = text.replace("J","I")
+    # Make sure the are an even number of letters
     if len(text) % 2 == 1:
-        text += "X"
+        text += "Q"
+    
+    k = alphabetPermutation(key,"ABCDEFGHIKLMNOPQRSTUVWXYZ")
+
+    sq = np.full([5,5],"")
+    for i in range(5):
+        sq[i] = [x for x in groups(k,5)[i]]
+    
+    if printkey == True:
+        for i in range(5):
+            print(" ".join(sq[i]))
+        return ""
+    
     G = groups(text,2)
-    for i in G:
-        if i[0] == i[1]:
-            print("!")
-    print(G)
+    # I'll come up with a way to automatically remove double letters later
+    # (Or not)
+    for g in G:
+        if g[0] == g[1]:
+            raise Exception("Double Letter {} Must Be Removed".format(g))
+    
+    if decode == False:
+    
+        out = ""
+        
+        for g in G:
+            A = np.where(sq == g[0])
+            B = np.where(sq == g[1])
+            #print(g)
+            
+            if A[0] == B[0]:
+                out += sq[(A[0]+1)%5,A[1]][0]
+                out += sq[(B[0]+1)%5,B[1]][0]
+                #print(out[-2:],"\n")
+                
+            elif A[1] == B[1]:
+                out += sq[A[0],(A[1]+1)%5][0]
+                out += sq[B[0],(B[1]+1)%5][0]
+                #print(out[-2:],"\n")
+                
+            else:
+                out += sq[A[0],B[1]][0]
+                out += sq[B[0],A[1]][0]
+                #print(out[-2:],"\n")
+        
+        return out
+    
+    if decode == True:
+    
+        out = ""
+        
+        for g in G:
+            A = np.where(sq == g[0])
+            B = np.where(sq == g[1])
+            #print(g)
+            
+            if A[0] == B[0]:
+                out += sq[(A[0]-1)%5,A[1]][0]
+                out += sq[(B[0]-1)%5,B[1]][0]
+                #print(out[-2:],"\n")
+                
+            elif A[1] == B[1]:
+                out += sq[A[0],(A[1]-1)%5][0]
+                out += sq[B[0],(B[1]-1)%5][0]
+                #print(out[-2:],"\n")
+                
+            else:
+                out += sq[A[0],B[1]][0]
+                out += sq[B[0],A[1]][0]
+                #print(out[-2:],"\n")
+        
+        return out
+            
+
 
 
 
 def fourSquareCipher(text,keys,decode=False,printkey=False):
+    
+
+    
     k1 = alphabetPermutation(keys[0],"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
     k2 = alphabetPermutation(keys[1],"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 
@@ -32,6 +108,7 @@ def fourSquareCipher(text,keys,decode=False,printkey=False):
         for i in range(6):
             print(" ".join(sq2[i]),end="  ")
             print(" ".join(alphasq[i]))
+        return ""
 
 
     if len(text) % 2 == 1:
@@ -74,4 +151,17 @@ def fourSquareExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
 
-fourSquareExample()
+def playfairCipherExample():
+    print("Example of the Playfair Cipher\n")
+    print("The key is:")
+    key = "PLAYFAIR"
+    playfairCipher("",key,printkey=True)
+    
+    print("")
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = playfairCipher(ptext,"PLAYFAIR")
+    dtext = playfairCipher(ctext,"PLAYFAIR",decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+   
