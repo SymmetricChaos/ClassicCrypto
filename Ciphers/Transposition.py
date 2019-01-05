@@ -323,4 +323,8 @@ def turningGrilleExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
 
-turningGrilleExample()
+#railfenceExample()
+#columnarTransportExample()
+#doubleColumnarTransportExample()
+#routeCipherExample()
+#turningGrilleExample()

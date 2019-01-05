@@ -1,15 +1,19 @@
 from UtilityFunctions import groups, alphabetPermutation
 import numpy as np
-
+from PrepareText import playfairPrep
 
             
 
 def playfairCipher(text,key,decode=False,printkey=False):
     
     text = text.replace("J","I")
+    text = playfairPrep(text)
     # Make sure the are an even number of letters
     if len(text) % 2 == 1:
-        text += "Q"
+        if text[-1] != "Q":
+            text += "Q"
+        else:
+            text += "X"
     
     k = alphabetPermutation(key,"ABCDEFGHIKLMNOPQRSTUVWXYZ")
 
@@ -23,12 +27,7 @@ def playfairCipher(text,key,decode=False,printkey=False):
         return ""
     
     G = groups(text,2)
-    # I'll come up with a way to automatically remove double letters later
-    # (Or not)
-    for g in G:
-        if g[0] == g[1]:
-            raise Exception("Double Letter {} Must Be Removed".format(g))
-    
+
     if decode == False:
     
         out = ""
@@ -164,4 +163,3 @@ def playfairCipherExample():
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
-   
