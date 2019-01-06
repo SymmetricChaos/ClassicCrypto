@@ -33,7 +33,7 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Multiple Vigenere Cipher
 
 #### Polybius Square Variants:
-* Polybius Square (IJ, CK, and extended alphabet versions)
+* Polybius Square (IJ, CK, and EXtended)
 * ADFGX and ADFGVX
 * Bifid and Trifid
 * Nihilist Cipher
@@ -43,7 +43,7 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Cipher Disk
 
 #### Playfair Type Cipher
-* Playfair Cipher (IJ variant)
+* Playfair Cipher (IJ, CK, QK, and EXtended)
 * Four Square Cipher (36 letter alphabet)
 
 #### Other Substitution Ciphers
