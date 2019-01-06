@@ -190,4 +190,4 @@ def playfairCipherExample():
         print("Ciphertext is: {}".format(ctext))
         print("Decodes As:    {}".format(dtext))
     
-playfairCipherExample()
+#playfairCipherExample()
