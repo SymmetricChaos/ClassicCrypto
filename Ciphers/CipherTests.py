@@ -3,7 +3,7 @@
 
 # Some stuff we need for testing
 from UtilityFunctions import decodetest
-from PrepareText import preptext1
+from PrepareText import preptext1,playfairPrep
 import numpy as np
 
 # Import the various ciphers
@@ -14,7 +14,7 @@ from PolybiusSquare import polybiusSquare, nihilistCipher, ADFGVX, bifidCipher,t
 from Transposition import columnarTransport,doubleColumnarTransport,railfence, turningGrille
 from RotorMachines import rotorMachine, cipherDisk
 from NomenclatorCipher import nomenclator
-from Playfair import fourSquareCipher
+from Playfair import fourSquareCipher, playfairCipher
 
 textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
 ptext = preptext1(textfile.readline())
@@ -59,6 +59,11 @@ decodetest(ptext,12,cipherDisk)
 #                  [1,7,16,5],
 #                  [6,12,14,15],
 #                  [2,9,10,11]],turningGrille)
+
+
+# Alter the text so it works for the playfair cipher
+ptextPlayfair = playfairPrep(ptext)
+decodetest(ptextPlayfair,"ILIKEANTELOPES",playfairCipher)
 
 decodetest(ptext,["4SQUARE2","10CODE7"],fourSquareCipher)
 
