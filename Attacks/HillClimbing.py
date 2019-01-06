@@ -1,3 +1,5 @@
+# based on http://practicalcryptography.com/cryptanalysis/stochastic-searching/cryptanalysis-simple-substitution-cipher/
+
 import sys
 sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
 from Ciphers import Monoalphabetic as sub
@@ -14,6 +16,10 @@ def hillclimbing(ctext):
     
     
     # There will be one thousand rounds of attempts to break the cipher
+    # The reason we have multiple rounds is because we might get stuck in a 
+    # local minima while mutating the results.
+    # Occasionally resetting gives coverage of more of the possible search
+    # space.
     for x in range(1000):
         # To start the round we randomize the alphabet to start with
         key = [i for i in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"]
@@ -74,6 +80,5 @@ ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
 ctext = sub.substitution(ptext,key="SIMPLESUBTITUTION")
 
 ctext = "SOWFBRKAWFCZFSBSCSBQITBKOWLBFXTBKOWLSOXSOXFZWWIBICFWUQLRXINOCIJLWJFQUNWXLFBSZXFBTXAANTQIFBFSFQUFCZFSBSCSBIMWHWLNKAXBISWGSTOXLXTSWLUQLXJBUUWLWISTBKOWLSWGSTOXLXTSWLBSJBUUWLFULQRTXWFXLTBKOWLBISOXSSOWTBKOWLXAKOXZWSBFIQSFBRKANSOWXAKOXZWSFOBUSWJBSBFTQRKAWSWANECRZAWJ"
-ctext = ctext.upper()
 
 hillclimbing(ctext)
