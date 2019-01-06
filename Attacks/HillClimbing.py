@@ -1,7 +1,7 @@
 import sys
 sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
 from Ciphers import Playfair
-from TextScoring import bigramScore
+from TextScoring import monogramScore
 import random
 
 ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
@@ -12,10 +12,10 @@ def hillclimbing(ctext):
     
     out = Playfair.playfairCipher(ctext,"".join(key),decode=True,mode="IJ")
     
-    bestscore = 0
+    bestscore = float("-infinity")
     bestkey = "ABCDEFGHIKLMNOPQRSTUVWXYZ"
     
-    for i in range(1000):
+    for i in range(10000):
         
         newKey = key[:]
         A = random.choice([i for i in range(25)])
@@ -24,13 +24,14 @@ def hillclimbing(ctext):
         
         out = Playfair.playfairCipher(ctext,"".join(newKey),decode=True,mode="IJ")
         
-        score = bigramScore(out)
+        score = monogramScore(out)
         
-        if score < bestscore:
+        if score > bestscore:
             key = newKey
             bestkey = newKey
             bestscore = score
         
     print("".join(bestkey))
+    print(Playfair.playfairCipher(ctext,"".join(bestkey),decode=True,mode="IJ"))
     
 hillclimbing(ctext)
