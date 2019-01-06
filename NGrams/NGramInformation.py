@@ -17,13 +17,6 @@ print()
 
 # If we don't move the cursors back to the beginning of ngrams2 it would
 # still be at the end from having read all the lines previously
-ngrams2.seek(0)
-for i,line in enumerate(ngrams2):
-    L = line.split(",")
-    print(L[0],end = " ")
-    if (i + 1)%20 == 0:
-        print()
-print("\n")
         
 ngrams1.seek(0)
 N = ngrams1.readlines()

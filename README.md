@@ -75,6 +75,7 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Godel Numbering
 
 ## Available Attacks:
-* Kasiski Examination attack on the Vigenere cipher
-* Brute force attack on Columnar Transport
-* Brute force attack on Caesar cipher
+* Kasiski Examination attack on the Vigenere
+* Hill Climbing Attack against Simple Substitution
+* Brute Force Attack on Columnar Transport
+* Brute Force Attack on Caesar cipher

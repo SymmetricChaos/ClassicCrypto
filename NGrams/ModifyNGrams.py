@@ -8,7 +8,6 @@ for line in ngrams1:
     tot1 += int(L[1])
 ngrams1.seek(0)
 
-
 ngrams2 = open('2grams.csv', 'r')
 tot2 = 0
 for line in ngrams2:
@@ -54,6 +53,7 @@ with open('3gramScores.csv', 'w', newline='') as csvfile:
         logprob = log2((L[1]+1)/tot3)
         L.append(floor(logprob*100))
         writer.writerow(L)
+
         
 with open('4gramScores.csv', 'w', newline='') as csvfile:
     writer = csv.writer(csvfile, delimiter=' ')

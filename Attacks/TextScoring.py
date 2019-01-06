@@ -3,9 +3,13 @@
 ngrams1 = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\NGrams\\1gramScores.csv', 'r')
 ngrams2 = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\NGrams\\2gramScores.csv', 'r')
 ngrams3 = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\NGrams\\3gramScores.csv', 'r')
+ngrams4 = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\NGrams\\4gramScores.csv', 'r')
+
+
 monograms = {}
 bigrams = {}
 trigrams = {}
+quadgrams = {}
 
 # We use the log probabilities since they are additive
 for line in ngrams1:
@@ -19,6 +23,10 @@ for line in ngrams2:
 for line in ngrams3:
     L = line.split(" ")
     trigrams[L[0]] = int(L[2])
+    
+for line in ngrams4:
+    L = line.split(" ")
+    quadgrams[L[0]] = int(L[2])
 
 def monogramScore(text):
     score = 0
@@ -35,5 +43,18 @@ def bigramScore(text):
 def trigramScore(text):
     score = 0
     for i in range(len(text)-1):
-        score += trigrams[text[i:i+2]]
+        if text[i:i+3] not in trigrams.keys():
+            score -= 3000
+        else:
+            score += trigrams[text[i:i+3]]
+    return score
+
+
+def quadgramScore(text):
+    score = 0
+    for i in range(len(text)-1):
+        if text[i:i+4] not in quadgrams.keys():
+            score -= 3000
+        else:
+            score += quadgrams[text[i:i+4]]
     return score
