@@ -4,18 +4,16 @@ from PrepareText import playfairPrep
 
             
 
-def playfairCipher(text,key,decode=False,printkey=False):
+def playfairCipher(text,key,decode=False,mode="IJ",printkey=False):
     
-    text = text.replace("J","I")
-    text = playfairPrep(text)
-    # Make sure the are an even number of letters
-    if len(text) % 2 == 1:
-        if text[-1] != "Q":
-            text += "Q"
-        else:
-            text += "X"
+    text = playfairPrep(text,mode=mode)
     
-    k = alphabetPermutation(key,"ABCDEFGHIKLMNOPQRSTUVWXYZ")
+    if mode == "IJ":
+        k = alphabetPermutation(key,"ABCDEFGHIKLMNOPQRSTUVWXYZ")
+    if mode == "CK":
+        k = alphabetPermutation(key,"ABDEFGHIJKLMNOPQRSTUVWXYZ")
+    if mode == "KQ":
+        k = alphabetPermutation(key,"ABCDEFGHIJKLMNOPRSTUVWXYZ")
 
     sq = np.full([5,5],"")
     for i in range(5):
