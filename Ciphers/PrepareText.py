@@ -19,6 +19,7 @@ def preptext2(text):
 
 def preptext3(text):
     print("REMOVING NON-ALPHANUMERIC CHARACTERS")
+    print("PRESERVING SPACES")
     T = re.sub(r'[^a-zA-Z0-9 ]', '', text)
     T = T.upper()
     return T
@@ -31,6 +32,8 @@ def playfairPrep(text,mode="IJ"):
         text = text.replace("C","K")
     if mode == "KQ":
         text = text.replace("Q","K")
+    if mode == "EX":
+        pass
         
     # chn just checks if we changed anything
     # At the start of each while loop set it to zero assuming we won't change
@@ -44,11 +47,11 @@ def playfairPrep(text,mode="IJ"):
             x = text[i*2:i*2+2]
             if x[0] == x[1]:
                 if x[0] != "X":
-                    text = text[:i*2] + "X" + text[i*2:]
+                    text = text[:i*2+1] + "X" + text[i*2+1:]
                     chn = 1
                     break
                 else:
-                    text = text[:i*2] + "Z" + text[i*2:]
+                    text = text[:i*2+1] + "Z" + text[i*2+1:]
                     chn = 1
                     break
                 
