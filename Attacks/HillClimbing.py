@@ -20,7 +20,7 @@ def hillclimbing(ctext):
     # local minima while mutating the results.
     # Occasionally resetting gives coverage of more of the possible search
     # space.
-    for x in range(1000):
+    for x in range(100):
         # To start the round we randomize the alphabet to start with
         key = [i for i in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"]
         random.shuffle(key)

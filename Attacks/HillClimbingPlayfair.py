@@ -20,7 +20,7 @@ def hillclimbing(ctext):
     # local minima while mutating the results.
     # Occasionally resetting gives coverage of more of the possible search
     # space.
-    for x in range(1000):
+    for x in range(2000):
         # To start the round we randomize the alphabet to start with
         key = [i for i in "ABCDEFGHIKLMNOPQRSTUVWXYZ"]
         random.shuffle(key)
@@ -73,9 +73,10 @@ def hillclimbing(ctext):
             print("\n")
         else:
             print("#",end="")
-            if (x + 1) % 50 == 0:
+            if (x + 1) % 45 == 0:
                 print()
 
-ctext = "SOWFBRKAWFCZFSBSCSBQITBKOWLBFXTBKOWLSOXSOXFZWWIBICFWUQLRXINOCIJLWJFQUNWXLFBSZXFBTXAANTQIFBFSFQUFCZFSBSCSBIMWHWLNKAXBISWGSTOXLXTSWLUQLXJBUUWLWISTBKOWLSWGSTOXLXTSWLBSJBUUWLFULQRTXWFXLTBKOWLBISOXSSOWTBKOWLXAKOXZWSBFIQSFBRKANSOWXAKOXZWSFOBUSWJBSBFTQRKAWSWANECRZAWJ"
 
+ptext = "THECULTIVATIONOFTHESUGARCANEISPURSUEDTOGREATEXTENTINTHEISLANDSOFTHEWESTINDIESWHEREABOUTTHREECENTURIESAGOITWASFIRSTINTRODUCEDFROMCHINAORSOMEOTHERPARTSOFTHEEASTANDWHEREITFLOURISHESWITHGREATLUXURIANCEPARTICULARLYINMOISTANDRICHGROUNDTHESEASONFORPLANTINGITCOMMENCESABOUTTHEBEGINNINGOFAUGUST"
+ctext = pf.playfairCipher(ptext,"PLAYFAIR")
 hillclimbing(ctext)
