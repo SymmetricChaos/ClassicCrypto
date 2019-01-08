@@ -5,10 +5,10 @@ sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
 from Ciphers import Playfair as pf
 from TextScoring import quadgramScore
 import random
+import math
 
 
-
-def hillclimbing(ctext):
+def simulatedAnnealing(ctext):
     
     # Setup
     finalScore = float("-infinity")
@@ -20,7 +20,7 @@ def hillclimbing(ctext):
     # local minima while mutating the results.
     # Occasionally resetting gives coverage of more of the possible search
     # space.
-    for x in range(2000):
+    for x in range(20):
         # To start the round we randomize the alphabet to start with
         key = [i for i in "ABCDEFGHIKLMNOPQRSTUVWXYZ"]
         random.shuffle(key)
@@ -30,33 +30,40 @@ def hillclimbing(ctext):
         bestscore = quadgramScore(out)
         bestkey = "".join(key)
      
-        # Within each round we keep mutating the key until we go a few thousand
-        # mutations without improvement.
-        ctr = 0
-        while ctr < 1000:
-            # Count how many mutations since the last improvement
-            ctr += 1
+        # Within each round we 
+        for temp in range(10,0,-1):
+            for i in range(40000):
+
+                # A copy of the key list that we can mutate
+                newKey = key[:]
             
-            # A copy of the key list that we can mutate
-            newKey = key[:]
-            
-            # The mutation is swapping two letters
-            A = random.randint(0,24)
-            B = random.randint(0,24)
-            newKey[A],newKey[B] = newKey[B],newKey[A]
-            
-            # Try it and see what score we get
-            out = pf.playfairCipher(ctext,"".join(newKey),decode=True)
-            score = quadgramScore(out)
-            
-            # If that score is better than before write it down and reset the
-            # counter.
-            if score > bestscore:
-    
-                ctr = 0
-                key = newKey
-                bestkey = newKey
-                bestscore = score
+                # The mutation is swapping two letters
+                A = random.randint(0,24)
+                B = random.randint(0,24)
+                newKey[A],newKey[B] = newKey[B],newKey[A]
+                
+                # Try it and see what score we get
+                out = pf.playfairCipher(ctext,"".join(newKey),decode=True)
+                score = quadgramScore(out)
+
+                
+                # If that score is better we always take the new key
+                # If it is worse then there is a chance we will accept it
+                # anyway. When the temperature is high, early in the process,
+                # it is more likely we will pick a worse score.
+                if score > bestscore:
+                    key = newKey
+                    bestkey = newKey
+                    bestscore = score
+                else:
+                    scorediff = score - bestscore
+
+                    pr = math.exp(scorediff/temp)
+
+                    if random.uniform(0,1) > pr:
+                        key = newKey
+                        bestkey = newKey
+                        bestscore = score
     
         # At the end of each round check if it produced a better score than
         # any previous round. If it did then write it down and print some
@@ -79,4 +86,4 @@ def hillclimbing(ctext):
 
 ptext = "THECULTIVATIONOFTHESUGARCANEISPURSUEDTOGREATEXTENTINTHEISLANDSOFTHEWESTINDIESWHEREABOUTTHREECENTURIESAGOITWASFIRSTINTRODUCEDFROMCHINAORSOMEOTHERPARTSOFTHEEASTANDWHEREITFLOURISHESWITHGREATLUXURIANCEPARTICULARLYINMOISTANDRICHGROUNDTHESEASONFORPLANTINGITCOMMENCESABOUTTHEBEGINNINGOFAUGUST"
 ctext = pf.playfairCipher(ptext,"PLAYFAIR")
-hillclimbing(ctext)
+simulatedAnnealing(ctext)
