@@ -6,11 +6,10 @@ from Ciphers import Playfair as pf
 from TextScoring import quadgramScore
 import random
 import math
-
+import numpy as np
 
 def simulatedAnnealing(ctext):
-        
-    
+
     # There will be one thousand rounds of attempts to break the cipher
     # The reason we have multiple rounds is because we might get stuck in a 
     # local minima while mutating the results.
@@ -27,9 +26,9 @@ def simulatedAnnealing(ctext):
         bestkey = "".join(key)
      
         # Within each round we 
-        for temp in range(10,0,-1):
+        for temp in np.linspace(20,.5,41):
             print(temp,end=" ")
-            for i in range(40000):
+            for i in range(5000):
 
                 # A copy of the key list that we can mutate
                 newKey = key[:]

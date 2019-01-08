@@ -1,3 +1,5 @@
+import random
+
 # Here are a few pseudorandom number generators that are somewhat practical to
 # perform with a pen and paper. While they are completely inappropriate for any
 # modern cryptographic system they are useful for demonstration. All examples
@@ -21,8 +23,30 @@ def LCG(seed,mod,mult,incr):
     while True:
         seed = (mult*seed+incr) % mod
         yield seed
+
+# The German reihenschieber was a simple sliderule system designed to create
+# sequences of random digits. In actual use the sticks and grille are of course
+# physical
+def makeReihenschieberStick():
+    alpha = ["0","1","2","3","4","5","6","7","8","9","."]
+    return "".join(random.choices(alpha,k=40))
+
+def showReihenschieberGrille(grille):
+    G = [[0,0,0,0,0,0,0,0,0,0] for i in range(10)]
+    for loc in grille:
+        G[loc//10][loc%10] = 1
+    for row in G:
+        t = ["#" if j == 0 else "_" for j in row]
+        print("|","|".join(t),"|",sep="")
         
-def reihenschieber():
+def Reihenschieber(sticks,grille,stickspos,grillepos):
+    
+    G = [[0,0,0,0,0,0,0,0,0,0] for i in range(10)]
+    for loc in grille:
+        G[loc//10][loc%10] = 1
+
+    
+    
     pass
         
 def WeyelExample():
@@ -54,6 +78,14 @@ def LCGExample():
             break
     print("Notice the periodicity of the low order bits.")
         
-WeyelExample()
-print("\n\n")
-LCGExample()
+    
+def ReihenschieberExample():
+    sticks = [makeReihenschieberStick() for i in range(10)]
+    grille = [1,7,13,17,26,32,45,51,55,69,75,81,92]
+    Reihenschieber(sticks,grille)
+    print("Example of the Reihenschieber\n")
+
+#WeyelExample()
+#print("\n\n")
+#LCGExample()
+ReihenschieberExample()

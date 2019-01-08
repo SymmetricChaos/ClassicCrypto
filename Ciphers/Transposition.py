@@ -201,7 +201,7 @@ def turningGrille(text,key,decode=False,printkey=False,printgrid=False):
     while len(text) < 64:
 
         if ctr > 3:
-            text += choice([i for i in "ATAOINSRH"])
+            text += choice([i for i in "ETAOINSRH"])
         else:
             text += "X"
             ctr += 1
