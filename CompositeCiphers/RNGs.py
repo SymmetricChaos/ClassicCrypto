@@ -36,18 +36,34 @@ def showReihenschieberGrille(grille):
     for loc in grille:
         G[loc//10][loc%10] = 1
     for row in G:
-        t = ["#" if j == 0 else "_" for j in row]
+        t = ["_" if j == 0 else "#" for j in row]
         print("|","|".join(t),"|",sep="")
         
 def Reihenschieber(sticks,grille,stickspos,grillepos):
     
+    for i in range(10):
+        sticks[i] += "."*10
+    
+    # Create the grille? Probably a better way to do this
     G = [[0,0,0,0,0,0,0,0,0,0] for i in range(10)]
     for loc in grille:
         G[loc//10][loc%10] = 1
 
+    shiftedSticks = []
+    for st,p in zip(sticks,stickspos):
+        covered = p+grillepos
+        shiftedSticks.append(st[covered:covered+10])
+
     
-    
-    pass
+    out = []
+    for col in range(10):
+        for loc in grille:
+            if loc%10 == col:
+                D = shiftedSticks[loc//10][loc%10]
+                if D != ".":
+                    out.append(int(D))
+    print(out)
+
         
 def WeyelExample():
     print("Example of the Weyel Random Number Generator\n")
@@ -80,10 +96,15 @@ def LCGExample():
         
     
 def ReihenschieberExample():
-    sticks = [makeReihenschieberStick() for i in range(10)]
-    grille = [1,7,13,17,26,32,45,51,55,69,75,81,92]
-    Reihenschieber(sticks,grille)
+    
     print("Example of the Reihenschieber\n")
+    sticks = [makeReihenschieberStick() for i in range(10)]
+    grille = [0,7,13,17,26,32,45,51,55,69,75,81,90]
+    for s in sticks:
+        print(s)
+    print()
+    showReihenschieberGrille(grille)
+    Reihenschieber(sticks,grille,[0,3,2,5,7,1,2,9,4,8],25)
 
 #WeyelExample()
 #print("\n\n")
