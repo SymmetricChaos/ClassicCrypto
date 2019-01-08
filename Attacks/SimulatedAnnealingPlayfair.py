@@ -9,11 +9,7 @@ import math
 
 
 def simulatedAnnealing(ctext):
-    
-    # Setup
-    finalScore = float("-infinity")
-    finalKey = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    
+        
     
     # There will be one thousand rounds of attempts to break the cipher
     # The reason we have multiple rounds is because we might get stuck in a 
@@ -32,6 +28,7 @@ def simulatedAnnealing(ctext):
      
         # Within each round we 
         for temp in range(10,0,-1):
+            print(temp,end=" ")
             for i in range(40000):
 
                 # A copy of the key list that we can mutate
@@ -43,7 +40,7 @@ def simulatedAnnealing(ctext):
                 newKey[A],newKey[B] = newKey[B],newKey[A]
                 
                 # Try it and see what score we get
-                out = pf.playfairCipher(ctext,"".join(newKey),decode=True)
+                out = pf.playfairCipher(ctext,newKey,decode=True,mode="FAST")
                 score = quadgramScore(out)
 
                 
@@ -56,7 +53,7 @@ def simulatedAnnealing(ctext):
                     bestkey = newKey
                     bestscore = score
                 else:
-                    scorediff = score - bestscore
+                    scorediff = (score - bestscore)/1000
 
                     pr = math.exp(scorediff/temp)
 
@@ -65,23 +62,15 @@ def simulatedAnnealing(ctext):
                         bestkey = newKey
                         bestscore = score
     
-        # At the end of each round check if it produced a better score than
-        # any previous round. If it did then write it down and print some
-        # information.
-        if bestscore > finalScore:
-            finalKey = bestkey
-            finalScore = bestscore
-            print("\n\nRound {}".format(x))
-            print("Key Looks Like:")
-            #print("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-            print("".join(finalKey))
-            print()
-            print(pf.playfairCipher(ctext,"".join(finalKey),decode=True))
-            print("\n")
-        else:
-            print("#",end="")
-            if (x + 1) % 45 == 0:
-                print()
+
+
+        print("\n\nRound {}".format(x))
+        print("Key Looks Like:")
+        print("".join(bestkey))
+        print()
+        print(pf.playfairCipher(ctext,"".join(bestkey),decode=True))
+        print("\n")
+
 
 
 ptext = "THECULTIVATIONOFTHESUGARCANEISPURSUEDTOGREATEXTENTINTHEISLANDSOFTHEWESTINDIESWHEREABOUTTHREECENTURIESAGOITWASFIRSTINTRODUCEDFROMCHINAORSOMEOTHERPARTSOFTHEEASTANDWHEREITFLOURISHESWITHGREATLUXURIANCEPARTICULARLYINMOISTANDRICHGROUNDTHESEASONFORPLANTINGITCOMMENCESABOUTTHEBEGINNINGOFAUGUST"

@@ -22,6 +22,9 @@ def LCG(seed,mod,mult,incr):
         seed = (mult*seed+incr) % mod
         yield seed
         
+def reihenschieber():
+    pass
+        
 def WeyelExample():
     print("Example of the Weyel Random Number Generator\n")
     modulus = 100000

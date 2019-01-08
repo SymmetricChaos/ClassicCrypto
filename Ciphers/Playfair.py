@@ -6,22 +6,25 @@ from PrepareText import playfairPrep
 
 def playfairCipher(text,key,decode=False,mode="IJ",printkey=False):
     
-    # Make sure the text will work correctly for a playfair cipher in this mode
-    text = playfairPrep(text,mode=mode)
-    
-    # Derive the alphabet to be used for the key based on the mode
-    if mode == "IJ" or mode == "JI":
-        key = key.replace("J","I")
-        k = alphabetPermutation(key,"ABCDEFGHIKLMNOPQRSTUVWXYZ")
-    if mode == "CK" or mode == "KC":
-        key = key.replace("C","K")
-        k = alphabetPermutation(key,"ABDEFGHIJKLMNOPQRSTUVWXYZ")
-    if mode == "KQ" or mode == "QK":
-        key = key.replace("Q","K")
-        k = alphabetPermutation(key,"ABCDEFGHIJKLMNOPRSTUVWXYZ")
-    if mode == "EX":
-        k = alphabetPermutation(key,"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
-    
+    if mode == "FAST":
+        k = key
+    else:
+        # Make sure the text will work correctly for a playfair cipher in this mode
+        text = playfairPrep(text,mode=mode)
+        
+        # Derive the alphabet to be used for the key based on the mode
+        if mode == "IJ" or mode == "JI":
+            key = key.replace("J","I")
+            k = alphabetPermutation(key,"ABCDEFGHIKLMNOPQRSTUVWXYZ")
+        if mode == "CK" or mode == "KC":
+            key = key.replace("C","K")
+            k = alphabetPermutation(key,"ABDEFGHIJKLMNOPQRSTUVWXYZ")
+        if mode == "KQ" or mode == "QK":
+            key = key.replace("Q","K")
+            k = alphabetPermutation(key,"ABCDEFGHIJKLMNOPRSTUVWXYZ")
+        if mode == "EX":
+            k = alphabetPermutation(key,"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+        
     if mode == "EX":
         sq = np.full([6,6],"")
         for i in range(6):
