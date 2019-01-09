@@ -4,9 +4,11 @@
 ## then the columns of the matrix are suffled and read off by columns.
 
 ## The order of the arguments
+import numpy as np
 from numpy import argsort
 from numpy.random import choice
 from UtilityFunctions import uniqueRank, groups
+import random
 
 def columnarTransport(text,key,decode=False):
     
@@ -186,8 +188,6 @@ def routeCipher(text,key,decode=False):
 # The turning grille was invented by Edouard Fleissner. This version uses a
 # fixed 8x8 grid.
 
-import numpy as np
-
 def turningGrille(text,key,decode=False,printkey=False,printgrid=False):
     
     # Can't work with more than 64 characters at a time 
@@ -222,7 +222,7 @@ def turningGrille(text,key,decode=False,printkey=False,printgrid=False):
     # If requested print out the grille in a more human readable way
     if printkey == True:
         for i in grille:
-            t = ["#" if j == 0 else "_" for j in i]
+            t = ["_" if j == 0 else "#" for j in i]
             print("|","|".join(t),"|",sep="")
     
     # When encoding write the letters of the text into the open spaces of the
@@ -255,8 +255,80 @@ def turningGrille(text,key,decode=False,printkey=False,printgrid=False):
             
         return out
 
+# A turning grille cipher can have a width that is any multiple of four.
+# (Actually it can be any size but multiples of four are easier for me.)
+def turningGrilleN(text,key,decode=False,printkey=False,printgrid=False,N=2):
+    
+    
+    key = groups(key,N**2)
+    
+    S = N*4
+        
+    # Can't work with more than 64 characters at a time 
+    if len(text) > S**2:
+        raise Exception("Text is too long.")
+    
+    # If we have less than 64 characters first insert Xs as nulls to indicate
+    # that we have reached the end of the message. Then put in common letters
+    # to make the less less obvious.
+    ctr = 0
+    while len(text) < S**2:
 
-#def turningGrilleN()
+        if ctr > 3:
+            text += choice([i for i in "ETAOINSRH"])
+        else:
+            text += "X"
+            ctr += 1
+    
+    # The grille is actual key used for encryption, the key argument provided
+    # specifies how to put it together.
+    grille = np.zeros([S,S],dtype=int)
+    # This matrix is what we will write the results into
+    outmat = np.full([S,S],"")
+    
+    # Generate the grille to be used as the key
+    for block in key:
+        for digit in block:
+            pos = np.divmod(digit,S//2)
+            grille[pos[0],pos[1]] = 1
+        grille = np.rot90(grille)
+    
+    # If requested print out the grille in a more human readable way
+    if printkey == True:
+        for i in grille:
+            t = ["_" if j == 0 else "#" for j in i]
+            print("|","|".join(t),"|",sep="")
+    
+    # When encoding write the letters of the text into the open spaces of the
+    # grille. Then rotate the grille 90 degrees and continue.
+    if decode == False:
+        for rot in range(4):
+            X = np.where(grille == 1)
+            for i,j in zip(X[0],X[1]):
+                a,text = text[0],text[1:]
+                outmat[i,j] = a
+            grille = np.rot90(grille)
+        
+        out = ""
+        for i in outmat:
+            if printgrid == True:
+                print("".join(i))
+            out += "".join(i)
+            
+        return out
+
+    if decode == True:
+        
+        gr = groups(text,S)
+        out = ""
+        for rot in range(4):
+            X = np.where(grille == 1)
+            for i,j in zip(X[0],X[1]):
+                out += gr[i][j]
+            grille = np.rot90(grille)
+            
+        return out
+
 
 def railfenceExample():
     print("Example of the Rail Fence Cipher\n")
@@ -311,7 +383,9 @@ def routeCipherExample():
 def turningGrilleExample():
 
     print("Turning Grille Example")
-    key = [[0,3,6,13],[4,5,8,15],[1,7,10,11],[2,9,12,14]]
+    key = [i for i in range(16)]
+    random.shuffle(key)
+    key = groups(key,4)
     print("The Grille Is:")
     turningGrille("",key,printkey=True)
     
@@ -323,8 +397,26 @@ def turningGrilleExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
 
+
+def turningGrilleNExample():
+
+    print("Turning Grille N Example")
+    key = [i for i in range(64)]
+    random.shuffle(key)
+    print("The Grille Is:")
+    turningGrilleN("",key,printkey=True,N=4)
+    
+
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOGANDTHENTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOGAGAIN"
+    ctext = turningGrilleN(ptext,key,N=4)
+    dtext = turningGrilleN(ctext,key,decode=True,N=4)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+
 #railfenceExample()
 #columnarTransportExample()
 #doubleColumnarTransportExample()
 #routeCipherExample()
 #turningGrilleExample()
+turningGrilleNExample()

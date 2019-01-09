@@ -32,7 +32,7 @@ def LCG(seed,mod,mult,incr):
 # Utility function to make a random Reihenschieber stick
 # In practice these must be distributed among users
 def makeReihenschieberStick():
-    alpha = ["0","1","2","3","4","5","6","7","8","9","."]
+    alpha = ["0","1","2","3","4","5","6","7","8","9",".","."]
     return "".join(random.choices(alpha,k=40))
 
 # Utility function to make a visualization of the grille used for the Reihenschieber
@@ -102,7 +102,7 @@ def ReihenschieberExample():
     
     print("Example of the Reihenschieber\n")
     sticks = [makeReihenschieberStick() for i in range(10)]
-    grille = random.sample([i for i in range(100)],20)
+    grille = random.sample([i for i in range(100)],25)
     
     print("Sticks Used:")
     for s in sticks:
@@ -110,7 +110,7 @@ def ReihenschieberExample():
     print("\nGrille Used:")
     showReihenschieberGrille(grille)
     print()
-    Reihenschieber(sticks,grille,[0,3,2,5,7,1,2,9,4,8],25)
+    Reihenschieber(sticks,grille,[0,3,2,5,7,1,2,9,4,8],5)
 
 WeyelExample()
 print("\n\n")
