@@ -15,7 +15,7 @@ def simulatedAnnealing(ctext):
     # local minima while mutating the results.
     # Occasionally resetting gives coverage of more of the possible search
     # space.
-    for x in range(20):
+    for x in range(30):
         # To start the round we randomize the alphabet to start with
         key = [i for i in "ABCDEFGHIKLMNOPQRSTUVWXYZ"]
         random.shuffle(key)
@@ -25,10 +25,11 @@ def simulatedAnnealing(ctext):
         bestscore = quadgramScore(out)
         bestkey = "".join(key)
      
-        # Within each round we 
-        for temp in np.linspace(20,.5,41):
-            print(temp,end=" ")
-            for i in range(5000):
+        # The "temperature" decreases gradually with each round. The higher the
+        # temperature the more likely the algorithm is to accept a change.
+        for temp in np.linspace(20,.5,40):
+            print("!",end="")
+            for i in range(20000):
 
                 # A copy of the key list that we can mutate
                 newKey = key[:]

@@ -74,6 +74,11 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 #### Mathematical Codes:
 * Godel Numbering
 
+## Random Number Generators:
+* Reihenschieber
+* Weyel Sequence
+* Linear Congruential Generator
+
 ## Available Attacks:
 * Kasiski Examination attack on the Vigenere
 * Hill Climbing Attack against Simple Substitution
