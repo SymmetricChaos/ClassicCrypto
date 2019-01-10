@@ -30,6 +30,12 @@ def polybiusSquare(text,key="",decode=False,mode="EX",sep=""):
         text = text.replace("C","K")
         key = key.replace("C","K")
         
+    #the KQ version of the polybius (25 characters)
+    if mode == "KQ":
+        alpha = "ABCEDFGHIJKLMNOPRSTUVWXYZ"
+        text = text.replace("Q","K")
+        key = key.replace("Q","K")   
+        
     #the extended version of the polybius (36 characters)
     if mode == "EX":
         alpha = "ABCEDFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -73,37 +79,32 @@ def polybiusSquare(text,key="",decode=False,mode="EX",sep=""):
 # addition and subtraction and performed normally.
 def nihilistCipher(text,key=["A","A"],decode=False,mode="EX"):
     
-    if mode == "EX":
-        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-    else:
-        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    
-    K = []
-    for letter in key[1]:
-        K.append(alphabet.index(letter))
-    kLen = len(K)
-    
+    # Convert the vigenere key into numbers using the polybius square
+    keynum = polybiusSquare(key[1],key[0],mode=mode,sep=" ")
+    keynum = [int(n) for n in keynum.split(" ")]
+    kLen = len(keynum)
     
     if decode == False:
-    
-        ps = polybiusSquare(text,key[0],mode=mode,sep=" ")
-        nm = [int(p) for p in ps.split(" ")]
         
-        for i in range(len(nm)):
-            nm[i] = (nm[i]+K[i%kLen])
-            
-        return " ".join([str(i) for i in nm])
+        textnum = polybiusSquare(text,key[0],mode=mode,sep=" ")
+        textnum = [int(n) for n in textnum.split(" ")]
+
+
+        for i in range(len(textnum)):
+            textnum[i] = (textnum[i]+keynum[i%kLen])
+        
+        return " ".join([str(i) for i in textnum])
     
     if decode == True:
         
-        nm = [int(p) for p in text.split(" ")]
+        textnum = [int(n) for n in text.split(" ")]
         
-        for i in range(len(nm)):
-            nm[i] = (nm[i]-K[i%kLen])
+        for i in range(len(textnum)):
+            textnum[i] = (textnum[i]-keynum[i%kLen])
         
-        ps = " ".join([str(i) for i in nm])
+        textnum = " ".join([str(i) for i in textnum])
         
-        dtext = polybiusSquare(ps,key[0],decode=True,mode=mode,sep=" ")
+        dtext = polybiusSquare(textnum,key[0],decode=True,mode=mode,sep=" ")
             
         return dtext
     
@@ -267,7 +268,7 @@ def polybiusSquareExample():
     
     print("Plaintext is:  {}\n\n".format(ptext))
     
-    for mode in ["IJ","CK","EX"]:
+    for mode in ["IJ","CK","KQ","EX"]:
         print("Using Mode {}".format(mode))
         ctext = polybiusSquare(ptext,key,mode=mode,sep=" ")
         print("Ciphertext is: {}".format(ctext))
@@ -275,7 +276,7 @@ def polybiusSquareExample():
         print("Decodes As:    {}".format(dtext))
         print()
 
-def trifidEample():
+def trifidExample():
     ptext = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG"
     key = "AKEY"
     print("Example Of A Trifid Cipher\n\nKey is {}\n".format(key))
@@ -285,3 +286,19 @@ def trifidEample():
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
+    
+    
+def nihilistCipherExample():
+    ptext = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG"
+    key = ["SOMETHING","NIHILIST"]
+    print("Example Of The Nihilist Cipher\n\nKey is {}\n".format(key))
+
+    mode = "KQ"
+    print("Plaintext is:  {}".format(ptext))
+    ctext = nihilistCipher(ptext,key,mode = mode)
+    print("Ciphertext is: {}".format(ctext))
+    dtext = nihilistCipher(ctext,key,decode=True, mode = mode)
+    print("Decodes As:    {}".format(dtext))
+
+#polybiusSquareExample()
+nihilistCipherExample()
