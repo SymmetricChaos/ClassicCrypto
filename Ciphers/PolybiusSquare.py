@@ -192,9 +192,13 @@ def trifidCipher(text,key,decode=False):
 # attacker less to work with.
 
 def ADFGX(text,keys=["A",[0,1]],decode=False):
+    
+    while len(text) % len(keys[1]) != 0:
+        text += "X"
+        
+    
     alpha = "ABCDEFGHIKLMNOPQRSTUVWXYZ"
     alpha = alphabetPermutation(keys[0],alpha)
-    
     # Replace 
     text = text.replace("J","I")
     
@@ -220,6 +224,10 @@ def ADFGX(text,keys=["A",[0,1]],decode=False):
     return ctext
 
 def ADFGVX(text,keys=["A",[0,1]],decode=False):
+    
+    while len(text) % len(keys[1]) != 0:
+        text += "X"
+    
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     alpha = alphabetPermutation(keys[0],alpha)
     
@@ -262,7 +270,7 @@ def ADFGVXexample():
 
 
 def polybiusSquareExample():
-    ptext = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG"
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     key = "FIVEZEBRAS"
     print("Example Of A Polybius Square\n\nKey is {}\n".format(key))
     
@@ -277,9 +285,9 @@ def polybiusSquareExample():
         print()
 
 def trifidExample():
-    ptext = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG"
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     key = "AKEY"
-    print("Example Of A Trifid Cipher\n\nKey is {}\n".format(key))
+    print("Example Of A Trifid Cipher\n\nKey is {}".format(key))
 
     ctext = trifidCipher(ptext,key)
     dtext = trifidCipher(ctext,key,decode=True)
@@ -289,7 +297,7 @@ def trifidExample():
     
     
 def nihilistCipherExample():
-    ptext = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG"
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     key = ["SOMETHING","NIHILIST"]
     print("Example Of The Nihilist Cipher\n\nKey is {}\n".format(key))
 
@@ -300,5 +308,13 @@ def nihilistCipherExample():
     dtext = nihilistCipher(ctext,key,decode=True, mode = mode)
     print("Decodes As:    {}".format(dtext))
 
+
+#ADFGXexample()
+#print("\n")
+#ADFGVXexample()
+#print("\n")
+#trifidExample()
+#print("\n")
 #polybiusSquareExample()
-nihilistCipherExample()
+#print("\n")
+#nihilistCipherExample()
