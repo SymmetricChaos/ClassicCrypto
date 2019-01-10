@@ -11,9 +11,15 @@ The difference between codes and ciphers in classical cryptography is fairly vag
 
 ## Details
 All implemented ciphers are functions of the form `cipherName(text,key,decode=False)`
-*  `text` must be a string
+*  `text` must be a string with either plaintext or ciphertext
 *  `key` is whatever kind of key the cipher uses, if it requires multiple keys they must be in a list
 *  `decode` is boolean and sets the function to either encode or decode
+
+Ciphers based on the Polybius Square or on the Playfair Cipher have the argument `mode` which can be:
+*  `IJ` replaces J with I to get a 25 letter square
+*  `CK` replaces C with K to get a 25 letter square
+*  `QK` replaces Q with K to get a 25 letter square
+*  `EX` appends the digits 0 to 9 to the alphabet to get a 36 letter alphabet
 
 All ciphers will return a string containing either the ciphertext or the decoded text.
 The nomenclator cipher has an alternate mode that returns the dictionary that serves as the internal key.
@@ -33,7 +39,7 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Multiple Vigenere Cipher
 
 #### Polybius Square Variants:
-* Polybius Square (IJ, CK, and EXtended)
+* Polybius Square
 * ADFGX and ADFGVX
 * Bifid and Trifid
 * Nihilist Cipher
@@ -43,8 +49,8 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Cipher Disk
 
 #### Playfair Type Cipher
-* Playfair Cipher (IJ, CK, QK, and EXtended)
-* Four Square Cipher (36 letter alphabet)
+* Playfair Cipher
+* Four Square Cipher
 
 #### Other Substitution Ciphers
 * Hill's Matrix Cipher
