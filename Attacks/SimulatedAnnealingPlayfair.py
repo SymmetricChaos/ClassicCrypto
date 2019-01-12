@@ -49,7 +49,7 @@ def simulatedAnnealing(ctext):
         # temperature the more likely the algorithm is to accept a change.
         for temp in np.linspace(20,.2,100):
             print("!",end="")
-            for i in range(20000):
+            for i in range(10000):
 
                 # A copy of the key list that we can mutate
                 newKey = key[:]
@@ -58,13 +58,13 @@ def simulatedAnnealing(ctext):
                 mutType = random.randint(0,99)
                 if mutType < 80:
                     swapLetters(newKey)
-                if mutType >= 80 and mutType < 85:
+                if mutType >= 92 and mutType < 94:
                     swapRows(newKey)
-                if mutType >= 85 and mutType < 90:
+                if mutType >= 94 and mutType < 96:
                     swapCols(newKey)
-                if mutType >= 90 and mutType < 95:
+                if mutType >= 96 and mutType < 98:
                     rotate(newKey)
-                if mutType >= 95:
+                if mutType >= 98:
                     newKey.reverse()
     
                 
