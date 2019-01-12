@@ -172,6 +172,7 @@ def rotorMachineExample():
     
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = rotorMachine(ptext,keys=keySettings)
+    print()
     dtext = rotorMachine(ctext,keys=keySettings,decode=True)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
@@ -191,3 +192,7 @@ def cipherDiskExample():
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
+
+#rotorMachineExample()
+#print()
+#cipherDiskExample()

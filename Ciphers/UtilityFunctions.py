@@ -15,14 +15,14 @@ def alphabetPermutation(key,alphabet=""):
     if alphabet == "":
         alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     
-    for letter in key:
+    # Include every unique letter of the key in the order it appears
+    k = ""
+    for letter in key:        
         if letter not in alphabet:
             raise Exception('key does not fit with alphabet')
-    
-    k = ""
-    for letter in key:
         if letter not in k:
             k += letter
+    # Put in every unused letter of the alphabet into the key
     for letter in alphabet:
         if letter not in k:
             k += letter
@@ -36,7 +36,7 @@ def decodetest(text,keys,fun):
     if text == dtext[:len(text)]:
         print("Success")
     else:
-        raise Exception("Decode Error With {}".format(fun.__name__))
+        raise Warning("Decode Error With {}".format(fun.__name__))
 
 # Return a list of groups from the text
 # For example

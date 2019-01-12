@@ -8,6 +8,19 @@ import random
 import math
 import numpy as np
 
+def swapLetters(key):
+    A,B = random.sample([i for i in range(25)],2)
+    key[A],key[B] = key[B],key[A]
+    
+def swapRows(key):
+    A,B = random.sample([0,1,2,3,4],2)
+    key[5*A:5*A+5],key[5*B:5*B+5] = key[5*B:5*B+5],key[5*A:5*A+5]
+
+def rotate(key):
+    A = random.randint(1,23)
+    for i in range(A):
+        key.append(key.pop(0))
+
 def simulatedAnnealing(ctext):
 
     # There will be one thousand rounds of attempts to break the cipher
@@ -27,17 +40,24 @@ def simulatedAnnealing(ctext):
      
         # The "temperature" decreases gradually with each round. The higher the
         # temperature the more likely the algorithm is to accept a change.
-        for temp in np.linspace(20,.2,100):
+        for temp in np.linspace(20,.2,60):
             print("!",end="")
-            for i in range(20000):
+            for i in range(15000):
 
                 # A copy of the key list that we can mutate
                 newKey = key[:]
             
-                # The mutation is swapping two letters
-                A = random.randint(0,24)
-                B = random.randint(0,24)
-                newKey[A],newKey[B] = newKey[B],newKey[A]
+                # Choose which kind of mutation to apply
+                mutType = random.randint(0,99)
+                if mutType < 80:
+                    swapLetters(newKey)
+                if mutType >= 80 and mutType < 90:
+                    swapRows(newKey)
+                if mutType >= 90 and mutType < 95:
+                    rotate(newKey)
+                if mutType >= 95:
+                    newKey.reverse()
+    
                 
                 # Try it and see what score we get
                 out = pf.playfairCipher(ctext,newKey,decode=True,mode="FAST")
@@ -64,8 +84,8 @@ def simulatedAnnealing(ctext):
     
 
 
-        print("\n\nRound {}".format(x))
-        print("Key Looks Like:")
+        print("\n\nRound {}".format(x+1))
+        print("Best Key Found:")
         print("".join(bestkey))
         print()
         print(pf.playfairCipher(ctext,"".join(bestkey),decode=True))
