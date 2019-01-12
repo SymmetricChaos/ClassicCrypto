@@ -86,7 +86,12 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Linear Congruential Generator
 
 ## Available Attacks:
-* Kasiski Examination attack on the Vigenere
-* Hill Climbing Attack against Simple Substitution
-* Brute Force Attack on Columnar Transport
-* Brute Force Attack on Caesar cipher
+
+#### Brute Force
+* Columnar Transport
+* Caesar Cipher
+* Affine Cipher
+
+#### Other Techniques
+* Vigenere (Kasiski Examination)
+* Simple Substitution (Hill Climbing)
