@@ -16,6 +16,13 @@ def swapRows(key):
     A,B = random.sample([0,1,2,3,4],2)
     key[5*A:5*A+5],key[5*B:5*B+5] = key[5*B:5*B+5],key[5*A:5*A+5]
 
+def swapCols(key):
+    A,B = random.sample([0,1,2,3,4],2)
+    for i in range(5):
+        t = key[i*5 + A]
+        key[i*5 + A] = key[i*5 + B]
+        key[i*5 + B] = t
+
 def rotate(key):
     A = random.randint(1,23)
     for i in range(A):
@@ -40,9 +47,9 @@ def simulatedAnnealing(ctext):
      
         # The "temperature" decreases gradually with each round. The higher the
         # temperature the more likely the algorithm is to accept a change.
-        for temp in np.linspace(20,.2,60):
+        for temp in np.linspace(20,.2,100):
             print("!",end="")
-            for i in range(15000):
+            for i in range(20000):
 
                 # A copy of the key list that we can mutate
                 newKey = key[:]
@@ -51,8 +58,10 @@ def simulatedAnnealing(ctext):
                 mutType = random.randint(0,99)
                 if mutType < 80:
                     swapLetters(newKey)
-                if mutType >= 80 and mutType < 90:
+                if mutType >= 80 and mutType < 85:
                     swapRows(newKey)
+                if mutType >= 85 and mutType < 90:
+                    swapCols(newKey)
                 if mutType >= 90 and mutType < 95:
                     rotate(newKey)
                 if mutType >= 95:
@@ -90,7 +99,6 @@ def simulatedAnnealing(ctext):
         print()
         print(pf.playfairCipher(ctext,"".join(bestkey),decode=True))
         print("\n")
-
 
 
 ptext = "THECULTIVATIONOFTHESUGARCANEISPURSUEDTOGREATEXTENTINTHEISLANDSOFTHEWESTINDIESWHEREABOUTTHREECENTURIESAGOITWASFIRSTINTRODUCEDFROMCHINAORSOMEOTHERPARTSOFTHEEASTANDWHEREITFLOURISHESWITHGREATLUXURIANCEPARTICULARLYINMOISTANDRICHGROUNDTHESEASONFORPLANTINGITCOMMENCESABOUTTHEBEGINNINGOFAUGUST"
