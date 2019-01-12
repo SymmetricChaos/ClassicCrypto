@@ -1,23 +1,23 @@
-from TextScoring import bigramScore
+import sys
+sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
+from Ciphers import Monoalphabetic as mono
+from TextScoring import quadgramScore
 
-def caesar(s,k,decode=False):
-    s = s.upper()
-    if decode == True:
-        k = 26-k
-    return "".join([chr((ord(i)-65+k)%26+65) for i in s])
+ptext = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG"
+ctext = mono.caesar(ptext,15)
 
-ctext = caesar("THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG",15)
-
+bestkey = 0
 bestdecode = ""
 bestscore = float("-inf")
 for i in range(0,26):
     
-    dtext = caesar(ctext,i,decode=True)
-    s = bigramScore(dtext)
+    dtext = mono.caesar(ctext,i,decode=True)
+    s = quadgramScore(dtext)
     if s > bestscore:
+        bestkey = i
         bestscore = s
         bestdecode = dtext
 
-print(ctext)
-print("probably translates to")
+print("Best Key Found: {}".format(bestkey))
+print("Decodes As")
 print(bestdecode)
