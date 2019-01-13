@@ -187,29 +187,29 @@ def prefixCode(text,decode=False):
                 code = ""
         return "".join(out)
        
-        
-#ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-#ctext = morseCode(ptext)
-#dtext = morseCode(ctext,decode=True)
-#print(ctext)
-#print(dtext)
+def morseCodeExample():
+    print("Example of Morse Code\n")
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = morseCode(ptext)
+    print(ptext)
+    print(ctext)
 
-#ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-#ctext = prefixCode(ptext)
-#dtext = prefixCode(ctext,decode=True)
+def prefixCodeExample():
+    print("Example of a Fibonacci Prefix Code\n")
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = prefixCode(ptext)
+    print(ptext)
+    print(ctext)
+    
+def baconCipherExample():
+    print("Example of the Bacon Cipher\n")
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = baconCipher(ptext)
+    print(ptext)
+    print(ctext)
 
-#print(ptext)
-#print(ctext)
-#print(dtext)
-
-#ctext = baconCipher("THEQUICK","thisisasomewhatlongpieceoftextthatityped")
-#dtext = baconCipher(ctext,decode=True)
-#print(ctext)
-#print(dtext)
-
+#morseCodeExample()
 #print()
-
-#ctext = baconCipher("THEQUICK")
-#dtext = baconCipher(ctext,decode=True)
-#print(ctext)
-#print(dtext)
+#prefixCodeExample()
+#print()
+#baconCipherExample()
