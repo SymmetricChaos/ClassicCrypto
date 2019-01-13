@@ -24,6 +24,7 @@ def autokeyAttack(ctext,limit=30):
         if bestScore > outScore:
             outScore = bestScore
             outKey = bestKey
+    
     print("Best Key Found:")
     print("".join(outKey))
     print()
@@ -33,6 +34,6 @@ def autokeyAttack(ctext,limit=30):
     
     
 ptext = "THECULTIVATIONOFTHESUGARCANEISPURSUEDTOGREATEXTENTINTHEISLANDSOFTHEWESTINDIESWHEREABOUTTHREECENTURIESAGOITWASFIRSTINTRODUCEDFROMCHINAORSOMEOTHERPARTSOFTHEEASTANDWHEREITFLOURISHESWITHGREATLUXURIANCEPARTICULARLYINMOISTANDRICHGROUNDTHESEASONFORPLANTINGITCOMMENCESABOUTTHEBEGINNINGOFAUGUST"
-ctext = vig.vigenereAutokey(ptext,"ALONGBITOFGIBBERISH")
+ctext = vig.vigenereAutokey(ptext,"BILBBREGZO")
 
 autokeyAttack(ctext)

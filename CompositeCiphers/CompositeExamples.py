@@ -1,12 +1,12 @@
 from CompositeCipher import compositeCipher
 import sys
 sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
-from Ciphers import Substitution as sub
+from Ciphers import OtherCiphers as oc
 from Ciphers import Transposition as trans
 from Ciphers import VigenereCipher as vig
 
 def Checkerboard_DRYAD(text,keys,decode=False):
-    return compositeCipher(text,[sub.straddlingCheckerboard,sub.DRYAD],keys,decode=decode)
+    return compositeCipher(text,[oc.straddlingCheckerboard,oc.DRYAD],keys,decode=decode)
 
 def Vigenere_Columnar(text,keys,decode=False):
     return compositeCipher(text,[vig.vigenere,trans.columnarTransport],keys,decode=decode)
