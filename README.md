@@ -27,10 +27,11 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 ##  Ciphers:
 
 #### Monoalphabetic Substitution:
+* Substitution cipher
 * Caesar cipher
 * Affine cipher
 * Atbash cipher
-* General Substitution cipher
+* ROT13
 
 #### Vigenere Variants:
 * Vigenere Cipher
@@ -95,3 +96,4 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 #### Other Techniques
 * Vigenere (Kasiski Examination)
 * Simple Substitution (Hill Climbing)
+* Autokey (Deterministic Hill Climbing)
