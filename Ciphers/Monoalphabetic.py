@@ -100,3 +100,11 @@ def substitution(text,key,decode=False):
 
 def atbash(text,decode=False):
     return substitution(text,"ZYXWVUTSRQPONMLKJIHGFEDCBA",decode=decode)
+
+
+# ROT13 is a special case of the caesar cipher using a key of 13. Since the key
+# it always the same it is not a true cipher. However it is quite common and so
+# included here for completeness.
+    
+def ROT13(text,decode=False):
+    return caesar(text,13,decode=decode)
