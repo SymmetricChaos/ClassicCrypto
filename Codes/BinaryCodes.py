@@ -1,12 +1,9 @@
-
+import random
+from UtilityFunctions import groups
 
 # Morse code is a very popular method of encoding letters and numbers. It is
 # not technically a binary code since it requires dots, dashes, and spaces in
 # order to be interpreted.
-
-import random
-from UtilityFunctions import groups
-
 
 def morseCode(text,decode=False):
     if "." in text or "-" in text:
@@ -44,6 +41,26 @@ def morseCode(text,decode=False):
         out = [D[code+" "] for code in text]
         
         return "".join(out)
+    
+
+# We can turn Morse code into a true binary code by representing the current on
+# the line directly. 
+
+def binaryMorseCode(text,decode=False):
+    if decode == False:
+        ctext = morseCode(text)
+        ctext = ctext.replace("-","110")
+        ctext = ctext.replace(".","10")
+        ctext = ctext.replace(" ","00")
+        return ctext
+    
+    if decode == True:
+        text = text.replace("11","-")
+        text = text.replace("1",".")
+        text = text.replace("00"," ")
+        text = text.replace("0","")
+        
+        return morseCode(text,decode=True)
 
 
 
@@ -209,6 +226,13 @@ def morseCodeExample():
     print(ptext)
     print(ctext)
 
+def binaryMorseCodeExample():
+    print("Example of Binary Morse Code\n")
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = binaryMorseCode(ptext)
+    print(ptext)
+    print(ctext)
+
 def prefixCodeExample():
     print("Example of a Fibonacci Prefix Code\n")
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
@@ -226,7 +250,7 @@ def baconCodeExample():
 def baconCipherExample():
     print("Example of the Bacon Cipher\n\n")
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    for codeType in [prefixCode,baconCode]:
+    for codeType in [prefixCode,baconCode,binaryMorseCode]:
         print("Using {}:\n".format(codeType.__name__))
         ctext = baconCipher(ptext,codeType)
         dtext = baconCipher(ctext,codeType,decode=True)
@@ -240,8 +264,10 @@ def baconCipherExample():
 
 #morseCodeExample()
 #print()
+#binaryMorseCodeExample()
+#print()
 #prefixCodeExample()
 #print()
 #baconCodeExample()
 #print()
-baconCipherExample()
+#baconCipherExample()
