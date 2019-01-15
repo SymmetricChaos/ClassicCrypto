@@ -8,7 +8,9 @@ from PrepareText import preptext3
 # distinctive patterns of letters.
 
 # This brevity code is a version of the Phillips code that changes the suffixes
-# of words to something shorter.
+# of words to something shorter. Because the codes are not unique there isn't
+# an easy way to automatically translate the text. However the codes have been
+# chosen so that they result in words that are still readable.
 
 textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\WindyHill.txt', 'r')
 ptext = preptext3(textfile.readline())
