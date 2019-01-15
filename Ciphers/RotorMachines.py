@@ -151,7 +151,20 @@ def cipherDisk(text,key,decode=False):
                 out += dec
         return out
 
-    
+# The Chaocipher is a clever mechanical cipher that operates by creating a
+# permutation of the alphabet rather than just shifting it.
+def chaocipher(text,key,decode=False):
+    L = "ABCDEFGHIJKLMONPQRSTUVWXYZ"
+    R = "DMTWSILRUYQNKFEJCAZBPGXOHV"
+    out = ""
+    for letter in text:
+        print(letter)
+        R = stepN(R,R.index(letter))
+        print(R)
+        print()
+
+
+chaocipher("THEQUICK","")
 
 def rotorMachineExample():
 
