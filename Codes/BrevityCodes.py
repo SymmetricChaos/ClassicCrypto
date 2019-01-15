@@ -12,14 +12,12 @@ from PrepareText import preptext3
 # an easy way to automatically translate the text. However the codes have been
 # chosen so that they result in words that are still readable.
 
-textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\WindyHill.txt', 'r')
+textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\Text3.txt', 'r')
 ptext = ""
-ctr = 0
 for i in textfile.readlines():
-    ptext += " " + preptext3(i,silent=True)
-    ctr += 1
-    if ctr == 5:
-        break
+    ptext += preptext3(i,silent=True) + " "
+    
+ptext = ptext[:1113]
 
 def suffixes(text,exceptions=[]):
     suffs = ['ABILITY', 'IBILITY', 'ACTORY', 'ATIVE', 'FULLY', 'OLOGY', 'ILITY', 'ATION',
@@ -60,6 +58,8 @@ def suffixes(text,exceptions=[]):
     
 print("\n")
 print(ptext)
+print(len(ptext))
 print("\n")
-ctext = suffixes(ptext,exceptions=["MEDFORD"])
+ctext = suffixes(ptext)
 print(ctext)
+print(len(ctext))

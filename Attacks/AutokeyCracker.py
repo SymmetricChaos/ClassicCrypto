@@ -13,7 +13,7 @@ from TextScoring import bigramScore
 # and test if it looks better. After going through all 26 posibilities for the
 # first letter we do the same for the second. Then the third and so on.
 
-def autokeyAttack(ctext,limit=30):
+def autokeyAttack(ctext,limit=20):
     # Our starting score
     outKey = ["A"]
     outScore = bigramScore(ctext)
