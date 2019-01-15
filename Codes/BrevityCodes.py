@@ -16,7 +16,7 @@ textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleT
 ptext = preptext3(textfile.readline())
 
 
-def suffixes(text):
+def suffixes(text,exceptions=[]):
     suffs = ['ABILITY', 'IBILITY', 'ACTORY', 'ATIVE', 'FULLY', 'OLOGY', 'ILITY', 'ATION',
              'ATORY', 'ITIES', 'AZITE', 'ITION', 'ITIVE', 'IVELY', 'ULOUS', 'ENCY', 'SION',
              'HOOD', 'NESS', 'IOUS', 'MENT', 'ABLE', 'WARD', 'LESS', 'SELF', 'IBLE', 'SOME',
@@ -33,15 +33,22 @@ def suffixes(text):
              'R', 'TY', 'TY', 'N', 'Z', 'M', 'LY', 'ST', 'C', 'L', 'S', 'D', 'D', 'E', 'Y', 'R', 'R',
              'H', 'D']
     
+    # If any suffix appears as a complete word like ED or AGE we mark it with
+    # an asterisk to prevent it being changed.
     for j in suffs:
         text = text.replace(" {} ".format(j)," {}* ".format(j))
     
-
+    # Any words noted as exceptions are marked with an asterisk to prevent them
+    # from being changed.
+    for word in exceptions:
+        text = text.replace(" {} ".format(word)," {}* ".format(word))
+      
+    # Replace suffices with codes and also an asterisk to prevent it from being
+    # modified again.
     for i,j in zip(codes,suffs):
         text = text.replace(j + " ", i + "* ")
 
-
-
+    # Get rid of the asterisks.
     text = text.replace("*", "")
 
     return text
@@ -49,5 +56,5 @@ def suffixes(text):
 print("\n")
 print(ptext)
 print("\n")
-ctext = suffixes(ptext)
+ctext = suffixes(ptext,exceptions=["MEDFORD"])
 print(ctext)
