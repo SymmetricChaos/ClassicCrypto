@@ -13,8 +13,13 @@ from PrepareText import preptext3
 # chosen so that they result in words that are still readable.
 
 textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\WindyHill.txt', 'r')
-ptext = preptext3(textfile.readline())
-
+ptext = ""
+ctr = 0
+for i in textfile.readlines():
+    ptext += " " + preptext3(i,silent=True)
+    ctr += 1
+    if ctr == 5:
+        break
 
 def suffixes(text,exceptions=[]):
     suffs = ['ABILITY', 'IBILITY', 'ACTORY', 'ATIVE', 'FULLY', 'OLOGY', 'ILITY', 'ATION',
