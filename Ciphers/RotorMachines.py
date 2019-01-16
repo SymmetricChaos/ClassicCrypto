@@ -187,6 +187,7 @@ def disruptedTableau(text,key,decode=False):
 #print(ctext)
 #print(dtext)
 
+
 # The Chaocipher is a clever mechanical cipher that operates by creating a
 # permutation of the alphabet rather than just shifting it.
 
@@ -231,15 +232,7 @@ def chaocipher(text,keys=["",""],decode=False):
     
         return out 
 
-L = "HXUCZVAMDSLKPEFJRIGTWOBNYQ"
-R = "PTLNBQDEOYSFAVZKGJRIHWXUMC"
 
-
-ptext = "WELLDONEISBETTERTHANWELLSAID"
-ctext = chaocipher(ptext,[L,R])
-dtext = chaocipher(ctext,[L,R],decode=True)
-print(ctext)
-print(dtext)
 
 def rotorMachineExample():
 
@@ -281,6 +274,25 @@ def cipherDiskExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
 
+def chaocipherExample():
+    print("Example of a Chaocipher\n")
+    
+    L = "HXUCZVAMDSLKPEFJRIGTWOBNYQ"
+    R = "PTLNBQDEOYSFAVZKGJRIHWXUMC"
+
+
+    print("The Left Alphabet:  {}".format(L))
+    print("The Right Alphabet: {}".format(R))
+
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = chaocipher(ptext,[L,R])
+    dtext = chaocipher(ctext,[L,R],decode=True)
+    print("\nPlaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+
 #rotorMachineExample()
 #print()
 #cipherDiskExample()
+#print()
+#chaocipherExample()
