@@ -61,7 +61,7 @@ def hillclimbing(ctext,rounds=1000):
         # At the end of each round check if it produced a better score than
         # any previous round. If it did then write it down and print some
         # information.
-        if bestscore > finalScore:
+        if bestscore >= finalScore:
             finalKey = bestkey
             finalScore = bestscore
             print("\n\nRound {}".format(x))
@@ -78,4 +78,5 @@ def hillclimbing(ctext,rounds=1000):
 
 ctext = "SOWFBRKAWFCZFSBSCSBQITBKOWLBFXTBKOWLSOXSOXFZWWIBICFWUQLRXINOCIJLWJFQUNWXLFBSZXFBTXAANTQIFBFSFQUFCZFSBSCSBIMWHWLNKAXBISWGSTOXLXTSWLUQLXJBUUWLWISTBKOWLSWGSTOXLXTSWLBSJBUUWLFULQRTXWFXLTBKOWLBISOXSSOWTBKOWLXAKOXZWSBFIQSFBRKANSOWXAKOXZWSFOBUSWJBSBFTQRKAWSWANECRZAWJ"
 ctext = "JCWDAMJSBYAOFBVICFVCAKUGJKJVJKRFKVKCFTXJPSPAIKJIFBGOPVCWDANAGJADAOJVJMJOOJOPVCWDAUYFFMIJVCWCAWDGCAWYVJJPMOYRGFBVCWVJKRGSFFOMYJAPOKVWPGAGGADJKFPJCFUAGFBTWPVWXAOBAWTVJFPNAMFYAJVJKVFFGWVA"
+#ctext = "ABCDEFBEDBCEAGHICDJKLCKKJMNBL"
 hillclimbing(ctext,rounds=5000)
