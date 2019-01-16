@@ -8,7 +8,7 @@ import random
 
 
 
-def hillclimbing(ctext):
+def hillclimbing(ctext,rounds=100):
     
     # Setup
     finalScore = float("-infinity")
@@ -20,7 +20,7 @@ def hillclimbing(ctext):
     # local minima while mutating the results.
     # Occasionally resetting gives coverage of more of the possible search
     # space.
-    for x in range(100):
+    for x in range(rounds):
         # To start the round we randomize the alphabet to start with
         key = [i for i in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"]
         random.shuffle(key)
@@ -73,11 +73,9 @@ def hillclimbing(ctext):
             print("\n")
         else:
             print("#",end="")
-            if (x + 1) % 40 == 0:
-                print()
 
 
 
 ctext = "SOWFBRKAWFCZFSBSCSBQITBKOWLBFXTBKOWLSOXSOXFZWWIBICFWUQLRXINOCIJLWJFQUNWXLFBSZXFBTXAANTQIFBFSFQUFCZFSBSCSBIMWHWLNKAXBISWGSTOXLXTSWLUQLXJBUUWLWISTBKOWLSWGSTOXLXTSWLBSJBUUWLFULQRTXWFXLTBKOWLBISOXSSOWTBKOWLXAKOXZWSBFIQSFBRKANSOWXAKOXZWSFOBUSWJBSBFTQRKAWSWANECRZAWJ"
-
-hillclimbing(ctext)
+ctext = "JCWDAMJSBYAOFBVICFVCAKUGJKJVJKRFKVKCFTXJPSPAIKJIFBGOPVCWDANAGJADAOJVJMJOOJOPVCWDAUYFFMIJVCWCAWDGCAWYVJJPMOYRGFBVCWVJKRGSFFOMYJAPOKVWPGAGGADJKFPJCFUAGFBTWPVWXAOBAWTVJFPNAMFYAJVJKVFFGWVA"
+hillclimbing(ctext,rounds=1000)

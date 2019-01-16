@@ -126,16 +126,15 @@ import random
 
 def cipherDisk(text,key,decode=False):
     outer = "ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789"
-    inner = "1yw7usq2om8kig3eca9bd4fhj0lnp5rtvx6z"
+    inner = key
 
-    inner = stepN(inner,key)
 
     if decode == False:
         out = ""
         for i in text:
             out += inner[outer.index(i)]
             if random.random() < .1:
-                R = random.choice("123456789")
+                R = random.choice("0123456789")
                 out += inner[outer.index(R)]
                 inner = stepN(inner,int(R))
 
@@ -145,25 +144,24 @@ def cipherDisk(text,key,decode=False):
         out = ""
         for i in text:
             dec = outer[inner.index(i)]
-            if dec in "123456789":
+            if dec in "0123456789":
                 inner = stepN(inner,int(dec))
             else:
                 out += dec
         return out
 
 # A continuously turning version of the cipher disk
-def disruptedTableau(text,key,decode=False):
+def disruptedTableau(text,key="ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789",decode=False):
     outer = "ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789"
-    inner = "1yw7usq2om8kig3eca9bd4fhj0lnp5rtvx6z"
+    inner = key
 
-    inner = stepN(inner,key)
 
     if decode == False:
         out = ""
         for i in text:
             out += inner[outer.index(i)]
             if random.random() < .1:
-                R = random.choice("123456789")
+                R = random.choice("0123456789")
                 out += inner[outer.index(R)]
                 inner = stepN(inner,int(R))
             
@@ -177,18 +175,11 @@ def disruptedTableau(text,key,decode=False):
             dec = outer[inner.index(i)]
             
             inner = stepN(inner,1)
-            if dec in "123456789":
+            if dec in "0123456789":
                 inner = stepN(inner,int(dec))
             else:
                 out += dec
         return out
-
-ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-ctext = disruptedTableau(ptext,0)
-dtext = disruptedTableau(ctext,0,decode=True)
-print(ctext)
-print(dtext)
-
 
 # The Chaocipher is a clever mechanical cipher that operates by creating a
 # permutation of the alphabet rather than just shifting it.
@@ -261,20 +252,22 @@ def rotorMachineExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
     
-    
+
+
 def cipherDiskExample():
 
-    print("Example of a Rotor Disk\n")
+    print("Example of a Cipher Disk\n")
     
-    key = 10
-    print("The initial shift is: {}".format(key))
+    inner = "1YW7USQ2OM8KIG3ECA9BD4FHJ0LNP5RTVX6Z"
+    print("Inner Ring Setting Is: {}".format(inner))
 
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = cipherDisk(ptext,10)
-    dtext = cipherDisk(ctext,10,decode=True)
+    ctext = cipherDisk(ptext,inner)
+    dtext = cipherDisk(ctext,inner,decode=True)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
+
 
 def chaocipherExample():
     print("Example of a Chaocipher\n")
@@ -292,9 +285,25 @@ def chaocipherExample():
     print("\nPlaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
+    
+def disruptedTableauExample():
+    print("Example of a Disrupted Tableau\n")
+    
+    inner = "1YW7USQ2OM8KIG3ECA9BD4FHJ0LNP5RTVX6Z"
+
+    print("Inner Ring Setting Is: {}".format(inner))
+
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = disruptedTableau(ptext,inner)
+    dtext = disruptedTableau(ctext,inner,decode=True)
+    print("\nPlaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
 
 #rotorMachineExample()
 #print()
 #cipherDiskExample()
 #print()
 #chaocipherExample()
+#print()
+disruptedTableauExample()
