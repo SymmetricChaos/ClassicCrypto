@@ -151,20 +151,95 @@ def cipherDisk(text,key,decode=False):
                 out += dec
         return out
 
+# Experimental continuously turning version of the cipher disk
+def disruptedTableau(text,key,decode=False):
+    outer = "ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789"
+    inner = "1yw7usq2om8kig3eca9bd4fhj0lnp5rtvx6z"
+
+    inner = stepN(inner,key)
+
+    if decode == False:
+        out = ""
+        for i in text:
+            out += inner[outer.index(i)]
+            inner = stepN(inner,1)
+            if random.random() < .1:
+                R = random.choice("123456789")
+                out += inner[outer.index(R)]
+                inner = stepN(inner,int(R))
+            
+        return out
+    
+    if decode == True:
+        out = ""
+        for i in text:
+            dec = outer[inner.index(i)]
+            if dec in "123456789":
+                inner = stepN(inner,int(dec))
+                inner = stepN(inner,1)
+            else:
+                out += dec
+                inner = stepN(inner,1)
+        return out
+    
+#ctext = disruptedTableau("THEQUICKBROWNFOX",0)
+#dtext = disruptedTableau(ctext,0,decode=True)
+#print(ctext)
+#print(dtext)
+
 # The Chaocipher is a clever mechanical cipher that operates by creating a
 # permutation of the alphabet rather than just shifting it.
-def chaocipher(text,key,decode=False):
-    L = "ABCDEFGHIJKLMONPQRSTUVWXYZ"
-    R = "DMTWSILRUYQNKFEJCAZBPGXOHV"
-    out = ""
-    for letter in text:
-        print(letter)
-        R = stepN(R,R.index(letter))
-        print(R)
-        print()
+
+def permuteL(L,letter):
+    L = stepN(L,L.index(letter))
+    L = L[0] + L[2:14] + L[1] + L[14:]
+    return L
+    
+def permuteR(R,letter):
+    R = stepN(R,R.index(letter)+1)
+    R = R[0:2] + R[3:14] + R[2] + R[14:]
+    return R
+
+def chaocipher(text,keys=["",""],decode=False):
+    
+    if keys[0] == "":
+        L = "ABCDEFGHIJKLMONPQRSTUVWXYZ"
+    else:
+        L = keys[0]
+    
+    if keys[1] == "":
+        R = "ABCDEFGHIJKLMONPQRSTUVWXYZ"
+    else:
+        R = keys[1]
+    
+    if decode == False:
+        out = ""
+        for letter in text:
+            pos = R.index(letter)
+            out += L[pos]
+            L = permuteL(L,L[pos])
+            R = permuteR(R,letter)
+        return out
+    
+    if decode == True:
+        out = ""
+        for letter in text:
+            pos = L.index(letter)
+            out += R[pos]
+            L = permuteL(L,letter)
+            R = permuteR(R,R[pos])
+    
+        return out 
+
+L = "HXUCZVAMDSLKPEFJRIGTWOBNYQ"
+R = "PTLNBQDEOYSFAVZKGJRIHWXUMC"
 
 
-chaocipher("THEQUICK","")
+ptext = "WELLDONEISBETTERTHANWELLSAID"
+ctext = chaocipher(ptext,[L,R])
+dtext = chaocipher(ctext,[L,R],decode=True)
+print(ctext)
+print(dtext)
 
 def rotorMachineExample():
 
