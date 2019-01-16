@@ -110,11 +110,42 @@ def rotorMachine(text,keys,decode=False):
     return plugboard(out,plugs)
 
 # Should get around to a copy of Enigma at some point
-def enigma():
-    pass
+def enigma(text,keys,decode=False):
+    
+    if len(keys) != 3:
+        raise Exception('the "keys" argument must provide rotors, reflector, notches, and plug settings\nfor an empty plugboard use []')
+    
+    rtr = keys[0]
+    rotors = []
+    for num in rtr:
+        if num == "I":
+            rotors.append("EKMFLGDQVZNTOWYHXUSPAIBRCJ")
+        if num == "II":
+            rotors.append("AJDKSIRUXBLHWTMCQGZNPYFVOE")
+        if num == "III":
+            rotors.append("BDFHJLCPRTXVZNYEIWGAKMUSQO")
+        if num == "IV":
+            rotors.append("ESOVPZJAYQUIRHXLNFTGKDCMWB")
+        if num == "V":
+            rotors.append("VZBRGITYUPSDNHLXAWMJQOFECK")
+
+
+    reflector = ""
+    if keys[1] == "RA":
+        reflector = "EJMZALYXVBWFCRQUONTSPIKHGD"
+    if keys[1] == "RB":
+        reflector = "YRUHQSLDPXNGOKMIEBFZCWVJAT"
+    if keys[1] == "RC":
+        reflector = "FVPJIAOYEDRZXWGCTKUQSBNMHL"
+
+    notches = keys[2]
+    plugs = keys[3]
+    
+    
+
 
 # Should get around to a copy of SIGABA at some point
-def SIGABA():
+def SIGABA(text,keys,decode=False):
     pass
 
 def rotorMachineExample():
