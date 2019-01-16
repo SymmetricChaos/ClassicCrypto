@@ -151,7 +151,7 @@ def cipherDisk(text,key,decode=False):
                 out += dec
         return out
 
-# Experimental continuously turning version of the cipher disk
+# A continuously turning version of the cipher disk
 def disruptedTableau(text,key,decode=False):
     outer = "ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789"
     inner = "1yw7usq2om8kig3eca9bd4fhj0lnp5rtvx6z"
@@ -162,11 +162,12 @@ def disruptedTableau(text,key,decode=False):
         out = ""
         for i in text:
             out += inner[outer.index(i)]
-            inner = stepN(inner,1)
             if random.random() < .1:
                 R = random.choice("123456789")
                 out += inner[outer.index(R)]
                 inner = stepN(inner,int(R))
+            
+            inner = stepN(inner,1)
             
         return out
     
@@ -174,18 +175,19 @@ def disruptedTableau(text,key,decode=False):
         out = ""
         for i in text:
             dec = outer[inner.index(i)]
+            
+            inner = stepN(inner,1)
             if dec in "123456789":
                 inner = stepN(inner,int(dec))
-                inner = stepN(inner,1)
             else:
                 out += dec
-                inner = stepN(inner,1)
         return out
-    
-#ctext = disruptedTableau("THEQUICKBROWNFOX",0)
-#dtext = disruptedTableau(ctext,0,decode=True)
-#print(ctext)
-#print(dtext)
+
+ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+ctext = disruptedTableau(ptext,0)
+dtext = disruptedTableau(ctext,0,decode=True)
+print(ctext)
+print(dtext)
 
 
 # The Chaocipher is a clever mechanical cipher that operates by creating a
