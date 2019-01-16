@@ -120,14 +120,18 @@ import random
 # the wheel after each letter. When decrypting one simply checks shfits the 
 # cipher wheel whenever a digit is found.
 
-# They key is simply the arrangement of the cipher wheel, which is not easy to
-# change (here it is fixed), and the initial shift of the wheel, which is
-# trivial to change.
+# They key is simply the cipher wheel itself. In practice there should be a
+# particular letter marked as a starting point. The shift away from the start
+# can be a part of the key.
 
-def cipherDisk(text,key,decode=False):
+def cipherDisk(text,key="",decode=False):
+    
     outer = "ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789"
-    inner = key
-
+    
+    if key == "":
+        inner = "ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789"
+    else:
+        inner = key
 
     if decode == False:
         out = ""
@@ -139,7 +143,8 @@ def cipherDisk(text,key,decode=False):
                 inner = stepN(inner,int(R))
 
         return out
-    
+
+
     if decode == True:
         out = ""
         for i in text:
@@ -150,10 +155,21 @@ def cipherDisk(text,key,decode=False):
                 out += dec
         return out
 
-# A continuously turning version of the cipher disk
-def disruptedTableau(text,key="ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789",decode=False):
+
+
+# A continuously turning version of the cipher disk. Rather than keeping the
+# same inner ring position until a change is inserted this version shifts the
+# ring by one position each time. It also makes extra jumps when those are
+# inserted.
+
+def disruptedTableau(text,key="",decode=False):
+    
     outer = "ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789"
-    inner = key
+    
+    if key == "":
+        inner = "ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789"
+    else:
+        inner = key
 
 
     if decode == False:
@@ -161,14 +177,15 @@ def disruptedTableau(text,key="ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789",decode=Fals
         for i in text:
             out += inner[outer.index(i)]
             if random.random() < .1:
-                R = random.choice("0123456789")
+                R = random.choice("123456789")
                 out += inner[outer.index(R)]
                 inner = stepN(inner,int(R))
             
             inner = stepN(inner,1)
             
         return out
-    
+
+
     if decode == True:
         out = ""
         for i in text:
@@ -259,6 +276,7 @@ def cipherDiskExample():
     print("Example of a Cipher Disk\n")
     
     inner = "1YW7USQ2OM8KIG3ECA9BD4FHJ0LNP5RTVX6Z"
+    
     print("Inner Ring Setting Is: {}".format(inner))
 
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
@@ -291,12 +309,12 @@ def disruptedTableauExample():
     
     inner = "1YW7USQ2OM8KIG3ECA9BD4FHJ0LNP5RTVX6Z"
 
-    print("Inner Ring Setting Is: {}".format(inner))
+    print("Inner Ring Setting Is: {}\n".format(inner))
 
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = disruptedTableau(ptext,inner)
     dtext = disruptedTableau(ctext,inner,decode=True)
-    print("\nPlaintext is:  {}".format(ptext))
+    print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
 
