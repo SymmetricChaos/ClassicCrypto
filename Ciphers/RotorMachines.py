@@ -15,16 +15,26 @@
 # places.
 
 # Pass a singal through a rotor
-def rotor(letter,key,decode=False):
+def rotor(letter,key,ring,decode=False):
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     if decode == False:
-        return key[alpha.index(letter)]
+        return key[(alpha.index(letter)+ring)%26]
     if decode == True:
-        return alpha[key.index(letter)]
+        return alpha[(key.index(letter)+ring)%26]
 
 # Step a rotor forward by one
 def step(R):
     return R[1:] + R[0]
+
+# Step a rotor until it has a certain letter in the first position
+def position(key,pos):
+    while key[0] != pos:
+        key = step(key)
+    return key
+
+R = "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+R = position(R,"A")
+print(rotor("A",R,0))
 
 # The plugboard (Steckerbrett) flips pairs of letters
 # Pairs of letters are not allowed to overlap
@@ -150,16 +160,16 @@ def enigma(text,keys,decode=False):
     for letter in text:
         # Pass that letter through the rotors
         t = letter
-        for r in rotors:
-            t = rotor(t,r,decode=decode)
+        for r,z in zip(rotors,rings):
+            t = rotor(t,r,z,decode=decode)
         
         # Now it goes through the reflector
-        t = rotor(t,reflector,decode=decode)
+        t = rotor(t,reflector,1,decode=decode)
         
         # The last rotors is assumed to be the reflector
         # Now go through the other rotors in reverse 
         for r in rotors[::-1]:
-            t = rotor(t,r,decode=decode)
+            t = rotor(t,r,z,decode=decode)
         
         out.append(t)
             
@@ -175,7 +185,7 @@ def enigma(text,keys,decode=False):
     
     print("".join(out))
     
-enigma("AAAAA",keys=[["I","II","III"],[],"RB",[]])
+#enigma("AAAAA",keys=[["I","II","III"],[1,1,1],"RB",[]])
 
 # Should get around to a copy of SIGABA at some point
 def SIGABA(text,keys,decode=False):
