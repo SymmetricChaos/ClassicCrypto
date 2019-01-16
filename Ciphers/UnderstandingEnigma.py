@@ -1,16 +1,16 @@
-def rotorEXP(letter,key,pos,ring,decode=False):
+def rotorEXP(letter,key,ring,decode=False):
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    sh = key.index(pos)+1
-    print(letter)
-    print(alpha[alpha.index(letter)-sh])
-    print(key[alpha.index(letter)-sh])
-
+    pos = alpha.index(letter)
+    inner = key[(pos+ring-1)%26]
+    outer = (alpha.index(inner)-ring+1)%26
+    #print(letter)
+    #print(alpha[(pos+ring-1)%26])
+    #print(inner)
+    #print(alpha[outer])
+    return alpha[outer]
 
 R1 = "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
 
-def ringsetting(letter,setting):
-    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    print(alpha.index(letter))
 
-    
-ringsetting("A","A")
+for i in range(1,5):
+    print(rotorEXP("A",R1,i))
