@@ -26,13 +26,6 @@ def rotor(letter,key,decode=False):
 def step(R):
     return R[1:] + R[0]
 
-# Step a rotor forward by N
-def stepN(R,n):
-    x = R[:]
-    for i in range(n):
-        x = x[1:] + x[0]
-    return x
-
 # The plugboard (Steckerbrett) flips pairs of letters
 # Pairs of letters are not allowed to overlap
 def plugboard(text,keys):
@@ -112,37 +105,77 @@ def rotorMachine(text,keys,decode=False):
 # Should get around to a copy of Enigma at some point
 def enigma(text,keys,decode=False):
     
-    if len(keys) != 3:
-        raise Exception('the "keys" argument must provide rotors, reflector, notches, and plug settings\nfor an empty plugboard use []')
+    if len(keys) != 4:
+        raise Exception('the "keys" argument must provide rotors, ring settings, reflector, and plug settings\nfor an empty plugboard use []')
     
     rtr = keys[0]
     rotors = []
+    notches = []
     for num in rtr:
         if num == "I":
             rotors.append("EKMFLGDQVZNTOWYHXUSPAIBRCJ")
+            notches.append("X")
         if num == "II":
             rotors.append("AJDKSIRUXBLHWTMCQGZNPYFVOE")
+            notches.append("S")
         if num == "III":
             rotors.append("BDFHJLCPRTXVZNYEIWGAKMUSQO")
+            notches.append("M")
         if num == "IV":
             rotors.append("ESOVPZJAYQUIRHXLNFTGKDCMWB")
+            notches.append("Q")
         if num == "V":
             rotors.append("VZBRGITYUPSDNHLXAWMJQOFECK")
+            notches.append("K")
 
+
+    rings = keys[1]
 
     reflector = ""
-    if keys[1] == "RA":
+    if keys[2] == "RA":
         reflector = "EJMZALYXVBWFCRQUONTSPIKHGD"
-    if keys[1] == "RB":
+    if keys[2] == "RB":
         reflector = "YRUHQSLDPXNGOKMIEBFZCWVJAT"
-    if keys[1] == "RC":
+    if keys[2] == "RC":
         reflector = "FVPJIAOYEDRZXWGCTKUQSBNMHL"
 
-    notches = keys[2]
+
     plugs = keys[3]
     
+    text = plugboard(text,plugs)
     
-
+    out = []
+    
+    # For each letter
+    for letter in text:
+        # Pass that letter through the rotors
+        t = letter
+        for r in rotors:
+            t = rotor(t,r,decode=decode)
+        
+        # Now it goes through the reflector
+        t = rotor(t,reflector,decode=decode)
+        
+        # The last rotors is assumed to be the reflector
+        # Now go through the other rotors in reverse 
+        for r in rotors[::-1]:
+            t = rotor(t,r,decode=decode)
+        
+        out.append(t)
+            
+        # Step the rotors forward.
+        rotors[0] = step(rotors[0])
+        for n in range(len(notches)):
+            if rotors[n][0] == notches[n]:
+                rotors[n+1] = step(rotors[n+1])
+    
+    out = "".join(out)
+    
+    out = plugboard(out,plugs)
+    
+    print("".join(out))
+    
+enigma("AAAAA",keys=[["I","II","III"],[],"RB",[]])
 
 # Should get around to a copy of SIGABA at some point
 def SIGABA(text,keys,decode=False):
