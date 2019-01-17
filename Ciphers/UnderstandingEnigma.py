@@ -33,18 +33,30 @@ R2 = "AJDKSIRUXBLHWTMCQGZNPYFVOE"
 R3 = "BDFHJLCPRTXVZNYEIWGAKMUSQO"
 RF = "YRUHQSLDPXNGOKMIEBFZCWVJAT"
 
-
+print("The Letter 'A' Passing Through Rotors")
 T = rotorEXP("A",R1,1)
-print(T)
+print(T,end = " -> ")
 T = rotorEXP(T,R2,1)
-print(T)
+print(T,end = " -> ")
 T = rotorEXP(T,R3,1)
-print(T)
+print(T,end = " -> ")
 T = rotorEXP(T,RF,1)
-print(T)
+print(T,end = " -> ")
 T = rotorEXP(T,R3,1,True)
-print(T)
+print(T,end = " -> ")
 T = rotorEXP(T,R2,1,True)
-print(T)
+print(T,end = " -> ")
 T = rotorEXP(T,R1,1,True)
 print(T)
+
+print("\n\nInputting The Letter 'A' Repeatedly")
+for i in range(1,11):
+    T = "A"
+    T = rotorEXP(T,R1,i)
+    T = rotorEXP(T,R2,1)
+    T = rotorEXP(T,R3,1)
+    T = rotorEXP(T,RF,1)
+    T = rotorEXP(T,R3,1,True)
+    T = rotorEXP(T,R2,1,True)
+    T = rotorEXP(T,R1,i,True)
+    print(T,end="")
