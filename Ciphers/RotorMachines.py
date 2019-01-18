@@ -29,10 +29,10 @@ def rotor(letter,key,pos,decode=False):
         return alpha[outer]
 
 
-def ringSetting(key,n):
-    for i in range(n-1):
-        key = key[1:] + key[0]
-    return key
+#def ringSetting(key,n):
+#    for i in range(n-1):
+#        key = key[1:] + key[0]
+#    return key
 
 # The plugboard (Steckerbrett) flips pairs of letters
 # Pairs of letters are not allowed to overlap
@@ -86,15 +86,17 @@ def enigma(text,keys,decode=False):
     rotors.reverse()
     notches.reverse()
 
-    rings = keys[1]
-    rings.reverse()
     
-    for i in range(3):
-        rotors[i] = ringSetting(rotors[i],rings[i])
-    
+
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     positions = [alpha.index(i)+1 for i in keys[2]]
+    rings = [alpha.index(i) for i in keys[1]]
     positions.reverse()
+    rings.reverse()
+
+    for i in range(3):
+        positions[i] -= rings[i]
+    
 
     reflector = ""
     if keys[3] == "RA":
@@ -140,12 +142,13 @@ def enigma(text,keys,decode=False):
     print("".join(out))
 
 
-keys = ["III","II","I"]
-rings = [1,1,1]
+rotors = ["III","II","I"]
+rings = ["B","A","A"]
 positions = ["C","B","A"]
 reflector = "RB"
 plugs = []
-enigma("IKOKFCWO",keys=[keys,rings,positions,reflector,plugs])
+ptext = "AAAAAA"
+enigma(ptext,keys=[rotors,rings,positions,reflector,plugs])
 
 
 # Should get around to a copy of SIGABA at some point
