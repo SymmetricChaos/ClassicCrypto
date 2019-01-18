@@ -49,14 +49,22 @@ print(T,end = " -> ")
 T = rotorEXP(T,R1,1,True)
 print(T)
 
+
+
+#R1 = ringSetting(R1,1)
+#R2 = ringSetting(R2,1)
+#R3 = ringSetting(R3,1)
+
 print("\n\nInputting The Letter 'A' Repeatedly")
-for i in range(1,11):
+ctr = 1
+for i in range(5):
+    ctr += 1
     T = "A"
-    T = rotorEXP(T,R1,i)
+    T = rotorEXP(T,R1,ctr)
     T = rotorEXP(T,R2,1)
     T = rotorEXP(T,R3,1)
     T = rotorEXP(T,RF,1)
     T = rotorEXP(T,R3,1,True)
     T = rotorEXP(T,R2,1,True)
-    T = rotorEXP(T,R1,i,True)
+    T = rotorEXP(T,R1,ctr,True)
     print(T,end="")
