@@ -92,7 +92,8 @@ def enigma(text,keys,decode=False):
     for i in range(3):
         rotors[i] = ringSetting(rotors[i],rings[i])
     
-    positions = keys[2]
+    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    positions = [alpha.index(i)+1 for i in keys[2]]
     positions.reverse()
 
     reflector = ""
@@ -141,10 +142,10 @@ def enigma(text,keys,decode=False):
 
 keys = ["III","II","I"]
 rings = [1,1,1]
-positions = [3,2,1]
+positions = ["C","B","A"]
 reflector = "RB"
 plugs = []
-enigma("AAAAAAAA",keys=[keys,rings,positions,reflector,plugs])
+enigma("IKOKFCWO",keys=[keys,rings,positions,reflector,plugs])
 
 
 # Should get around to a copy of SIGABA at some point
