@@ -28,6 +28,12 @@ def rotor(letter,key,pos,decode=False):
         outer = (key.index(inner)-pos+1)%26
         return alpha[outer]
 
+
+def ringSetting(key,n):
+    for i in range(n-1):
+        key = key[1:] + key[0]
+    return key
+
 # The plugboard (Steckerbrett) flips pairs of letters
 # Pairs of letters are not allowed to overlap
 def plugboard(text,keys):
@@ -77,11 +83,17 @@ def enigma(text,keys,decode=False):
             rotors.append("VZBRGITYUPSDNHLXAWMJQOFECK")
             notches.append(26)
 
-    #print(rotors)
+    rotors.reverse()
+    notches.reverse()
 
     rings = keys[1]
+    rings.reverse()
+    
+    for i in range(3):
+        rotors[i] = ringSetting(rotors[i],rings[i])
     
     positions = keys[2]
+    positions.reverse()
 
     reflector = ""
     if keys[3] == "RA":
@@ -127,12 +139,12 @@ def enigma(text,keys,decode=False):
     print("".join(out))
 
 
-keys = ["I","II","III"]
+keys = ["III","II","I"]
 rings = [1,1,1]
-positions = [1,1,1]
+positions = [3,2,1]
 reflector = "RB"
 plugs = []
-enigma("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",keys=[keys,rings,positions,reflector,plugs])
+enigma("AAAAAAAA",keys=[keys,rings,positions,reflector,plugs])
 
 
 # Should get around to a copy of SIGABA at some point
