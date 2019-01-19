@@ -63,13 +63,24 @@ def plugboard(text,keys):
 # Should get around to a copy of Enigma at some point
 def enigma(text,keys,decode=False):
     
+    # Check that theere are exactly five machine settings provided
     if len(keys) != 5:
-        raise Exception('the "keys" argument must provide rotors, ring settings, reflector, and plug settings\nfor an empty plugboard use []')
+        raise Exception('the "keys" argument must provide rotors, reflector, rotor positions, plugs, and ring settings')
     
-    rtr = keys[0]
+    
+    
+    
+    ref = keys[1]
+    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    positions = [alpha.index(i)+1 for i in keys[2]]
+    plugs = keys[3]
+    rings = [alpha.index(i) for i in keys[4]]
+    
+    # Look at the keys[0] argument and use it to 
+    
     rotors = []
     notches = []
-    for num in rtr:
+    for num in keys[0]:
         if num == "I":
             rotors.append("EKMFLGDQVZNTOWYHXUSPAIBRCJ")
             notches.append(17)
@@ -91,9 +102,7 @@ def enigma(text,keys,decode=False):
 
     
 
-    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    positions = [alpha.index(i)+1 for i in keys[2]]
-    rings = [alpha.index(i) for i in keys[4]]
+
     positions.reverse()
     rings.reverse()
 
@@ -102,15 +111,14 @@ def enigma(text,keys,decode=False):
     
 
     reflector = ""
-    if keys[1] == "RA":
+    if ref == "RA":
         reflector = "EJMZALYXVBWFCRQUONTSPIKHGD"
-    if keys[1] == "RB":
+    if ref == "RB":
         reflector = "YRUHQSLDPXNGOKMIEBFZCWVJAT"
-    if keys[1] == "RC":
+    if ref == "RC":
         reflector = "FVPJIAOYEDRZXWGCTKUQSBNMHL"
 
 
-    plugs = keys[3]
     
     text = plugboard(text,plugs)
     
