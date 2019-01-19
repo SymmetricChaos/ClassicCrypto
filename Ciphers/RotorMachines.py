@@ -14,6 +14,9 @@
 # some mechanisms this does not such as rotors that stepped at two different
 # places.
 
+import datetime
+
+
 # Pass a singal through a rotor
 def rotor(letter,key,pos,decode=False):
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -90,7 +93,7 @@ def enigma(text,keys,decode=False):
 
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     positions = [alpha.index(i)+1 for i in keys[2]]
-    rings = [alpha.index(i) for i in keys[1]]
+    rings = [alpha.index(i) for i in keys[4]]
     positions.reverse()
     rings.reverse()
 
@@ -99,15 +102,15 @@ def enigma(text,keys,decode=False):
     
 
     reflector = ""
-    if keys[3] == "RA":
+    if keys[1] == "RA":
         reflector = "EJMZALYXVBWFCRQUONTSPIKHGD"
-    if keys[3] == "RB":
+    if keys[1] == "RB":
         reflector = "YRUHQSLDPXNGOKMIEBFZCWVJAT"
-    if keys[3] == "RC":
+    if keys[1] == "RC":
         reflector = "FVPJIAOYEDRZXWGCTKUQSBNMHL"
 
 
-    plugs = keys[4]
+    plugs = keys[3]
     
     text = plugboard(text,plugs)
     
@@ -142,18 +145,38 @@ def enigma(text,keys,decode=False):
     print("".join(out))
 
 
-rotors = ["III","II","I"]
-rings = ["B","A","A"]
-positions = ["C","B","A"]
-reflector = "RB"
-plugs = []
-ptext = "AAAAAA"
-enigma(ptext,keys=[rotors,rings,positions,reflector,plugs])
-
 
 # Should get around to a copy of SIGABA at some point
 def SIGABA(text,keys,decode=False):
     pass
 
+def enigmaExample():
+    
+    print("Enigma Example\n")
+
+    rotors = ["III","II","I"]
+    rings = ["B","A","A"]
+    positions = ["C","B","A"]
+    reflector = "RB"
+    plugs = ["AT","HY","JM"]
+    
+    print("Daily Machine Settings")
+    print(datetime.datetime.now())
+    for i in rotors:
+        print(i,end = " ")
+    print(" | ",end = " ")
+    for i in positions:
+        print(i,end = " ")
+    print(" | ",end = " ")
+    for i in plugs:
+        print(i,end = " ")
+    
+    print("Use Ring Settings:",end= " ")
+    for i in rings:
+        print(i,end = " ")
+    print()
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    enigma(ptext,keys=[rotors,reflector,positions,plugs,rings])
 
 
+enigmaExample()
