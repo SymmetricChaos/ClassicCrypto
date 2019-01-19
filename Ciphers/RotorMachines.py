@@ -32,11 +32,6 @@ def rotor(letter,key,pos,decode=False):
         return alpha[outer]
 
 
-#def ringSetting(key,n):
-#    for i in range(n-1):
-#        key = key[1:] + key[0]
-#    return key
-
 # The plugboard (Steckerbrett) flips pairs of letters
 # Pairs of letters are not allowed to overlap
 def plugboard(text,keys):
@@ -112,10 +107,12 @@ def enigma(text,keys,decode=False):
     positions.reverse()
     rings.reverse()
     
+    
     # The ring positions just repersent an offset from the rotor positions so
     # we subtract their numerical values.
     for i in range(3):
         positions[i] -= rings[i]
+    
     
     # Put the text through the plugboard
     text = plugboard(text,keys[3])
@@ -128,12 +125,15 @@ def enigma(text,keys,decode=False):
         
         T = letter
         
-        positions[0] += 1
-        if positions[0] % 26 == notches[0]:
-            positions[1] += 1
-        if positions[1] % 26 == notches[1]:
-            positions[2] += 1
+        positions[0] = (positions[0] + 1) % 26
         
+        if positions[0] == notches[0]:
+            positions[1] = (positions[1] + 1) % 26
+            
+        if positions[1] == notches[1]:
+            positions[2] = (positions[2] + 1) % 26
+        
+        #print(positions)
         
         T = rotor(T,rotors[0],positions[0])
         T = rotor(T,rotors[1],positions[1])
@@ -161,11 +161,11 @@ def enigmaExample():
     
     print("Enigma Example\n")
 
-    rotors = ["II","III","I"]
-    rings = ["B","T","G"]
+    rotors = ["III","II","I"]
+    rings = ["A","A","A"]
     positions = ["C","B","A"]
     reflector = "RB"
-    plugs = ["AT","HY","JM"]
+    plugs = []
     
     print("Today is {}\n\nThe Codebook Settings Are:".format(datetime.datetime.now().date()))
     for i in rotors:
@@ -182,13 +182,13 @@ def enigmaExample():
         print(i,end = " ")
     print("\n")
     
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOGTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOGJACKDAWSLOVE"
     ctext = enigma(ptext,keys=[rotors,reflector,positions,plugs,rings])
-    dtext = enigma(ctext,keys=[rotors,reflector,positions,plugs,rings])
+    #dtext = enigma(ctext,keys=[rotors,reflector,positions,plugs,rings])
     print(ctext)
-    if dtext != ptext:
-        print("ERROR")
-        print(dtext)
+    #if dtext != ptext:
+        #print("ERROR")
+        #print(dtext)
 
 
 enigmaExample()
