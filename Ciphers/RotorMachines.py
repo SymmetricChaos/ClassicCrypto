@@ -68,16 +68,7 @@ def enigma(text,keys,decode=False):
         raise Exception('the "keys" argument must provide rotors, reflector, rotor positions, plugs, and ring settings')
     
     
-    
-    
-    ref = keys[1]
-    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    positions = [alpha.index(i)+1 for i in keys[2]]
-    plugs = keys[3]
-    rings = [alpha.index(i) for i in keys[4]]
-    
-    # Look at the keys[0] argument and use it to 
-    
+    # Check the rotors listed to get the wiring and notch positions for them
     rotors = []
     notches = []
     for num in keys[0]:
@@ -96,35 +87,43 @@ def enigma(text,keys,decode=False):
         if num == "V":
             rotors.append("VZBRGITYUPSDNHLXAWMJQOFECK")
             notches.append(26)
-
+    
+    # Reverse the lists since this is how the Enigma actually ordered the
+    # rotors.
     rotors.reverse()
     notches.reverse()
-
     
-
-
+    # Get the wiring of the reflector
+    reflector = ""
+    if keys[1] == "RA":
+        reflector = "EJMZALYXVBWFCRQUONTSPIKHGD"
+    if keys[1] == "RB":
+        reflector = "YRUHQSLDPXNGOKMIEBFZCWVJAT"
+    if keys[1] == "RC":
+        reflector = "FVPJIAOYEDRZXWGCTKUQSBNMHL"
+    
+    
+    # Translate the letters of the rotor positions and ring positions to numbers
+    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    positions = [alpha.index(i)+1 for i in keys[2]]
+    rings = [alpha.index(i) for i in keys[4]]
+    
+    # Reverse the lists
     positions.reverse()
     rings.reverse()
-
+    
+    # The ring positions just repersent an offset from the rotor positions so
+    # we subtract their numerical values.
     for i in range(3):
         positions[i] -= rings[i]
     
-
-    reflector = ""
-    if ref == "RA":
-        reflector = "EJMZALYXVBWFCRQUONTSPIKHGD"
-    if ref == "RB":
-        reflector = "YRUHQSLDPXNGOKMIEBFZCWVJAT"
-    if ref == "RC":
-        reflector = "FVPJIAOYEDRZXWGCTKUQSBNMHL"
-
-
-    
-    text = plugboard(text,plugs)
+    # Put the text through the plugboard
+    text = plugboard(text,keys[3])
     
     out = []
     
-    # For each letter
+    # For each letter first step the rotors and then pass the signal through
+    # the rotors.
     for letter in text:
         
         T = letter
@@ -148,7 +147,7 @@ def enigma(text,keys,decode=False):
             
     out = "".join(out)
     
-    out = plugboard(out,plugs)
+    out = plugboard(out,keys[3])
     
     return "".join(out)
 
@@ -183,7 +182,7 @@ def enigmaExample():
         print(i,end = " ")
     print("\n")
     
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOGTHEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = enigma(ptext,keys=[rotors,reflector,positions,plugs,rings])
     dtext = enigma(ctext,keys=[rotors,reflector,positions,plugs,rings])
     print(ctext)
