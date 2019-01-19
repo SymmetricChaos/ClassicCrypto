@@ -142,7 +142,7 @@ def enigma(text,keys,decode=False):
     
     out = plugboard(out,plugs)
     
-    print("".join(out))
+    return "".join(out)
 
 
 
@@ -154,14 +154,13 @@ def enigmaExample():
     
     print("Enigma Example\n")
 
-    rotors = ["III","II","I"]
-    rings = ["B","A","A"]
+    rotors = ["II","III","I"]
+    rings = ["B","T","G"]
     positions = ["C","B","A"]
     reflector = "RB"
     plugs = ["AT","HY","JM"]
     
-    print("Daily Machine Settings")
-    print(datetime.datetime.now())
+    print("Today is {}\n\nThe Codebook Settings Are:".format(datetime.datetime.now().date()))
     for i in rotors:
         print(i,end = " ")
     print(" | ",end = " ")
@@ -171,12 +170,18 @@ def enigmaExample():
     for i in plugs:
         print(i,end = " ")
     
-    print("Use Ring Settings:",end= " ")
+    print("\n\nRing Settings:",end= " ")
     for i in rings:
         print(i,end = " ")
-    print()
+    print("\n")
+    
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    enigma(ptext,keys=[rotors,reflector,positions,plugs,rings])
+    ctext = enigma(ptext,keys=[rotors,reflector,positions,plugs,rings])
+    dtext = enigma(ctext,keys=[rotors,reflector,positions,plugs,rings])
+    print(ctext)
+    if dtext != ptext:
+        print("ERROR")
+        print(dtext)
 
 
 enigmaExample()
