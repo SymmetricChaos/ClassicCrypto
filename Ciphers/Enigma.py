@@ -1,19 +1,4 @@
-# An Engima style rotor machine. The method is actually quite simple. Each
-# letter is encrypted by a series of simple substitution ciphers that change
-# automatically for each letter. However because this behavior is quite regular
-# it is not especially hard to break the resulting cipher. Using the plugboard
-# to swap letters makes it significantly more secure. The military Enigma
-# historically chose ten letter pairs.
-
-# Because this simulated rotor machine can accept arbitrary rotors even if the
-# number of rotors in use is known the key space is absurdly large. However
-# rotor machines like this are very well analyzed and should not be considered
-# secure simply because of the number of possible keys.
-
-# This is NOT a simulation of the actual Enigma machine as that included a
-# some mechanisms this does not such as rotors that stepped at two different
-# places.
-
+# A simulation of the Engima machine
 
 
 # Pass a singal through a rotor
@@ -156,12 +141,6 @@ def enigma(text,keys,decode=False):
     out = plugboard(out,keys[3])
     
     return "".join(out)
-
-
-
-# Should get around to a copy of SIGABA at some point
-def SIGABA(text,keys,decode=False):
-    pass
 
 def enigmaExample():
     
