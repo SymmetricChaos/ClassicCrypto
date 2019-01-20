@@ -45,21 +45,22 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Bifid and Trifid
 * Nihilist Cipher
 
-#### Rotor Machines
-* Simple Rotor Machine
-* Cipher Disk
-
 #### Playfair Type Cipher
 * Playfair Cipher
 * Four Square Cipher
+
+#### Rotor Machines
+* Enigma
 
 #### Other Substitution Ciphers
 * Hill's Matrix Cipher
 * DRYAD
 * Straddling Checkerboard
+* Cipher Disk
+* Disrupted Tableau
 
 #### Transposition Ciphers
-* Columnar Transport (Single and Double)
+* Columnar Transport
 * Rail Fence Cipher
 * Route Cipher
 * Turning Grille

@@ -1,7 +1,7 @@
 import random
 from UtilityFunctions import alphabetPermutation
 
-# Step a rotor forward by N
+# Step a forward by N
 def stepN(R,n):
     x = R[:]
     for i in range(n):
@@ -111,12 +111,12 @@ def chaocipher(text,keys=["",""],decode=False):
     if keys[0] == "":
         L = "ABCDEFGHIJKLMONPQRSTUVWXYZ"
     else:
-        L = keys[0]
+        L = alphabetPermutation(keys[0])
     
     if keys[1] == "":
         R = "ABCDEFGHIJKLMONPQRSTUVWXYZ"
     else:
-        R = keys[1]
+        R = alphabetPermutation(keys[1])
     
     if decode == False:
         out = ""

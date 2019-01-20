@@ -16,7 +16,7 @@ from Transposition import columnarTransport,doubleColumnarTransport,railfence
 from RotorMachines import enigma
 from NomenclatorCipher import nomenclator
 from Playfair import fourSquareCipher, playfairCipher
-from Disks import cipherDisk, disruptedTableau
+from Disks import cipherDisk, disruptedTableau, chaocipher
 
 textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
 ptext = preptext1(textfile.readline())
@@ -47,6 +47,7 @@ decodetest(ptext,5,railfence)
 # Disks
 decodetest(ptext,"M0A8G7I4C3A2L6F4UNTI5MEL1AND",cipherDisk)
 decodetest(ptext,"M0A8G7I4C3A2L6F4UNTI5MEL1AND",disruptedTableau)
+decodetest(ptext,["",""],chaocipher)
 
 # Codebook
 decodetest(ptext,5766645,nomenclator)
