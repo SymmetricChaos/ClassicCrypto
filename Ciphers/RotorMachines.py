@@ -130,8 +130,8 @@ def enigma(text,keys,decode=False):
         if positions[0] == notches[0]:
             positions[1] = (positions[1] + 1) % 26
             
-        if positions[1] == notches[1]:
-            positions[2] = (positions[2] + 1) % 26
+            if positions[1] == notches[1]:
+                positions[2] = (positions[2] + 1) % 26
         
         #print(positions)
         
@@ -182,7 +182,7 @@ def enigmaExample():
         print(i,end = " ")
     print("\n")
     
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOGJACKDAWSLOVE"
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOGJACKDAWSLOVETHEQUICKBROWNFOXJUMPSOVERTHELAZYDOGJACKDAWSLOVE"
     ctext = enigma(ptext,keys=[rotors,reflector,positions,plugs,rings])
     #dtext = enigma(ctext,keys=[rotors,reflector,positions,plugs,rings])
     print(ctext)
