@@ -68,19 +68,19 @@ def enigma(text,keys,decode=False):
     for num in keys[0]:
         if num == "I":
             rotors.append("EKMFLGDQVZNTOWYHXUSPAIBRCJ")
-            notches.append(17)
+            notches.append(18)
         if num == "II":
             rotors.append("AJDKSIRUXBLHWTMCQGZNPYFVOE")
-            notches.append(5)
+            notches.append(6)
         if num == "III":
             rotors.append("BDFHJLCPRTXVZNYEIWGAKMUSQO")
-            notches.append(13)
+            notches.append(14)
         if num == "IV":
             rotors.append("ESOVPZJAYQUIRHXLNFTGKDCMWB")
-            notches.append(10)
+            notches.append(11)
         if num == "V":
             rotors.append("VZBRGITYUPSDNHLXAWMJQOFECK")
-            notches.append(26)
+            notches.append(0)
     
     # Reverse the lists since this is how the Enigma actually ordered the
     # rotors.
@@ -128,10 +128,12 @@ def enigma(text,keys,decode=False):
         
         if positions[0] == notches[0]:
             positions[1] = (positions[1] + 1) % 26
-            
-            if positions[1] == notches[1]:
-                positions[2] = (positions[2] + 1) % 26
         
+            if positions[1] == notches[1]:
+                positions[1] = (positions[1] + 1) % 26
+                positions[2] = (positions[2] + 1) % 26
+
+
         #print(positions)
         
         T = rotor(T,rotors[0],positions[0])
@@ -164,7 +166,7 @@ def enigmaExample():
     
     print("Enigma Example\n")
 
-    print("Today is {}\n\nThe Codebook Settings Are:".format(datetime.datetime.now().date()))
+    print("Today is {}\nThe Codebook Settings Are:".format(datetime.datetime.now().date()))
     random.seed(hash(datetime.datetime.now().date()))
     
     rotors = random.sample(["I","II","III","IV","V"],k=3)
@@ -173,7 +175,6 @@ def enigmaExample():
     plugs = []
     for i in groups(random.sample("ABCDEFGHIJKLMNOPQRSTUVWXYZ",k=20),2):
         plugs.append("".join(i))
-    
 
     print(reflector,end = " | ")
     for i in rotors:
@@ -191,7 +192,7 @@ def enigmaExample():
         print(i,end = " ")
     print("\n")
     
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOGJACKDAWSLOVETHEQUICKBROWNFOXJUMPSOVERTHELAZYDOGJACKDAWSLOVE"
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOGANDJACKDAWSLOVEMYBIGSPHINXOFQUARTZ"
     ctext = enigma(ptext,keys=[rotors,reflector,positions,plugs,rings])
     dtext = enigma(ctext,keys=[rotors,reflector,positions,plugs,rings])
     print(ctext)
