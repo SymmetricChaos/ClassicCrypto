@@ -82,11 +82,7 @@ def enigma(text,keys,decode=False):
             rotors.append("VZBRGITYUPSDNHLXAWMJQOFECK")
             notches.append(0)
     
-    # Reverse the lists since this is how the Enigma actually ordered the
-    # rotors.
-    rotors.reverse()
-    notches.reverse()
-    
+
     # Get the wiring of the reflector
     reflector = ""
     if keys[1] == "RA":
@@ -102,7 +98,10 @@ def enigma(text,keys,decode=False):
     positions = [alpha.index(i)+1 for i in keys[2]]
     rings = [alpha.index(i) for i in keys[4]]
     
-    # Reverse the lists
+    # Reverse the lists since this is how the Enigma actually ordered the
+    # rotors.
+    rotors.reverse()
+    notches.reverse()
     positions.reverse()
     rings.reverse()
     
@@ -118,24 +117,29 @@ def enigma(text,keys,decode=False):
     
     out = []
     
-    # For each letter first step the rotors and then pass the signal through
-    # the rotors.
     for letter in text:
+
         
         T = letter
         
+        # Step the first rotor (the fast rotor)
         positions[0] = (positions[0] + 1) % 26
         
+        # If it has passed its notch then move the second rotor (middle rotor)
         if positions[0] == notches[0]:
             positions[1] = (positions[1] + 1) % 26
         
+            # If the middle rotor has passed its notch then move both the
+            # middle rotor and the last rotor (slow rotor)
+            # This doublestepping behavior is a serious weakness in the machine
+            # as it means the middle rotor effectively skips a position.
             if positions[1] == notches[1]:
                 positions[1] = (positions[1] + 1) % 26
                 positions[2] = (positions[2] + 1) % 26
 
 
-        #print(positions)
-        
+        # Pass through the rotors then through the reflector and then back
+        # through the rotors in reverse.
         T = rotor(T,rotors[0],positions[0])
         T = rotor(T,rotors[1],positions[1])
         T = rotor(T,rotors[2],positions[2])
@@ -148,6 +152,7 @@ def enigma(text,keys,decode=False):
             
     out = "".join(out)
     
+    # Through the plugboard once more    
     out = plugboard(out,keys[3])
     
     return "".join(out)
@@ -165,10 +170,17 @@ def enigmaExample():
     import datetime
     
     print("Enigma Example\n")
-
-    print("Today is {}\nThe Codebook Settings Are:".format(datetime.datetime.now().date()))
-    random.seed(hash(datetime.datetime.now().date()))
     
+    # The Enigma machine had a codebook with different settings to be used
+    # each day. This example just uses a hash of the date to randomly pick
+    # what the settings will be. In actual use a stronger form of randomness is
+    # needed.
+    today = datetime.datetime.now().date()
+    print("Today is {}\nThe Codebook Settings Are:".format(today))
+    random.seed(hash(today))
+    
+    # Randomly pick the rotors, the reflector, the positions, and the plugboard
+    # settings for the day
     rotors = random.sample(["I","II","III","IV","V"],k=3)
     reflector = random.choice(["RA","RB","RC"])
     positions = random.choices("ABCDEFGHIJKLMNOPQRSTUVWXYZ",k=3)
@@ -176,6 +188,7 @@ def enigmaExample():
     for i in groups(random.sample("ABCDEFGHIJKLMNOPQRSTUVWXYZ",k=20),2):
         plugs.append("".join(i))
 
+    # Write out those settings separated by a | symbol
     print(reflector,end = " | ")
     for i in rotors:
         print(i,end = " ")
@@ -186,6 +199,10 @@ def enigmaExample():
     for i in plugs:
         print(i,end = " ")
         
+    # Whenever an Enigma message was sent it was preceeded by the ring settings
+    # which told the recieving operator what offset from the day's rotor
+    # positions should be used. This meant that a different cipher could be
+    # used for every message without revealing exactly what the settnings were.
     rings = ["A","A","A"]
     print("\n\nRing Settings:",end= " ")
     for i in rings:
