@@ -14,7 +14,6 @@
 # some mechanisms this does not such as rotors that stepped at two different
 # places.
 
-import datetime
 
 
 # Pass a singal through a rotor
@@ -159,24 +158,34 @@ def SIGABA(text,keys,decode=False):
 
 def enigmaExample():
     
+    import random
+    from UtilityFunctions import groups
+    import datetime
+    
     print("Enigma Example\n")
 
-    rotors = ["III","II","I"]
-    rings = ["A","A","A"]
-    positions = ["C","B","A"]
-    reflector = "RB"
-    plugs = []
-    
     print("Today is {}\n\nThe Codebook Settings Are:".format(datetime.datetime.now().date()))
+    random.seed(hash(datetime.datetime.now().date()))
+    
+    rotors = random.sample(["I","II","III","IV","V"],k=3)
+    reflector = random.choice(["RA","RB","RC"])
+    positions = random.choices("ABCDEFGHIJKLMNOPQRSTUVWXYZ",k=3)
+    plugs = []
+    for i in groups(random.sample("ABCDEFGHIJKLMNOPQRSTUVWXYZ",k=20),2):
+        plugs.append("".join(i))
+    
+
+    print(reflector,end = " | ")
     for i in rotors:
         print(i,end = " ")
-    print(" | ",end = " ")
+    print("| ",end = "")
     for i in positions:
-        print(i,end = " ")
-    print(" | ",end = " ")
+        print(i,end = "")
+    print(" | ",end = "")
     for i in plugs:
         print(i,end = " ")
-    
+        
+    rings = ["A","A","A"]
     print("\n\nRing Settings:",end= " ")
     for i in rings:
         print(i,end = " ")
@@ -184,11 +193,11 @@ def enigmaExample():
     
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOGJACKDAWSLOVETHEQUICKBROWNFOXJUMPSOVERTHELAZYDOGJACKDAWSLOVE"
     ctext = enigma(ptext,keys=[rotors,reflector,positions,plugs,rings])
-    #dtext = enigma(ctext,keys=[rotors,reflector,positions,plugs,rings])
+    dtext = enigma(ctext,keys=[rotors,reflector,positions,plugs,rings])
     print(ctext)
-    #if dtext != ptext:
-        #print("ERROR")
-        #print(dtext)
+    if dtext != ptext:
+        print("ERROR")
+        print(dtext)
 
 
 enigmaExample()
