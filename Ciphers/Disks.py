@@ -1,4 +1,5 @@
 import random
+from UtilityFunctions import alphabetPermutation
 
 # Step a rotor forward by N
 def stepN(R,n):
@@ -25,7 +26,7 @@ def cipherDisk(text,key="",decode=False):
     if key == "":
         inner = "ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789"
     else:
-        inner = key
+        inner = alphabetPermutation(key,"ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789")
 
     if decode == False:
         out = ""
@@ -63,7 +64,7 @@ def disruptedTableau(text,key="",decode=False):
     if key == "":
         inner = "ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789"
     else:
-        inner = key
+        inner = alphabetPermutation(key,"ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789")
 
 
     if decode == False:
@@ -188,8 +189,8 @@ def chaocipherExample():
 
     
 
-cipherDiskExample()
-print("\n\n")
-disruptedTableauExample()
-print("\n\n")
-chaocipherExample()
+#cipherDiskExample()
+#print("\n\n")
+#disruptedTableauExample()
+#print("\n\n")
+#chaocipherExample()

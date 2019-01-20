@@ -218,4 +218,4 @@ def enigmaExample():
         print(dtext)
 
 
-enigmaExample()
+#enigmaExample()

@@ -2,9 +2,10 @@
 # properly.
 
 # Some stuff we need for testing
-from UtilityFunctions import decodetest
-from PrepareText import preptext1,playfairPrep
+from UtilityFunctions import decodetest, groups
+from PrepareText import preptext1, playfairPrep
 import numpy as np
+import random
 
 # Import the various ciphers
 from VigenereCipher import vigenere,multiVigenere,vigenereAutokey,affineVigenere
@@ -12,9 +13,10 @@ from Monoalphabetic import caesar,affine,substitution
 from OtherCiphers import hillCipher, straddlingCheckerboard
 from PolybiusSquare import polybiusSquare, nihilistCipher, ADFGVX, bifidCipher,trifidCipher
 from Transposition import columnarTransport,doubleColumnarTransport,railfence
-from RotorMachines import rotorMachine, cipherDisk
+from RotorMachines import enigma
 from NomenclatorCipher import nomenclator
 from Playfair import fourSquareCipher, playfairCipher
+from Disks import cipherDisk, disruptedTableau
 
 textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
 ptext = preptext1(textfile.readline())
@@ -53,13 +55,9 @@ decodetest(ptext,"GIANTUNICORNS",trifidCipher)
 
 decodetest(ptext,5766645,nomenclator)
 
-decodetest(ptext,12,cipherDisk)
+decodetest(ptext,"MAGICALFUN",cipherDisk)
 
-#decodetest(ptext,[[8,0,3,4],
-#                  [1,7,16,5],
-#                  [6,12,14,15],
-#                  [2,9,10,11]],turningGrille)
-
+decodetest(ptext,"MAGICALFUN",disruptedTableau)
 
 # Alter the text so it works for the playfair cipher
 ptextPlayfair = playfairPrep(ptext)
@@ -67,11 +65,15 @@ decodetest(ptextPlayfair,"ILIKEANTELOPES",playfairCipher)
 
 decodetest(ptext,["4SQUARE2","10CODE7"],fourSquareCipher)
 
-R1 = "DMTWSILRUYQNKFEJCAZBPGXOHV"
-R2 = "HQZGPJTMOBLNCIFDYAWVEUSRKX"
-R3 = "UQNTLSZFMREHDPXKIBVYGJCWOA"
-keySettings = [[R1,R2,R3],["R","F","W"],["AB","CD","XJ","ZY"]]
-decodetest(ptext,keySettings,rotorMachine)
+rotors = random.sample(["I","II","III","IV","V"],k=3)
+reflector = random.choice(["RA","RB","RC"])
+positions = random.choices("ABCDEFGHIJKLMNOPQRSTUVWXYZ",k=3)
+plugs = []
+for i in groups(random.sample("ABCDEFGHIJKLMNOPQRSTUVWXYZ",k=20),2):
+    plugs.append("".join(i))
+rings = ["A","A","A"]
+keySettings = [rotors,reflector,positions,plugs,rings]
+decodetest(ptext,keySettings,enigma)
 
 
 
