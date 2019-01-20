@@ -21,50 +21,46 @@ from Disks import cipherDisk, disruptedTableau
 textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
 ptext = preptext1(textfile.readline())
 
+# Monoalphabetic
 decodetest(ptext,1,caesar)
-
 decodetest(ptext,[2,3],affine)
-
 decodetest(ptext,"IOWNAXYLOPHONE",substitution)
 
+# Vigenere
 decodetest(ptext,"THISISABOUTFARMING",vigenere)
-
 decodetest(ptext,["THIS","IS","ABOUT","FARMING"],multiVigenere)
-
 decodetest(ptext,"FARMING",vigenereAutokey)
-
 decodetest(ptext,["SUGAR","CANE"],affineVigenere)
 
+# Polybius Square
 decodetest(ptext,"ZEBRAS",polybiusSquare)
-
 decodetest(ptext,["NIHILIST","CIPHER"],nihilistCipher)
-
-decodetest(ptext,["CIPHER",[5,7]],straddlingCheckerboard)
-
-decodetest(ptext,[0,4,2,3,1],columnarTransport)
-
-decodetest(ptext,[[0,4,2,3,1],[0,4,2,3,1]],doubleColumnarTransport)
-
-decodetest(ptext,5,railfence)
-
 decodetest(ptext,["17ZEBRAS529",[1,4,2,5,0,3]],ADFGVX)
-
 decodetest(ptext,"GIANTUNICORNS",bifidCipher)
-
 decodetest(ptext,"GIANTUNICORNS",trifidCipher)
 
+# Transposition
+decodetest(ptext,[0,4,2,3,1],columnarTransport)
+decodetest(ptext,[[0,4,2,3,1],[0,4,2,3,1]],doubleColumnarTransport)
+decodetest(ptext,5,railfence)
+
+# Disks
+decodetest(ptext,"M0A8G7I4C3A2L6F4UNTI5MEL1AND",cipherDisk)
+decodetest(ptext,"M0A8G7I4C3A2L6F4UNTI5MEL1AND",disruptedTableau)
+
+# Codebook
 decodetest(ptext,5766645,nomenclator)
 
-decodetest(ptext,"MAGICALFUN",cipherDisk)
-
-decodetest(ptext,"MAGICALFUN",disruptedTableau)
-
-# Alter the text so it works for the playfair cipher
+# Playfair
 ptextPlayfair = playfairPrep(ptext)
 decodetest(ptextPlayfair,"ILIKEANTELOPES",playfairCipher)
-
 decodetest(ptext,["4SQUARE2","10CODE7"],fourSquareCipher)
 
+# Straddling Checkerboard
+decodetest(ptext,["CIPHER",[5,7]],straddlingCheckerboard)
+
+
+# Enigma Machine
 rotors = random.sample(["I","II","III","IV","V"],k=3)
 reflector = random.choice(["RA","RB","RC"])
 positions = random.choices("ABCDEFGHIJKLMNOPQRSTUVWXYZ",k=3)
@@ -76,7 +72,7 @@ keySettings = [rotors,reflector,positions,plugs,rings]
 decodetest(ptext,keySettings,enigma)
 
 
-
+# Hill Cipher
 key = np.matrix([[12,14,24,4,6,4,13],
                 [23,24,4,17,24,10,15],
                 [17,0,18,6,22,22,11],
