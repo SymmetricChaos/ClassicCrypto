@@ -1,5 +1,5 @@
 import random
-from UtilityFunctions import alphabetPermutation
+from Ciphers.UtilityFunctions import alphabetPermutation
 
 # This cipher is based on the Alberti Cipher Disk. Encryption works as a
 # simple substitution cipher. However the person encrypting can choose to shift

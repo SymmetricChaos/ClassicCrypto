@@ -1,9 +1,9 @@
-from Polybius import polybiusSquare
+from Ciphers.Polybius import polybiusSquare
 
 # The nihilist cipher is a composite cipher that uses the polybius square
 # along with a modified vigenere cipher. Rather than wrapping around modulo 26
 # addition and subtraction and performed normally.
-def nihilistCipher(text,key=["A","A"],decode=False,mode="EX"):
+def nihilist(text,key=["A","A"],decode=False,mode="EX"):
     
     # Convert the vigenere key into numbers using the polybius square
     keynum = polybiusSquare(key[1],key[0],mode=mode,sep=" ")
@@ -34,14 +34,14 @@ def nihilistCipher(text,key=["A","A"],decode=False,mode="EX"):
             
         return dtext
     
-def nihilistCipherExample():
+def nihilistExample():
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     key = ["SOMETHING","NIHILIST"]
     print("Example Of The Nihilist Cipher\n\nKey is {}\n".format(key))
 
     mode = "KQ"
     print("Plaintext is:  {}".format(ptext))
-    ctext = nihilistCipher(ptext,key,mode = mode)
+    ctext = nihilist(ptext,key,mode = mode)
     print("Ciphertext is: {}".format(ctext))
-    dtext = nihilistCipher(ctext,key,decode=True, mode = mode)
+    dtext = nihilist(ctext,key,decode=True, mode = mode)
     print("Decodes As:    {}".format(dtext))

@@ -1,6 +1,6 @@
 import numpy as np
 from numpy.random import choice
-from UtilityFunctions import groups
+from Ciphers.UtilityFunctions import groups
 import random
 
 # The turning grille was invented by Edouard Fleissner using an 8x8 grid.

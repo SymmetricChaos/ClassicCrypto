@@ -1,6 +1,6 @@
 from itertools import product
-from UtilityFunctions import alphabetPermutation, groups
-from Transposition import columnarTransport
+from Ciphers.UtilityFunctions import alphabetPermutation, groups
+from Ciphers.ColumnarTransport import columnarTransport
 
 # The ADFGX cipher is an important early example of a fractionated cipher that
 # produces Shannon's "confusion" in the ciphertext. That is the symbols of the

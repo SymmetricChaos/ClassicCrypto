@@ -1,5 +1,5 @@
 import random
-from UtilityFunctions import groups
+from Ciphers.UtilityFunctions import groups
 
 # The DRYAD cipher was used by the US Army as a method for quickly encoding
 # numeric information. A page of DRYAD consists of twenty six scrambled

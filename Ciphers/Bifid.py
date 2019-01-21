@@ -1,10 +1,10 @@
-from Polybius import polybiusSquare
+from Ciphers.Polybius import polybiusSquare
 
 # The bifid cipher is a very simple composite cipher that uses the polybius
 # square followed by a simple transposition followed by the polybius square
 # in reverse.
 
-def bifidCipher(text,key,decode=False):
+def bifid(text,key,decode=False):
     
     nums = polybiusSquare(text,key)
 

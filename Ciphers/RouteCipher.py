@@ -1,4 +1,4 @@
-from UtilityFunctions import groups
+from Ciphers.UtilityFunctions import groups
 
 # A route cipher works simply by writing down the message and then reading it
 # off in some unusual order.  There are a tremendous number of possible route

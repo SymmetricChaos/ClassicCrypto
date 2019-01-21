@@ -1,4 +1,4 @@
-from UtilityFunctions import alphabetPermutation
+from Ciphers.UtilityFunctions import alphabetPermutation
 
 # The general substitution cipher. It simple replaces letters
 # with other letters. To make this easier the key may be any sequence of

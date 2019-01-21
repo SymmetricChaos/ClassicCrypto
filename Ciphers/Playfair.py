@@ -1,6 +1,6 @@
-from UtilityFunctions import groups, alphabetPermutation
+from Ciphers.UtilityFunctions import groups, alphabetPermutation
 import numpy as np
-from PrepareText import playfairPrep
+from Ciphers.PrepareText import playfairPrep
 
             
 

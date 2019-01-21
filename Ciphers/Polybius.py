@@ -1,5 +1,5 @@
 from itertools import product
-from UtilityFunctions import alphabetPermutation
+from Ciphers.UtilityFunctions import alphabetPermutation
 
 # The polybius square is a way of converting each letter of an alphabet into a
 # a pair of numbers. In order for this to work the size of the alphabet should

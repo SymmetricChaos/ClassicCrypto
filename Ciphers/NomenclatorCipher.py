@@ -1,6 +1,6 @@
 import random
 import numpy as np
-from PrepareText import preptext1
+from Ciphers.PrepareText import preptext1
 
 
 # A nomenclator is a cipher that operates on common pieces of language in order

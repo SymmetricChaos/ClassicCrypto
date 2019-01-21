@@ -1,6 +1,6 @@
 from itertools import product
-from UtilityFunctions import alphabetPermutation, groups
-from Transposition import columnarTransport
+from Ciphers.UtilityFunctions import alphabetPermutation, groups
+from Ciphers.ColumnarTransport import columnarTransport
 
 # A version of the ADFGX that allows the use of numbers
 

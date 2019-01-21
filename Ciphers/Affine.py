@@ -1,4 +1,4 @@
-from UtilityFunctions import modinv
+from Ciphers.UtilityFunctions import modinv
 
 # The affine cipher is very similar but requires more of an understanding of
 # modular arithmetic. Each letter is assigned a number with A = 0, B = 1, and
@@ -31,3 +31,16 @@ def affine(text,key=[0,1],decode=False):
         T.append(chr(N+65))
         
     return "".join(T)
+
+def affineExample():
+    print("Example of the Affine Cipher\n")
+    
+    key = [3,7]
+
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = affine(ptext,key)
+    dtext = affine(ctext,key,decode=True)
+    print("\nPlaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+    

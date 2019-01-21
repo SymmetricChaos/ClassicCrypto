@@ -1,6 +1,6 @@
 from numpy import argsort
 from numpy.random import choice
-from UtilityFunctions import uniqueRank
+from Ciphers.UtilityFunctions import uniqueRank
 
 ## A transposition cipher is made by shuffling the letters of the message
 ## according to some rule. One of the most famous transposition ciphers is

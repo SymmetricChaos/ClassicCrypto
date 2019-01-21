@@ -1,4 +1,4 @@
-from UtilityFunctions import modinv
+from Ciphers.UtilityFunctions import modinv
 
 def affineVigenere(text,key=[0,1],decode=False):
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#"

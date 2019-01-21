@@ -1,4 +1,4 @@
-from UtilityFunctions import modinv,egcd
+from Ciphers.UtilityFunctions import modinv,egcd
 import numpy as np
 from numpy.linalg import det,inv
 

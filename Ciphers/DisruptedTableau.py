@@ -1,5 +1,5 @@
 import random
-from UtilityFunctions import alphabetPermutation
+from Ciphers.UtilityFunctions import alphabetPermutation
 
 # A continuously turning version of the cipher disk. Rather than keeping the
 # same inner ring position until a change is inserted this version shifts the

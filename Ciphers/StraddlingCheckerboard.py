@@ -1,4 +1,4 @@
-from UtilityFunctions import alphabetPermutation
+from Ciphers.UtilityFunctions import alphabetPermutation
 
 # The straddling checkerboard is a form of substitution cipher that converts
 # each letter into a variable length commaless code in a way best understood

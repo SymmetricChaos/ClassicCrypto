@@ -1,11 +1,11 @@
 from itertools import product
-from UtilityFunctions import alphabetPermutation, groups
+from Ciphers.UtilityFunctions import alphabetPermutation, groups
 
 # The trifid cipher is a slight variation on the bifid cipher that is intended
 # to produce much greater degree of diffusion by splitting each letter into
 # three digits rather than two.
     
-def trifidCipher(text,key,decode=False):
+def trifid(text,key,decode=False):
     
     triplets = product("123",repeat=3)
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ+"
@@ -54,8 +54,8 @@ def trifidExample():
     key = "AKEY"
     print("Example Of A Trifid Cipher\n\nKey is {}".format(key))
 
-    ctext = trifidCipher(ptext,key)
-    dtext = trifidCipher(ctext,key,decode=True)
+    ctext = trifid(ptext,key)
+    dtext = trifid(ctext,key,decode=True)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))

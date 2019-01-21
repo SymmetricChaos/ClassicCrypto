@@ -1,4 +1,4 @@
-from UtilityFunctions import groups, alphabetPermutation
+from Ciphers.UtilityFunctions import groups, alphabetPermutation
 import numpy as np
 
 def fourSquare(text,keys,decode=False,printkey=False):

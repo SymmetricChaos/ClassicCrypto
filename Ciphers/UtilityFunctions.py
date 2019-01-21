@@ -42,13 +42,7 @@ def decodetest(text,keys,fun):
 # For example
 # groups("ABCDEFGHIJKL",3)
 # ["ABC","DEF","GHI","JKL"]
-def groups(text,n):
-    if len(text) % n != 0:
-        raise Exception("text cannot be broken into groups of {}".format(n))
-        
-    if n > len(text):
-        raise Exception("groups cannot be larger than text")
-        
+def groups(text,n):     
     return [text[i*n:i*n+n] for i in range(len(text)//n)]
 
 
