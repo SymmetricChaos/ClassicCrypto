@@ -23,3 +23,20 @@ def bifid(text,key,decode=False):
         out = "".join([i+j for i,j in zip(A,B)])
     
         return polybiusSquare(out,key,decode=True)
+
+
+def bifidExample():
+
+    print("Bifid Cipher Example\n")
+    key = "SWANSAREBIRDS"
+    print("The Key Is: {}\n".format(key))
+    
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = bifid(ptext,key)
+    dtext = bifid(ctext,key,decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+    
+    
+#bifidExample()

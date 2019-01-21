@@ -43,10 +43,18 @@ def ADFGX(text,keys=["A",[0,1]],decode=False):
     return ctext
 
 def ADFGXExample():
+    
+    print("Example of the ADFGX Cipher")
+    
+    key = ["ZEBRAS","TABLE"]
+    
+    print("They Keys Are:\n{}\n{}".format(key[0],key[1]))
 
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = ADFGX(ptext,["ZEBRAS",[1,4,2,5,0,3]])
-    dtext = ADFGX(ctext,["ZEBRAS",[1,4,2,5,0,3]],decode=True)
+    ctext = ADFGX(ptext,key)
+    dtext = ADFGX(ctext,key,decode=True)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
+    
+#ADFGXExample()

@@ -57,7 +57,7 @@ def cipherDiskExample():
     
     inner = "1YW7USQ2OM8KIG3ECA9BD4FHJ0LNP5RTVX6Z"
     
-    print("Inner Ring Setting Is: {}".format(inner))
+    print("Inner Ring Setting Is:\n{}".format(inner))
 
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = cipherDisk(ptext,inner)

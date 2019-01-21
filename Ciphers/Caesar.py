@@ -25,3 +25,18 @@ def caesar(text,key,decode=False):
 # Yes we could do this in one line as
 # return "".join([chr((ord(i)-65+key)%26+65) for i in text])
 # But these ciphers are meant to be easy to read,
+
+
+def caesarExample():
+    print("Caesar Cipher Example\n")
+    key = 1
+    print("The Key Is: {}\n".format(key))
+    
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = caesar(ptext,key)
+    dtext = caesar(ctext,key,decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+    
+#caesarExample()

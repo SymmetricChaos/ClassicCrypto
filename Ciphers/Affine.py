@@ -36,6 +36,7 @@ def affineExample():
     print("Example of the Affine Cipher\n")
     
     key = [3,7]
+    print("The Key is: Add {} then Mult {}".format(key[0],key[1]))
 
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = affine(ptext,key)
@@ -43,4 +44,5 @@ def affineExample():
     print("\nPlaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
-    
+
+#affineExample()

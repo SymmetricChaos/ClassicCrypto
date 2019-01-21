@@ -30,11 +30,19 @@ def ADFGVX(text,keys=["A",[0,1]],decode=False):
 
     return ctext
 
-def ADFGVXexample():
+def ADFGVXExample():
+    
+    print("Example of the ADFGX Cipher")
+    
+    key = ["715ZEBRAS290","TABLES"]
+    
+    print("They Keys Are:\n{}\n{}".format(key[0],key[1]))
 
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = ADFGVX(ptext,["17ZEBRAS529",[1,4,2,5,0,3]])
-    dtext = ADFGVX(ctext,["17ZEBRAS529",[1,4,2,5,0,3]],decode=True)
+    ctext = ADFGVX(ptext,key)
+    dtext = ADFGVX(ctext,key,decode=True)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
+    
+#ADFGVXExample()

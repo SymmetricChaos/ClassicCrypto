@@ -22,3 +22,15 @@ def substitution(text,key,decode=False):
     
     return "".join(out)
 
+def substitutionExample():
+    print("Example of a Simple Substitution Cipher\n")
+    key = "ILOVEZEBRAS"
+    print("The key is {}\n".format(key))
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = substitution(ptext,key)
+    dtext = substitution(ctext,key,decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+    
+#substitutionExample()

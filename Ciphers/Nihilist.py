@@ -45,3 +45,5 @@ def nihilistExample():
     print("Ciphertext is: {}".format(ctext))
     dtext = nihilist(ctext,key,decode=True, mode = mode)
     print("Decodes As:    {}".format(dtext))
+    
+#nihilistExample()
