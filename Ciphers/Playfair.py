@@ -108,17 +108,17 @@ def playfair(text,key,decode=False,mode="IJ",printkey=False):
         return out
     
 
-def playfairCipherExample():
+def playfairExample():
     print("Example of the Playfair Cipher")
 
     
     for i in ["IJ","CK","KQ","EX"]:
         print("\n\nIn {} mode the key is:".format(i))
         key = "PLAYFAIR"
-        playfairCipher("",key,mode=i,printkey=True)
+        playfair("",key,mode=i,printkey=True)
         ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-        ctext = playfairCipher(ptext,"PLAYFAIR",mode=i)
-        dtext = playfairCipher(ctext,"PLAYFAIR",decode=True,mode=i)
+        ctext = playfair(ptext,"PLAYFAIR",mode=i)
+        dtext = playfair(ctext,"PLAYFAIR",decode=True,mode=i)
         print("\nPlaintext is:  {}".format(ptext))
         print("Ciphertext is: {}".format(ctext))
         print("Decodes As:    {}".format(dtext))
