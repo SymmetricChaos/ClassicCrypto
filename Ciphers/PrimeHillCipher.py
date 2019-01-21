@@ -9,26 +9,34 @@ def createMatrixKey(n):
     while True:
         L = [[random.randint(0,37) for i in range(n)] for j in range(n)]
         M = Matrix(L)
-        A = M * M.inv_mod(37)
-        f = lambda x: x % 37
-        A = A.applyfunc(f)
         
-        if A == Matrix.eye(n):
-            return M
+        # If it is singular start over
+        if M.det() % 37 == 0:
+            continue
+
+        return M
             
 def primeHillCipher(text,key,decode=False):
     
-    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#"
+    # If a list is provided turn it into a sympy Matrix
+    if type(key) == list:
+        key = Matrix(key)
     
+    # If we are decoding invert the key
     if decode == True:
         key = key.inv_mod(37)
 
+    # Get the dimension of the key
     N = key.shape[0]
 
     # Apply nulls at the end if needed.
-    b,rem = divmod(len(text),N)
+    rem = len(text) % N
     if rem != 0:
         text += "X"*(N-rem)
+
+
+    # The alphabet we are using
+    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#"
 
     out = ""
     for i in groups(text,N):
@@ -43,6 +51,7 @@ def primeHillCipherExample():
 
     key = createMatrixKey(6)
     
+    
     print("The key is:\n")
     pprint(key)
     print()
@@ -53,4 +62,4 @@ def primeHillCipherExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
     
-primeHillCipherExample()
+#primeHillCipherExample()
