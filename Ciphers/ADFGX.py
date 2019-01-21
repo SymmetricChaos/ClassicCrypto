@@ -42,7 +42,7 @@ def ADFGX(text,keys=["A",[0,1]],decode=False):
 
     return ctext
 
-def ADFGXexample():
+def ADFGXExample():
 
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = ADFGX(ptext,["ZEBRAS",[1,4,2,5,0,3]])
