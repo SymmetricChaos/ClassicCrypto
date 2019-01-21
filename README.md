@@ -10,10 +10,12 @@ The term "classical cryptography" refers broadly to two different concepts.
 The difference between codes and ciphers in classical cryptography is fairly vague, indeed the terms are sometimes used interchangeably. Within this project a cipher must have a changeable key that is needed in order to determine the plaintext. A code on the otherhand is fixed and can be read by anyone who knows the method.
 
 ## Details
-All implemented ciphers are functions of the form `cipherName(text,key,decode=False)`
+All ciphers are functions of the form `cipherName(text,key,decode=False)`
 *  `text` must be a string with either plaintext or ciphertext
 *  `key` is whatever kind of key the cipher uses, if it requires multiple keys they must be in a list
 *  `decode` is boolean and sets the function to either encode or decode
+
+All ciphers will return a string containing either the ciphertext or the decoded text.
 
 Ciphers based on the Polybius Square or on the Playfair Cipher have the argument `mode` which can be:
 *  `IJ` replaces J with I to get a 25 letter square
@@ -21,8 +23,9 @@ Ciphers based on the Polybius Square or on the Playfair Cipher have the argument
 *  `QK` replaces Q with K to get a 25 letter square
 *  `EX` appends the digits 0 to 9 to the alphabet to get a 36 letter alphabet
 
-All ciphers will return a string containing either the ciphertext or the decoded text.
 The nomenclator cipher has an alternate mode that returns the dictionary that serves as the internal key.
+
+Each cipher has an example of the form `cipherNameExample()` which gives a quick example of the cipher and the kind of key it uses. A few ciphers provide additional information about how the cipher is used.
 
 ##  Ciphers:
 
@@ -30,14 +33,11 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 * Substitution cipher
 * Caesar cipher
 * Affine cipher
-* Atbash cipher
-* ROT13
 
 #### Vigenere Variants:
 * Vigenere Cipher
 * Affine Vigenere Cipher (37 letter alphabet)
-* Vigenere Autokey Cipher
-* Multiple Vigenere Cipher
+* Autokey Cipher
 
 #### Polybius Square Variants:
 * Polybius Square
@@ -97,4 +97,4 @@ The nomenclator cipher has an alternate mode that returns the dictionary that se
 #### Other Techniques
 * Vigenere (Kasiski Examination)
 * Simple Substitution (Hill Climbing)
-* Autokey (Deterministic Hill Climbing)
+* Autokey (Hill Climbing)
