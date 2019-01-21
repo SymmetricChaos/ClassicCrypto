@@ -1,15 +1,16 @@
 from CompositeCipher import compositeCipher
 import sys
 sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
-from Ciphers import OtherCiphers as oc
-from Ciphers import Transposition as trans
-from Ciphers import VigenereCipher as vig
+from Ciphers.Vigenere import vigenere
+from Ciphers.ColumnarTransport import columnarTransport
+from Ciphers.DRYAD import DRYAD
+from Ciphers.StraddlingCheckerboard import straddlingCheckerboard
 
 def Checkerboard_DRYAD(text,keys,decode=False):
-    return compositeCipher(text,[oc.straddlingCheckerboard,oc.DRYAD],keys,decode=decode)
+    return compositeCipher(text,[straddlingCheckerboard,DRYAD],keys,decode=decode)
 
 def Vigenere_Columnar(text,keys,decode=False):
-    return compositeCipher(text,[vig.vigenere,trans.columnarTransport],keys,decode=decode)
+    return compositeCipher(text,[vigenere,columnarTransport],keys,decode=decode)
 
 def Checkerboard_DRYAD_Example():
     print("Example of the Checkerboard Dryad Cipher\n")
