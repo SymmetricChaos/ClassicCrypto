@@ -2,7 +2,7 @@
 
 import sys
 sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
-from Ciphers import Playfair as pf
+from Ciphers.Playfair import playfair
 from TextScoring import quadgramScore
 import random
 import math
@@ -41,7 +41,7 @@ def simulatedAnnealing(ctext):
         random.shuffle(key)
         
         # Our starting score is whatever we got from this
-        out = pf.playfairCipher(ctext,"".join(key),decode=True)
+        out = playfair(ctext,"".join(key),decode=True)
         bestscore = quadgramScore(out)
         bestkey = "".join(key)
      
@@ -69,7 +69,7 @@ def simulatedAnnealing(ctext):
     
                 
                 # Try it and see what score we get
-                out = pf.playfairCipher(ctext,newKey,decode=True,mode="FAST")
+                out = playfair(ctext,newKey,decode=True,mode="FAST")
                 score = quadgramScore(out)
 
                 
@@ -82,7 +82,7 @@ def simulatedAnnealing(ctext):
                     bestkey = newKey
                     bestscore = score
                 else:
-                    scorediff = (score - bestscore)/1000
+                    scorediff = (score - bestscore)/10000
 
                     pr = math.exp(scorediff/temp)
 
@@ -97,11 +97,11 @@ def simulatedAnnealing(ctext):
         print("Best Key Found:")
         print("".join(bestkey))
         print()
-        print(pf.playfairCipher(ctext,"".join(bestkey),decode=True))
+        print(playfair(ctext,"".join(bestkey),decode=True))
         print("\n")
 
 
 ptext = "THECULTIVATIONOFTHESUGARCANEISPURSUEDTOGREATEXTENTINTHEISLANDSOFTHEWESTINDIESWHEREABOUTTHREECENTURIESAGOITWASFIRSTINTRODUCEDFROMCHINAORSOMEOTHERPARTSOFTHEEASTANDWHEREITFLOURISHESWITHGREATLUXURIANCEPARTICULARLYINMOISTANDRICHGROUNDTHESEASONFORPLANTINGITCOMMENCESABOUTTHEBEGINNINGOFAUGUST"
-ctext = pf.playfairCipher(ptext,"PLAYFAIR")
+ctext = playfair(ptext,"PLAYFAIR")
 #ctext = "XZOGQRWVQWNROKCOAELBXZWGEQYLGDRZXYZRQAEKLRHDUMNUXYXSXYEMXEHDGNXZYNTZONYELBEUGYSCOREUSWTZRLRYBYCOLZYLEMWNSXFBUSDBORBZCYLQEDMHQRWVQWAEDPGDPOYHORXZINNYWPXZGROKCOLCCOCYTZUEUIICERLEVHMVQWLNWPRYXHGNMLEKLRHDUYSUCYRAWPUYECRYRYXHGNBLUYSCCOUYOHRYUMNUXYXSXYEMXEHDGN"
 simulatedAnnealing(ctext)

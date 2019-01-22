@@ -1,6 +1,6 @@
 import sys
 sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
-from Ciphers import Transposition as trans
+from Ciphers.ColumnarTransport import columnarTransport
 from TextScoring import quadgramScore
 from itertools import permutations
 from UtilityFunctions import factors
@@ -20,7 +20,7 @@ def columnarBruteForce(text):
         bestdtext = ""
         bestscore = float("-inf")
         for p in permutations([x for x in range(i)]):
-            dtext = trans.columnarTransport(text,p,True)
+            dtext = columnarTransport(text,p,True)
             score = quadgramScore(dtext)
             if score > bestscore:
                 bestscore = score
@@ -28,9 +28,11 @@ def columnarBruteForce(text):
         print("\nBest Decrypt For Key Length {}".format(i))
         print(bestdtext[:100])
 
-            
+
+
+
 textfile = open('text1.txt', 'r')
 ptext = preptext1(textfile.readline())
-ctext = trans.columnarTransport(ptext,[4,0,1,3,2,5])
+ctext = columnarTransport(ptext,[4,0,1,3,2,5])
 columnarBruteForce(ctext)
 

@@ -79,8 +79,10 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 * Bacon Cipher
 * Prefix Code
 
-#### Mathematical Codes:
+#### Other Codes:
 * Godel Numbering
+* Brevity Code
+* Braille
 
 ## Random Number Generators:
 * Reihenschieber
