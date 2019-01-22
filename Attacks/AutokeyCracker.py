@@ -1,6 +1,6 @@
 import sys
 sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
-from Ciphers import VigenereCipher as vig
+from Ciphers.Autokey import autokey
 from TextScoring import bigramScore
 
 
@@ -31,7 +31,7 @@ def autokeyAttack(ctext,limit=20):
             for l in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
                 tempKey = bestKey[:]
                 tempKey[i] = l
-                dtext = vig.vigenereAutokey(ctext,tempKey,decode=True)
+                dtext = autokey(ctext,tempKey,decode=True)
                 score = bigramScore(dtext)
                 # If this is the best so far save it
                 if score > bestScore:
@@ -47,12 +47,12 @@ def autokeyAttack(ctext,limit=20):
     print("Best Key Found:")
     print("".join(outKey))
     print()
-    print(vig.vigenereAutokey(ctext,outKey,decode=True))
+    print(autokey(ctext,outKey,decode=True))
     print()
         
     
     
 ptext = "THECULTIVATIONOFTHESUGARCANEISPURSUEDTOGREATEXTENTINTHEISLANDSOFTHEWESTINDIESWHEREABOUTTHREECENTURIESAGOITWASFIRSTINTRODUCEDFROMCHINAORSOMEOTHERPARTSOFTHEEASTANDWHEREITFLOURISHESWITHGREATLUXURIANCEPARTICULARLYINMOISTANDRICHGROUNDTHESEASONFORPLANTINGITCOMMENCESABOUTTHEBEGINNINGOFAUGUST"
-ctext = vig.vigenereAutokey(ptext,"BILBBREGZO")
+ctext = autokey(ptext,"BILBBREGZO")
 
 autokeyAttack(ctext)

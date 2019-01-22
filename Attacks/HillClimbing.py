@@ -2,7 +2,7 @@
 
 import sys
 sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
-from Ciphers import Monoalphabetic as sub
+from Ciphers.Substitution import substitution
 from TextScoring import quadgramScore
 import random
 
@@ -26,7 +26,7 @@ def hillclimbing(ctext,rounds=1000):
         random.shuffle(key)
         
         # Our starting score is whatever we got from this
-        out = sub.substitution(ctext,"".join(key),decode=True)
+        out = substitution(ctext,"".join(key),decode=True)
         bestscore = quadgramScore(out)
         bestkey = "".join(key)
      
@@ -46,7 +46,7 @@ def hillclimbing(ctext,rounds=1000):
             newKey[A],newKey[B] = newKey[B],newKey[A]
             
             # Try it and see what score we get
-            out = sub.substitution(ctext,"".join(newKey),decode=True)
+            out = substitution(ctext,"".join(newKey),decode=True)
             score = quadgramScore(out)
             
             # If that score is better than before write it down and reset the
@@ -69,7 +69,7 @@ def hillclimbing(ctext,rounds=1000):
             print("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
             print("".join(finalKey))
             print()
-            print(sub.substitution(ctext,"".join(finalKey),decode=True))
+            print(substitution(ctext,"".join(finalKey),decode=True))
             print("\n")
         else:
             print("#",end="")

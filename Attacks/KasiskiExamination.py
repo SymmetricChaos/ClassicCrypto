@@ -1,4 +1,4 @@
-from VigenereCipher import vigenere
+from Ciphers.Vigenere import vigenere
 from PrepareText import preptext1
 from FrequencyAnalysis import frequencyTable
 from UtilityFunctions import factors
@@ -120,7 +120,7 @@ def solveVigenere(s,klen=0,verbose=True):
 
 textfile = open('text1.txt', 'r')
 ptext = preptext1(textfile.readline())
-ctext = vigenere(ptext,"ZEBRASPIZZA")
+ctext = vigenere(ptext,"ZEBRAS")
 
 solveVigenere(ctext)
 

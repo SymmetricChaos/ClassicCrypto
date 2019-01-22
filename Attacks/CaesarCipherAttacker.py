@@ -1,17 +1,17 @@
 import sys
 sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
-from Ciphers import Monoalphabetic as mono
+from Ciphers.Caesar import caesar
 from TextScoring import quadgramScore
 
 ptext = "THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG"
-ctext = mono.caesar(ptext,15)
+ctext = caesar(ptext,15)
 
 bestkey = 0
 bestdecode = ""
 bestscore = float("-inf")
 for i in range(0,26):
     
-    dtext = mono.caesar(ctext,i,decode=True)
+    dtext = caesar(ctext,i,decode=True)
     s = quadgramScore(dtext)
     if s > bestscore:
         bestkey = i
