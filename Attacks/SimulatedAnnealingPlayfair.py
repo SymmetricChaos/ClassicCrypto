@@ -45,18 +45,21 @@ def simulatedAnnealing(ctext):
         bestscore = quadgramScoreFrac(out)
         bestkey = "".join(key)
      
+        bestEverScore = quadgramScoreFrac(out)
+        bestEverKey = "".join(key)
+        
         # The "temperature" decreases gradually with each round. The higher the
         # temperature the more likely the algorithm is to accept a change.
         for temp in np.linspace(20,.2,100):
             print("!",end="")
-            for i in range(10000):
+            for i in range(30000):
 
                 # A copy of the key list that we can mutate
                 newKey = key[:]
             
                 # Choose which kind of mutation to apply
                 mutType = random.randint(0,99)
-                if mutType < 80:
+                if mutType < 92:
                     swapLetters(newKey)
                 if mutType >= 92 and mutType < 94:
                     swapRows(newKey)
@@ -91,15 +94,18 @@ def simulatedAnnealing(ctext):
                         bestkey = newKey
                         bestscore = score
     
-
+                # The "best ever score" is kept but not interacted with beyond
+                # this. It is our high water mark.
+                if score > bestEverScore:
+                    bestEverKey = newKey
+                    bestEverScore = score
 
         print("\n\nRound {}".format(x+1))
-        print("Best Key Found:")
-        print("".join(bestkey))
+        print("Best Key Ever Found:")
+        print("".join(bestEverKey))
         print()
-        print(playfair(ctext,"".join(bestkey),decode=True))
+        print(playfair(ctext,"".join(bestEverKey),decode=True))
         print("\n")
-
 
 ptext = "THECULTIVATIONOFTHESUGARCANEISPURSUEDTOGREATEXTENTINTHEISLANDSOFTHEWESTINDIESWHEREABOUTTHREECENTURIESAGOITWASFIRSTINTRODUCEDFROMCHINAORSOMEOTHERPARTSOFTHEEASTANDWHEREITFLOURISHESWITHGREATLUXURIANCEPARTICULARLYINMOISTANDRICHGROUNDTHESEASONFORPLANTINGITCOMMENCESABOUTTHEBEGINNINGOFAUGUST"
 ctext = playfair(ptext,"PLAYFAIR")

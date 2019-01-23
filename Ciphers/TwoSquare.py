@@ -1,7 +1,7 @@
 from Ciphers.UtilityFunctions import groups, alphabetPermutation
 import numpy as np
 
-def fourSquare(text,keys,decode=False,printkey=False):
+def twoSquare(text,keys,decode=False,printkey=False):
         
     k1 = alphabetPermutation(keys[0],"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
     k2 = alphabetPermutation(keys[1],"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
@@ -16,12 +16,10 @@ def fourSquare(text,keys,decode=False,printkey=False):
 
     if printkey == True:
         for i in range(6):
-            print(" ".join(alphasq[i]),end="  ")
             print(" ".join(sq1[i]))
         print()
         for i in range(6):
             print(" ".join(sq2[i]),end="  ")
-            print(" ".join(alphasq[i]))
         return ""
 
 
@@ -29,38 +27,31 @@ def fourSquare(text,keys,decode=False,printkey=False):
         text += "X"
     G = groups(text,2)
     
+    
     if decode == False:
         out = ""
         for g in G:
-            A = np.where(sq1 == g[0])
-            B = np.where(sq2 == g[1])
-            
-            out += alphasq[A[0],B[1]][0]
-            out += alphasq[B[0],A[1]][0]
-            
-        return out
+            # MAKE IT DO THE STUFF
+            pass
+
     
     if decode == True:
         out = ""
         for g in G:
-            A = np.where(alphasq == g[0])
-            B = np.where(alphasq == g[1])
-            
-            out += sq1[A[0],B[1]][0]
-            out += sq2[B[0],A[1]][0]
-            
-        return out
+            # MAKE IT DO THE OTHER STUFF
+            pass
+
     
-def fourSquareExample():
+def twoSquareExample():
     print("Example of the Four Square Cipher\n")
     print("The key is:")
-    keys = ["49SQUARE25","738CIPHER091"]
+    keys = ["953SQUARE178","621CIPHER457"]
     fourSquare("TEST",keys,printkey=True)
     
     print("")
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = fourSquare(ptext,["49SQUARE25","738CIPHER091"])
-    dtext = fourSquare(ctext,["49SQUARE25","738CIPHER091"],decode=True)
+    ctext = twoSquare(ptext,["753SQUARE198","621CIPHER457"])
+    dtext = twoSquare(ctext,["753SQUARE198","621CIPHER457"],decode=True)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
