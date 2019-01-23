@@ -3,7 +3,7 @@
 import sys
 sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
 from Ciphers.Playfair import playfair
-from TextScoring import quadgramScore
+from TextScoring import quadgramScoreFrac
 import random
 import math
 import numpy as np
@@ -42,7 +42,7 @@ def simulatedAnnealing(ctext):
         
         # Our starting score is whatever we got from this
         out = playfair(ctext,"".join(key),decode=True)
-        bestscore = quadgramScore(out)
+        bestscore = quadgramScoreFrac(out)
         bestkey = "".join(key)
      
         # The "temperature" decreases gradually with each round. The higher the
@@ -70,7 +70,7 @@ def simulatedAnnealing(ctext):
                 
                 # Try it and see what score we get
                 out = playfair(ctext,newKey,decode=True,mode="FAST")
-                score = quadgramScore(out)
+                score = quadgramScoreFrac(out)
 
                 
                 # If that score is better we always take the new key
@@ -82,7 +82,7 @@ def simulatedAnnealing(ctext):
                     bestkey = newKey
                     bestscore = score
                 else:
-                    scorediff = (score - bestscore)/10000
+                    scorediff = (score - bestscore)
 
                     pr = math.exp(scorediff/temp)
 

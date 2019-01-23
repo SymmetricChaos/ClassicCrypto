@@ -42,6 +42,7 @@ with open('2gramScores.csv', 'w', newline='') as csvfile:
         # Since Python has no limits on integer size we make storage easier
         # by just storing the first few digits of the log probability
         L.append(floor(logprob*100))
+        L.append(logprob)
         writer.writerow(L)
         
 with open('3gramScores.csv', 'w', newline='') as csvfile:
@@ -52,6 +53,7 @@ with open('3gramScores.csv', 'w', newline='') as csvfile:
         L[1] = int(L[1])
         logprob = log2((L[1]+1)/tot3)
         L.append(floor(logprob*100))
+        L.append(logprob)
         writer.writerow(L)
 
         
@@ -63,6 +65,7 @@ with open('4gramScores.csv', 'w', newline='') as csvfile:
         L[1] = int(L[1])
         logprob = log2((L[1]+1)/tot4)
         L.append(floor(logprob*100))
+        L.append(logprob)
         writer.writerow(L)
         
 with open('1gramScores.csv', 'w', newline='') as csvfile:
@@ -73,4 +76,5 @@ with open('1gramScores.csv', 'w', newline='') as csvfile:
         L[1] = int(L[1])
         logprob = log2((L[1]+1)/tot1)
         L.append(floor(logprob*100))
+        L.append(logprob)
         writer.writerow(L)
