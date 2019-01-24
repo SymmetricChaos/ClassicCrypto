@@ -125,3 +125,31 @@ def find_all(a_str, sub):
         if start == -1: return
         yield start
         start += len(sub)
+        
+def makeSquare(key,mode="EX"):
+    
+    # Prep the text and derive the alphabet
+    if mode == "IJ" or mode == "JI":
+        key = key.replace("J","I")
+        k = alphabetPermutation(key,"ABCDEFGHIKLMNOPQRSTUVWXYZ")
+    if mode == "CK" or mode == "KC":
+        key = key.replace("C","K")
+        k = alphabetPermutation(key,"ABDEFGHIJKLMNOPQRSTUVWXYZ")
+    if mode == "KQ" or mode == "QK":
+        key = key.replace("Q","K")
+        k = alphabetPermutation(key,"ABCDEFGHIJKLMNOPRSTUVWXYZ")
+    if mode == "EX":
+        k = alphabetPermutation(key,"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+    
+    
+    if mode == "EX":
+        sq = groups(k,6)
+    
+        return sq
+
+    else:
+        sq = groups(k,5)
+    
+        return sq
+    
+print(makeSquare("49SQUARE25","EX"))
