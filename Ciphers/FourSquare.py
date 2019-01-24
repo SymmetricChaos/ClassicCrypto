@@ -1,19 +1,16 @@
-from Ciphers.UtilityFunctions import groups, alphabetPermutation
+from Ciphers.UtilityFunctions import makeSquare, groups, alphabetPermutation
 import numpy as np
 
-def fourSquare(text,keys,decode=False,printkey=False):
+def fourSquare(text,keys,decode=False,mode="EX",printkey=False):
         
     k1 = alphabetPermutation(keys[0],"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
     k2 = alphabetPermutation(keys[1],"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 
-    sq1 = np.full([6,6],"")
-    sq2 = np.full([6,6],"")
-    alphasq = np.full([6,6],"")
-    for i in range(6):
-        sq1[i] = [x for x in groups(k1,6)[i]]
-        sq2[i] = [x for x in groups(k2,6)[i]]
-        alphasq[i] = [x for x in groups("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",6)[i]]
-
+    # Convert the squares to numpy arrays to we can use numpy's indexing
+    sq1 = np.array(makeSquare(k1,mode=mode))
+    sq2 = np.array(makeSquare(k2,mode=mode))
+    alphasq = np.array(makeSquare("",mode=mode))
+    
     if printkey == True:
         for i in range(6):
             print(" ".join(alphasq[i]),end="  ")
@@ -64,3 +61,5 @@ def fourSquareExample():
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
+    
+#fourSquareExample()

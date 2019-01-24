@@ -1,26 +1,33 @@
 import sys
 sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
-from Ciphers.UtilityFunctions import groups, alphabetPermutation
+from Ciphers.UtilityFunctions import groups, alphabetPermutation, makeSquare
 import numpy as np
 
-def twoSquare(text,keys,decode=False,printkey=False):
+def twoSquare(text,keys,decode=False,mode="EX",printkey=False):
         
     k1 = alphabetPermutation(keys[0],"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
     k2 = alphabetPermutation(keys[1],"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 
-    sq1 = np.full([6,6],"")
-    sq2 = np.full([6,6],"")
-    for i in range(6):
-        sq1[i] = [x for x in groups(k1,6)[i]]
-        sq2[i] = [x for x in groups(k2,6)[i]]
-
+    # Convert the squares to numpy arrays to we can use numpy's indexing
+    sq1 = np.array(makeSquare(k1,mode=mode))
+    sq2 = np.array(makeSquare(k2,mode=mode))
+    
+    
     if printkey == True:
-        for i in range(6):
-            print(" ".join(sq1[i]))
-        print()
-        for i in range(6):
-            print(" ".join(sq2[i]))
-        return ""
+        if mode == "EX":
+            for i in range(6):
+                print(" ".join(sq1[i]))
+            print()
+            for i in range(6):
+                print(" ".join(sq2[i]))
+            return ""
+        else:
+            for i in range(5):
+                print(" ".join(sq1[i]))
+            print()
+            for i in range(5):
+                print(" ".join(sq2[i]))
+            return ""
 
 
     if len(text) % 2 == 1:

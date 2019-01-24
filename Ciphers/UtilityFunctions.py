@@ -143,13 +143,15 @@ def makeSquare(key,mode="EX"):
     
     
     if mode == "EX":
-        sq = groups(k,6)
-    
+        g = groups(k,6)
+        sq = []
+        for i in g:
+            sq.append([x for x in i])
         return sq
 
     else:
-        sq = groups(k,5)
-    
+        g = groups(k,5)
+        sq = []
+        for i in g:
+            sq.append([x for x in i])
         return sq
-    
-print(makeSquare("49SQUARE25","EX"))
