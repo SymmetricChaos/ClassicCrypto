@@ -52,13 +52,13 @@ def twoSquare(text,keys,decode=False,mode="EX",printkey=False):
 def twoSquareExample():
     print("Example of the Two Square Cipher\n")
     print("The key is:")
-    keys = ["953SQUARE178","621CIPHER457"]
+    keys = ["TWOSQUARE","CIPHER"]
     twoSquare("",keys,printkey=True)
     
     print("")
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = twoSquare(ptext,["753SQUARE198","621CIPHER457"])
-    dtext = twoSquare(ctext,["753SQUARE198","621CIPHER457"],decode=True)
+    ctext = twoSquare(ptext,keys)
+    dtext = twoSquare(ctext,keys,decode=True)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
