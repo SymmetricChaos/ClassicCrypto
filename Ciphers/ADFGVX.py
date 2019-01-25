@@ -9,8 +9,7 @@ def ADFGVX(text,keys=["A",[0,1]],decode=False):
     while len(text) % len(keys[1]) != 0:
         text += "X"
     
-    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-    alpha = alphabetPermutation(keys[0],alpha)
+    alpha = alphabetPermutation(keys[0],"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
     
     pairs = product("ADFGVX",repeat=2)
     

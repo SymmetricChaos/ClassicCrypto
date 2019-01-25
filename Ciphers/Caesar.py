@@ -27,6 +27,15 @@ def caesar(text,key,decode=False):
 # But these ciphers are meant to be easy to read,
 
 
+# A very popular version of the caesar cipher is the ROT13 version. The shift
+# is always 13 so there is no key and it is not a true cipher. However it is 
+# interesting as an example of involutive function, applying it twice gets the
+# original input.
+# Both the key and decode arguments are ignored but are included for 
+# compatibility with other functions.
+def ROT13(text,key=None,decode=False):
+    return caesar(text,13)
+
 def caesarExample():
     print("Caesar Cipher Example\n")
     key = 1
@@ -39,4 +48,15 @@ def caesarExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
     
+def ROT13Example():
+    print("ROT13 Example\n")
+    
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = ROT13(ptext)
+    dtext = ROT13(ctext)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+
 #caesarExample()
+#ROT13Example()
