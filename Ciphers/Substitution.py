@@ -22,6 +22,12 @@ def substitution(text,key,decode=False):
     
     return "".join(out)
 
+# The atbash cipher is similar to ROT13. It is not a true cipher since the key
+# is the same every time. It is also involutive as there is no difference
+# encryption and decrpytion.
+def atbash(text,key=None,decode=False):
+    return substitution(text,"ZYXWVUTSRQPONMLKJIHGFEDCBA")
+
 def substitutionExample():
     print("Example of a Simple Substitution Cipher\n")
     key = "ILOVEZEBRAS"
@@ -33,4 +39,15 @@ def substitutionExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
     
+def atbashExample():
+    print("Example of Atbash\n")
+
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = atbash(ptext)
+    dtext = atbash(ctext)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+    
 #substitutionExample()
+#atbashExample()
