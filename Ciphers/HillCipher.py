@@ -59,7 +59,7 @@ def hillCipher(text,key,decode=False):
 def hillCipherExample():
     print("Example of the Hill Cipher\n")
 
-    key = createMatrixKey(2)
+    key = createMatrixKey(3)
     
     print("The key is:\n")
     pprint(key)
