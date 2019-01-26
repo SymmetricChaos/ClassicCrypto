@@ -31,7 +31,9 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 
 #### Monoalphabetic Substitution:
 * Substitution cipher
+* Atbash
 * Caesar cipher
+* ROT13
 * Affine cipher
 
 #### Vigenere Variants:
@@ -53,7 +55,7 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 * Enigma
 
 #### Other Substitution Ciphers
-* Hill's Matrix Cipher
+* Hill's Matrix Cipher and prime variant
 * DRYAD
 * Straddling Checkerboard
 * Cipher Disk
@@ -66,7 +68,7 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 * Turning Grille
 
 #### Variable Codebooks
-* Nomenclator cipher (variation on Le Grand Chiffre)
+* Nomenclator (variation on Le Grand Chiffre)
 
 #### Composite Ciphers:
 * Checkboard/DRYAD
