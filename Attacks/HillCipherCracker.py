@@ -33,7 +33,7 @@ def hillCipherAttack(ctext,crib):
         for i in range(len(G)-1):
             B = Matrix([G[i],G[i+1]]).T
             
-            # If the matrix is not invertible
+            # If the matrix is not invertible skip it
             if B.det() % 2 == 0 or B.det() % 13 == 0:
                 continue
             
@@ -52,7 +52,8 @@ def hillCipherAttack(ctext,crib):
                 
                 
     
-    return hillCipher(ctext,bestKey)
+    pprint(bestKey.inv_mod(26))
+    print(hillCipher(ctext,bestKey))
 
 
 # Load up the text to use
@@ -65,4 +66,3 @@ ctext = hillCipher(ptext,[[23,20],[1,21]])
 crib = "GREAT"
 
 dtext = hillCipherAttack(ctext,crib)
-print(dtext[:50])
