@@ -15,7 +15,12 @@ def twoSquare(text,keys,decode=False,mode="EX",printkey=False):
         text = text.replace("Q","K")
     if mode == "CK" or mode == "KC":
         text = text.replace("C","K")
+        
+    if len(text) % 2 == 1:
+        text += "X"
+
     
+    # Print out the key in a nice way if the user needs it
     if printkey == True:
         if mode == "EX":
             for i in range(6):
@@ -30,16 +35,12 @@ def twoSquare(text,keys,decode=False,mode="EX",printkey=False):
             for i in range(5):
                 print(" ".join(sq2[i]))
 
-
-    if len(text) % 2 == 1:
-        text += "X"
-    G = groups(text,2)
-    
-    
     if mode == "EX":
         sz = 6
     else:
         sz = 5
+    
+    G = groups(text,2)
     
     if decode == False:
         out = ""
@@ -95,4 +96,4 @@ def twoSquareExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
     
-twoSquareExample()
+#twoSquareExample()

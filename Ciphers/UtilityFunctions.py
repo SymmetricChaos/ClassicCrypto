@@ -128,7 +128,7 @@ def find_all(a_str, sub):
         
 def makeSquare(key,mode="EX"):
     
-    # Prep the text and derive the alphabet
+    # Prep the key and derive the alphabet
     if mode == "IJ" or mode == "JI":
         key = key.replace("J","I")
         k = alphabetPermutation(key,"ABCDEFGHIKLMNOPQRSTUVWXYZ")
