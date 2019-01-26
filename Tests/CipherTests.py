@@ -7,7 +7,7 @@ sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
 # Some stuff we need for testing
 from Ciphers.UtilityFunctions import decodetest
 from Ciphers.PrepareText import preptext1, playfairPrep
-import numpy as np
+
 
 # Load up the text to use
 textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
@@ -37,6 +37,7 @@ from Ciphers.StraddlingCheckerboard import straddlingCheckerboard
 from Ciphers.Enigma import enigma
 from Ciphers.HillCipher import hillCipher
 from Ciphers.PrimeHillCipher import primeHillCipher
+from Ciphers.TwoSquare import twoSquare
 
 # Monoalphabetic
 decodetest(ptext,1,caesar)
@@ -73,6 +74,7 @@ decodetest(ptext,"M0A8G7I4C3A2L6F4UNTI5MEL1AND",disruptedTableau)
 ptextPlayfair = playfairPrep(ptext)
 decodetest(ptextPlayfair,"ILIKEANTELOPES",playfair)
 decodetest(ptext,["4SQUARE2","10CODE7"],fourSquare)
+decodetest(ptext,["4SQUARE2","10CODE7"],twoSquare)
 
 
 # Enigma Machine

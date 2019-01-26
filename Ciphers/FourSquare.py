@@ -1,15 +1,19 @@
-from Ciphers.UtilityFunctions import makeSquare, groups, alphabetPermutation
+from Ciphers.UtilityFunctions import makeSquare, groups
 import numpy as np
 
 def fourSquare(text,keys,decode=False,mode="EX",printkey=False):
         
-    k1 = alphabetPermutation(keys[0],"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
-    k2 = alphabetPermutation(keys[1],"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
-
     # Convert the squares to numpy arrays to we can use numpy's indexing
-    sq1 = np.array(makeSquare(k1,mode=mode))
-    sq2 = np.array(makeSquare(k2,mode=mode))
+    sq1 = np.array(makeSquare(keys[0],mode=mode))
+    sq2 = np.array(makeSquare(keys[1],mode=mode))
     alphasq = np.array(makeSquare("",mode=mode))
+    
+    if mode == "IJ" or mode == "JI":
+        text = text.replace("J","I")
+    if mode == "KQ" or mode == "QK":
+        text = text.replace("Q","K")
+    if mode == "CK" or mode == "KC":
+        text = text.replace("C","K")
     
     if printkey == True:
         for i in range(6):
