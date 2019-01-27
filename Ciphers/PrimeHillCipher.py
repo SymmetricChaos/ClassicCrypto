@@ -5,7 +5,7 @@ from sympy import Matrix, pprint
 # This version of the Hill Cipher operates over a finite field, significantly
 # increasing the possible key space and making keys slightly easier to find.
 
-def createMatrixKey(n):
+def createMatrixKey37(n):
     while True:
         L = [[random.randint(0,37) for i in range(n)] for j in range(n)]
         M = Matrix(L)
@@ -49,7 +49,7 @@ def primeHillCipher(text,key,decode=False):
 def primeHillCipherExample():
     print("Example of the Prime Hill Cipher\n")
 
-    key = createMatrixKey(6)
+    key = createMatrixKey37(6)
     
     
     print("The key is:\n")
