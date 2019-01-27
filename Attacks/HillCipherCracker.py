@@ -6,10 +6,13 @@ from sympy import Matrix, pprint
 from Ciphers.PrepareText import preptext1
 from Attacks.TextScoring import quadgramScore
 
-def hillCipherAttack(ctext,crib):
+def hillCipherAttack(ctext,crib,N):
+    
+    if len(crib) < N*N:
+        raise Exception("crib must have length {}".format(N*N))
     
     bestScore = quadgramScore(ctext)
-    bestKey = Matrix([[1,1],[1,1]])
+    bestKey = Matrix.eye(N)
     
     # We can use this to reduce a matrix modulo 26
     mod26 = lambda x : x % 26
@@ -20,22 +23,35 @@ def hillCipherAttack(ctext,crib):
     cribN = [alpha.index(i) for i in crib]
     
     # Break text into pieces
-    G = groups(ctextN,2)
+    G = groups(ctextN,N)
     
-    for pos in range(len(crib)-3):
+    for pos in range(len(crib)-(N*N-1)):
         
-        subCrib = cribN[pos:pos+4]
+        subCrib = cribN[pos:pos+(N*N)]
         
         #print(subCrib)
         
-        A = Matrix([subCrib[:2],subCrib[2:]]).T
         
-        for i in range(len(G)-1):
-            B = Matrix([G[i],G[i+1]]).T
+        A = Matrix(groups(subCrib,N)).T
+        
+        
+        for i in range(len(G)-(N-1)):
+
+            L = []
+            for x in range(N):
+                L.append(G[x+i])
+                B = Matrix(L).T
+            
+            
+            #pprint(B)
             
             # If the matrix is not invertible skip it
-            if B.det() % 2 == 0 or B.det() % 13 == 0:
+            if B.det() % 2 == 0:
                 continue
+            
+            if B.det() % 13 == 0:
+                continue
+            
             
             C = A*(B.inv_mod(26))
             
@@ -50,19 +66,29 @@ def hillCipherAttack(ctext,crib):
                 bestKey = tKey
                 #print(t[:40])
                 
-                
+    if bestKey.det() % 2 == 0 or bestKey.det() % 13 == 0:
+        print("Something Strange Happened")
+        print("Key Should be Inverse of:")
+        pprint(bestKey)
+        print()
+    else:
+        print("Key Is:")
+        pprint(bestKey.inv_mod(26))
+        print()
     
-    pprint(bestKey.inv_mod(26))
+    print("Decrypt Looks Like:")
     print(hillCipher(ctext,bestKey))
+
 
 
 # Load up the text to use
 textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
 ptext = preptext1(textfile.readline(),silent=True)
-ptext = ptext[:100]
+ptext = ptext[:201]
+#print(ptext,"\n\n")
 ctext = hillCipher(ptext,[[23,20],[1,21]])
+#ctext = hillCipher(ptext,[[0,17,5],[1,14,0],[5,20,13]])
 
+crib = "OTHERPART"
 
-crib = "GREAT"
-
-dtext = hillCipherAttack(ctext,crib)
+dtext = hillCipherAttack(ctext,crib,2)
