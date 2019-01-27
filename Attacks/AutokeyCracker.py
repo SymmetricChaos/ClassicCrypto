@@ -13,7 +13,7 @@ from TextScoring import bigramScore
 # and test if it looks better. After going through all 26 posibilities for the
 # first letter we do the same for the second. Then the third and so on.
 
-def autokeyAttack(ctext,limit=20):
+def autokeyCracker(ctext,limit=20):
     # Our starting score
     outKey = ["A"]
     outScore = bigramScore(ctext)
@@ -50,9 +50,20 @@ def autokeyAttack(ctext,limit=20):
     print(autokey(ctext,outKey,decode=True))
     print()
         
+def autokeyCrackerExample():
     
-    
-ptext = "THECULTIVATIONOFTHESUGARCANEISPURSUEDTOGREATEXTENTINTHEISLANDSOFTHEWESTINDIESWHEREABOUTTHREECENTURIESAGOITWASFIRSTINTRODUCEDFROMCHINAORSOMEOTHERPARTSOFTHEEASTANDWHEREITFLOURISHESWITHGREATLUXURIANCEPARTICULARLYINMOISTANDRICHGROUNDTHESEASONFORPLANTINGITCOMMENCESABOUTTHEBEGINNINGOFAUGUST"
-ctext = autokey(ptext,"BILBBREGZO")
+    print("""
+Example of an Attack on the Autokey Cipher
 
-autokeyAttack(ctext)
+Because there is no cyclic pattern to the key for us to exploit we have no way
+to determine what the length of the key is we will have to try many possible
+key lengths. By default keys with a length up to 20 are tried.
+""")
+    
+    ptext = "THECULTIVATIONOFTHESUGARCANEISPURSUEDTOGREATEXTENTINTHEISLANDSOFTHEWESTINDIESWHEREABOUTTHREECENTURIESAGOITWASFIRSTINTRODUCEDFROMCHINAORSOMEOTHERPARTSOFTHEEASTANDWHEREITFLOURISHESWITHGREATLUXURIANCEPARTICULARLYINMOISTANDRICHGROUNDTHESEASONFORPLANTINGITCOMMENCESABOUTTHEBEGINNINGOFAUGUST"
+    ctext = autokey(ptext,"BILBBREGZO")
+    
+    print(ctext,"\n\n")
+    autokeyCracker(ctext)
+
+autokeyCrackerExample()
