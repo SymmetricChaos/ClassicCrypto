@@ -66,20 +66,29 @@ def hillCipherAttack(ctext,crib,N):
                 bestKey = tKey
                 #print(t[:40])
                 
-                
+    if bestKey.det() % 2 == 0 or bestKey.det() % 13 == 0:
+        print("Something Strange Happened")
+        print("Key Should be Inverse of:")
+        pprint(bestKey)
+        print()
+    else:
+        print("Key Is:")
+        pprint(bestKey.inv_mod(26))
+        print()
     
-    #pprint(bestKey.inv_mod(26))
+    print("Decrypt Looks Like:")
     print(hillCipher(ctext,bestKey))
+
 
 
 # Load up the text to use
 textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
 ptext = preptext1(textfile.readline(),silent=True)
 ptext = ptext[:201]
-print(ptext,"\n\n")
+#print(ptext,"\n\n")
 ctext = hillCipher(ptext,[[23,20],[1,21]])
-ctext = hillCipher(ptext,[[0,17,5],[1,14,0],[5,20,13]])
+#ctext = hillCipher(ptext,[[0,17,5],[1,14,0],[5,20,13]])
 
-crib = "ANDWHEREIT"
+crib = "OTHERPART"
 
-dtext = hillCipherAttack(ctext,crib,3)
+dtext = hillCipherAttack(ctext,crib,2)
