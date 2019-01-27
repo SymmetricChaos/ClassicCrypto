@@ -13,19 +13,38 @@ from sympy import Matrix, pprint
 # The crudest possible method of creating keys. Pick a size and randomly
 # generate matrices until one of them is truly invertible.
 # It can take a while to generate a key if n is more than 8.
-def createMatrixKey(n):
-    while True:
-        L = [[random.randint(0,26) for i in range(n)] for j in range(n)]
-        M = Matrix(L)
+def createMatrixKey(n,involute=False):
+    
+    if involute == False:
+    
+        while True:
+            L = [[random.randint(0,26) for i in range(n)] for j in range(n)]
+            M = Matrix(L)
+            
+            # If it is signular start over
+            if M.det() % 2 == 0:
+                continue
+            
+            if M.det() % 13 == 0:
+                continue
+            
+            return M
         
-        # If it is signular start over
-        if M.det() % 2 == 0:
-            continue
+    # We can use this to reduce a matrix modulo 26
+    mod26 = lambda x : x % 26
+    
+    if involute == True:
+    
+        ident = Matrix.eye(n)
         
-        if M.det() % 13 == 0:
-            continue
-        
-        return M
+        while True:
+            L = [[random.randint(0,26) for i in range(n)] for j in range(n)]
+            M = Matrix(L)
+            Z = M * M
+            if Z.applyfunc(mod26) == ident:
+            
+                return M 
+    
  
 def hillCipher(text,key,decode=False):
     

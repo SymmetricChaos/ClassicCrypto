@@ -5,16 +5,33 @@ from sympy import Matrix, pprint
 # This version of the Hill Cipher operates over a finite field, significantly
 # increasing the possible key space and making keys slightly easier to find.
 
-def createMatrixKey37(n):
-    while True:
-        L = [[random.randint(0,37) for i in range(n)] for j in range(n)]
-        M = Matrix(L)
+def createMatrixKey37(n,involute=False):
+    
+    if involute == False:
+        while True:
+            L = [[random.randint(0,37) for i in range(n)] for j in range(n)]
+            M = Matrix(L)
+            
+            # If it is singular start over
+            if M.det() % 37 == 0:
+                continue
+    
+            return M
+    
+    # We can use this to reduce a matrix modulo 26
+    mod37 = lambda x : x % 37
+    
+    if involute == True:
+    
+        ident = Matrix.eye(n)
         
-        # If it is singular start over
-        if M.det() % 37 == 0:
-            continue
-
-        return M
+        while True:
+            L = [[random.randint(0,37) for i in range(n)] for j in range(n)]
+            M = Matrix(L)
+            Z = M * M
+            if Z.applyfunc(mod37) == ident:
+            
+                return M 
             
 def primeHillCipher(text,key,decode=False):
     
