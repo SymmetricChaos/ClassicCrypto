@@ -1,6 +1,6 @@
 import sys
 sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
-from Ciphers.HillCipher import hillCipher
+from Ciphers.HillCipher import hillCipher, createMatrixKey
 from Ciphers.UtilityFunctions import groups
 from sympy import Matrix, pprint
 from Ciphers.PrepareText import preptext1
@@ -25,12 +25,11 @@ def hillCipherAttack(ctext,crib,N):
     # Break text into pieces
     G = groups(ctextN,N)
     
+    # If the crib is long enough try it in sections to find if they line up
+    # properly.
     for pos in range(len(crib)-(N*N-1)):
         
         subCrib = cribN[pos:pos+(N*N)]
-        
-        #print(subCrib)
-        
         
         A = Matrix(groups(subCrib,N)).T
         
@@ -42,8 +41,7 @@ def hillCipherAttack(ctext,crib,N):
                 L.append(G[x+i])
                 B = Matrix(L).T
             
-            
-            #pprint(B)
+        
             
             # If the matrix is not invertible skip it
             if B.det() % 2 == 0:
@@ -80,15 +78,29 @@ def hillCipherAttack(ctext,crib,N):
     print(hillCipher(ctext,bestKey))
 
 
-
-# Load up the text to use
-textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
-ptext = preptext1(textfile.readline(),silent=True)
-ptext = ptext[:201]
-#print(ptext,"\n\n")
-ctext = hillCipher(ptext,[[23,20],[1,21]])
-#ctext = hillCipher(ptext,[[0,17,5],[1,14,0],[5,20,13]])
-
-crib = "OTHERPART"
-
-dtext = hillCipherAttack(ctext,crib,2)
+def hillCipherAttackExample():
+    
+    print("""
+The simple version of the Hill Cipher is very hard to break with access only to
+the ciphertext. In order to attack it some piece of text from the plaintext,
+known as a "crib", is needed. Here we will try to break the 3x3 version of the 
+cipher using a few different cribs.
+In order to make this work we have to try the crib in many positions and do a
+relatively large amount of calculation. As a result we will try our attack on
+just the first 300 characters.
+""")
+    
+    # Load up the text to use
+    textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
+    ptext = preptext1(textfile.readline(),silent=True)
+    ptext = ptext[:300]
+    #print(ptext,"\n\n")
+    key = createMatrixKey(3)
+    ctext = hillCipher(ptext,key)
+    
+    
+    crib = "OTHERPART"
+    
+    hillCipherAttack(ctext,crib,3)
+    
+hillCipherAttackExample()
