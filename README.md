@@ -38,8 +38,9 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 
 #### Vigenere Variants:
 * Vigenere Cipher
-* Affine Vigenere Cipher (37 letter alphabet)
+* Affine Vigenere Cipher
 * Autokey Cipher
+* Beaufort Cipher
 
 #### Polybius Square Variants:
 * Polybius Square
@@ -49,13 +50,14 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 
 #### Playfair Type Cipher
 * Playfair Cipher
+* Two Square Cipher
 * Four Square Cipher
 
 #### Rotor Machines
 * Enigma
 
 #### Other Substitution Ciphers
-* Hill's Matrix Cipher and prime variant
+* Hill's Matrix Cipher
 * DRYAD
 * Straddling Checkerboard
 * Cipher Disk
@@ -77,14 +79,16 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 ## Codes:
 
 #### Binary Codes:
-* Morse Code
 * Bacon Cipher
 * Prefix Code
+* Binary Braille
+* Binary Morse
 
 #### Other Codes:
 * Godel Numbering
 * Brevity Code
 * Braille
+* Morse Code
 
 ## Random Number Generators:
 * Reihenschieber
@@ -99,6 +103,7 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 * Affine Cipher
 
 #### Other Techniques
-* Vigenere (Kasiski Examination)
-* Simple Substitution (Hill Climbing)
-* Autokey (Hill Climbing)
+* Vigenere
+* Simple Substitution
+* Autokey
+* Hill Cipher
