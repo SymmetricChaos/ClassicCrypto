@@ -1,5 +1,3 @@
-import sys
-sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
 from Ciphers.HillCipher import hillCipher, createMatrixKey
 from Ciphers.UtilityFunctions import groups
 from sympy import Matrix, pprint
