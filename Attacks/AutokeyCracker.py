@@ -1,5 +1,3 @@
-import sys
-sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
 from Ciphers.Autokey import autokey
 from TextScoring import bigramScore
 

@@ -1,6 +1,5 @@
 from CompositeCipher import compositeCipher
-import sys
-sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
+
 from Ciphers.Vigenere import vigenere
 from Ciphers.ColumnarTransport import columnarTransport
 from Ciphers.DRYAD import DRYAD

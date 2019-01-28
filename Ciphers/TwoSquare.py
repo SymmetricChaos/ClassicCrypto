@@ -1,5 +1,3 @@
-import sys
-sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
 from Ciphers.UtilityFunctions import groups, makeSquare
 import numpy as np
 

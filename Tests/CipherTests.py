@@ -1,8 +1,8 @@
 # These tests are extremely simple and are used to confirm that decoding works
 # properly.
 
-import sys
-sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
+#import sys
+#sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
 
 # Some stuff we need for testing
 from Ciphers.UtilityFunctions import decodetest

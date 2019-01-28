@@ -1,7 +1,5 @@
 # Testing if the simple Hill Climbing method will work on the Playfair cipher
 
-import sys
-sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
 from Ciphers.Playfair import playfair
 from TextScoring import quadgramScoreFrac
 import random

@@ -1,5 +1,3 @@
-import sys
-sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
 from Ciphers.Affine import affine
 from TextScoring import quadgramScore
 from itertools import product

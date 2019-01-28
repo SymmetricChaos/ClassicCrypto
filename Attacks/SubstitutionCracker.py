@@ -1,7 +1,5 @@
 # based on http://practicalcryptography.com/cryptanalysis/stochastic-searching/cryptanalysis-simple-substitution-cipher/
 
-import sys
-sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
 from Ciphers.Substitution import substitution
 from TextScoring import quadgramScore
 import random
