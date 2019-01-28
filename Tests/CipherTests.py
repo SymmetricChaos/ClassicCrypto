@@ -18,6 +18,7 @@ from Ciphers.Affine import affine
 from Ciphers.Caesar import caesar
 from Ciphers.Substitution import substitution
 from Ciphers.Vigenere import vigenere
+from Ciphers.Beaufort import beaufort
 from Ciphers.Autokey import autokey
 from Ciphers.AffineVigenere import affineVigenere
 from Ciphers.Polybius import polybiusSquare
@@ -49,6 +50,7 @@ decodetest(ptext,"IOWNAXYLOPHONE",substitution)
 decodetest(ptext,"THISISABOUTFARMING",vigenere)
 decodetest(ptext,"FARMING",autokey)
 decodetest(ptext,["SUGAR","CANE"],affineVigenere)
+decodetest(ptext,"SUGARCANE",beaufort)
 
 
 # Polybius Square
