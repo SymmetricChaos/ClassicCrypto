@@ -66,4 +66,4 @@ key lengths. By default keys with a length up to 20 are tried.
     print(ctext,"\n\n")
     autokeyCracker(ctext)
 
-autokeyCrackerExample()
+#autokeyCrackerExample()
