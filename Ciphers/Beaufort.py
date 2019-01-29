@@ -1,3 +1,5 @@
+from Ciphers.UtilityFunctions import lcm
+
 # The Beaufort cipher is a sort of dual to the Vigenere cipher. The numeric
 # values of the text are subtracted from the numeric values of the key. This
 # provides the same degree of security sas the Vigenere but is involutive.
@@ -29,6 +31,24 @@ def beaufort(text,key,decode=False):
         
     return "".join(T)
 
+# Using multiple Beaufort ciphers has the same advantages as using multiple
+# Vigenere ciphers. The key has a length equal to the least common multiple of
+# the key lengths. However the cipher is not longer an involution. The keys
+# must be used in reverse.
+def multiBeaufort(text,key,decode=False):
+    
+    if type(key) != list:
+        raise Exception("Must provide a list of keys")
+    
+    if decode == True:
+        key.reverse()
+    
+    out = text
+    for i in key:
+        out = beaufort(out,i)
+
+    return out
+
 def beaufortExample():
 
     print("Beaufort Example\n")
@@ -41,5 +61,21 @@ def beaufortExample():
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
+    
+def multiBeaufortExample():
+
+    print("Multiple Beaufort Example\n")
+    key = ["ROMANCE","KINGDOMS"]
+    print("The Key Is: {}\n".format(key))
+    L = lcm( len(key[0]), len(key[1])  )
+    print("Effective Key Length: {}\n".format(L))
+    
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = multiBeaufort(ptext,key)
+    dtext = multiBeaufort(ctext,key,True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
 
 #beaufortExample()
+#multiBeaufortExample()

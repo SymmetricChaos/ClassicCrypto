@@ -84,6 +84,10 @@ def modinv(a, m):
         raise Exception('modular inverse does not exist')
     else:
         return x % m
+    
+def lcm(a,b):
+    g,x,y = egcd(a,b)
+    return abs(a*b)//g
 
 # Unique rank for each element of a list
 # Uses two dictionaries and a counter.

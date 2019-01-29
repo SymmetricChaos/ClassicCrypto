@@ -1,3 +1,5 @@
+from Ciphers.UtilityFunctions import lcm
+
 # The Vigenere cipher was the first polyalphabetic cipher invented as was once
 # considered to be unbreakable as it makes simple frequency analysis of the
 # ciphertext impossible. It operates as several Caesar ciphers.
@@ -61,9 +63,11 @@ def vigenereExample():
     
 def multiVigenereExample():
 
-    print("Vigenere Example\n")
+    print("Multiple Vigenere Example\n")
     key = ["ROMANCE","KINGDOMS"]
-    print("The Key Is: {}\n".format(key))
+    print("The Key Is: {}".format(key))
+    L = lcm( len(key[0]), len(key[1])  )
+    print("Effective Key Length: {}\n".format(L))
     
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = multiVigenere(ptext,key)
@@ -71,3 +75,5 @@ def multiVigenereExample():
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
+    
+multiVigenereExample()
