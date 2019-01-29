@@ -34,7 +34,7 @@ def decodetest(text,keys,fun):
     ctext = fun(text,keys)
     dtext = fun(ctext,keys,decode=True)
     if text == dtext[:len(text)]:
-        print("Success")
+        print("Success With {}".format(fun.__name__))
     else:
         raise Warning("Decode Error With {}".format(fun.__name__))
 

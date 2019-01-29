@@ -1,3 +1,7 @@
+# The Beaufort cipher is a sort of dual to the Vigenere cipher. The numeric
+# values of the text are subtracted from the numeric values of the key. This
+# provides the same degree of security sas the Vigenere but is involutive.
+
 def beaufort(text,key,decode=False):
 
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

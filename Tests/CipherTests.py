@@ -1,8 +1,8 @@
 # These tests are extremely simple and are used to confirm that decoding works
 # properly.
 
-#import sys
-#sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
+import sys
+sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
 
 # Some stuff we need for testing
 from Ciphers.UtilityFunctions import decodetest
@@ -17,7 +17,7 @@ ptext = preptext1(textfile.readline())
 from Ciphers.Affine import affine
 from Ciphers.Caesar import caesar
 from Ciphers.Substitution import substitution
-from Ciphers.Vigenere import vigenere
+from Ciphers.Vigenere import vigenere, multiVigenere
 from Ciphers.Beaufort import beaufort
 from Ciphers.Autokey import autokey
 from Ciphers.AffineVigenere import affineVigenere
@@ -48,6 +48,7 @@ decodetest(ptext,"IOWNAXYLOPHONE",substitution)
 
 # Vigenere
 decodetest(ptext,"THISISABOUTFARMING",vigenere)
+decodetest(ptext,["THIS","IS","ABOUT","FARMING"],multiVigenere)
 decodetest(ptext,"FARMING",autokey)
 decodetest(ptext,["SUGAR","CANE"],affineVigenere)
 decodetest(ptext,"SUGARCANE",beaufort)
