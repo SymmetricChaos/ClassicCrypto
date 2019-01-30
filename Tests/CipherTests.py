@@ -109,6 +109,7 @@ key = [[5,10,25,24,19,1],
        [33,10,26,36,24,8]]
 decodetest(ptext,key,primeHillCipher)
 
+
 # Straddling Checkerboard
 decodetest(ptext,["CIPHER",[5,7]],straddlingCheckerboard)
 

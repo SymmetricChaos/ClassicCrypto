@@ -15,7 +15,6 @@ from Codes.PrepareText import preptext3
 # distinctive patterns of letters.
 
 
-
 textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\Text3.txt', 'r')
 ptext = ""
 for i in textfile.readlines():
