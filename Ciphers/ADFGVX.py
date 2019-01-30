@@ -6,6 +6,13 @@ from Ciphers.ColumnarTransport import columnarTransport
 
 def ADFGVX(text,keys=["A",[0,1]],decode=False):
     
+    """
+:param text: The text to be encrypyed. Must be alphanumeric and uppercase.
+:param keys: Two keywords, the first to prepare a 6x6 square a the second to control a columnar transport cipher.
+:param decode: Boolean. If false encrypt plaintext. If true decode ciphertext
+    """
+
+    
     while len(text) % len(keys[1]) != 0:
         text += "X"
     
