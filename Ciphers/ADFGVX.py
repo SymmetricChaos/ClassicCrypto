@@ -2,7 +2,8 @@ from itertools import product
 from Ciphers.UtilityFunctions import alphabetPermutation, groups
 from Ciphers.ColumnarTransport import columnarTransport
 
-# A version of the ADFGX that allows the use of numbers
+# A version of the ADFGX that allows the use of numbers. The polybius square is
+# 6x6 instead of 5x5
 
 def ADFGVX(text,keys=["A",[0,1]],decode=False):
     

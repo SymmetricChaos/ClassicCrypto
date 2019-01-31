@@ -3,11 +3,14 @@ from Ciphers.UtilityFunctions import alphabetPermutation, groups
 from Ciphers.ColumnarTransport import columnarTransport
 
 # The ADFGX cipher is an important early example of a fractionated cipher that
-# produces Shannon's "confusion" in the ciphertext. That is the symbols of the
-# ciphertext depend on many parts of the plaintext.
-        
-# A modified polybius square is used. Historically it used ADFGX rather than 
-# 12345, hence the name.
+# successfully causes each character of the ciphertext to depend on characters 
+# from distant parts of the plaintext.
+
+# This is accomplished by first using a polybius square to divide the plaintext
+# into pairs of symbols (historically it used ADFGX rather than 12345) and then
+# it uses columnar transport to shuffle the symbols. Finally the symbols are
+# converted back to letters.
+
 
 
 def ADFGX(text,keys=["A",[0,1]],decode=False):
