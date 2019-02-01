@@ -2,7 +2,20 @@ from Ciphers.UtilityFunctions import groups, alphabetPermutation
 import numpy as np
 from Ciphers.PrepareText import playfairPrep
 
-            
+# The Playfair cipher was designed to be a simple enough to apply rapidly in a
+# battlefield setting while strong enough to resist significant cryptanalysis.
+
+# It first creates a square of letters. The most common version uses a 5x5 
+# square with the letter J replaced by I but this program offers four versions
+# of the square. 
+
+# To encrypt letters are taken two at a time and each is found in the square.
+#  If they are in the same row each is replaced with the letter to their right
+#  If they are in the same column each is replaced with the letter below
+#  If they are in different row and different column they are replaced by the
+#    letter found by keeping the same row and moving to the column other the
+#    other letter.
+
 
 def playfair(text,key,decode=False,mode="IJ",printkey=False):
     
@@ -22,6 +35,7 @@ def playfair(text,key,decode=False,mode="IJ",printkey=False):
     if mode == "EX":
         k = alphabetPermutation(key,"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
         
+    
     if mode == "EX":
         sq = np.full([6,6],"")
         for i in range(6):
@@ -52,27 +66,33 @@ def playfair(text,key,decode=False,mode="IJ",printkey=False):
     
         out = ""
         
+        
         for g in G:
             A = np.where(sq == g[0])
             B = np.where(sq == g[1])
-            #print(g)
             
+            
+            # If they share a column
             if A[0] == B[0]:
-                out += sq[(A[0]+1)%sz,A[1]][0]
-                out += sq[(B[0]+1)%sz,B[1]][0]
-                #print(out[-2:],"\n")
-                
-            elif A[1] == B[1]:
                 out += sq[A[0],(A[1]+1)%sz][0]
                 out += sq[B[0],(B[1]+1)%sz][0]
-                #print(out[-2:],"\n")
+
+            # If they share a row
+            if A[1] == B[1]:
                 
+                print(A[0])
+                out += sq[(A[0]+1)%sz,A[1]][0]
+                out += sq[(B[0]+1)%sz,B[1]][0]
+
+            # Otherwise
             else:
+                print("A")
                 out += sq[A[0],B[1]][0]
                 out += sq[B[0],A[1]][0]
-                #print(out[-2:],"\n")
-        
+
         return out
+    
+    
     
     if decode == True:
         if mode == "EX":
@@ -85,22 +105,19 @@ def playfair(text,key,decode=False,mode="IJ",printkey=False):
         for g in G:
             A = np.where(sq == g[0])
             B = np.where(sq == g[1])
-            #print(g)
             
             if A[0] == B[0]:
-                out += sq[(A[0]-1)%sz,A[1]][0]
-                out += sq[(B[0]-1)%sz,B[1]][0]
-                #print(out[-2:],"\n")
-                
-            elif A[1] == B[1]:
                 out += sq[A[0],(A[1]-1)%sz][0]
                 out += sq[B[0],(B[1]-1)%sz][0]
-                #print(out[-2:],"\n")
+                
+            elif A[1] == B[1]:
+                out += sq[(A[0]-1)%sz,A[1]][0]
+                out += sq[(B[0]-1)%sz,B[1]][0]
                 
             else:
+                
                 out += sq[A[0],B[1]][0]
                 out += sq[B[0],A[1]][0]
-                #print(out[-2:],"\n")
         
         return out
     
@@ -109,13 +126,16 @@ def playfairExample():
     print("Example of the Playfair Cipher")
 
     
-    for i in ["IJ","CK","KQ","EX"]:
+    for i in ["IJ"]:#,"CK","KQ","EX"]:
         print("\n\nIn {} mode the key is:".format(i))
-        key = "PLAYFAIR"
+        key = "PLAYFAIREXAMPLE"
         playfair("",key,mode=i,printkey=True)
-        ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-        ctext = playfair(ptext,"PLAYFAIR",mode=i)
-        dtext = playfair(ctext,"PLAYFAIR",decode=True,mode=i)
+        #ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+        ptext = "HIDE"
+        ctext = playfair(ptext,key,mode=i)
+        dtext = playfair(ctext,key,decode=True,mode=i)
         print("\nPlaintext is:  {}".format(ptext))
         print("Ciphertext is: {}".format(ctext))
         print("Decodes As:    {}".format(dtext))
+        
+playfairExample()
