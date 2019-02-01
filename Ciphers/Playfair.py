@@ -79,14 +79,11 @@ def playfair(text,key,decode=False,mode="IJ",printkey=False):
 
             # If they share a row
             if A[1] == B[1]:
-                
-                print(A[0])
                 out += sq[(A[0]+1)%sz,A[1]][0]
                 out += sq[(B[0]+1)%sz,B[1]][0]
 
             # Otherwise
             else:
-                print("A")
                 out += sq[A[0],B[1]][0]
                 out += sq[B[0],A[1]][0]
 
@@ -130,12 +127,11 @@ def playfairExample():
         print("\n\nIn {} mode the key is:".format(i))
         key = "PLAYFAIREXAMPLE"
         playfair("",key,mode=i,printkey=True)
-        #ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-        ptext = "HIDE"
+        ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
         ctext = playfair(ptext,key,mode=i)
         dtext = playfair(ctext,key,decode=True,mode=i)
         print("\nPlaintext is:  {}".format(ptext))
         print("Ciphertext is: {}".format(ctext))
         print("Decodes As:    {}".format(dtext))
         
-playfairExample()
+#playfairExample()
