@@ -1,6 +1,13 @@
 from Ciphers.UtilityFunctions import modinv
 
 def affineVigenere(text,key=[0,1],decode=False):
+    
+    """
+:param text: The text to be encrypyed. Must be alphanumeric and uppercase. The letter J will be replaced with I.
+:param key: A list of two integers. The first is used for addition. The second for multiplication.
+:param decode: Boolean. If false encrypt plaintext. If true decode ciphertext
+    """
+    
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#"
     T = []
     kLen1 = len(key[0])
