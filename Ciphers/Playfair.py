@@ -21,7 +21,7 @@ def playfair(text,key,decode=False,mode="IJ",printkey=False):
     
     # Make sure the text will work correctly for a playfair cipher in this mode
     text = playfairPrep(text,mode=mode)
-    
+
     # Derive the alphabet to be used for the key based on the mode
     if mode == "IJ" or mode == "JI":
         key = key.replace("J","I")
@@ -78,7 +78,7 @@ def playfair(text,key,decode=False,mode="IJ",printkey=False):
                 out += sq[B[0],(B[1]+1)%sz][0]
 
             # If they share a row
-            if A[1] == B[1]:
+            elif A[1] == B[1]:
                 out += sq[(A[0]+1)%sz,A[1]][0]
                 out += sq[(B[0]+1)%sz,B[1]][0]
 
@@ -86,6 +86,7 @@ def playfair(text,key,decode=False,mode="IJ",printkey=False):
             else:
                 out += sq[A[0],B[1]][0]
                 out += sq[B[0],A[1]][0]
+
 
         return out
     
@@ -134,4 +135,4 @@ def playfairExample():
         print("Ciphertext is: {}".format(ctext))
         print("Decodes As:    {}".format(dtext))
         
-#playfairExample()
+playfairExample()
