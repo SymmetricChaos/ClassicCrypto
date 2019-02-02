@@ -1,4 +1,4 @@
-from Ciphers.UtilityFunctions import groups, alphabetPermutation
+from Ciphers.UtilityFunctions import groups, makeSquare
 import numpy as np
 from Ciphers.PrepareText import playfairPrep
 
@@ -23,42 +23,25 @@ def playfair(text,key,decode=False,mode="IJ",printkey=False):
     text = playfairPrep(text,mode=mode)
 
     # Derive the alphabet to be used for the key based on the mode
-    if mode == "IJ" or mode == "JI":
-        key = key.replace("J","I")
-        k = alphabetPermutation(key,"ABCDEFGHIKLMNOPQRSTUVWXYZ")
-    if mode == "CK" or mode == "KC":
-        key = key.replace("C","K")
-        k = alphabetPermutation(key,"ABDEFGHIJKLMNOPQRSTUVWXYZ")
-    if mode == "KQ" or mode == "QK":
-        key = key.replace("Q","K")
-        k = alphabetPermutation(key,"ABCDEFGHIJKLMNOPRSTUVWXYZ")
-    if mode == "EX":
-        k = alphabetPermutation(key,"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+    sq = np.array(makeSquare(key,mode=mode))
+
+    if printkey == True:
         
-    
-    if mode == "EX":
-        sq = np.full([6,6],"")
-        for i in range(6):
-            sq[i] = [x for x in groups(k,6)[i]]
-    
-        if printkey == True:
-            for i in range(6):
-                print(" ".join(sq[i]))
-            return ""
-        
-    else:
-        sq = np.full([5,5],"")
-        for i in range(5):
-            sq[i] = [x for x in groups(k,5)[i]]
-    
-        if printkey == True:
-            for i in range(5):
-                print(" ".join(sq[i]))
-            return ""
+        if mode == "EX":
+            if printkey == True:
+                for i in range(6):
+                    print(" ".join(sq[i]))
+
+        else:
+            if printkey == True:
+                for i in range(5):
+                    print(" ".join(sq[i]))
+
     
     G = groups(text,2)
 
     if decode == False:
+        
         if mode == "EX":
             sz = 6
         else:
@@ -124,12 +107,12 @@ def playfairExample():
     print("Example of the Playfair Cipher")
 
     
-    for i in ["IJ"]:#,"CK","KQ","EX"]:
+    for i in ["IJ","CK","KQ","EX"]:
         print("\n\nIn {} mode the key is:".format(i))
         key = "PLAYFAIREXAMPLE"
-        playfair("",key,mode=i,printkey=True)
+        
         ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-        ctext = playfair(ptext,key,mode=i)
+        ctext = playfair(ptext,key,mode=i,printkey=True)
         dtext = playfair(ctext,key,decode=True,mode=i)
         print("\nPlaintext is:  {}".format(ptext))
         print("Ciphertext is: {}".format(ctext))
