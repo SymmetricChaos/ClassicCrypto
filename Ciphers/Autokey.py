@@ -1,3 +1,9 @@
+# The autokey cipher works similarly to the Vigenere cipher but rather than
+# repeated the keys over and over it extends the key by using the plaintext
+# itself. In essence the plaintext is appended to the key of the Vigenere
+# cipher so that it doesn't repeat in a clear pattern.
+
+
 def autokey(text,key,decode=False):
 
     """
