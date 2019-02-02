@@ -2,15 +2,14 @@ from Ciphers.UtilityFunctions import modinv
 
 # The affine cipher is very similar but requires more of an understanding of
 # modular arithmetic. Each letter is assigned a number with A = 0, B = 1, and
-# so on. Then each number has a value added to it and it multiplied by a value.
-# The result is reduced modulo 26. Then the numbers are turned back into
-# letters using the same rules 0 = A, 1 = B, 2 = C.
+# so on. Then each number is multiplied by a certain value followed by addition
+# by addition by some number.
 
 def affine(text,key=[0,1],decode=False):
     
     """
 :param text: The text to be encrypyed. Must be alphanumeric and uppercase. The letter J will be replaced with I.
-:param key: A list of two integers. The first is used for addition. The second for multiplication.
+:param key: A list of two integers. The first is used for multiplication. The second for addition.
 :param decode: Boolean. If false encrypt plaintext. If true decode ciphertext
     """
     
@@ -52,4 +51,4 @@ def affineExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
 
-affineExample()
+#affineExample()

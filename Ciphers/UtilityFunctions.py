@@ -38,6 +38,7 @@ def decodetest(text,keys,fun):
     else:
         raise Warning("Decode Error With {}".format(fun.__name__))
 
+
 # Return a list of groups from the text
 # For example
 # groups("ABCDEFGHIJKL",3)
@@ -78,13 +79,15 @@ def egcd(a, b):
         g, y, x = egcd(b % a, a)
         return (g, x - (b // a) * y, y)
 
+# Use egcd to calculate the modular inverse
 def modinv(a, m):
     g, x, y = egcd(a, m)
     if g != 1:
         raise Exception('modular inverse does not exist')
     else:
         return x % m
-    
+
+# Use egcd to calculate the least common multiple
 def lcm(a,b):
     g,x,y = egcd(a,b)
     return abs(a*b)//g
@@ -116,12 +119,13 @@ def uniqueRank(text):
         b[i] -= 1
     return out
 
+# Delete any spaces at the end of the text
 def removeTrailingSpaces(text):
     while text[-1] == " ":
         text = text[:-1]
     return text
 
-
+# Generator that returns each position where a substring exists
 def find_all(a_str, sub):
     start = 0
     while True:
@@ -129,7 +133,8 @@ def find_all(a_str, sub):
         if start == -1: return
         yield start
         start += len(sub)
-        
+
+# Create the squares used for polybius squares and playfair
 def makeSquare(key,mode):
     
     # Prep the key and derive the alphabet
