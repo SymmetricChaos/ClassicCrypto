@@ -1,5 +1,5 @@
 from itertools import product
-from Ciphers.UtilityFunctions import alphabetPermutation, groups
+from Ciphers.UtilityFunctions import alphabetPermutation, groups, makeSquare
 from Ciphers.ColumnarTransport import columnarTransport
 
 # The ADFGX cipher is an important early example of a fractionated cipher that
@@ -13,7 +13,7 @@ from Ciphers.ColumnarTransport import columnarTransport
 
 
 
-def ADFGX(text,keys=["A",[0,1]],decode=False):
+def ADFGX(text,keys=["A",[0,1]],decode=False,printkey=False):
     
     """
 :param text: The text to be encrypyed. Must be alphanumeric and uppercase. The letter J will be replaced with I.
@@ -21,14 +21,20 @@ def ADFGX(text,keys=["A",[0,1]],decode=False):
 :param decode: Boolean. If false encrypt plaintext. If true decode ciphertext
     """
     
+    # Adjust the text if necessary
+    text = text.replace("J","I")
     while len(text) % len(keys[1]) != 0:
         text += "X"
         
     
     alpha = "ABCDEFGHIKLMNOPQRSTUVWXYZ"
     alpha = alphabetPermutation(keys[0],alpha)
-    # Replace 
-    text = text.replace("J","I")
+
+    
+    if printkey == True:
+        sq = makeSquare(keys[0],mode="EX")
+        for i in range(6):
+            print(" ".join(sq[i]))
     
     pairs = product("ADFGX",repeat=2)
     
@@ -53,13 +59,16 @@ def ADFGX(text,keys=["A",[0,1]],decode=False):
 
 def ADFGXExample():
     
-    print("Example of the ADFGX Cipher")
+    print("Example of the ADFGX Cipher\n")
     
-    key = ["ZEBRAS","TABLE"]
-    
-    print("They Keys Are:\n{}\n{}".format(key[0],key[1]))
-
+    key = ["ZEBRAS","TABLES"]
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    
+    print("They Polybius Square:")
+    ADFGX(ptext,key,printkey=True)
+    print("\nThe Columnar Transport Key:")
+    print(key[1],end="\n\n")
+
     ctext = ADFGX(ptext,key)
     dtext = ADFGX(ctext,key,decode=True)
     print("Plaintext is:  {}".format(ptext))

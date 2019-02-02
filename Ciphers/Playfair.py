@@ -28,11 +28,11 @@ def playfair(text,key,decode=False,mode="IJ",printkey=False):
     if printkey == True:
         if mode == "EX":
             for i in range(6):
-                print("   ".join(sq[i]),end="\n\n")
+                print(" ".join(sq[i]))
 
         else:
             for i in range(5):
-                print("   ".join(sq[i]),end="\n\n")
+                print(" ".join(sq[i]))
     
     G = groups(text,2)
 
@@ -114,4 +114,4 @@ def playfairExample():
         print("Ciphertext is: {}".format(ctext))
         print("Decodes As:    {}".format(dtext))
         
-playfairExample()
+#playfairExample()
