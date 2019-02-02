@@ -26,17 +26,13 @@ def playfair(text,key,decode=False,mode="IJ",printkey=False):
     sq = np.array(makeSquare(key,mode=mode))
 
     if printkey == True:
-        
         if mode == "EX":
-            if printkey == True:
-                for i in range(6):
-                    print(" ".join(sq[i]))
+            for i in range(6):
+                print("   ".join(sq[i]),end="\n\n")
 
         else:
-            if printkey == True:
-                for i in range(5):
-                    print(" ".join(sq[i]))
-
+            for i in range(5):
+                print("   ".join(sq[i]),end="\n\n")
     
     G = groups(text,2)
 

@@ -130,7 +130,7 @@ def find_all(a_str, sub):
         yield start
         start += len(sub)
         
-def makeSquare(key,mode="EX"):
+def makeSquare(key,mode):
     
     # Prep the key and derive the alphabet
     if mode == "IJ" or mode == "JI":
