@@ -1,6 +1,5 @@
 import random
 import numpy as np
-from Ciphers.PrepareText import preptext1
 
 
 # A nomenclator is a cipher that operates on common pieces of language in order
@@ -174,16 +173,24 @@ def nomenclator(text,key=1,decode=False,usenulls=True,dictionary=False,showgroup
         return "".join(X)
 
 
+def nomenclatorExample():
+    
+    from Ciphers.UtilityFunctions import preptext1
 
+    print("Example of the Nomenclator Cipher")
 
-#textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\Text2.txt','r')
-#ptext = preptext1(textfile.readline())
+    textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\Text2.txt','r')
+    ptext = preptext1(textfile.readline(),silent=True)
+    ptext = ptext[:200]
+    
+    KEY = random.getrandbits(64)
+    
+    ctext = nomenclator(ptext,KEY)
+    dtext = nomenclator(ctext,KEY,decode=True)
+    
+    print("Plaintext is:\n{}\n\n".format(ptext))
+    print("Ciphertext is:\n{}".format(ctext))
 
+    print("\n\nDoes the Text Decode Correctly?",dtext == ptext)
 
-#KEY = random.getrandbits(64)
-
-#ctext = nomenclator(ptext,KEY)
-
-#decoded = nomenclator(ctext,KEY,decode=True)
-#print(decoded)
-#print("\n\nDoes the Text Decode Correctly?",decoded == ptext)
+#nomenclatorExample()

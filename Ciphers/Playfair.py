@@ -1,6 +1,5 @@
-from Ciphers.UtilityFunctions import groups, makeSquare
+from Ciphers.UtilityFunctions import groups, makeSquare, playfairPrep
 import numpy as np
-from Ciphers.PrepareText import playfairPrep
 
 # The Playfair cipher was designed to be a simple enough to apply rapidly in a
 # battlefield setting while strong enough to resist significant cryptanalysis.

@@ -5,9 +5,7 @@ import sys
 sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
 
 # Some stuff we need for testing
-from Ciphers.UtilityFunctions import decodetest
-from Ciphers.PrepareText import preptext1, playfairPrep
-
+from Ciphers.UtilityFunctions import decodetest, preptext1, playfairPrep
 
 # Load up the text to use
 textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')

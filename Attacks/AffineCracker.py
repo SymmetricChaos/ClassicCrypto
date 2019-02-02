@@ -6,7 +6,7 @@ def affineCracker(text):
     bestkey = [0,0]
     bestdecode = ""
     bestscore = float("-inf")
-    gen = product(range(0,26),[1,3,5,7,9,11,15,17,19,21,23,25])
+    gen = product([1,3,5,7,9,11,15,17,19,21,23,25],range(0,26))
     for i in gen:
         
         dtext = affine(text,i,decode=True)
@@ -30,7 +30,7 @@ simply checking each of the 312 possible keys.
 """)
 
     ptext = "THECULTIVATIONOFTHESUGARCANEISPURSUEDTOGREATEXTENTINTHEISLANDSOFTHEWESTINDIESWHEREABOUTTHREECENTURIESAGOITWASFIRSTINTRODUCEDFROMCHINAORSOMEOTHERPARTSOFTHEEASTANDWHEREITFLOURISHESWITHGREATLUXURIANCEPARTICULARLYINMOISTANDRICHGROUNDTHESEASONFORPLANTINGITCOMMENCESABOUTTHEBEGINNINGOFAUGUST"
-    ctext = affine(ptext,[7,25])
+    ctext = affine(ptext,[17,7])
     
     affineCracker(ctext)
     
