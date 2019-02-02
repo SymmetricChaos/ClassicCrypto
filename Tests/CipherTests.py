@@ -40,7 +40,7 @@ from Ciphers.TwoSquare import twoSquare
 
 # Monoalphabetic
 decodetest(ptext,1,caesar)
-decodetest(ptext,[2,3],affine)
+decodetest(ptext,[3,4],affine)
 decodetest(ptext,"IOWNAXYLOPHONE",substitution)
 
 
