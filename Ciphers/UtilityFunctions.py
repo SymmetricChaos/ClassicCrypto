@@ -159,3 +159,7 @@ def makeSquare(key,mode):
         for i in g:
             sq.append([x for x in i])
         return sq
+
+
+#def letToNum(text,alpha):
+    
