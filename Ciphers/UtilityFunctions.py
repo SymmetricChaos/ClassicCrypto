@@ -172,7 +172,8 @@ def preptext(text,keepSpaces=False,keepDigits=False,silent=False):
 
     # Remove anything that isn't an alphanumeric character. Keep spaces if
     # requested.
-    print("REMOVING NON-ALPHANUMERIC CHARACTERS")
+    if silent == False:
+        print("REMOVING NON-ALPHANUMERIC CHARACTERS")
     if keepSpaces == False:
         T = re.sub(r'[^a-zA-Z0-9]', '', text)
         if silent == False:

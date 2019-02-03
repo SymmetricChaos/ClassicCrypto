@@ -6,7 +6,7 @@ import random
 
 
 
-def hillclimbing(ctext,rounds=1000):
+def substitutionCracker(ctext,rounds=100):
     
     # Setup
     finalScore = float("-infinity")
@@ -59,10 +59,10 @@ def hillclimbing(ctext,rounds=1000):
         # At the end of each round check if it produced a better score than
         # any previous round. If it did then write it down and print some
         # information.
-        if bestscore >= finalScore:
+        if bestscore > finalScore:
             finalKey = bestkey
             finalScore = bestscore
-            print("\n\nRound {}".format(x))
+            print("\n\nRound {}".format(x+1))
             print("Key Looks Like:")
             print("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
             print("".join(finalKey))
@@ -72,9 +72,22 @@ def hillclimbing(ctext,rounds=1000):
         else:
             print("#",end="")
 
+def substitutionCrackerExample():
 
+    print("""
+The keyspace for a substitution cipher is much too large for us to try every
+possibility so we will use hill climbing with random restarts to explore only
+the most likely options. The idea is that we will try a random key and then
+make a small change to it. If that change is an improvement we keep it and try
+another change. This will usually fail so after a while we stop and start over
+with a new random key.
+""")
 
-ctext = "SOWFBRKAWFCZFSBSCSBQITBKOWLBFXTBKOWLSOXSOXFZWWIBICFWUQLRXINOCIJLWJFQUNWXLFBSZXFBTXAANTQIFBFSFQUFCZFSBSCSBIMWHWLNKAXBISWGSTOXLXTSWLUQLXJBUUWLWISTBKOWLSWGSTOXLXTSWLBSJBUUWLFULQRTXWFXLTBKOWLBISOXSSOWTBKOWLXAKOXZWSBFIQSFBRKANSOWXAKOXZWSFOBUSWJBSBFTQRKAWSWANECRZAWJ"
-#ctext = "JCWDAMJSBYAOFBVICFVCAKUGJKJVJKRFKVKCFTXJPSPAIKJIFBGOPVCWDANAGJADAOJVJMJOOJOPVCWDAUYFFMIJVCWCAWDGCAWYVJJPMOYRGFBVCWVJKRGSFFOMYJAPOKVWPGAGGADJKFPJCFUAGFBTWPVWXAOBAWTVJFPNAMFYAJVJKVFFGWVA"
-#ctext = "ABCDEFBEDBCEAGHICDJKLCKKJMNBL"
-hillclimbing(ctext,rounds=5000)
+    ctext = "SOWFBRKAWFCZFSBSCSBQITBKOWLBFXTBKOWLSOXSOXFZWWIBICFWUQLRXINOCIJLWJFQUNWXLFBSZXFBTXAANTQIFBFSFQUFCZFSBSCSBIMWHWLNKAXBISWGSTOXLXTSWLUQLXJBUUWLWISTBKOWLSWGSTOXLXTSWLBSJBUUWLFULQRTXWFXLTBKOWLBISOXSSOWTBKOWLXAKOXZWSBFIQSFBRKANSOWXAKOXZWSFOBUSWJBSBFTQRKAWSWANECRZAWJ"
+    
+    print("The Ciphertext Looks Like This:")
+    print(ctext)
+    
+    substitutionCracker(ctext,rounds=50)
+    
+substitutionCrackerExample()

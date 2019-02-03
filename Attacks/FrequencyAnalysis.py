@@ -13,11 +13,11 @@ def frequencyTable(text,n=1):
     return D.most_common()
 
 
-def FrequecyAnalysisTest():
-    from Monoalphabetic import substitution
-    from PrepareText import preptext1
+def FrequecyAnalysisExample():
+    from Ciphers.Substitution import substitution
+    from Ciphers.UtilityFunctions import preptext
     textfile = open('text1.txt', 'r')
-    ptext = preptext1(textfile.readline())
+    ptext = preptext(textfile.readline(),silent=True)
     
     ctext = substitution(ptext,"ZEBRA")
     for i in frequencyTable(ctext,2)[:5]:
@@ -39,3 +39,4 @@ def FrequecyAnalysisTest():
     print(dtext[:63])
     
     
+FrequecyAnalysisExample()
