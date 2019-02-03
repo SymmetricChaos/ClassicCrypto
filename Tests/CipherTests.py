@@ -57,7 +57,7 @@ decodetest(ptext,"SUGARCANE",beaufort)
 # Polybius Square
 decodetest(ptext,"ZEBRAS",polybiusSquare)
 decodetest(ptext,["NIHILIST","CIPHER"],nihilist)
-decodetest(ptext,["17ZEBRAS529",[1,4,2,5,0,3]],ADFGVX)
+decodetest(ptext,["17ZEBRAS529","GIGANTIC"],ADFGVX)
 decodetest(ptext,"GIANTUNICORNS",bifid)
 decodetest(ptext,"GIANTUNICORNS",trifid)
 

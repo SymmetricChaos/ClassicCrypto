@@ -169,17 +169,7 @@ def makeSquare(key,mode):
 import re
 
 def preptext(text,keepSpaces=False,keepDigits=False,silent=False):
-    
-    if silent == False:
-        
-        
-        if keepSpaces == False:
-            print("REMOVING SPACES")
-        
-        if keepDigits == False:
-            print("DIGITS REPLACED WITH NAMES")
-            
-    
+
     # Remove anything that isn't an alphanumeric character. Keep spaces if
     # requested.
     print("REMOVING NON-ALPHANUMERIC CHARACTERS")
@@ -190,6 +180,7 @@ def preptext(text,keepSpaces=False,keepDigits=False,silent=False):
     else:
         T = re.sub(r'[^a-zA-Z0-9 ]', '', text)
     
+    # Convert digits into names
     if keepDigits == False:
         if silent == False:
             print("DIGITS REPLACED WITH NAMES")
@@ -197,6 +188,7 @@ def preptext(text,keepSpaces=False,keepDigits=False,silent=False):
         for i,j in zip(range(10),["ZERO","ONE","TWO","THREE","FOUR","FIVE","SIX","SEVEN","EIGHT","NINE"]):
             T = re.sub(r'[{}]'.format(i), j, T)
 
+    # Convert letters to uppercase
     if silent == False:
         print("CONVERTING TO UPPERCASE")        
         T = T.upper()
