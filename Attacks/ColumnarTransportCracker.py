@@ -38,7 +38,8 @@ factors then tries every possible key for each of those lengths. This is not
 practical if the length of the key is more than about nine.
 """)
     
-    textfile = open('text1.txt', 'r')
+    textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
+
     ptext = preptext(textfile.readline(),silent=False)
     ctext = columnarTransport(ptext,"MYSTIC")
     columnarTransportCracker(ctext)

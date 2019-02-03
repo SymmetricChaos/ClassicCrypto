@@ -26,7 +26,7 @@ def rotate(key):
     for i in range(A):
         key.append(key.pop(0))
 
-def simulatedAnnealing(ctext):
+def simulatedAnnealing(ctext,T0,stepsize,rounds=50,subrounds=10000):
 
     # There will be one thousand rounds of attempts to break the cipher
     # The reason we have multiple rounds is because we might get stuck in a 
@@ -48,9 +48,9 @@ def simulatedAnnealing(ctext):
         
         # The "temperature" decreases gradually with each round. The higher the
         # temperature the more likely the algorithm is to accept a change.
-        for temp in np.linspace(20,.2,100):
+        for temp in np.arange(T0,stepsize,stepsize):
             print("!",end="")
-            for i in range(30000):
+            for i in range(subrounds):
 
                 # A copy of the key list that we can mutate
                 newKey = key[:]
@@ -68,9 +68,9 @@ def simulatedAnnealing(ctext):
                 if mutType >= 98:
                     newKey.reverse()
     
-                
+                tkey = "".join(newKey)
                 # Try it and see what score we get
-                out = playfair(ctext,newKey,decode=True,mode="FAST")
+                out = playfair(ctext,tkey,decode=True)
                 score = quadgramScoreFrac(out)
 
                 
@@ -95,8 +95,8 @@ def simulatedAnnealing(ctext):
                 # The "best ever score" is kept but not interacted with beyond
                 # this. It is our high water mark.
                 if score > bestEverScore:
-                    bestEverKey = newKey
-                    bestEverScore = score
+                    bestEverKey = bestkey
+                    bestEverScore = bestscore
 
         print("\n\nRound {}".format(x+1))
         print("Best Key Ever Found:")
@@ -108,4 +108,4 @@ def simulatedAnnealing(ctext):
 ptext = "THECULTIVATIONOFTHESUGARCANEISPURSUEDTOGREATEXTENTINTHEISLANDSOFTHEWESTINDIESWHEREABOUTTHREECENTURIESAGOITWASFIRSTINTRODUCEDFROMCHINAORSOMEOTHERPARTSOFTHEEASTANDWHEREITFLOURISHESWITHGREATLUXURIANCEPARTICULARLYINMOISTANDRICHGROUNDTHESEASONFORPLANTINGITCOMMENCESABOUTTHEBEGINNINGOFAUGUST"
 ctext = playfair(ptext,"PLAYFAIR")
 #ctext = "XZOGQRWVQWNROKCOAELBXZWGEQYLGDRZXYZRQAEKLRHDUMNUXYXSXYEMXEHDGNXZYNTZONYELBEUGYSCOREUSWTZRLRYBYCOLZYLEMWNSXFBUSDBORBZCYLQEDMHQRWVQWAEDPGDPOYHORXZINNYWPXZGROKCOLCCOCYTZUEUIICERLEVHMVQWLNWPRYXHGNMLEKLRHDUYSUCYRAWPUYECRYRYXHGNBLUYSCCOUYOHRYUMNUXYXSXYEMXEHDGN"
-simulatedAnnealing(ctext)
+simulatedAnnealing(ctext,T0=20,stepsize=.2,rounds=20,subrounds=10000)

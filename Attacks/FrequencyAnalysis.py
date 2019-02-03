@@ -15,7 +15,8 @@ def frequencyTable(text,n=1):
 
 def frequencyTableExample():
     from Ciphers.UtilityFunctions import preptext
-    textfile = open('text1.txt', 'r')
+    textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
+
     ptext = preptext(textfile.readline(),silent=True)
     
     print("""

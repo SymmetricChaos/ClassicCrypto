@@ -117,7 +117,8 @@ def solveVigenere(s,klen=0,verbose=True):
     
 
 
-textfile = open('text1.txt', 'r')
+textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
+
 ptext = preptext(textfile.readline(),silent=True)
 ctext = vigenere(ptext,"ZEBRAS")
 
