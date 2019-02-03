@@ -34,4 +34,4 @@ simply checking each of the 312 possible keys.
     
     affineCracker(ctext)
     
-affineCrackerExample()
+#affineCrackerExample()

@@ -64,4 +64,4 @@ key lengths. By default keys with a length up to 20 are tried.
     print("\nThe ciphertext is:",ctext,"\n\n")
     autokeyCracker(ctext)
 
-autokeyCrackerExample()
+#autokeyCrackerExample()

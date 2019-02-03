@@ -1,7 +1,6 @@
 from Ciphers.Vigenere import vigenere
-from PrepareText import preptext1
+from Ciphers.UtilityFunctions import preptext, factors
 from FrequencyAnalysis import frequencyTable
-from UtilityFunctions import factors
 from TextScoring import bigramScore
 
 
@@ -119,7 +118,7 @@ def solveVigenere(s,klen=0,verbose=True):
 
 
 textfile = open('text1.txt', 'r')
-ptext = preptext1(textfile.readline())
+ptext = preptext(textfile.readline(),silent=True)
 ctext = vigenere(ptext,"ZEBRAS")
 
 solveVigenere(ctext)
