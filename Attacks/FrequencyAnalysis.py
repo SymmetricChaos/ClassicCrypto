@@ -13,30 +13,22 @@ def frequencyTable(text,n=1):
     return D.most_common()
 
 
-def FrequecyAnalysisExample():
-    from Ciphers.Substitution import substitution
+def frequencyTableExample():
     from Ciphers.UtilityFunctions import preptext
     textfile = open('text1.txt', 'r')
     ptext = preptext(textfile.readline(),silent=True)
     
-    ctext = substitution(ptext,"ZEBRA")
-    for i in frequencyTable(ctext,2)[:5]:
-        print(i)
-    print()
-    for i in frequencyTable(ctext,1)[:5]:
-        print(i)
+    print("""
+Example of frequency analysis of a body of text. Lets see what the most common
+letters are. Then the most common bigrams and trigrams.       
+""")
     
-    dtext = ctext
-    #ctext = ctext.replace("SFA","the")
-    #ctext = ctext.replace("GLD","ing")
-    for i,j in zip("SF","th"):
-        dtext = dtext.replace(i,j)
-    for i,j in zip("A","e"):
-        dtext = dtext.replace(i,j)
+    for i,title in zip(range(1,4),["Letters","Bigrams","Trigrams"]):
+        print("Most Common {}".format(title))
+        tab = frequencyTable(ptext,n=i)
+        T = tab[:7]
+        for fr in T:
+            print(fr[0]," ",fr[1])
+        print()
     
-    print(ptext[:63])
-    print(ctext[:63])
-    print(dtext[:63])
-    
-    
-FrequecyAnalysisExample()
+#frequencyTableExample()

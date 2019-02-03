@@ -116,4 +116,4 @@ SACCHARINEJUICE
         hillCipherAttack(ctext,crib,3)
         print("\n\n")
     
-hillCipherAttackExample()
+#hillCipherAttackExample()
