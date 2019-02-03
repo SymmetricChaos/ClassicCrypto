@@ -168,31 +168,39 @@ def makeSquare(key,mode):
 
 import re
 
-def preptext1(text,silent=False):
+def preptext(text,keepSpaces=False,keepDigits=False,silent=False):
+    
     if silent == False:
-        print("REMOVING SPACES")
-        print("REMOVING NON-ALPHANUMERIC CHARACTERS")
-        print("DIGITS REPLACED WITH NAMES")
-    T = re.sub(r'[^a-zA-Z0-9]', '', text)
-    for i,j in zip(range(10),["ZERO","ONE","TWO","THREE","FOUR","FIVE","SIX","SEVEN","EIGHT","NINE"]):
-        T = re.sub(r'[{}]'.format(i), j, T)
-    T = T.upper()
-    return T
+        
+        
+        if keepSpaces == False:
+            print("REMOVING SPACES")
+        
+        if keepDigits == False:
+            print("DIGITS REPLACED WITH NAMES")
+            
+    
+    # Remove anything that isn't an alphanumeric character. Keep spaces if
+    # requested.
+    print("REMOVING NON-ALPHANUMERIC CHARACTERS")
+    if keepSpaces == False:
+        T = re.sub(r'[^a-zA-Z0-9]', '', text)
+        if silent == False:
+            print("REMOVING SPACES")
+    else:
+        T = re.sub(r'[^a-zA-Z0-9 ]', '', text)
+    
+    if keepDigits == False:
+        if silent == False:
+            print("DIGITS REPLACED WITH NAMES")
 
-def preptext2(text,silent=False):
-    if silent == False:
-        print("REMOVING SPACES")
-        print("REMOVING NON-ALPHANUMERIC CHARACTERS")
-    T = re.sub(r'[^a-zA-Z0-9]', '', text)
-    T = T.upper()
-    return T
+        for i,j in zip(range(10),["ZERO","ONE","TWO","THREE","FOUR","FIVE","SIX","SEVEN","EIGHT","NINE"]):
+            T = re.sub(r'[{}]'.format(i), j, T)
 
-def preptext3(text,silent=False):
     if silent == False:
-        print("REMOVING NON-ALPHANUMERIC CHARACTERS")
-        print("PRESERVING SPACES")
-    T = re.sub(r'[^a-zA-Z0-9 ]', '', text)
-    T = T.upper()
+        print("CONVERTING TO UPPERCASE")        
+        T = T.upper()
+    
     return T
 
 def playfairPrep(text,mode="IJ"):

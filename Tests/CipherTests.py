@@ -5,11 +5,12 @@ import sys
 sys.path.append("C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto")
 
 # Some stuff we need for testing
-from Ciphers.UtilityFunctions import decodetest, preptext1, playfairPrep
+from Ciphers.UtilityFunctions import decodetest, preptext, playfairPrep
 
 # Load up the text to use
 textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
-ptext = preptext1(textfile.readline())
+ptext = preptext(textfile.readline())
+print()
 
 # Import the various ciphers
 from Ciphers.Affine import affine
@@ -62,8 +63,8 @@ decodetest(ptext,"GIANTUNICORNS",trifid)
 
 
 # Transposition
-decodetest(ptext,[0,4,2,3,1],columnarTransport)
-decodetest(ptext,[[0,4,2,3,1],[0,4,2,3,1]],doubleColumnarTransport)
+decodetest(ptext,"TABLES",columnarTransport)
+decodetest(ptext,["GIGANTIC","TABLES"],doubleColumnarTransport)
 decodetest(ptext,5,railfence)
 
 
