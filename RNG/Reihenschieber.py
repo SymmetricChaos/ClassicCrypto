@@ -1,22 +1,4 @@
 import random
-
-# Here are a few pseudorandom number generators that are somewhat practical to
-# perform with a pen and paper. While they are completely inappropriate for any
-# modern cryptographic system they are useful for demonstration. All examples
-# are in the form of generators.
-
-# Weyel sequences produce numbers that are equally distributed within the range
-# given by the modulus. All that is necessary is ordinary multiplication and
-# then taking the modulus. If the modulus is a power of ten this can be done
-# very easily by hand just dropping the higher digits.
-# The seed number must be coprime to the modulus.
-def Weyel(seed,mod):
-    ctr = 0
-    while True:
-        ctr += 1
-        yield (seed*ctr) % mod
-
-
 # The German reihenschieber was a simple sliderule system designed to create
 # sequences of random digits. In actual use the sticks and grille are of course
 # physical items given to people using the system.
@@ -58,37 +40,6 @@ def Reihenschieber(sticks,grille,stickspos,grillepos):
                 if D != ".":
                     out.append(int(D))
     print(out)
-
-        
-def WeyelExample():
-    print("Example of the Weyel Random Number Generator\n")
-    modulus = 100000
-    seed = 25763
-    print("Modulus is:    {}".format(modulus))
-    print("Seed value is: {}\n".format(seed))
-    for ctr,i in enumerate(Weyel(seed,modulus)):
-        print(i)
-        if ctr > 20:
-            break
-    print("\nNotice the periodicity of the low order bits.")
-      
-        
-def LCGExample():
-    print("Example of Linear Congruential Generator\n")
-    modulus = 100000
-    multiplier = 2991
-    increment = 2571
-    seed = 237
-    print("Modulus is:    {}".format(modulus))
-    print("Multiplier is: {}".format(multiplier))
-    print("Increment is:  {}".format(increment))
-    print("Seed value is: {}\n".format(seed))
-    for ctr,i in enumerate(LCG(seed,modulus,multiplier,increment)):
-        print(i)
-        if ctr > 20:
-            break
-    print("\nNotice the periodicity of the low order bits.")
-        
     
 def ReihenschieberExample():
     
@@ -103,9 +54,3 @@ def ReihenschieberExample():
     showReihenschieberGrille(grille)
     print()
     Reihenschieber(sticks,grille,[0,3,2,5,7,1,2,9,4,8],5)
-
-#WeyelExample()
-#print("\n\n")
-#LCGExample()
-#print("\n\n")
-#ReihenschieberExample()
