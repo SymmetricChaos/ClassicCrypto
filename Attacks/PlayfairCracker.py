@@ -26,14 +26,14 @@ def rotate(key):
     for i in range(A):
         key.append(key.pop(0))
 
-def simulatedAnnealing(ctext,T0,stepsize,rounds=50,subrounds=10000):
+def simulatedAnnealing(ctext,T0,stepsize,restarts=50,rounds=10000):
 
     # There will be one thousand rounds of attempts to break the cipher
     # The reason we have multiple rounds is because we might get stuck in a 
     # local minima while mutating the results.
     # Occasionally resetting gives coverage of more of the possible search
     # space.
-    for x in range(50):
+    for x in range(restarts):
         # To start the round we randomize the alphabet to start with
         key = [i for i in "ABCDEFGHIKLMNOPQRSTUVWXYZ"]
         random.shuffle(key)
@@ -48,9 +48,9 @@ def simulatedAnnealing(ctext,T0,stepsize,rounds=50,subrounds=10000):
         
         # The "temperature" decreases gradually with each round. The higher the
         # temperature the more likely the algorithm is to accept a change.
-        for temp in np.arange(T0,stepsize,stepsize):
+        for temp in np.arange(T0,stepsize,-stepsize):
             print("!",end="")
-            for i in range(subrounds):
+            for i in range(rounds):
 
                 # A copy of the key list that we can mutate
                 newKey = key[:]
@@ -108,4 +108,4 @@ def simulatedAnnealing(ctext,T0,stepsize,rounds=50,subrounds=10000):
 ptext = "THECULTIVATIONOFTHESUGARCANEISPURSUEDTOGREATEXTENTINTHEISLANDSOFTHEWESTINDIESWHEREABOUTTHREECENTURIESAGOITWASFIRSTINTRODUCEDFROMCHINAORSOMEOTHERPARTSOFTHEEASTANDWHEREITFLOURISHESWITHGREATLUXURIANCEPARTICULARLYINMOISTANDRICHGROUNDTHESEASONFORPLANTINGITCOMMENCESABOUTTHEBEGINNINGOFAUGUST"
 ctext = playfair(ptext,"PLAYFAIR")
 #ctext = "XZOGQRWVQWNROKCOAELBXZWGEQYLGDRZXYZRQAEKLRHDUMNUXYXSXYEMXEHDGNXZYNTZONYELBEUGYSCOREUSWTZRLRYBYCOLZYLEMWNSXFBUSDBORBZCYLQEDMHQRWVQWAEDPGDPOYHORXZINNYWPXZGROKCOLCCOCYTZUEUIICERLEVHMVQWLNWPRYXHGNMLEKLRHDUYSUCYRAWPUYECRYRYXHGNBLUYSCCOUYOHRYUMNUXYXSXYEMXEHDGN"
-simulatedAnnealing(ctext,T0=20,stepsize=.2,rounds=20,subrounds=10000)
+simulatedAnnealing(ctext,T0=20,stepsize=.2,restarts=20,rounds=10000)

@@ -16,14 +16,6 @@ def Weyel(seed,mod):
         ctr += 1
         yield (seed*ctr) % mod
 
-# Linear Congruential generators require only multiplication adition and taking
-# the modulus of a number. Choosing the parameters of an LCG has a large impact
-# on the quality of the output. It is straightforward to calculate by hand and
-# also not difficult with a simple machine.
-def LCG(seed,mod,mult,incr):
-    while True:
-        seed = (mult*seed+incr) % mod
-        yield seed
 
 # The German reihenschieber was a simple sliderule system designed to create
 # sequences of random digits. In actual use the sticks and grille are of course
@@ -112,8 +104,8 @@ def ReihenschieberExample():
     print()
     Reihenschieber(sticks,grille,[0,3,2,5,7,1,2,9,4,8],5)
 
-WeyelExample()
-print("\n\n")
-LCGExample()
-print("\n\n")
-ReihenschieberExample()
+#WeyelExample()
+#print("\n\n")
+#LCGExample()
+#print("\n\n")
+#ReihenschieberExample()
