@@ -39,9 +39,9 @@ practical if the length of the key is more than about nine.
 """)
     
     textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
-
     ptext = preptext(textfile.readline(),silent=False)
     ctext = columnarTransport(ptext,"MYSTIC")
+    
     columnarTransportCracker(ctext)
 
 #columnarTransportCrackerExample()
