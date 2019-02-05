@@ -1,5 +1,5 @@
 # import tkinter module 
-from tkinter import Tk, Frame, SUNKEN, TOP, LEFT, Label, StringVar, Entry, Button
+from tkinter import Tk, Frame, SUNKEN, TOP, Label, StringVar, Entry, Button
   
 from Ciphers.Vigenere import vigenere
 
@@ -18,7 +18,7 @@ Tops.pack(side = TOP)
   
 f1 = Frame(root, width = 1100, height = 500, 
                             relief = SUNKEN) 
-f1.pack(side = LEFT) 
+f1.pack(side = TOP) 
 
 
 lblInfo = Label(Tops, font = ('helvetica', 20, 'bold'), 
