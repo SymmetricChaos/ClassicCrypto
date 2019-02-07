@@ -2,8 +2,8 @@ import tkinter as tk
 from Ciphers.Caesar import caesar
 
 root = tk.Tk()
-root.maxsize(18001,800)
-root.minsize(1800,1800)
+root.maxsize(800,800)
+root.minsize(800,800)
 root.title("Caesar Cipher")
 ptext = tk.Text(root,height=2,width=20)
 ctext = tk.Text(root,height=2,width=20)
@@ -16,8 +16,12 @@ def caesarText(textIn,textOut,key):
     textOut.delete("1.0","end")
     textOut.insert("insert",caesar(theInput,k,decode=False))
 
-ptext.pack()
-key.pack()
-encryptbutton.pack()
-ctext.pack()
+inputLabel = tk.Label(root,"Plaintext",borderwidth=1)
+
+inputLabel.grid(row=0)
+
+#ptext.pack()
+#key.pack()
+#encryptbutton.pack()
+#ctext.pack()
 root.mainloop()

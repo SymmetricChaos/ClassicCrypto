@@ -29,15 +29,27 @@ def dec():
     
     ctext.insert("insert",vigenere(T,k,decode=False)) 
   
-# Show message button 
+# Button to run cipher in encrypt mode
 encryptbutton = tk.Button(root, text="Encrypt", command = enc)
 
-# Show message button 
+# Button to run cipher in decrypt mode
 decryptbutton = tk.Button(root, text="Decrypt", command = dec)
 
-ptext.pack()
-key.pack()
-encryptbutton.pack()
-decryptbutton.pack()
-ctext.pack()
+
+ptextLab = tk.Label(root,text="Plaintext")
+ctextLab = tk.Label(root,text="Ciphertext")
+keyLab = tk.Label(root,text="Key")
+
+
+ptext.place(x=150,y=30)
+ptextLab.place(x=90,y=30)
+
+key.place(x=150,y=120)
+keyLab.place(x=120,y=120)
+
+encryptbutton.place(x=150,y=160)
+decryptbutton.place(x=220,y=160)
+
+ctextLab.place(x=85,y=200)
+ctext.place(x=150,y=200)
 root.mainloop()
