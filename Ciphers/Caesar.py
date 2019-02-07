@@ -17,6 +17,7 @@ def caesar(text,key,decode=False):
         if key in alphabet:
             key = alphabet.index(key)
     
+
     validptext(text,alphabet)
     validkeys(key,int)
     
