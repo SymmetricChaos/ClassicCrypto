@@ -1,3 +1,5 @@
+from Ciphers.UtilityFunctions import validptext, validkeys, alphabetPermutation
+
 # The Chaocipher is a clever mechanical cipher that operates by creating a
 # permutation of the alphabet rather than just shifting it.
 
@@ -23,12 +25,17 @@ def chaocipher(text,keys=["",""],decode=False):
     if keys[0] == "":
         L = "ABCDEFGHIJKLMONPQRSTUVWXYZ"
     else:
-        L = keys[0]
+        L = alphabetPermutation(keys[0])
     
     if keys[1] == "":
         R = "ABCDEFGHIJKLMONPQRSTUVWXYZ"
     else:
-        R = keys[1]
+        R = alphabetPermutation(keys[1])
+        
+    
+    validptext(text,"ABCDEFGHIJKLMONPQRSTUVWXYZ")
+    validkeys(keys,[str,str])
+    
     
     if decode == False:
         out = ""
