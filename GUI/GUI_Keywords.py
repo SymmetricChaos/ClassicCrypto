@@ -7,8 +7,8 @@ from Ciphers.Substitution import substitution
 
 root = tk.Tk()
 
-root.maxsize(800,800)
-root.minsize(800,800)
+root.maxsize(800,600)
+root.minsize(800,600)
 
 # Title of the window
 root.title("Keyword Ciphers")
@@ -42,8 +42,12 @@ def enc():
     # Get the key from the key box
     k = key.get("1.0","end")[:-1]
     
+    # Get the selected cipher
     C = cipher.get()
     
+    # We use a dictionary as basically a as a switch statement
+    # They keys are the names of the cipher while the values are the cipher
+    # functions that we imported
     cipherDict = {"vigenere": vigenere,
                   "beaufort": beaufort,
                   "autokey": autokey,
