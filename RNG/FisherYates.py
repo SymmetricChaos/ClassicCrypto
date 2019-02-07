@@ -21,15 +21,21 @@ def fisherYatesShuffExample():
     suits = ["\u2663", "\u2665", "\u2660", "\u2666"]
     ranks = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
     deck = []
-    for i in product(ranks,suits):
-        deck.append("".join(i))
+    for i,j in product(suits,ranks):
+        deck.append("".join([j,i]))
 
-    R = [i for i in islice(LCG(1000,151,73,43),52)]
-    #print(R)
-    #print("\n")
+    print("Deck of Cards in Standard Order")
+    print(deck)
+
+    R = [i for i in islice(LCG(555,1000,73,123),52)]
+    print("\nPseudo-Random Numbers")
+    print(R)
+    
     shuf = fisherYatesShuff(52,R)
-    #print(shuf)
+    print("\nFisher-Yates Positions")    
+    print(shuf)
 
+    print("\nShuffled Deck")
     print([deck[i] for i in shuf])
 
-fisherYatesShuffExample() 
+#fisherYatesShuffExample()
