@@ -1,10 +1,10 @@
 import tkinter as tk
-from Ciphers.Vigenere import vigenere
+from Ciphers.Playfair import playfair
 
 root = tk.Tk()
 root.maxsize(800,800)
 root.minsize(800,800)
-root.title("Vigenere Cipher")
+root.title("Playfair Cipher")
 ptext = tk.Text(root,height=4,width=40)
 ctext = tk.Text(root,height=4,width=40)
 key = tk.Text(root,height=1,width=20)
@@ -17,7 +17,7 @@ def enc():
     # Get the key from the key box
     k = key.get("1.0","end")[:-1]
   
-    ctext.insert("insert",vigenere(T,k,decode=True)) 
+    ctext.insert("insert",playfair(T,k,decode=True)) 
 
 # Decrypt function 
 def dec(): 
@@ -27,7 +27,7 @@ def dec():
     # Get the key from the key box
     k = key.get("1.0","end")[:-1]
     
-    ctext.insert("insert",vigenere(T,k,decode=False)) 
+    ctext.insert("insert",playfair(T,k,decode=False)) 
   
 # Button to run cipher in encrypt mode
 encryptbutton = tk.Button(root, text="Encrypt", command = enc)
