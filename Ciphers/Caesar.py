@@ -12,6 +12,10 @@ def caesar(text,key,decode=False):
     
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     
+    # Allow key to be specified by letter
+    if key in alphabet:
+        key = alphabet.index(key)
+    
     validptext(text,alphabet)
     validkeys(key,int)
     
@@ -65,5 +69,5 @@ def ROT13Example():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
 
-caesarExample()
-ROT13Example()
+#caesarExample()
+#ROT13Example()
