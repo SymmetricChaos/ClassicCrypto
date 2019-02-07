@@ -6,7 +6,7 @@ def fisherYatesShuff(K,rand):
     
     out = []
     
-    for i in range(1,K):
+    for i in range(K):
 
         r = rand[i]
 
@@ -19,14 +19,18 @@ def fisherYatesShuffExample():
     from itertools import islice, product
     
     suits = ["\u2663", "\u2665", "\u2660", "\u2666"]
-    ranks = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
+    ranks = ["A","2","3","4","5","6","7","8","9","T","J","Q","K"]
     deck = []
     for i,j in product(suits,ranks):
         deck.append("".join([j,i]))
 
     print("Deck of Cards in Standard Order")
-    print(deck)
 
+    for i,card in enumerate(deck,1):
+        print(card,end = " ")
+        if i % 13 == 0:
+            print()
+ 
     R = [i for i in islice(LCG(555,1000,73,123),52)]
     print("\nPseudo-Random Numbers")
     print(R)
@@ -34,8 +38,14 @@ def fisherYatesShuffExample():
     shuf = fisherYatesShuff(52,R)
     print("\nFisher-Yates Positions")    
     print(shuf)
+    print(len(shuf))
 
     print("\nShuffled Deck")
-    print([deck[i] for i in shuf])
+    shufdeck = [deck[i] for i in shuf]
+    for i,card in enumerate(shufdeck,1):
+        print(card,end = " ")
+        if i % 13 == 0:
+            print()
+    print()
 
 #fisherYatesShuffExample()
