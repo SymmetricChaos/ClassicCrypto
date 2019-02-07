@@ -13,8 +13,9 @@ def caesar(text,key,decode=False):
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     
     # Allow key to be specified by letter
-    if key in alphabet:
-        key = alphabet.index(key)
+    if type(key) == str:
+        if key in alphabet:
+            key = alphabet.index(key)
     
     validptext(text,alphabet)
     validkeys(key,int)
