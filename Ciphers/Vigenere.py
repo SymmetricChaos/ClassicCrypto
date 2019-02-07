@@ -6,11 +6,12 @@ from Ciphers.UtilityFunctions import lcm, validptext, validkeys
 
 def vigenere(text,key,decode=False):
     
-    print(type(key))
-    validptext(text,"ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    
+    validptext(text,alphabet)
     validkeys(key,str)
 
-    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     T = []
     kLen = len(key)
     

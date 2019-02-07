@@ -71,7 +71,9 @@ def factors(n):
             L.append(i)
     return L
 
-# Functions for doing modular arithmetic.
+# Extended Euclidean algorithm
+# Return greatest common denominator and the numbers x and y such that
+# g = ax + by
 def egcd(a, b):
     if a == 0:
         return (b, 0, 1)
