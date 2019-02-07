@@ -235,6 +235,25 @@ def playfairPrep(text,mode="IJ"):
             text += "X"
     return text
 
+# Plaintext must have specific form which we can check for.
+def validptext(T,alpha):
+    if type(T) != str:
+        raise Exception("Plaintext must be a string")
     
+    for i in T:
+        if i not in alpha:
+            raise Exception("{} is not a valid plaintext character".format(i))
 
+# Keys must also have specific form which we can check for.
+def validkeys(K,types):
     
+    if type(types) != list:
+        if type(K) != types:
+            raise Exception("Key must be {}".format(types))
+    
+    
+    else:
+        for pos,pair in enumerate(zip(K,types),1):
+
+            if type(pair[0]) != pair[1]:
+                raise Exception("Key #{} must be {}".format(pos,pair[1]))
