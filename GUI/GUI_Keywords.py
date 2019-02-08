@@ -108,7 +108,7 @@ ptextLab = tk.Label(root,text="Plaintext:",font = ('arial',14))
 ctextLab = tk.Label(root,text="Ciphertext:",font = ('arial',14))
 keywordLab = tk.Label(root,text="Keyword:",font = ('arial',14))
 
-# But everything in position
+# Put everything in position
 cipherMenu.place(x=550,y=30)
 
 ptext.place(x=150,y=30)

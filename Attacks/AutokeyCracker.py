@@ -1,5 +1,5 @@
 from Ciphers.Autokey import autokey
-from TextScoring import bigramScore
+from Attacks.TextScoring import bigramScore
 
 
 # This attack on the autokey cipher is surprisngly simple. Since we have no way
@@ -46,7 +46,8 @@ def autokeyCracker(ctext,limit=20):
     print("".join(outKey))
     print()
     print(autokey(ctext,outKey,decode=True))
-    print()
+    
+    return autokey(ctext,outKey,decode=True)
         
 def autokeyCrackerExample():
     
