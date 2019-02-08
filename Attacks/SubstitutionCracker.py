@@ -1,7 +1,7 @@
 # based on http://practicalcryptography.com/cryptanalysis/stochastic-searching/cryptanalysis-simple-substitution-cipher/
 
 from Ciphers.Substitution import substitution
-from TextScoring import quadgramScore
+from Attacks.TextScoring import quadgramScore
 import random
 
 
@@ -71,6 +71,8 @@ def substitutionCracker(ctext,rounds=100):
             print("\n")
         else:
             print("#",end="")
+        
+    return substitution(ctext,"".join(finalKey),decode=True)
 
 def substitutionCrackerExample():
 
@@ -90,4 +92,4 @@ with a new random key.
     
     substitutionCracker(ctext,rounds=50)
     
-substitutionCrackerExample()
+#substitutionCrackerExample()

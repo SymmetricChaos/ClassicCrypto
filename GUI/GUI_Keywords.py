@@ -1,12 +1,15 @@
 import tkinter as tk
+
 from Ciphers.Vigenere import vigenere
 from Ciphers.Playfair import playfair
 from Ciphers.Autokey import autokey
 from Ciphers.Beaufort import beaufort
 from Ciphers.Substitution import substitution
 
+# Create the window
 root = tk.Tk()
 
+# Don't let the user change the window size
 root.maxsize(800,600)
 root.minsize(800,600)
 
@@ -21,7 +24,7 @@ key = tk.Text(root,height=1,width=20)
 # Dropdown Menu
 cipher = tk.StringVar(root)
 cipher.set("choose a cipher")
-selecter = tk.OptionMenu(root,cipher,"vigenere","beaufort","autokey","playfair","substitution")
+cipherMenu = tk.OptionMenu(root,cipher,"vigenere","beaufort","autokey","playfair","substitution")
 
 # Exit Button
 def qExit(): 
@@ -89,12 +92,12 @@ exitbutton = tk.Button(root, text="Exit", command = qExit,
 
 
 # Labels
-# MAKE THESE LOOK BETTER
 ptextLab = tk.Label(root,text="Plaintext:",font = ('arial',14))
 ctextLab = tk.Label(root,text="Ciphertext:",font = ('arial',14))
 keywordLab = tk.Label(root,text="Keyword:",font = ('arial',14))
 
-selecter.place(x=550,y=30)
+# But everything in position
+cipherMenu.place(x=550,y=30)
 
 ptext.place(x=150,y=30)
 ptextLab.place(x=60,y=30)
