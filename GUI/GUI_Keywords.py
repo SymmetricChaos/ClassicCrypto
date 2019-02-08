@@ -59,7 +59,7 @@ def enc():
   
     # Blank the ctext box then put the text in it
     ctext.delete("1.0","end")
-    ctext.insert("insert",cipherDict[C](T,k,decode=True)) 
+    ctext.insert("insert",cipherDict[C](T,k,decode=False)) 
 
 # Decrypt function 
 def dec(): 
@@ -69,9 +69,21 @@ def dec():
     # Get the key from the key box
     k = key.get("1.0","end")[:-1]
     
+    # Get the selected cipher
+    C = cipher.get()
+    
+    # We use a dictionary as basically a as a switch statement
+    # They keys are the names of the cipher while the values are the cipher
+    # functions that we imported
+    cipherDict = {"vigenere": vigenere,
+                  "beaufort": beaufort,
+                  "autokey": autokey,
+                  "playfair": playfair,
+                  "substitution": substitution}
+  
     # Blank the ctext box then put the text in it
     ctext.delete("1.0","end")
-    ctext.insert("insert",vigenere(T,k,decode=False)) 
+    ctext.insert("insert",cipherDict[C](T,k,decode=True))
   
 # Button to run cipher in encrypt mode
 encryptbutton = tk.Button(root, text="Encrypt", command = enc,
