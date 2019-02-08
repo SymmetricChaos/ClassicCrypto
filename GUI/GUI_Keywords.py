@@ -18,8 +18,8 @@ root.title("Keyword Ciphers")
 
 # Three textboxes
 ptext = tk.Text(root,height=4,width=40)
-ctext = tk.Text(root,height=4,width=40)
 key = tk.Text(root,height=1,width=20)
+ctext = tk.Text(root,height=4,width=40)
 
 # Dropdown Menu
 cipher = tk.StringVar(root)
@@ -36,6 +36,11 @@ def Reset():
     ptext.delete("1.0","end") 
     key.delete("1.0","end") 
   
+
+# 
+def focus_next_widget(event):
+    event.widget.tk_focusNext().focus()
+    return("break")
 
 # Encrypt function
 def enc(): 
@@ -107,6 +112,11 @@ exitbutton = tk.Button(root, text="Exit", command = qExit,
 ptextLab = tk.Label(root,text="Plaintext:",font = ('arial',14))
 ctextLab = tk.Label(root,text="Ciphertext:",font = ('arial',14))
 keywordLab = tk.Label(root,text="Keyword:",font = ('arial',14))
+
+# Tabe control
+ptext.bind("<Tab>", focus_next_widget)
+key.bind("<Tab>", focus_next_widget)
+ctext.bind("<Tab>", focus_next_widget)
 
 # Put everything in position
 cipherMenu.place(x=550,y=30)

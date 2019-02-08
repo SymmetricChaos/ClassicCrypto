@@ -13,8 +13,8 @@ root.minsize(800,600)
 root.title("Cipher Crackers")
 
 # Two textboxes
-ctext = tk.Text(root,height=7,width=60)
-ptext = tk.Text(root,height=7,width=60)
+ctext = tk.Text(root,height=10,width=50)
+ptext = tk.Text(root,height=10,width=50)
 
 # Dropdown Menu
 setting = tk.StringVar(root)
@@ -68,19 +68,21 @@ exitbutton = tk.Button(root, text="Exit", command = qExit,
 ptextLab = tk.Label(root,text="Plaintext:",font = ('arial',14))
 ctextLab = tk.Label(root,text="Ciphertext:",font = ('arial',14))
 
+describe = tk.Label(root,text="In in substitution mode any simple substitution cipher",font = ('arial',12))
+
+
 # Put everything in position
-settingMenu.place(x=650,y=30)
+settingMenu.place(x=600,y=30)
 
 ctext.place(x=150,y=30)
 ctextLab.place(x=40,y=30)
 
+crackbutton.place(x=150,y=210)
+resetbutton.place(x=250,y=210)
 
-crackbutton.place(x=150,y=160)
-resetbutton.place(x=250,y=160)
+ptext.place(x=150,y=260)
+ptextLab.place(x=50,y=260)
 
-ptext.place(x=150,y=220)
-ptextLab.place(x=50,y=220)
-
-exitbutton.place(x=150,y=400)
+exitbutton.place(x=150,y=440)
 
 root.mainloop()
