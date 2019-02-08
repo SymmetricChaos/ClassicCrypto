@@ -13,8 +13,8 @@ root.minsize(800,600)
 root.title("Crack Substitution")
 
 # Two textboxes
-ctext = tk.Text(root,height=6,width=60)
-ptext = tk.Text(root,height=6,width=60)
+ctext = tk.Text(root,height=7,width=60)
+ptext = tk.Text(root,height=7,width=60)
 
 # Exit Button
 def qExit(): 
@@ -61,11 +61,11 @@ ctextLab.place(x=40,y=30)
 
 
 crackbutton.place(x=150,y=160)
-resetbutton.place(x=400,y=160)
+resetbutton.place(x=250,y=160)
 
 ptext.place(x=150,y=220)
 ptextLab.place(x=50,y=220)
 
-exitbutton.place(x=150,y=320)
+exitbutton.place(x=150,y=400)
 
 root.mainloop()
