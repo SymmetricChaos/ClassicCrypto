@@ -1,10 +1,9 @@
 from Ciphers.PrimeHillCipher import primeHillCipher, createMatrixKey37
-from Ciphers.UtilityFunctions import groups
+from Ciphers.UtilityFunctions import groups, preptext
 from sympy import Matrix, pprint
-from Ciphers.PrepareText import preptext1
 from Attacks.TextScoring import quadgramScore
 
-def primeHillCipherAttack(ctext,crib,N):
+def primeHillCipherCracker(ctext,crib,N):
     
     if len(crib) < N*N:
         raise Exception("crib must have length {}".format(N*N))
@@ -75,15 +74,17 @@ def primeHillCipherAttack(ctext,crib,N):
     print(primeHillCipher(ctext,bestKey))
 
 
-
-# Load up the text to use
-textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
-ptext = preptext1(textfile.readline(),silent=True)
-ptext = ptext[:201]
-print(ptext,"\n\n")
-key = createMatrixKey37(3)
-ctext = primeHillCipher(ptext,key)
-
-crib = "INTRODUCED"
-
-dtext = primeHillCipherAttack(ctext,crib,3)
+def primeHillCipherCrackerExample():
+    # Load up the text to use
+    textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
+    ptext = preptext(textfile.readline(),silent=True)
+    ptext = ptext[:201]
+    print(ptext,"\n\n")
+    key = createMatrixKey37(3)
+    ctext = primeHillCipher(ptext,key)
+    
+    crib = "INTRODUCED"
+    
+    primeHillCipherCracker(ctext,crib,3)
+    
+#primeHillCipherCrackerExample()

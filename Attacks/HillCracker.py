@@ -4,7 +4,7 @@ from sympy import Matrix, pprint
 from Ciphers.PrepareText import preptext1
 from Attacks.TextScoring import quadgramScore
 
-def hillCipherAttack(ctext,crib,N):
+def hillCipherCracker(ctext,crib,N):
     
     if len(crib) < N*N:
         raise Exception("crib must have length {}".format(N*N))
@@ -75,7 +75,7 @@ def hillCipherAttack(ctext,crib,N):
     print(hillCipher(ctext,bestKey))
 
 
-def hillCipherAttackExample():
+def hillCipherCrackerExample():
     
     print("""
 The simple version of the Hill Cipher is very hard to break with access only to
@@ -113,7 +113,7 @@ SACCHARINEJUICE
     for crib in cribs:
         print("Using the crib: {}\n".format(crib))
 
-        hillCipherAttack(ctext,crib,3)
+        hillCipherCracker(ctext,crib,3)
         print("\n\n")
     
-#hillCipherAttackExample()
+#hillCipherCrackerExample()
