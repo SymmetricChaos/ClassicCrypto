@@ -1,7 +1,7 @@
 from Ciphers.Vigenere import vigenere
 from Ciphers.UtilityFunctions import preptext, factors
-from FrequencyAnalysis import frequencyTable
-from TextScoring import bigramScore
+from Attacks.FrequencyAnalysis import frequencyTable
+from Attacks.TextScoring import bigramScore
 
 
 # While a Vigenere cipher does effectively resist traditional frequency
@@ -34,14 +34,14 @@ def diffs(L):
     for i in range(len(L)-1):
         yield L[i+1]-L[i]
 
-def vigenereKeyLength(s):
+def vigenereKeyLength(text):
     
     # Find the ten most common 4-grams
     sizes = []
-    for i in frequencyTable(ctext,4)[:10]:
+    for i in frequencyTable(text,4)[:10]:
         L = []
         # Find the position of each of them
-        for j in find_all(ctext,i[0]):
+        for j in find_all(text,i[0]):
             L.append(j)
     
         # Check the distance between each of them 4-grams
@@ -52,7 +52,7 @@ def vigenereKeyLength(s):
                 
     return frequencyTable(sizes)
 
-def solveVigenere(s,klen=0,verbose=True):
+def vigenereCracker(s,klen=0,verbose=True):
     
     if klen == 0:
     
@@ -78,7 +78,7 @@ def solveVigenere(s,klen=0,verbose=True):
                 x.append( chr((ord(c)-69)%26+65) )
                 
             KEY = "".join(x)
-            dtext = vigenere(ctext,KEY,decode=True)
+            dtext = vigenere(s,KEY,decode=True)
             score = bigramScore(dtext)
             if score > bestscore:
                 bestscore = score
@@ -106,7 +106,7 @@ def solveVigenere(s,klen=0,verbose=True):
             x.append( chr((ord(c)-69)%26+65) )
                 
         KEY = "".join(x)
-        dtext = vigenere(ctext,KEY,decode=True)
+        dtext = vigenere(s,KEY,decode=True)
         score = bigramScore(dtext)
 
         if verbose == True:
@@ -116,11 +116,12 @@ def solveVigenere(s,klen=0,verbose=True):
             print("This translation scores: {0:0.0f}".format(score))
     
 
+def vigenereCrackerExample():
 
-textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
-
-ptext = preptext(textfile.readline(),silent=True)
-ctext = vigenere(ptext,"ZEBRAS")
-
-solveVigenere(ctext)
+    textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
+    
+    ptext = preptext(textfile.readline(),silent=True)
+    ctext = vigenere(ptext,"ZEBRAS")
+    
+    vigenereCracker(ctext)
 
