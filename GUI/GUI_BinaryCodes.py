@@ -2,7 +2,7 @@ import tkinter as tk
 
 from Codes.MorseCode import binaryMorseCode
 from Codes.BaconCode import baconCode
-
+from Codes.PrefixCode import prefixCode
 
 # Create the window
 root = tk.Tk()
@@ -16,12 +16,12 @@ root.title("Binary Codes")
 
 # Three textboxes
 ptext = tk.Text(root,height=7,width=40)
-ctext = tk.Text(root,height=7,width=40)
+ctext = tk.Text(root,height=10,width=40)
 
 # Dropdown Menu
 code = tk.StringVar(root)
 code.set("choose a code")
-codeMenu = tk.OptionMenu(root,code,"morse","bacon")
+codeMenu = tk.OptionMenu(root,code,"morse","bacon","prefix")
 
 # Exit Button
 def qExit(): 
@@ -33,7 +33,7 @@ def Reset():
     ptext.delete("1.0","end") 
   
 
-# 
+# Control movement between widgets
 def focus_next_widget(event):
     event.widget.tk_focusNext().focus()
     return("break")
@@ -51,7 +51,8 @@ def enc():
     # They keys are the names of the cipher while the values are the cipher
     # functions that we imported
     codeDict = {"morse": binaryMorseCode,
-                  "bacon": baconCode}
+                "bacon": baconCode,
+                "prefix": prefixCode}
   
     # Blank the ctext box then put the text in it
     ctext.delete("1.0","end")
@@ -71,7 +72,8 @@ def dec():
     # They keys are the names of the cipher while the values are the cipher
     # functions that we imported
     codeDict = {"morse": binaryMorseCode,
-                  "bacon": baconCode}
+                "bacon": baconCode,
+                "prefix": prefixCode}
   
     # Blank the ctext box then put the text in it
     ctext.delete("1.0","end")
