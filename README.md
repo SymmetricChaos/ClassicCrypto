@@ -79,7 +79,7 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 ## Codes:
 
 #### Binary Codes:
-* Bacon Cipher
+* Bacon Code
 * Prefix Code
 * Binary Braille
 * Binary Morse
@@ -89,6 +89,7 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 * Brevity Code
 * Braille
 * Morse Code
+* Bacon Cipher (using any binary code)
 
 ## Random Number Generators:
 * Reihenschieber
