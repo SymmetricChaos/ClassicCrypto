@@ -1,5 +1,5 @@
 import string
-from UtilityFunctions import primes
+from Ciphers.UtilityFunctions import primes
 
 # The notion of a Godel number is an unusual method of encoding information
 # devised by Kurt Godel as a step in hproving his two famous incompleteness 
@@ -55,3 +55,14 @@ def godelCode(S,decode=False,sep=" "):
                     break
             out.append(" ")
         return "".join(out)
+
+def godelCodeExample():
+    ptext = "THE QUICK BROWN FOX"
+    ctext = godelCode(ptext)
+    
+    print(ptext)
+    print()
+    for i in ctext.split(" "):
+        print(i)
+    
+#godelCodeExample()
