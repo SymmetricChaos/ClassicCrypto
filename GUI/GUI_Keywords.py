@@ -109,8 +109,8 @@ exitbutton = tk.Button(root, text="Exit", command = qExit,
 
 
 # Labels
-ptextLab = tk.Label(root,text="Plaintext:",font = ('arial',14))
-ctextLab = tk.Label(root,text="Ciphertext:",font = ('arial',14))
+ptextLab = tk.Label(root,text="Input:",font = ('arial',14))
+ctextLab = tk.Label(root,text="Output:",font = ('arial',14))
 keywordLab = tk.Label(root,text="Keyword:",font = ('arial',14))
 
 # Tabe control
