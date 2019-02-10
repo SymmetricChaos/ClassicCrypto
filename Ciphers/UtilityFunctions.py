@@ -261,7 +261,7 @@ def validkeys(K,types):
                 raise Exception("Key #{} must be {}".format(pos,pair[1]))
 
 
-# Clever recursive base conversion function (not my work)
+# Clever recursive function that converts decimal numbers to another base (not my work)
 def baseConvert(n,base=10,bigendian=False):
     if base < 1:
         raise Exception("Base cannot be less than 1")
@@ -271,10 +271,26 @@ def baseConvert(n,base=10,bigendian=False):
     if base == 1:
         return "1"*n
         
-    convertString = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    vals = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     if n < base:
-        return convertString[n]
+        return vals[n]
     else:
-        return baseConvert(n//base,base) + convertString[n%base]
+        return baseConvert(n//base,base) + vals[n%base]
 
+# Convert a string in a given base to a decimal number
+def str2dec(s,base=2):
     
+    if base < 1:
+        raise Exception("Base cannot be less than 1")
+    if base > 36:
+        raise Exception("Base cannot be greater than 36")
+        
+    
+    
+    vals = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    
+    out = 0
+    s = s[::-1]
+    for n,b in enumerate(s):
+        out += base**n * vals.index(b)
+    return out
