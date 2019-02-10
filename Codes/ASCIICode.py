@@ -4,8 +4,11 @@ from Ciphers.UtilityFunctions import groups, baseConvert, str2dec
 def ASCII(text, decode = False, mode = "BIN"):
     
     # We use Python's triple quotes so that its possible to include " and '
+    # There are other ASCII characters but they are control characters not text
     chars = """ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"""
     
+    # Use the mode to determine the base to convert to and how many digits are
+    # will be used. This determines any padding needed.
     modes = {"BIN": [2,7],
              "OCT": [8,3],
              "DEC": [10,3],
@@ -51,4 +54,4 @@ def ASCIIExample():
             print("DECODE ERROR")
         print()
         
-ASCIIExample()
+#ASCIIExample()

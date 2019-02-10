@@ -3,6 +3,7 @@ import tkinter as tk
 from Codes.MorseCode import binaryMorseCode
 from Codes.BaconCode import baconCode
 from Codes.PrefixCode import prefixCode
+from Codes.ASCIICode import ASCII
 
 # Create the window
 root = tk.Tk()
@@ -21,7 +22,7 @@ ctext = tk.Text(root,height=10,width=40)
 # Dropdown Menu
 code = tk.StringVar(root)
 code.set("choose a code")
-codeMenu = tk.OptionMenu(root,code,"morse","bacon","prefix")
+codeMenu = tk.OptionMenu(root,code,"morse","bacon","prefix","ASCII")
 
 # Exit Button
 def qExit(): 
@@ -52,7 +53,8 @@ def enc():
     # functions that we imported
     codeDict = {"morse": binaryMorseCode,
                 "bacon": baconCode,
-                "prefix": prefixCode}
+                "prefix": prefixCode,
+                "ASCII": ASCII}
   
     # Blank the ctext box then put the text in it
     ctext.delete("1.0","end")
@@ -73,7 +75,8 @@ def dec():
     # functions that we imported
     codeDict = {"morse": binaryMorseCode,
                 "bacon": baconCode,
-                "prefix": prefixCode}
+                "prefix": prefixCode,
+                "ASCII": ASCII}
   
     # Blank the ctext box then put the text in it
     ctext.delete("1.0","end")
