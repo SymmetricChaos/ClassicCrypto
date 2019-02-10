@@ -47,11 +47,11 @@ decodetest(ptext,"IOWNAXYLOPHONE",substitution)
 
 # Vigenere
 decodetest(ptext,"THISISABOUTFARMING",vigenere)
+decodetest(ptext,"SUGARCANE",beaufort)
 decodetest(ptext,["THIS","IS","ABOUT","FARMING"],multiVigenere)
 decodetest(ptext,["THIS","IS","ABOUT","FARMING"],multiBeaufort)
 decodetest(ptext,"FARMING",autokey)
 decodetest(ptext,["SUGAR","CANE"],affineVigenere)
-decodetest(ptext,"SUGARCANE",beaufort)
 
 
 # Polybius Square

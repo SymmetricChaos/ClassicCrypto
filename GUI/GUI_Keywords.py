@@ -17,9 +17,9 @@ root.minsize(800,600)
 root.title("Keyword Ciphers")
 
 # Three textboxes
-ptext = tk.Text(root,height=4,width=40)
+ptext = tk.Text(root,height=8,width=40)
 key = tk.Text(root,height=1,width=20)
-ctext = tk.Text(root,height=4,width=40)
+ctext = tk.Text(root,height=8,width=40)
 
 # Dropdown Menu
 cipher = tk.StringVar(root)
@@ -112,6 +112,13 @@ exitbutton = tk.Button(root, text="Exit", command = qExit,
 ptextLab = tk.Label(root,text="Input:",font = ('arial',14))
 ctextLab = tk.Label(root,text="Output:",font = ('arial',14))
 keywordLab = tk.Label(root,text="Keyword:",font = ('arial',14))
+explainLab = tk.Label(root,
+                      text="Both the input text and the key must consist of only uppercase letters taken from the standard English alphabet.",
+                      font = ('arial',12),
+                      wraplength=200,
+                      relief=tk.GROOVE,
+                      padx = 10, pady = 10)
+
 
 # Tabe control
 ptext.bind("<Tab>", focus_next_widget)
@@ -121,19 +128,21 @@ ctext.bind("<Tab>", focus_next_widget)
 # Put everything in position
 cipherMenu.place(x=550,y=30)
 
+explainLab.place(x=550,y=200)
+
 ptext.place(x=150,y=30)
 ptextLab.place(x=60,y=30)
 
-key.place(x=150,y=120)
-keywordLab.place(x=60,y=115)
+key.place(x=150,y=200)
+keywordLab.place(x=60,y=200)
 
-encryptbutton.place(x=150,y=160)
-decryptbutton.place(x=250,y=160)
-resetbutton.place(x=400,y=160)
+encryptbutton.place(x=150,y=240)
+decryptbutton.place(x=250,y=240)
+resetbutton.place(x=400,y=240)
 
-ctext.place(x=150,y=220)
-ctextLab.place(x=50,y=220)
+ctext.place(x=150,y=300)
+ctextLab.place(x=50,y=300)
 
-exitbutton.place(x=150,y=320)
+exitbutton.place(x=150,y=450)
 
 root.mainloop()
