@@ -1,5 +1,5 @@
 from MorseCode import morseCode
-from BaconCipher import baconCipher
+from BaconCode import baconCode
 from PrefixCode import prefixCode
 
 def codetest(text,fun):
@@ -14,5 +14,5 @@ def codetest(text,fun):
 ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
 
 codetest(ptext,morseCode)
-codetest(ptext,baconCipher)
+codetest(ptext,baconCode)
 codetest(ptext,prefixCode)
