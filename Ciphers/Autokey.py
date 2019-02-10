@@ -7,7 +7,7 @@
 def autokey(text,key,decode=False):
 
     """
-:param text: The text to be encrypyed. Must be alphanumeric and uppercase. The letter J will be replaced with I.
+:param text: The text to be encrypyed. Must be uppercase.
 :param key: A keyword that is used to encrypt the first few letters.
 :param decode: Boolean. If false encrypt plaintext. If true decode ciphertext
     """

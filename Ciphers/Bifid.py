@@ -6,6 +6,12 @@ from Ciphers.Polybius import polybiusSquare
 
 def bifid(text,key,decode=False):
     
+    """
+:param text: The text to be encrypyed. Must be uppercase.
+:param key: A keyword that is used to encrypt the text.
+:param decode: Boolean. If false encrypt plaintext. If true decode ciphertext
+    """
+    
     nums = polybiusSquare(text,key)
 
     if decode == False:

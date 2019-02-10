@@ -5,6 +5,13 @@ from Ciphers.UtilityFunctions import lcm
 # provides the same degree of security sas the Vigenere but is involutive.
 
 def beaufort(text,key,decode=False):
+    
+    """
+:param text: The text to be encrypyed. Must be uppercase
+:param key: A keyword that is used to encrypt the text.
+:param decode: Boolean. If false encrypt plaintext. If true decode ciphertext
+    """
+    
 
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     T = []
