@@ -10,6 +10,7 @@ def ASCII(text, decode = False, mode = "BIN"):
     # Use the mode to determine the base to convert to and how many digits are
     # will be used. This determines any padding needed.
     modes = {"BIN": [2,7],
+             "UTF": [2,8],
              "OCT": [8,3],
              "DEC": [10,3],
              "HEX": [16,2]}
@@ -40,12 +41,13 @@ def ASCII(text, decode = False, mode = "BIN"):
 
 def ASCIIExample():
 
-    
+    print("The ordinary text:")
     ptext = "The Qu1ck Brown (Fox)\Jumps 0ver the Lazy Dog!?"
     print(ptext,end="\n\n")
     
-    for mode in ["BIN","OCT","DEC","HEX"]:
+    for mode in ["BIN","UTF","OCT","DEC","HEX"]:
     
+        print("Mode: {}".format(mode))
         ctext = ASCII(ptext,mode=mode)
         dtext = ASCII(ctext,decode=True,mode=mode)
         
