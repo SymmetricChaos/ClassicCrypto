@@ -259,3 +259,29 @@ def validkeys(K,types):
 
             if type(pair[0]) != pair[1]:
                 raise Exception("Key #{} must be {}".format(pos,pair[1]))
+
+
+# Convert a decimal number to binary, octal, or hexadecimal.
+def baseConvert(n,b=["BIN","OCT","HEX"],bigendian=False):
+
+    out = []
+    if b == "BIN":
+        while(n > 0):
+            out.append(n%2)
+            n //= 2
+    
+    if b == "OCT":
+        while(n > 0):
+            out.append(n%8)
+            n //= 8
+    
+    if b == "HEX":
+        while(n > 0):
+            out.append(n%16)
+            n //= 16
+    
+    
+    if(bigendian==True):
+        return(out)
+        
+    return(out[::-1])
