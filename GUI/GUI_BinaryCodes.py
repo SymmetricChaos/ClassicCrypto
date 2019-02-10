@@ -15,12 +15,12 @@ root.minsize(800,600)
 root.title("Binary Codes")
 
 # Three textboxes
-ptext = tk.Text(root,height=4,width=40)
-ctext = tk.Text(root,height=4,width=40)
+ptext = tk.Text(root,height=7,width=40)
+ctext = tk.Text(root,height=7,width=40)
 
 # Dropdown Menu
 code = tk.StringVar(root)
-code.set("choose a ccode")
+code.set("choose a code")
 codeMenu = tk.OptionMenu(root,code,"morse","bacon")
 
 # Exit Button
@@ -96,8 +96,8 @@ exitbutton = tk.Button(root, text="Exit", command = qExit,
 
 
 # Labels
-ptextLab = tk.Label(root,text="Plaintext:",font = ('arial',14))
-ctextLab = tk.Label(root,text="Ciphertext:",font = ('arial',14))
+ptextLab = tk.Label(root,text="Input:",font = ('arial',14))
+ctextLab = tk.Label(root,text="Output:",font = ('arial',14))
 
 # Tabe control
 ptext.bind("<Tab>", focus_next_widget)
@@ -116,6 +116,6 @@ resetbutton.place(x=400,y=160)
 ctext.place(x=150,y=220)
 ctextLab.place(x=50,y=220)
 
-exitbutton.place(x=150,y=320)
+exitbutton.place(x=150,y=400)
 
 root.mainloop()
