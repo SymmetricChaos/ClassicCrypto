@@ -1,4 +1,6 @@
-from BinaryCodes import morseCode, baconCipher, prefixCode
+from MorseCode import morseCode
+from BaconCipher import baconCipher
+from PrefixCode import prefixCode
 
 def codetest(text,fun):
     ctext = fun(text)
@@ -8,7 +10,9 @@ def codetest(text,fun):
     else:
         raise Exception("Decode Error With {}".format(fun.__name__))
 
+
 ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+
 codetest(ptext,morseCode)
 codetest(ptext,baconCipher)
 codetest(ptext,prefixCode)

@@ -1,4 +1,4 @@
-from Codes.UtilityFunctions import groups
+from Ciphers.UtilityFunctions import groups
 
 # This fixed length encoding encoding was developed by Francis Bacon
 

@@ -194,7 +194,7 @@ def preptext(text,keepSpaces=False,keepDigits=False,silent=False):
     # Convert letters to uppercase
     if silent == False:
         print("CONVERTING TO UPPERCASE")        
-        T = T.upper()
+    T = T.upper()
     
     return T
 

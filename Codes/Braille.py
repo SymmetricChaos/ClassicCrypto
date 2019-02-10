@@ -1,4 +1,4 @@
-from Codes.UtilityFunctions import groups
+from Ciphers.UtilityFunctions import groups
 
 def braille(text):
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

@@ -1,6 +1,6 @@
 # https://people.duke.edu/~ng46/collections/evans-basic-english-1947.pdf
 
-from Codes.PrepareText import preptext3
+from Ciphers.UtilityFunctions import preptext
 
 # This brevity code is based on the Evans Basic English Code which makes two
 # kinds of changes. First it replaces long common words with shorter versions
@@ -15,14 +15,8 @@ from Codes.PrepareText import preptext3
 # distinctive patterns of letters.
 
 
-textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\Text3.txt', 'r')
-ptext = ""
-for i in textfile.readlines():
-    ptext += preptext3(i,silent=True) + " "
-    
-ptext = ptext[:1113]
 
-def suffixes(text,exceptions=[]):
+def brevityCode(text,exceptions=[]):
     
     # Replace common words with abbreviations
     words = ['BECAUSE','ABOUT','PEOPLE','BETWEEN','WOULD','SHOULD','COULD',
@@ -50,18 +44,17 @@ def suffixes(text,exceptions=[]):
     # from being changed.
     for word in exceptions:
         text = text.replace(" {} ".format(word)," {}* ".format(word))
-      
-    # If any suffix appears as a complete word like ED or AGE we mark it with
-    # an asterisk to prevent it being changed.
-    for j in suffs:
-        text = text.replace(" {} ".format(j)," {}* ".format(j))
     
     # Replace common words with codes and also an asterisk to prevent it from 
     # being modified again.
     for i,j in zip(wordCodes,words):
         text = text.replace(" " + j + " ", " " + i + "* ")
+        
+    # If any suffix appears as a complete word like ED or AGE we mark it with
+    # an asterisk to prevent it being changed.
+    for j in suffs:
+        text = text.replace(" {} ".format(j)," {}* ".format(j))
     
-
     # Replace suffices with codes and also an asterisk to prevent it from being
     # modified again.
     for i,j in zip(suffCodes,suffs):
@@ -72,10 +65,21 @@ def suffixes(text,exceptions=[]):
 
     return text
     
-print("\n")
-print(ptext)
-print(len(ptext))
-print("\n")
-ctext = suffixes(ptext)
-print(ctext)
-print(len(ctext))
+
+def brevityCodeExample():
+    
+    textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\Text3.txt', 'r')
+    ptext = ""
+    for i in textfile.readlines():
+        ptext += preptext(i,keepSpaces=True,silent=True) + " "
+        
+    ptext = ptext[:1113]
+    print("\n")
+    print(ptext)
+    print(len(ptext))
+    print("\n")
+    ctext = brevityCode(ptext)
+    print(ctext)
+    print(len(ctext))
+    
+#brevityCodeExample()
