@@ -52,18 +52,18 @@ def playfair(text,key,decode=False,mode="IJ",printkey=False):
             
             # If they share a column
             if A[0] == B[0]:
-                out += sq[A[0],(A[1]+1)%sz][0]
-                out += sq[B[0],(B[1]+1)%sz][0]
+                out += sq[A[0]][(A[1]+1)%sz]
+                out += sq[B[0]][(B[1]+1)%sz]
 
             # If they share a row
             elif A[1] == B[1]:
-                out += sq[(A[0]+1)%sz,A[1]][0]
-                out += sq[(B[0]+1)%sz,B[1]][0]
+                out += sq[(A[0]+1)%sz][A[1]]
+                out += sq[(B[0]+1)%sz][B[1]]
 
             # Otherwise
             else:
-                out += sq[A[0],B[1]][0]
-                out += sq[B[0],A[1]][0]
+                out += sq[A[0]][B[1]]
+                out += sq[B[0]][A[1]]
 
 
         return out
@@ -83,17 +83,17 @@ def playfair(text,key,decode=False,mode="IJ",printkey=False):
             B = sqWhere[g[1]]
             
             if A[0] == B[0]:
-                out += sq[A[0],(A[1]-1)%sz][0]
-                out += sq[B[0],(B[1]-1)%sz][0]
+                out += sq[A[0]][(A[1]-1)%sz]
+                out += sq[B[0]][(B[1]-1)%sz]
                 
             elif A[1] == B[1]:
-                out += sq[(A[0]-1)%sz,A[1]][0]
-                out += sq[(B[0]-1)%sz,B[1]][0]
+                out += sq[(A[0]-1)%sz][A[1]]
+                out += sq[(B[0]-1)%sz][B[1]]
                 
             else:
                 
-                out += sq[A[0],B[1]][0]
-                out += sq[B[0],A[1]][0]
+                out += sq[A[0]][B[1]]
+                out += sq[B[0]][A[1]]
         
         return out
     
