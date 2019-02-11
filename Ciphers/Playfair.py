@@ -1,5 +1,4 @@
-from Ciphers.UtilityFunctions import groups, makeSquare, playfairPrep
-import numpy as np
+from Ciphers.UtilityFunctions import groups, makeSquare, playfairPrep, squareIndex
 
 # The Playfair cipher was designed to be a simple enough to apply rapidly in a
 # battlefield setting while strong enough to resist significant cryptanalysis.
@@ -23,7 +22,7 @@ def playfair(text,key,decode=False,mode="IJ",printkey=False):
 
     # Derive the alphabet to be used for the key based on the mode
     sq = np.array(makeSquare(key,mode=mode))
-
+    sqWhere = squareIndex(sq)
     if printkey == True:
         if mode == "EX":
             for i in range(6):
@@ -46,8 +45,8 @@ def playfair(text,key,decode=False,mode="IJ",printkey=False):
         
         
         for g in G:
-            A = np.where(sq == g[0])
-            B = np.where(sq == g[1])
+            A = sqWhere[g[0]]
+            B = sqWhere[g[1]]
             
             
             # If they share a column
@@ -79,8 +78,8 @@ def playfair(text,key,decode=False,mode="IJ",printkey=False):
         out = ""
         
         for g in G:
-            A = np.where(sq == g[0])
-            B = np.where(sq == g[1])
+            A = sqWhere[g[0]]
+            B = sqWhere[g[1]]
             
             if A[0] == B[0]:
                 out += sq[A[0],(A[1]-1)%sz][0]
@@ -113,4 +112,4 @@ def playfairExample():
         print("Ciphertext is: {}".format(ctext))
         print("Decodes As:    {}".format(dtext))
         
-#playfairExample()
+playfairExample()

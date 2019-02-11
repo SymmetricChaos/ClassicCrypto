@@ -167,6 +167,12 @@ def makeSquare(key,mode):
             sq.append([x for x in i])
         return sq
 
+def squareIndex(sq):
+    D = {}
+    for i,row in enumerate(sq):
+        for j,letter in enumerate(row):
+            D[letter] = (i,j)
+    return D
 
 import re
 
@@ -294,3 +300,4 @@ def str2dec(s,base=2):
     for n,b in enumerate(s):
         out += base**n * vals.index(b)
     return out
+
