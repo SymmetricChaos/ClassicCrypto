@@ -21,8 +21,9 @@ def playfair(text,key,decode=False,mode="IJ",printkey=False):
     text = playfairPrep(text,mode=mode)
 
     # Derive the alphabet to be used for the key based on the mode
-    sq = np.array(makeSquare(key,mode=mode))
+    sq = makeSquare(key,mode=mode)
     sqWhere = squareIndex(sq)
+    
     if printkey == True:
         if mode == "EX":
             for i in range(6):
