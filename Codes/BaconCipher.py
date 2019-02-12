@@ -20,7 +20,7 @@ def baconCipher(text,code,stegotext="",decode=False):
         # If using the stegotext option there has to be enough text
         if stegotext != "":
             if len(stegotext) < len(ctext):
-                raise Exception('not enough stegotext provided')
+                raise Exception('at least {} false test characters needed'.format(len(ctext)))
 
         out = ""
         # If not using any stegotext random letters are picked

@@ -63,8 +63,8 @@ def enc():
     ctext.delete("1.0","end")
     try:
         ctext.insert("insert",baconCipher(T,codeDict[C],S,decode=False)) 
-    except:
-        ctext.insert("insert","SOMEERROR") 
+    except Exception as e:
+        ctext.insert("insert",str(e)) 
 
 # Decrypt function 
 def dec(): 
@@ -86,8 +86,10 @@ def dec():
   
     # Blank the ctext box then put the text in it
     ctext.delete("1.0","end")
-    ctext.insert("insert",baconCipher(T,codeDict[C],S,decode=True)) 
-
+    try:
+        ctext.insert("insert",baconCipher(T,codeDict[C],S,decode=True)) 
+    except Exception as e:
+        ctext.insert("insert",str(e)) 
 # Button to run cipher in encrypt mode
 encryptbutton = tk.Button(root, text="Encode", command = enc,
                           bg = 'lightblue', font = ('arial',14,'bold'))

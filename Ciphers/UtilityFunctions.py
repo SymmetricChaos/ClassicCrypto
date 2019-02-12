@@ -268,6 +268,7 @@ def validkeys(K,types):
 
 
 # Clever recursive function that converts decimal numbers to another base (not my work)
+# Returns a string not a number
 def baseConvert(n,base=10,bigendian=False):
     if base < 1:
         raise Exception("Base cannot be less than 1")
