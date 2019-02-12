@@ -3,6 +3,7 @@ from Codes.MorseCode import binaryMorseCode
 from Codes.PrefixCode import prefixCode
 from Codes.BaconCode import baconCode
 from Codes.Braille import binaryBraille
+from Codes.ASCIICode import ASCII
 
 # The so-called Bacon cipher is really nothing of the sort. Rather it is a way
 # of hiding a binary code in another piece of text. Bacon developed a specific
@@ -54,15 +55,13 @@ def baconCipher(text,code,stegotext="",decode=False):
 def baconCipherExample():
     print("Example of the Bacon Cipher\n\n")
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    for codeType in [prefixCode,baconCode,binaryMorseCode,binaryBraille]:
+    for codeType in [prefixCode,baconCode,binaryMorseCode,binaryBraille,ASCII]:
         print("Using {}:\n".format(codeType.__name__))
         ctext = baconCipher(ptext,codeType)
         dtext = baconCipher(ctext,codeType,decode=True)
-        print(ptext)
+        print(ptext,end="\n\n")
         print(ctext)
-        if ptext == dtext:
-            print("\n(Decode Works)")
-        else:
+        if ptext != dtext:
             print("\n(Decode Failed)")
         print("\n")
         
