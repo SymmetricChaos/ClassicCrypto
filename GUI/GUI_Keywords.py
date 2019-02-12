@@ -64,7 +64,10 @@ def enc():
   
     # Blank the ctext box then put the text in it
     ctext.delete("1.0","end")
-    ctext.insert("insert",cipherDict[C](T,k,decode=False)) 
+    try:
+        ctext.insert("insert",cipherDict[C](T,k,decode=False)) 
+    except Exception as e:
+        ctext.insert("insert",str(e)) 
 
 # Decrypt function 
 def dec(): 
@@ -88,8 +91,12 @@ def dec():
   
     # Blank the ctext box then put the text in it
     ctext.delete("1.0","end")
-    ctext.insert("insert",cipherDict[C](T,k,decode=True))
-  
+    try:
+        ctext.insert("insert",cipherDict[C](T,k,decode=True)) 
+    except Exception as e:
+        ctext.insert("insert",str(e)) 
+        
+
 # Button to run cipher in encrypt mode
 encryptbutton = tk.Button(root, text="Encrypt", command = enc,
                           bg = 'lightblue', font = ('arial',14,'bold'))
