@@ -1,6 +1,5 @@
 import tkinter as tk
 from Attacks.SubstitutionCracker import substitutionCracker
-from Attacks.AutokeyCracker import autokeyCracker
 
 # Create the window
 root = tk.Tk()
@@ -10,17 +9,11 @@ root.maxsize(800,600)
 root.minsize(800,600)
 
 # Title of the window
-root.title("Cipher Crackers")
+root.title("Substitution Cipher Cracker")
 
 # Two textboxes
 ctext = tk.Text(root,height=10,width=50)
 ptext = tk.Text(root,height=10,width=50)
-
-# Dropdown Menu
-setting = tk.StringVar(root)
-setting.set("choose a cipher")
-settingMenu = tk.OptionMenu(root,setting,"substitution","autokey")
-
 
 # Exit Button
 def qExit(): 
@@ -38,17 +31,9 @@ def crackIt():
     # Get the text from the ptext box
     T = ctext.get("1.0","end")[:-1]
 
-    S = setting.get()
-    
-    # We use a dictionary as basically a as a switch statement
-    # They keys are the names of the cipher while the values are the cipher
-    # functions that we imported
-    settingDict = {"autokey": autokeyCracker,
-                  "substitution": substitutionCracker}
-
     # Blank the ctext box then put the text in it
     ptext.delete("1.0","end")
-    ptext.insert("insert",settingDict[S](T,10)) 
+    ptext.insert("insert",substitutionCracker(T,50)) 
 
   
 # Button to run cipher in encrypt mode
@@ -68,17 +53,20 @@ exitbutton = tk.Button(root, text="Exit", command = qExit,
 ptextLab = tk.Label(root,text="Plaintext:",font = ('arial',14))
 ctextLab = tk.Label(root,text="Ciphertext:",font = ('arial',14))
 
-describe = tk.Label(root,text="In in substitution mode any simple substitution cipher",font = ('arial',12))
-
+describe = tk.Label(root,text="Provide ciphertext as uppercase letters from the standard English alphabet. You may have to run the program multiple times.",
+                    font = ('arial',12),
+                    wraplength=200,
+                    relief=tk.GROOVE,
+                    padx = 10, pady = 10)
 
 # Put everything in position
-settingMenu.place(x=600,y=30)
-
 ctext.place(x=150,y=30)
 ctextLab.place(x=40,y=30)
 
 crackbutton.place(x=150,y=210)
 resetbutton.place(x=250,y=210)
+
+describe.place(x=570,y=50)
 
 ptext.place(x=150,y=260)
 ptextLab.place(x=50,y=260)
