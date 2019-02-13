@@ -29,8 +29,8 @@ cipherMenu = tk.OptionMenu(root,cipher,"substitution","vigenere","beaufort","aut
 
 # Dropdown menu to pick what to do with formatting
 form = tk.StringVar(root)
-form.set("Keep Formatting")
-formMenu = tk.OptionMenu(root,form,"Keep Formatting","Remove Formatting")
+form.set("Keep")
+formMenu = tk.OptionMenu(root,form,"Keep","Remove")
 
 
 # Exit Button
@@ -61,8 +61,8 @@ def enc():
     # Get the formatting rule
     F = form.get()
     
-    if F == "Keep Formatting":
-        T, pos, char,case = saveFormat(T)
+
+    T, pos, char,case = saveFormat(T)
     
     # We use a dictionary as basically a as a switch statement
     # They keys are the names of the cipher while the values are the cipher
@@ -78,14 +78,14 @@ def enc():
     
     # Try encrypting
     try:
-        C = cipherDict[C](T,K,decode=False)
+        tx = cipherDict[C](T,K,decode=False)
     except Exception as e:
         ctext.insert("insert",str(e)) 
     
-    if F == "Keep Formatting":
-        ctext.insert("insert",restoreFormat(C,pos, char,case))
+    if F == "Keep":
+        ctext.insert("insert",restoreFormat(tx, pos, char,case))
     else:
-        ctext.insert("insert",C)
+        ctext.insert("insert",tx)
          
 
 
@@ -101,7 +101,7 @@ def dec():
     # Get the formatting rule
     F = form.get()
     
-    if F == "Keep Formatting":
+    if F == "Keep":
         T, pos, char,case = saveFormat(T)
     
     # We use a dictionary as basically a as a switch statement
@@ -122,7 +122,7 @@ def dec():
     except Exception as e:
         ctext.insert("insert",str(e)) 
     
-    if F == "Keep Formatting":
+    if F == "Keep":
         ctext.insert("insert",restoreFormat(C,pos, char,case))
     else:
         ctext.insert("insert",C)
@@ -156,7 +156,8 @@ explainLab = tk.Label(root,
                       wraplength=200,
                       relief=tk.GROOVE,
                       padx = 10, pady = 10)
-
+cipherLab = tk.Label(root,text="Cipher",font = ('arial',11))
+formLab = tk.Label(root,text="Formatting",font = ('arial',11))
 
 # Tab control
 ptext.bind("<Tab>", focus_next_widget)
@@ -164,8 +165,10 @@ key.bind("<Tab>", focus_next_widget)
 ctext.bind("<Tab>", focus_next_widget)
 
 # Put everything in position
-cipherMenu.place(x=530,y=30)
-formMenu.place(x=650,y=30)
+cipherMenu.place(x=590,y=45)
+cipherLab.place(x=530,y=50)
+formMenu.place(x=620,y=95)
+formLab.place(x=530,y=100)
 
 explainLab.place(x=550,y=200)
 
