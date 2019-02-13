@@ -5,6 +5,7 @@ from Ciphers.Playfair import playfair
 from Ciphers.Autokey import autokey
 from Ciphers.Beaufort import beaufort
 from Ciphers.Substitution import substitution
+from Ciphers.UtilityFunctions import saveFormat, restoreFormat
 
 # Create the window
 root = tk.Tk()
@@ -21,10 +22,16 @@ ptext = tk.Text(root,height=8,width=40)
 key = tk.Text(root,height=1,width=20)
 ctext = tk.Text(root,height=8,width=40)
 
-# Dropdown Menu
+# Dropdown menu with ciphers
 cipher = tk.StringVar(root)
-cipher.set("choose a cipher")
-cipherMenu = tk.OptionMenu(root,cipher,"vigenere","beaufort","autokey","playfair","substitution")
+cipher.set("substitution")
+cipherMenu = tk.OptionMenu(root,cipher,"substitution","vigenere","beaufort","autokey","playfair")
+
+# Dropdown menu to pick what to do with formatting
+form = tk.StringVar(root)
+form.set("Keep Formatting")
+formMenu = tk.OptionMenu(root,form,"Keep Formatting","Remove Formatting")
+
 
 # Exit Button
 def qExit(): 
@@ -48,10 +55,14 @@ def enc():
     # Get the text from the ptext box
     T = ptext.get("1.0","end")[:-1]
     # Get the key from the key box
-    k = key.get("1.0","end")[:-1]
-    
+    K = key.get("1.0","end")[:-1]
     # Get the selected cipher
     C = cipher.get()
+    # Get the formatting rule
+    F = form.get()
+    
+    if F == "Keep Formatting":
+        T, pos, char,case = saveFormat(T)
     
     # We use a dictionary as basically a as a switch statement
     # They keys are the names of the cipher while the values are the cipher
@@ -62,12 +73,21 @@ def enc():
                   "playfair": playfair,
                   "substitution": substitution}
   
-    # Blank the ctext box then put the text in it
+    # Blank the ctext box
     ctext.delete("1.0","end")
+    
+    # Try encrypting
     try:
-        ctext.insert("insert",cipherDict[C](T,k,decode=False)) 
+        C = cipherDict[C](T,K,decode=False)
     except Exception as e:
         ctext.insert("insert",str(e)) 
+    
+    if F == "Keep Formatting":
+        ctext.insert("insert",restoreFormat(C,pos, char,case))
+    else:
+        ctext.insert("insert",C)
+         
+
 
 # Decrypt function 
 def dec(): 
@@ -75,10 +95,14 @@ def dec():
     # Get the text from the ptext box
     T = ptext.get("1.0","end")[:-1]
     # Get the key from the key box
-    k = key.get("1.0","end")[:-1]
-    
+    K = key.get("1.0","end")[:-1]
     # Get the selected cipher
     C = cipher.get()
+    # Get the formatting rule
+    F = form.get()
+    
+    if F == "Keep Formatting":
+        T, pos, char,case = saveFormat(T)
     
     # We use a dictionary as basically a as a switch statement
     # They keys are the names of the cipher while the values are the cipher
@@ -89,12 +113,19 @@ def dec():
                   "playfair": playfair,
                   "substitution": substitution}
   
-    # Blank the ctext box then put the text in it
+    # Blank the ctext box
     ctext.delete("1.0","end")
+    
+    # Try encrypting
     try:
-        ctext.insert("insert",cipherDict[C](T,k,decode=True)) 
+        C = cipherDict[C](T,K,decode=True)
     except Exception as e:
         ctext.insert("insert",str(e)) 
+    
+    if F == "Keep Formatting":
+        ctext.insert("insert",restoreFormat(C,pos, char,case))
+    else:
+        ctext.insert("insert",C)
         
 
 # Button to run cipher in encrypt mode
@@ -127,13 +158,14 @@ explainLab = tk.Label(root,
                       padx = 10, pady = 10)
 
 
-# Tabe control
+# Tab control
 ptext.bind("<Tab>", focus_next_widget)
 key.bind("<Tab>", focus_next_widget)
 ctext.bind("<Tab>", focus_next_widget)
 
 # Put everything in position
-cipherMenu.place(x=550,y=30)
+cipherMenu.place(x=530,y=30)
+formMenu.place(x=650,y=30)
 
 explainLab.place(x=550,y=200)
 
