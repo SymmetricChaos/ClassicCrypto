@@ -302,3 +302,15 @@ def str2dec(s,base=2):
         out += base**n * vals.index(b)
     return out
 
+# Use the find_all function described previously to find the position for every
+# occurence of a character (by default a space) and return a list
+def findChar(S,ch = " "):
+    return [i for i in find_all(S,ch)]
+
+# Use a list to insert characters to a string that has had them removed. Meant 
+# to be used with findChar. If used otherwise keep in mind that he length of
+# the string changes after each insertion.
+def insertChar(S,L, ch = " "):
+    for pos in L:
+        S = S[:pos] + ch + S[pos:]
+    return S
