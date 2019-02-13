@@ -14,16 +14,8 @@ from Ciphers.UtilityFunctions import preptext
 # much harder to analyze. Messages are shorter and lack some of their most
 # distinctive patterns of letters.
 
-
-
-def brevityCode(text,exceptions=[]):
-    
-    # Replace common words with abbreviations
-    words = ['BECAUSE','ABOUT','PEOPLE','BETWEEN','WOULD','SHOULD','COULD',
-             'GOVERNMENT','IMPORTANT', 'YOU', 'ARE']
-    wordCodes = ['BC','ABT','PPL','BTWN','WLD','SHLD','CLD','GOVT','IMPT', 'U',
-                 'R']
-    
+def suffixCodes(text,exceptions=[]):
+        
     suffs = ['ABILITY', 'IBILITY', 'ACTORY', 'ATIVE', 'FULLY', 'OLOGY', 'ILITY', 'ATION',
              'ATORY', 'ITIES', 'AZITE', 'ITION', 'ITIVE', 'IVELY', 'ULOUS', 'ENCY', 'SION',
              'HOOD', 'NESS', 'IOUS', 'MENT', 'ABLE', 'WARD', 'LESS', 'SELF', 'IBLE', 'SOME',
@@ -39,18 +31,13 @@ def brevityCode(text,exceptions=[]):
              'D', 'CY', 'Z', 'L', 'LY', 'Z', 'ST', 'T', 'S', 'T', 'U', 'T', 'RY', 'RY', 'T', 'RY', 'V',
              'R', 'TY', 'TY', 'N', 'Z', 'M', 'LY', 'ST', 'C', 'L', 'S', 'D', 'D', 'E', 'Y', 'R', 'R',
              'H', 'D', 'N']
-    
+
     # Any words noted as exceptions are marked with an asterisk to prevent them
     # from being changed.
     for word in exceptions:
         text = text.replace(" {} ".format(word)," {}* ".format(word))
     
-    # Replace common words with codes and also an asterisk to prevent it from 
-    # being modified again.
-    for i,j in zip(wordCodes,words):
-        text = text.replace(" " + j + " ", " " + i + "* ")
-        
-    # If any suffix appears as a complete word like ED or AGE we mark it with
+        # If any suffix appears as a complete word like ED or AGE we mark it with
     # an asterisk to prevent it being changed.
     for j in suffs:
         text = text.replace(" {} ".format(j)," {}* ".format(j))
@@ -64,9 +51,32 @@ def brevityCode(text,exceptions=[]):
     text = text.replace("*", "")
 
     return text
+
+def wordCode(text,exceptions=[]):
+    
+    # Replace common words with abbreviations
+    words = ['BECAUSE','ABOUT','PEOPLE','BETWEEN','WOULD','SHOULD','COULD',
+             'GOVERNMENT','IMPORTANT', 'YOU', 'ARE']
+    wordCodes = ['BC','ABT','PPL','BTWN','WLD','SHLD','CLD','GOVT','IMPT', 'U',
+                 'R']
+
+    # Any words noted as exceptions are marked with an asterisk to prevent them
+    # from being changed.
+    for word in exceptions:
+        text = text.replace(" {} ".format(word)," {}* ".format(word))
+    
+    # Replace common words with codes and also an asterisk to prevent it from 
+    # being modified again.
+    for i,j in zip(wordCodes,words):
+        text = text.replace(" " + j + " ", " " + i + "* ")
+
+    # Get rid of the asterisks.
+    text = text.replace("*", "")
+
+    return text
     
 
-def brevityCodeExample():
+def wordCodeExample():
     
     textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\Text3.txt', 'r')
     ptext = ""
@@ -78,8 +88,25 @@ def brevityCodeExample():
     print(ptext)
     print(len(ptext))
     print("\n")
-    ctext = brevityCode(ptext)
+    ctext = wordCode(ptext)
     print(ctext)
     print(len(ctext))
+    
+def suffixCodeExample():
+    
+    textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\Text3.txt', 'r')
+    ptext = ""
+    for i in textfile.readlines():
+        ptext += preptext(i,keepSpaces=True,silent=True) + " "
+        
+    ptext = ptext[:1113]
+    print("\n")
+    print(ptext)
+    print(len(ptext))
+    print("\n")
+    ctext = suffixCodes(ptext)
+    print(ctext)
+    print(len(ctext))
+    
     
 #brevityCodeExample()
