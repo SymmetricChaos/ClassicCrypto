@@ -302,15 +302,39 @@ def str2dec(s,base=2):
         out += base**n * vals.index(b)
     return out
 
-# Use the find_all function described previously to find the position for every
-# occurence of a character (by default a space) and return a list
-def findChar(S,ch = " "):
-    return [i for i in find_all(S,ch)]
+# Find all the characters which are not part of a given alphabet and save what
+# they are and where they go.
+def saveFormat(S,alphabet = ""):
+    
+    if alphabet == "":
+       alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    
+    final,case = [], []
+    
+    pos, char = [], []
+    for ps,ch in enumerate(S):
+        if ch not in alphabet:
+            char.append(ch)
+            pos.append(ps)
+        else:
+            final.append(ch.upper())
+            case.append(ch.isupper())
+    return "".join(final), pos, char, case
 
-# Use a list to insert characters to a string that has had them removed. Meant 
-# to be used with findChar. If used otherwise keep in mind that he length of
-# the string changes after each insertion.
-def insertChar(S,L, ch = " "):
-    for pos in L:
-        S = S[:pos] + ch + S[pos:]
+
+# Use the output of saveChars to put the characters back where they used to be
+def restoreFormat(S,pos,char,case):
+    
+    T = [i for i in S]
+    for ps,ca in enumerate(case):
+        if T[ps].isupper() != ca:
+            if ca:
+                T[ps] = T[ps].upper()
+            else:
+                T[ps] = T[ps].lower()
+
+    S = "".join(T)
+    
+    for ps,ch in zip(pos,char):
+        S = S[:ps] + ch + S[ps:]
     return S
