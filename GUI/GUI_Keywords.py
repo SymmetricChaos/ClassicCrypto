@@ -92,6 +92,7 @@ def enc():
 # Decrypt function 
 def dec(): 
 
+
     # Get the text from the ptext box
     T = ptext.get("1.0","end")[:-1]
     # Get the key from the key box
@@ -101,8 +102,8 @@ def dec():
     # Get the formatting rule
     F = form.get()
     
-    if F == "Keep":
-        T, pos, char,case = saveFormat(T)
+
+    T, pos, char,case = saveFormat(T)
     
     # We use a dictionary as basically a as a switch statement
     # They keys are the names of the cipher while the values are the cipher
@@ -118,14 +119,14 @@ def dec():
     
     # Try encrypting
     try:
-        C = cipherDict[C](T,K,decode=True)
+        tx = cipherDict[C](T,K,decode=True)
     except Exception as e:
         ctext.insert("insert",str(e)) 
     
     if F == "Keep":
-        ctext.insert("insert",restoreFormat(C,pos, char,case))
+        ctext.insert("insert",restoreFormat(tx, pos, char,case))
     else:
-        ctext.insert("insert",C)
+        ctext.insert("insert",tx)
         
 
 # Button to run cipher in encrypt mode
