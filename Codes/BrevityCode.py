@@ -55,9 +55,9 @@ def suffixCodes(text,exceptions=[]):
 def wordCode(text,exceptions=[]):
     
     # Replace common words with abbreviations
-    words = ['BECAUSE','ABOUT','PEOPLE','BETWEEN','WOULD','SHOULD','COULD',
+    words = ['DIFFERENT','BECAUSE','ABOUT','PEOPLE','BETWEEN','WOULD','SHOULD','COULD',
              'GOVERNMENT','IMPORTANT', 'YOU', 'ARE']
-    wordCodes = ['BC','ABT','PPL','BTWN','WLD','SHLD','CLD','GOVT','IMPT', 'U',
+    wordCodes = ['DIFF','BC','ABT','PPL','BTWN','WLD','SHLD','CLD','GOVT','IMPT', 'U',
                  'R']
 
     # Any words noted as exceptions are marked with an asterisk to prevent them
