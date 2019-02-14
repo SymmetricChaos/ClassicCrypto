@@ -1,7 +1,7 @@
 # A linear feedback shift register is a simple form of random number generator
 # althought it is not simple enough to do mentally. However it can be done with
 # a simple machine. Usually LFSRs are considered for binary strings but the one
-# presented here 
+# presented here use digits.
 
 def LFSR(seed,taps):
     reg = [int(i) for i in str(seed)]
@@ -24,4 +24,12 @@ def LFSRExample():
             break
     print("\nNotice the simple relationship between outputs.")
 
+    print("\nBetter randomness can be achieved by only taking results occasionally.")
+    print("Here we take every tenth output.\n")
+    for ctr,i in enumerate(LFSR(seed,taps)):
+        if ctr % 10 == 0:
+            print(i)
+        if ctr > 200:
+            break
+    
 #LFSRExample()
