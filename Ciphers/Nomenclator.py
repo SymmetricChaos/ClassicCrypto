@@ -1,6 +1,7 @@
 import random
 import numpy as np
-
+from RNG.LFSR import LFSR
+from RNG.FisherYates import fisherYatesShuffle
 
 # A nomenclator is a cipher that operates on common pieces of language in order
 # to defeat frequency analysis. The Great Cipher designed by Antoine Rossignol
@@ -27,11 +28,22 @@ def createCodeGroups(n,decode=False):
     # code groups will be visibly separated when written out.
     codegroups = ["{0:03} ".format(i) for i in range(1000)]
    
+    
+    # Use a LFSR to shuffle the code groups
+    L = []
+    for ctr,val in enumerate(LFSR(n,[4,6,7,15],16)):
+        L.append(val)
+        if ctr == 1000:
+            break
+    shuf = fisherYatesShuffle(1000,L)
+    codegroups = [codegroups[i] for i in shuf]
+    
+    
     # Use they key value n to randomize the codegroups in a predictable way
-    random.seed(n)
-    random.shuffle(codegroups)
+    #random.seed(n)
+    #random.shuffle(codegroups)
     # Now reset the random seed
-    random.seed()
+    #random.seed()
     
     
     ## Our list of text symbols is taken from the Ngram data that we have
@@ -175,12 +187,12 @@ def nomenclator(text,key=1,decode=False,usenulls=True,dictionary=False,showgroup
 
 def nomenclatorExample():
     
-    from Ciphers.UtilityFunctions import preptext1
+    from Ciphers.UtilityFunctions import preptext
 
     print("Example of the Nomenclator Cipher")
 
     textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\Text2.txt','r')
-    ptext = preptext1(textfile.readline(),silent=True)
+    ptext = preptext(textfile.readline(),silent=True)
     ptext = ptext[:200]
     
     KEY = random.getrandbits(64)
@@ -193,4 +205,4 @@ def nomenclatorExample():
 
     print("\n\nDoes the Text Decode Correctly?",dtext == ptext)
 
-#nomenclatorExample()
+nomenclatorExample()

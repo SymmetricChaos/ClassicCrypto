@@ -52,10 +52,11 @@ def LFSR(seed,taps,length):
 def LFSRExample():
     print("Example of Linear Feedback Shift Register\n")
     seed = 635
-    taps = [6,9]
-    length = 10
+    taps = [4,6,7,15]
+    length = 16
     print("Seed value is: {}".format(seed))
     print("Taps are at:   {}".format(taps))
+    print("\nOutput:")
     for ctr,i in enumerate(LFSR(seed,taps,length)):
         print(i)
         if ctr > 20:

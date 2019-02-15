@@ -1,4 +1,4 @@
-def fisherYatesShuff(K,rand):
+def fisherYatesShuffle(K,rand):
     if K > len(rand):
         raise Exception("Not enough random numbers.")
     
@@ -14,7 +14,7 @@ def fisherYatesShuff(K,rand):
 
     return out
 
-def fisherYatesShuffExample():
+def fisherYatesShuffleExample():
     from RNG.LCG import LCG
     from itertools import islice, product
     
@@ -35,7 +35,7 @@ def fisherYatesShuffExample():
     print("\nPseudo-Random Numbers")
     print(R)
     
-    shuf = fisherYatesShuff(52,R)
+    shuf = fisherYatesShuffle(52,R)
     print("\nFisher-Yates Positions")    
     print(shuf)
     print(len(shuf))
@@ -48,4 +48,4 @@ def fisherYatesShuffExample():
             print()
     print()
 
-#fisherYatesShuffExample()
+#fisherYatesShuffleExample()
