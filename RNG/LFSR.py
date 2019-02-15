@@ -1,6 +1,25 @@
 # A linear feedback shift register is a simple form of random number generator
 # that can be executed with a pen and paper without much difficulty. Very fast
-# versions 
+# versions can be made with mechanical or electromechanical systems.
+
+# The method is simple. A string of 0s and 1s is written out and a few positions
+# are chosen as "taps". The binary string is turned into a number, then the
+# taps are counted. If there are an even number of 1s in at the tap positions
+# a 0 is put at the end of the list. Then the bit at the other end is removed.
+
+#   T   T   T T
+# 0 1 1 0 1 0 0 0 = 104
+# 1 1 0 1 0 0 0 1 = 209
+# 1 0 1 0 0 0 1 0 = 162
+# 0 1 0 0 0 1 0 0 = 68
+# 1 0 0 0 1 0 0 1 = 137
+
+# These numbers are not significantly more secure than the other random number
+# generators presented here. However they do appear to be more random when
+# written in decimal.
+
+# The choice of tap positions has a strong influence on how long it takes for
+# the 
 
 from Ciphers.UtilityFunctions import baseConvert, str2dec
 
@@ -9,12 +28,12 @@ def LFSR(seed,taps,length):
     reg = [int(i) for i in reg]
 
     while len(reg) < length:
-        reg.append(0)
+        reg.insert(0,0)
         
     while True:
         t = sum([reg[s] for s in taps]) % 2
-        reg.append(t)
-        del reg[0]
+        reg.insert(0,t)
+        del reg[-1]
         
         # Convert to a string
         S = "".join([str(i) for i in reg])
@@ -25,8 +44,8 @@ def LFSR(seed,taps,length):
 def LFSRExample():
     print("Example of Linear Feedback Shift Register\n")
     seed = 635
-    taps = [1,11,12,13]
-    length = 16
+    taps = [6,9]
+    length = 10
     print("Seed value is: {}".format(seed))
     print("Taps are at:   {}".format(taps))
     for ctr,i in enumerate(LFSR(seed,taps,length)):
@@ -42,4 +61,4 @@ def LFSRExample():
             break
         L.append(i)
 
-LFSRExample()
+#LFSRExample()
