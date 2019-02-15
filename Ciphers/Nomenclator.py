@@ -31,19 +31,23 @@ def createCodeGroups(n,decode=False):
     
     # Use a LFSR to shuffle the code groups
     L = []
-    for ctr,val in enumerate(LFSR(n,[4,6,7,15],16)):
+    for ctr,val in enumerate(LFSR(n,[5,6,8,9,11,15,19,31],32)):
         L.append(val)
         if ctr == 1000:
             break
     shuf = fisherYatesShuffle(1000,L)
     codegroups = [codegroups[i] for i in shuf]
     
-    # The LFSR presented only gives 16 bits of randomness. A larger LSFR could
-    # provide more randomness. While it is more difficult to operate that is
-    # not a huge problem in practice since the randomization isn't changed very
-    # often.
     
-    # Use they key value n to randomize the codegroups in a predictable way
+    # There are a preposterously huge number of ways to shuffle the one thousand
+    # code groups that exist. The 32 bit LFSR only provides about four billion
+    # possible shuffles. While it can be operated by hand it isn't entirely
+    # reasonable to pick a new key for every message. Fortunately nomenclator
+    # type ciphers require a lot of text in order to mount an attack against them
+    # and historically only had the key changed very rarely.
+    
+    # If working by hand isn't necessary a stronger modern algorithm can be used
+    # to perform the shuffle.
     #random.seed(n)
     #random.shuffle(codegroups)
     # Now reset the random seed
@@ -199,7 +203,8 @@ def nomenclatorExample():
     ptext = preptext(textfile.readline(),silent=True)
     ptext = ptext[:200]
     
-    KEY = random.getrandbits(16)
+    #KEY = random.getrandbits(32)
+    KEY = 3664080377
     
     ctext = nomenclator(ptext,KEY)
     dtext = nomenclator(ctext,KEY,decode=True)
@@ -209,4 +214,4 @@ def nomenclatorExample():
 
     print("\n\nDoes the Text Decode Correctly?",dtext == ptext)
 
-nomenclatorExample()
+#nomenclatorExample()
