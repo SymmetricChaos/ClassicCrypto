@@ -1,35 +1,45 @@
 # A linear feedback shift register is a simple form of random number generator
-# althought it is not simple enough to do mentally. However it can be done with
-# a simple machine. Usually LFSRs are considered for binary strings but the one
-# presented here use digits.
+# that can be executed with a pen and paper without much difficulty. Very fast
+# versions 
 
-def LFSR(seed,taps):
-    reg = [int(i) for i in str(seed)]
+from Ciphers.UtilityFunctions import baseConvert, str2dec
 
+def LFSR(seed,taps,length):
+    reg = baseConvert(seed,2)
+    reg = [int(i) for i in reg]
+
+    while len(reg) < length:
+        reg.append(0)
+        
     while True:
-        t = sum([reg[s] for s in taps]) % 10
+        t = sum([reg[s] for s in taps]) % 2
         reg.append(t)
         del reg[0]
-        yield int("".join([str(i) for i in reg]))
+        
+        # Convert to a string
+        S = "".join([str(i) for i in reg])
+        
+        # Turn the binary string back into a decimal number
+        yield int(str2dec(S,2))
 
 def LFSRExample():
     print("Example of Linear Feedback Shift Register\n")
-    seed = 2871347615
-    taps = [3,5,8]
+    seed = 635
+    taps = [1,11,12,13]
+    length = 16
     print("Seed value is: {}".format(seed))
     print("Taps are at:   {}".format(taps))
-    for ctr,i in enumerate(LFSR(seed,taps)):
+    for ctr,i in enumerate(LFSR(seed,taps,length)):
         print(i)
         if ctr > 20:
             break
-    print("\nNotice the simple relationship between outputs.")
 
-    print("\nBetter randomness can be achieved by only taking results occasionally.")
-    print("Here we take every tenth output.\n")
-    for ctr,i in enumerate(LFSR(seed,taps)):
-        if ctr % 10 == 0:
-            print(i)
-        if ctr > 200:
+    L = []
+    for i in LFSR(seed,taps,length):
+        if i in L:
+            print()
+            print("Period:",len(L))
             break
-    
-#LFSRExample()
+        L.append(i)
+
+LFSRExample()
