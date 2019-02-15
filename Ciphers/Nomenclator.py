@@ -38,6 +38,10 @@ def createCodeGroups(n,decode=False):
     shuf = fisherYatesShuffle(1000,L)
     codegroups = [codegroups[i] for i in shuf]
     
+    # The LFSR presented only gives 16 bits of randomness. A larger LSFR could
+    # provide more randomness. While it is more difficult to operate that is
+    # not a huge problem in practice since the randomization isn't changed very
+    # often.
     
     # Use they key value n to randomize the codegroups in a predictable way
     #random.seed(n)
@@ -195,7 +199,7 @@ def nomenclatorExample():
     ptext = preptext(textfile.readline(),silent=True)
     ptext = ptext[:200]
     
-    KEY = random.getrandbits(64)
+    KEY = random.getrandbits(16)
     
     ctext = nomenclator(ptext,KEY)
     dtext = nomenclator(ctext,KEY,decode=True)
