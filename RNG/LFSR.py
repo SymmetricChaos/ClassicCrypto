@@ -27,15 +27,23 @@ def LFSR(seed,taps,length):
     reg = baseConvert(seed,2)
     reg = [int(i) for i in reg]
 
+    # Put zeroes at the beginning to pad out as needed
     while len(reg) < length:
         reg.insert(0,0)
-        
+    
+    # Keep returning random numbers
     while True:
+        
+        # Odd or even taps? (ie sum them modulo 2, ie XOR them)
         t = sum([reg[s] for s in taps]) % 2
+        
+        # Insert the new number at the start of the list
         reg.insert(0,t)
+        
+        # Remove the last element of the list
         del reg[-1]
         
-        # Convert to a string
+        # Convert the list into a string
         S = "".join([str(i) for i in reg])
         
         # Turn the binary string back into a decimal number
