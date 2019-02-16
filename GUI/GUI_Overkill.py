@@ -2,21 +2,22 @@ import tkinter as tk
 
 from Ciphers.Nomenclator import nomenclator
 from Ciphers.UtilityFunctions import preptext
+import webbrowser
 
 # Create the window
 root = tk.Tk()
 
 # Don't let the user change the window size
-root.maxsize(1200,800)
-root.minsize(1200,800)
+root.maxsize(800,800)
+root.minsize(800,800)
 
 # Title of the window
 root.title("The Overkill Cipher")
 
 # Three textboxes
-ptext = tk.Text(root,height=8,width=40)
+ptext = tk.Text(root,height=9,width=40)
 key = tk.Text(root,height=1,width=16)
-ctext = tk.Text(root,height=12,width=40)
+ctext = tk.Text(root,height=20,width=40)
 
 
 # Exit Button
@@ -28,7 +29,9 @@ def Reset():
     ctext.delete("1.0","end")
     ptext.delete("1.0","end") 
     key.delete("1.0","end") 
-  
+
+def link(event):
+    webbrowser.open_new(r"https://github.com/SymmetricChaos/ClassicCrypto")
 
 # 
 def focus_next_widget(event):
@@ -50,7 +53,7 @@ def enc():
     
     # Try encrypting
     try:
-        tx = nomenclator(T,K,decode=False)
+        tx = nomenclator(T,int(K),decode=False)
     except Exception as e:
         ctext.insert("insert",str(e)) 
     
@@ -73,7 +76,7 @@ def dec():
     
     # Try encrypting
     try:
-        tx = nomenclator(T,K,decode=True)
+        tx = nomenclator(T,int(K),decode=True)
     except Exception as e:
         ctext.insert("insert",str(e)) 
     
@@ -108,8 +111,9 @@ explainLab = tk.Label(root,
                       wraplength=200,
                       relief=tk.GROOVE,
                       padx = 10, pady = 10)
-cipherLab = tk.Label(root,text="Cipher",font = ('arial',11))
-formLab = tk.Label(root,text="Formatting",font = ('arial',11))
+linkLab = tk.Label(root, text="See The Code", 
+                   font = ('arial',12),
+                   fg="blue", cursor="hand2")
 
 # Tab control
 ptext.bind("<Tab>", focus_next_widget)
@@ -117,8 +121,8 @@ key.bind("<Tab>", focus_next_widget)
 ctext.bind("<Tab>", focus_next_widget)
 
 # Put everything in position
-cipherLab.place(x=530,y=50)
-formLab.place(x=530,y=100)
+linkLab.place(x=600,y=700)
+linkLab.bind("<Button-1>", link)
 
 explainLab.place(x=550,y=200)
 
@@ -135,6 +139,6 @@ resetbutton.place(x=400,y=240)
 ctext.place(x=150,y=300)
 ctextLab.place(x=50,y=300)
 
-exitbutton.place(x=150,y=450)
+exitbutton.place(x=150,y=650)
 
 root.mainloop()
