@@ -1,5 +1,5 @@
 import tkinter as tk
-from Attacks.SubstitutionCracker import substitutionCracker
+from Attacks.AffineCracker import affineCracker
 
 # Create the window
 root = tk.Tk()
@@ -14,8 +14,6 @@ root.title("Substitution Cipher Cracker")
 # Two textboxes
 ctext = tk.Text(root,height=10,width=50)
 ptext = tk.Text(root,height=10,width=50)
-
-rounds = tk.Text(root,height=1,width=5)
 
 # Exit Button
 def qExit(): 
@@ -33,11 +31,9 @@ def crackIt():
     # Get the text from the ptext box
     T = ctext.get("1.0","end")[:-1]
 
-    R = int(rounds.get("1.0","end")[:-1])
-
     # Blank the ctext box then put the text in it
     ptext.delete("1.0","end")
-    ptext.insert("insert",substitutionCracker(T,R)) 
+    ptext.insert("insert",affineCracker(T)) 
 
   
 # Button to run cipher in encrypt mode
@@ -66,8 +62,6 @@ describe = tk.Label(root,text="Provide ciphertext as uppercase letters from the 
 # Put everything in position
 ctext.place(x=150,y=30)
 ctextLab.place(x=40,y=30)
-
-rounds.place(x=570,y=40)
 
 crackbutton.place(x=150,y=210)
 resetbutton.place(x=250,y=210)

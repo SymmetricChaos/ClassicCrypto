@@ -1,5 +1,5 @@
 from Ciphers.Affine import affine
-from TextScoring import quadgramScore
+from Attacks.TextScoring import quadgramScore
 from itertools import product
 
 def affineCracker(text):
@@ -19,6 +19,8 @@ def affineCracker(text):
     print("Best Key Found: {}".format(bestkey))
     print("Decodes As:")
     print(bestdecode)
+    
+    return bestdecode
 
 def affineCrackerExample():
 
