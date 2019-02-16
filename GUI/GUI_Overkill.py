@@ -11,11 +11,11 @@ root.maxsize(1200,800)
 root.minsize(1200,800)
 
 # Title of the window
-root.title("Keyword Ciphers")
+root.title("The Overkill Cipher")
 
 # Three textboxes
 ptext = tk.Text(root,height=8,width=40)
-key = tk.Text(root,height=1,width=20)
+key = tk.Text(root,height=1,width=16)
 ctext = tk.Text(root,height=12,width=40)
 
 
@@ -101,9 +101,9 @@ exitbutton = tk.Button(root, text="Exit", command = qExit,
 # Labels
 ptextLab = tk.Label(root,text="Input:",font = ('arial',14))
 ctextLab = tk.Label(root,text="Output:",font = ('arial',14))
-keywordLab = tk.Label(root,text="Keyword:",font = ('arial',14))
+keywordLab = tk.Label(root,text="Shuffle:",font = ('arial',14))
 explainLab = tk.Label(root,
-                      text="Both the input text and the key must consist of only uppercase letters taken from the standard English alphabet.",
+                      text="All symbols except letters from the standard English alphabet will be removed.",
                       font = ('arial',12),
                       wraplength=200,
                       relief=tk.GROOVE,
