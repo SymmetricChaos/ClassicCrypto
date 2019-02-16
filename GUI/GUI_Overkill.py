@@ -15,9 +15,9 @@ root.minsize(800,800)
 root.title("The Overkill Cipher")
 
 # Three textboxes
-ptext = tk.Text(root,height=9,width=40)
+ptext = tk.Text(root,height=16,width=44)
 key = tk.Text(root,height=1,width=16)
-ctext = tk.Text(root,height=20,width=40)
+ctext = tk.Text(root,height=16,width=44)
 
 
 # Exit Button
@@ -112,7 +112,9 @@ explainLab = tk.Label(root,
                       relief=tk.GROOVE,
                       padx = 10, pady = 10)
 linkLab = tk.Label(root, text="See The Code", 
-                   font = ('arial',12),
+                   font = ('courier',12),
+                   relief=tk.GROOVE,
+                   padx = 5, pady = 5,
                    fg="blue", cursor="hand2")
 
 # Tab control
@@ -121,7 +123,7 @@ key.bind("<Tab>", focus_next_widget)
 ctext.bind("<Tab>", focus_next_widget)
 
 # Put everything in position
-linkLab.place(x=600,y=700)
+linkLab.place(x=620,y=730)
 linkLab.bind("<Button-1>", link)
 
 explainLab.place(x=550,y=200)
@@ -129,16 +131,16 @@ explainLab.place(x=550,y=200)
 ptext.place(x=150,y=30)
 ptextLab.place(x=60,y=30)
 
-key.place(x=150,y=200)
-keywordLab.place(x=60,y=200)
+key.place(x=150,y=300)
+keywordLab.place(x=60,y=300)
 
-encryptbutton.place(x=150,y=240)
-decryptbutton.place(x=250,y=240)
-resetbutton.place(x=400,y=240)
+encryptbutton.place(x=150,y=330)
+decryptbutton.place(x=250,y=330)
+resetbutton.place(x=430,y=330)
 
-ctext.place(x=150,y=300)
-ctextLab.place(x=50,y=300)
+ctext.place(x=150,y=380)
+ctextLab.place(x=50,y=380)
 
-exitbutton.place(x=150,y=650)
+exitbutton.place(x=150,y=700)
 
 root.mainloop()
