@@ -20,9 +20,10 @@ def affineCracker(text):
     print("Decodes As:")
     print(bestdecode)
     
-    return bestdecode
+    return bestdecode, bestkey
 
 def affineCrackerExample():
+    
 
     print("""
 An example of an attack on the affine cipher.

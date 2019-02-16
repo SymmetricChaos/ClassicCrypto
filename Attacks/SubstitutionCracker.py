@@ -2,15 +2,21 @@
 
 from Ciphers.Substitution import substitution
 from Attacks.TextScoring import quadgramScore
+from Attacks.AffineCracker import affineCracker
 import random
 
 
 
 def substitutionCracker(ctext,rounds=100):
     
-    # Setup
-    finalScore = float("-infinity")
-    finalKey = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    # It is possible that the cipher is something simple like an Caesar or
+    # affine cipher. The keyspace for those is small but might be missed by the
+    # randomized method used for general substitution.
+    # So we start by using the affineCracker functions
+    
+    A,k = affineCracker(ctext)
+    finalScore = quadgramScore(A)
+    finalKey = [chr((i*k[1])+k[0]+65) for i in range(26)]
     
     
     # There will be one thousand rounds of attempts to break the cipher
@@ -86,10 +92,10 @@ with a new random key.
 """)
 
     ctext = "SOWFBRKAWFCZFSBSCSBQITBKOWLBFXTBKOWLSOXSOXFZWWIBICFWUQLRXINOCIJLWJFQUNWXLFBSZXFBTXAANTQIFBFSFQUFCZFSBSCSBIMWHWLNKAXBISWGSTOXLXTSWLUQLXJBUUWLWISTBKOWLSWGSTOXLXTSWLBSJBUUWLFULQRTXWFXLTBKOWLBISOXSSOWTBKOWLXAKOXZWSBFIQSFBRKANSOWXAKOXZWSFOBUSWJBSBFTQRKAWSWANECRZAWJ"
-    
+
     print("The Ciphertext Looks Like This:")
     print(ctext)
     
-    substitutionCracker(ctext,rounds=50)
+    substitutionCracker(ctext,rounds=20)
     
-#substitutionCrackerExample()
+substitutionCrackerExample()
