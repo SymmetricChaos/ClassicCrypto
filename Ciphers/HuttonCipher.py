@@ -18,17 +18,20 @@ def hutton(text,keys=["",""],decode=True):
     out = ""
     
     for ctr,letter in enumerate(text):
+        # Current position
         pos = k2.index(letter)
-        fst = alpha.index(k2[0])+1
-        inc = k1[ctr%len(k1)]
+        # First increment, the alphabetic position of the first letter of the key
+        inc1 = alpha.index(k2[0])+1
+        # Second increment, the cyclic values from the first key aka "password"
+        inc2 = k1[ctr%len(k1)]
         
-        A = (pos+fst+inc) % 26
+        A = (pos+inc1+inc2) % 26
         
         out = out + k2[A]
         
         k2 = swap(k2,letter,k2[A])
     
-    print(out)
+    return out
         
     
 hutton("MEETMEATTHEGREENMANATTHREE",["FEDORA","JUPITER"])
