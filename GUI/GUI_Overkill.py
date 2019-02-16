@@ -1,13 +1,14 @@
 import tkinter as tk
 
 from Ciphers.Nomenclator import nomenclator
+from Ciphers.UtilityFunctions import preptext
 
 # Create the window
 root = tk.Tk()
 
 # Don't let the user change the window size
-root.maxsize(800,600)
-root.minsize(800,600)
+root.maxsize(1200,800)
+root.minsize(1200,800)
 
 # Title of the window
 root.title("Keyword Ciphers")
@@ -15,7 +16,7 @@ root.title("Keyword Ciphers")
 # Three textboxes
 ptext = tk.Text(root,height=8,width=40)
 key = tk.Text(root,height=1,width=20)
-ctext = tk.Text(root,height=8,width=40)
+ctext = tk.Text(root,height=12,width=40)
 
 
 # Exit Button
@@ -39,12 +40,11 @@ def enc():
 
     # Get the text from the ptext box
     T = ptext.get("1.0","end")[:-1]
+    T = preptext(T)
     # Get the key from the key box
     K = key.get("1.0","end")[:-1]
 
-    T = 
     
-  
     # Blank the ctext box
     ctext.delete("1.0","end")
     
@@ -67,8 +67,6 @@ def dec():
     # Get the key from the key box
     K = key.get("1.0","end")[:-1]
     
-
-    T =
   
     # Blank the ctext box
     ctext.delete("1.0","end")
@@ -119,9 +117,7 @@ key.bind("<Tab>", focus_next_widget)
 ctext.bind("<Tab>", focus_next_widget)
 
 # Put everything in position
-cipherMenu.place(x=590,y=45)
 cipherLab.place(x=530,y=50)
-formMenu.place(x=620,y=95)
 formLab.place(x=530,y=100)
 
 explainLab.place(x=550,y=200)

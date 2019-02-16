@@ -10,6 +10,9 @@ def swap(alpha,A,B):
 def hutton(text,keys=["",""],decode=False):
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     k1 = [alpha.index(i) + 1 for i in keys[0]]
+    
+    # Generate the initial alphabet then turn it into a list so it is easier to
+    # manipulate by swapping letters.
     k2 = list(alphabetPermutation(keys[1]))
 
     out = ""
