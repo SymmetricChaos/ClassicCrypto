@@ -16,8 +16,8 @@ def substitutionCracker(ctext,rounds=100):
     
     A,k = affineCracker(ctext)
     finalScore = quadgramScore(A)
-    finalKey = [chr((i*k[1])+k[0]+65) for i in range(26)]
-    
+    finalOut = A
+    print(finalScore)
     
     # There will be one thousand rounds of attempts to break the cipher
     # The reason we have multiple rounds is because we might get stuck in a 
@@ -66,19 +66,21 @@ def substitutionCracker(ctext,rounds=100):
         # any previous round. If it did then write it down and print some
         # information.
         if bestscore > finalScore:
-            finalKey = bestkey
+            finalOut = substitution(ctext,"".join(bestkey),decode=True)
             finalScore = bestscore
             print("\n\nRound {}".format(x+1))
             print("Key Looks Like:")
             print("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-            print("".join(finalKey))
+            print("".join(bestkey))
             print()
-            print(substitution(ctext,"".join(finalKey),decode=True))
+            print(finalOut)
+            
+            print(finalScore)
             print("\n")
         else:
             print("#",end="")
         
-    return substitution(ctext,"".join(finalKey),decode=True)
+    return finalOut
 
 def substitutionCrackerExample():
 
@@ -92,10 +94,12 @@ with a new random key.
 """)
 
     ctext = "SOWFBRKAWFCZFSBSCSBQITBKOWLBFXTBKOWLSOXSOXFZWWIBICFWUQLRXINOCIJLWJFQUNWXLFBSZXFBTXAANTQIFBFSFQUFCZFSBSCSBIMWHWLNKAXBISWGSTOXLXTSWLUQLXJBUUWLWISTBKOWLSWGSTOXLXTSWLBSJBUUWLFULQRTXWFXLTBKOWLBISOXSSOWTBKOWLXAKOXZWSBFIQSFBRKANSOWXAKOXZWSFOBUSWJBSBFTQRKAWSWANECRZAWJ"
-
+    #ctext = "SWXPJMSNAHSNLULOSWXBJFHKPHUXNBCJKBJXGSLFKXHSXISXUSNUSWXNBMHUGBLOSWXRXBSNUGNXBRWXKXHYLJSSWKXXPXUSJKNXBHFLNSRHBONKBSNUSKLGJPXGOKLDPWNUHLKBLDXLSWXKCHKSBLOSWXXHBSHUGRWXKXNSOMLJKNBWXBRNSWFKXHSMJIJKNHUPXCHKSNPJMHKMZNUDLNBSHUGKNPWFKLJUGSWXBXHBLUOLKCMHUSNUFNSPLDDXUPXBHYLJSSWXYXFNUUNUFLOHJFJBS"
+    #ctext = "HPPWXTLCSCBPQMFJKTFPGLIXTLCPQPNBPFJKTFPC"
+    
     print("The Ciphertext Looks Like This:")
     print(ctext)
     
     substitutionCracker(ctext,rounds=20)
     
-substitutionCrackerExample()
+#substitutionCrackerExample()

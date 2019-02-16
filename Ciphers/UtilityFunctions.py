@@ -19,7 +19,7 @@ def alphabetPermutation(key,alphabet=""):
     k = ""
     for letter in key:        
         if letter not in alphabet:
-            raise Exception('key does not fit with alphabet')
+            raise Exception('{} is not in the alphabet'.format(letter))
         if letter not in k:
             k += letter
     # Put in every unused letter of the alphabet into the key

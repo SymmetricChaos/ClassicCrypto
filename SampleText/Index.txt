@@ -1,3 +1,4 @@
 Text1: The Project Gutenberg EBook of Useful Knowledge: Vol. II. Vegetables, by William Bingley
 Text2: Medicine as a Profession for Women, Social Science Congress, June 1862
 Text3: The Project Gutenberg EBook of Finding Themselves, by Julia Stimson
+Dictionary: https://github.com/dwyl/english-words/blob/master/README.md (modified to remove short words and acronyms)
