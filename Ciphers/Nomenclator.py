@@ -18,9 +18,6 @@ from RNG.FisherYates import fisherYatesShuffle
 # For every block of letters there are multiple code groups that can represent
 # it in order to make frequency analysis even more difficult.
 
-# With 1000 code groups there an absurdly huge number of possible keys. This
-# implementation seeds the Mersenne Twister algorithm in order to randomize
-# the meaning of the code groups. 
 
 def createCodeGroups(n,decode=False):
     
