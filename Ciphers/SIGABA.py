@@ -39,6 +39,9 @@ def SIGABA(text,keys,decode=False):
     controlPos = keys[4]
     indexPos = keys[5]
     
+    # Rotor configurations were randomly generated.
+    # Need to learn what actual configurations were or how they were chosen
+
     largeRotors = {"I": "PWJVDRGTMBHOLYXUZFQEAINKCS",
                    "II": "MKLWAIBXRUYGTNCSPDFQHZJVOE",
                    "III": "WVYLIJAMXZTSUROENDKQHCFBPG",
@@ -56,8 +59,6 @@ def SIGABA(text,keys,decode=False):
                    "IV": "1953742680",
                    "V": "6482359170"}
     
-    # Rotor configurations were randomly generated.
-    # Need to learn what actual configurations were or how they were chosen
     cipherRotors = []
     for num in cipherRotorsSet:
         cipherRotors.append(largeRotors[num])
@@ -70,6 +71,7 @@ def SIGABA(text,keys,decode=False):
     for num in indexRotorsSet:
         indexRotors.append(smallRotors[num])
     
+    # Wiring that connects the control rotors to the index rotors
     indwiring = {"A": 9, "B": 1, "C": 2, "D": 3, "E": 3, "F": 4,
                  "G": 4, "H": 4, "I": 5, "J": 5, "K": 5, "L": 6,
                  "M": 6, "N": 6, "O": 6, "P": 7, "Q": 7, "R": 7,
@@ -77,7 +79,7 @@ def SIGABA(text,keys,decode=False):
                  "Y": 8, "Z": 8}
     
     out = []
-    for ctr,letter in enumerate(text):
+    for ctr,letter in enumerate(text,1):
         # Encrypt the letter
         T = letter
         for R,P in zip(cipherRotors,cipherPos):
@@ -104,10 +106,17 @@ def SIGABA(text,keys,decode=False):
             L[2] = rotorI(L[2],R,P)
             L[3] = rotorI(L[3],R,P)
         
+        # Advance the control rotors
+        controlPos[2] = (controlPos[2] + 1) % 26
+        if ctr % 26 == 0:
+            controlPos[3] = (controlPos[3] + 1) % 26
+        if ctr % 676 == 0:
+            controlPos[1] = (controlPos[1] + 1) % 26     
         
+        print(controlPos)
         
         # Now get rid of the duplicates by fitting L into a set
-        # Turn the cipherRotors accordingly
+        # Advance the cipher rotors accordingly
         for i in set(L):
             rtr = int(i)//2
             cipherPos[rtr] = (cipherPos[rtr] + 1) % 26
@@ -115,13 +124,13 @@ def SIGABA(text,keys,decode=False):
     return "".join(out)
 
 cipher = ["V","I","II","IV","II"]
-control = ["V","I","II","IV","II"]
+control = ["IX","VI","X","VII","VIII"]
 index = ["V","I","II","IV","II"]
 cipherPos = [5,17,11,23,3]
 controlPos = [5,17,11,23,3]
 indexPos = [5,17,11,23,3]
 
-ptext = "THEQUICKBROWNFOX"
+ptext = "IAMTHEVERYMODELOFAMODERNMAJORGENERALIVEINFORMATIONVEGETABLEANIMALANDMINERAL"
 
 ctext = SIGABA(ptext,[cipher,control,index,cipherPos,controlPos,indexPos])
 
