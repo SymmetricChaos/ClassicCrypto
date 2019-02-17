@@ -62,6 +62,7 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 * Straddling Checkerboard
 * Cipher Disk
 * Disrupted Tableau
+* Hutton Cipher
 
 #### Transposition Ciphers
 * Columnar Transport
