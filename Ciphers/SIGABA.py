@@ -124,15 +124,20 @@ def SIGABA(text,keys,decode=False):
         
     return "".join(out)
 
-cipher = ["V","I","II","IV","II"]
-control = ["IX","VI","X","VII","VIII"]
-index = ["II","I","V","IV","III"]
-cipherPos = [5,17,11,23,3]
-controlPos = [5,17,11,23,3]
-indexPos = [5,17,11,23,3]
+def SIGABAExample():
 
-ptext = "IAMTHE"#VERYMODELOFAMODERNMAJORGENERALIVEINFORMATIONVEGETABLEANIMALANDMINERAL"
-
-ctext = SIGABA(ptext,[cipher,control,index,cipherPos,controlPos,indexPos])
-
-print(ctext)
+    cipher = ["V","I","II","IV","II"]
+    control = ["IX","VI","X","VII","VIII"]
+    index = ["II","I","V","IV","III"]
+    cipherPos = [5,17,11,23,3]
+    controlPos = [5,17,11,23,3]
+    indexPos = [5,17,11,23,3]
+    
+    ptext = "IAMTHEVERYMODELOFAMODERNMAJORGENERAL"
+    
+    ctext = SIGABA(ptext,[cipher,control,index,cipherPos,controlPos,indexPos])
+    
+    print(ptext)
+    print(ctext)
+    
+#SIGABAExample()
