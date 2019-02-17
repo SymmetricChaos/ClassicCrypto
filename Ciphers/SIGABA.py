@@ -27,7 +27,8 @@ def rotorI(letter,key,pos,invert=False):
         outer = (key.index(inner)-pos+1)%10
         return alpha[outer]
     
-# Should get around to a copy of Enigma at some point
+# Simulator of a SIGABA like machine
+# Need to find a way to confirm behavior
 def SIGABA(text,keys,decode=False):
     
     # Settings for each of the rotor groups
@@ -113,24 +114,24 @@ def SIGABA(text,keys,decode=False):
         if ctr % 676 == 0:
             controlPos[1] = (controlPos[1] + 1) % 26     
         
-        print(controlPos)
-        
-        # Now get rid of the duplicates by fitting L into a set
-        # Advance the cipher rotors accordingly
-        for i in set(L):
-            rtr = int(i)//2
+        # Now determine which cipher rotors should move
+        # To do this first we use floored division to make pairs out of 0 and 1, 2 and 3, 4 and 5, and so on
+        L = [(int(i))//2 for i in L]
+        # We for the list into a set to ensure there are no duplicates
+        for rtr in set(L):
             cipherPos[rtr] = (cipherPos[rtr] + 1) % 26
-    
+
+        
     return "".join(out)
 
 cipher = ["V","I","II","IV","II"]
 control = ["IX","VI","X","VII","VIII"]
-index = ["V","I","II","IV","II"]
+index = ["II","I","V","IV","III"]
 cipherPos = [5,17,11,23,3]
 controlPos = [5,17,11,23,3]
 indexPos = [5,17,11,23,3]
 
-ptext = "IAMTHEVERYMODELOFAMODERNMAJORGENERALIVEINFORMATIONVEGETABLEANIMALANDMINERAL"
+ptext = "IAMTHE"#VERYMODELOFAMODERNMAJORGENERALIVEINFORMATIONVEGETABLEANIMALANDMINERAL"
 
 ctext = SIGABA(ptext,[cipher,control,index,cipherPos,controlPos,indexPos])
 
