@@ -1,6 +1,6 @@
 #http://ucsb.curby.net/broadcast/thesis/thesis.pdf
 
-# Pass a singal through a rotor
+# Pass a singal through a rotor there are ten rotors with 26 contacts
 def rotorC(letter,key,pos,invert=False):
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     entry = alpha.index(letter)
@@ -14,6 +14,7 @@ def rotorC(letter,key,pos,invert=False):
         outer = (key.index(inner)-pos+1)%26
         return alpha[outer]
 
+# There are five rotors with 10 contacts
 def rotorI(letter,key,pos,invert=False):
     alpha = "0123456789"
     entry = alpha.index(letter)
@@ -32,37 +33,40 @@ def rotorI(letter,key,pos,invert=False):
 def SIGABA(text,keys,decode=False):
     
     # Settings for each of the rotor groups
-    cipherRotorsSet = keys[0]
-    controlRotorsSet = keys[1]
-    indexRotorsSet = keys[2]
+    cipherRotorsSet = keys[0].copy()
+    controlRotorsSet = keys[1].copy()
+    indexRotorsSet = keys[2].copy()
     
-    cipherPos = keys[3]
-    controlPos = keys[4]
-    indexPos = keys[5]
-    
+    cipherPos = keys[3].copy()
+    controlPos = keys[4].copy()
+    indexPos = keys[5].copy()
+        
     # Rotor configurations were randomly generated.
     # Need to learn what actual configurations were or how they were chosen
 
-    largeRotors = {"I": "PWJVDRGTMBHOLYXUZFQEAINKCS",
-                   "II": "MKLWAIBXRUYGTNCSPDFQHZJVOE",
-                   "III": "WVYLIJAMXZTSUROENDKQHCFBPG",
-                   "IV": "ZRMQWNITBJUKHOFPEYDXAVLSGC",
-                   "V": "LGBAZWMIPQTFHEVUYJNCRSKDOX",
-                   "VI": "YGOWZXPCBJTIARKHMELNDFVUSQ",
-                   "VII": "UZGKPDQRJTFCYOINVMALHEXWSB",
+    largeRotors = {"I":    "PWJVDRGTMBHOLYXUZFQEAINKCS",
+                   "II":   "MKLWAIBXRUYGTNCSPDFQHZJVOE",
+                   "III":  "WVYLIJAMXZTSUROENDKQHCFBPG",
+                   "IV":   "ZRMQWNITBJUKHOFPEYDXAVLSGC",
+                   "V":    "LGBAZWMIPQTFHEVUYJNCRSKDOX",
+                   "VI":   "YGOWZXPCBJTIARKHMELNDFVUSQ",
+                   "VII":  "UZGKPDQRJTFCYOINVMALHEXWSB",
                    "VIII": "OQRTDBUZGPHWNJFELKCIXVSAYM",
-                   "IX": "HLEDCOTJMUAWFZQIGRBVYPSNKX",
-                   "X": "QKCIYPWLZNHTJVFDURSXEBGMOA"}
+                   "IX":   "HLEDCOTJMUAWFZQIGRBVYPSNKX",
+                   "X":    "QKCIYPWLZNHTJVFDURSXEBGMOA"}
     
-    smallRotors = {"I": "9438705162",
-                   "II": "8135624097",
+    smallRotors = {"I":   "9438705162",
+                   "II":  "8135624097",
                    "III": "5901284736",
-                   "IV": "1953742680",
-                   "V": "6482359170"}
+                   "IV":  "1953742680",
+                   "V":   "6482359170"}
     
     cipherRotors = []
     for num in cipherRotorsSet:
         cipherRotors.append(largeRotors[num])
+    
+    if decode == True:
+        cipherRotorsRev = cipherRotors[::-1]
     
     controlRotors = []
     for num in controlRotorsSet:
@@ -81,11 +85,24 @@ def SIGABA(text,keys,decode=False):
     
     out = []
     for ctr,letter in enumerate(text,1):
+        
         # Encrypt the letter
-        T = letter
-        for R,P in zip(cipherRotors,cipherPos):
-            T = rotorC(T,R,P)
-        out.append(T)
+        if decode == False:
+            T = letter
+            for R,P in zip(cipherRotors,cipherPos):
+                T = rotorC(T,R,P)
+            out.append(T)
+        
+        if decode == True:
+            # We need to pass the signal through the cipher rotors in reverse
+            # when we are decrypting. The order of the rotor was reversed earlier
+            # but we need to invert the cipher positions each time since positions
+            # are constantly being changed.
+            cipherPosRev = cipherPos[::-1]
+            T = letter
+            for R,P in zip(cipherRotorsRev,cipherPosRev):
+                T = rotorC(T,R,P,invert=True)
+            out.append(T)
         
         # Put A, B, C, and D through the control rotors
         L = ["A","B","C","D"]
@@ -126,7 +143,7 @@ def SIGABA(text,keys,decode=False):
 
 def SIGABAExample():
 
-    cipher = ["V","I","II","IV","II"]
+    cipher = ["V","I","II","IV","III"]
     control = ["IX","VI","X","VII","VIII"]
     index = ["II","I","V","IV","III"]
     cipherPos = [5,17,11,23,3]
@@ -135,9 +152,13 @@ def SIGABAExample():
     
     ptext = "IAMTHEVERYMODELOFAMODERNMAJORGENERAL"
     
-    ctext = SIGABA(ptext,[cipher,control,index,cipherPos,controlPos,indexPos])
-    
+    ctext = SIGABA(ptext,[cipher,control,index,cipherPos,controlPos,indexPos],
+                   decode=False)
+    dtext = SIGABA(ctext,[cipher,control,index,cipherPos,controlPos,indexPos],
+                   decode=True)
+        
     print(ptext)
     print(ctext)
+    print(dtext)
     
 #SIGABAExample()
