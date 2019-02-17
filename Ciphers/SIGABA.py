@@ -37,9 +37,9 @@ def SIGABA(text,keys,decode=False):
     controlRotorsSet = keys[1].copy()
     indexRotorsSet = keys[2].copy()
     
-    cipherPos = keys[3].copy()
-    controlPos = keys[4].copy()
-    indexPos = keys[5].copy()
+    indicator1 = keys[3]
+    indicator2 = keys[4]
+    indicator3 = keys[5]
         
     # Rotor configurations were randomly generated.
     # Need to learn what actual configurations were or how they were chosen
@@ -62,19 +62,27 @@ def SIGABA(text,keys,decode=False):
                    "V":   "6482359170"}
     
     cipherRotors = []
-    for num in cipherRotorsSet:
+    cipherPos = []
+    for ctr,num in enumerate(cipherRotorsSet):
         cipherRotors.append(largeRotors[num])
+        cipherPos.append(largeRotors[num].index(indicator1[ctr]))
     
+    # If we are decoding then keep a list with the rotors in reverse
     if decode == True:
         cipherRotorsRev = cipherRotors[::-1]
     
     controlRotors = []
+    controlPos = []
     for num in controlRotorsSet:
         controlRotors.append(largeRotors[num])
+        controlPos.append(largeRotors[num].index(indicator2[ctr]))
     
     indexRotors = []
+    indexPos = []
     for num in indexRotorsSet:
         indexRotors.append(smallRotors[num])
+        indexPos.append(smallRotors[num].index(indicator3[ctr]))
+    
     
     # Wiring that connects the control rotors to the index rotors
     indwiring = {"A": 9, "B": 1, "C": 2, "D": 3, "E": 3, "F": 4,
@@ -143,18 +151,18 @@ def SIGABA(text,keys,decode=False):
 
 def SIGABAExample():
 
-    cipher = ["V","I","II","IV","III"]
-    control = ["IX","VI","X","VII","VIII"]
-    index = ["II","I","V","IV","III"]
-    cipherPos = [5,17,11,23,3]
-    controlPos = [5,17,11,23,3]
-    indexPos = [5,17,11,23,3]
+    cipher =     ["V","I","II","IV","III"]
+    control =    ["IX","VI","X","VII","VIII"]
+    index =      ["II","I","V","IV","III"]
+    indicator =  "TABLE"
+    controlPos = "GRAPH"
+    indexPos =   "02367"
     
     ptext = "IAMTHEVERYMODELOFAMODERNMAJORGENERAL"
     
-    ctext = SIGABA(ptext,[cipher,control,index,cipherPos,controlPos,indexPos],
+    ctext = SIGABA(ptext,[cipher,control,index,indicator,controlPos,indexPos],
                    decode=False)
-    dtext = SIGABA(ctext,[cipher,control,index,cipherPos,controlPos,indexPos],
+    dtext = SIGABA(ctext,[cipher,control,index,indicator,controlPos,indexPos],
                    decode=True)
         
     print(ptext)
