@@ -1,7 +1,7 @@
 #http://ucsb.curby.net/broadcast/thesis/thesis.pdf
 
 # Pass a singal through a rotor
-def rotor(letter,key,pos,invert=False):
+def rotorC(letter,key,pos,invert=False):
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     entry = alpha.index(letter)
     
@@ -12,6 +12,19 @@ def rotor(letter,key,pos,invert=False):
     if invert == True:
         inner = alpha[(entry+pos-1)%26]
         outer = (key.index(inner)-pos+1)%26
+        return alpha[outer]
+
+def rotorI(letter,key,pos,invert=False):
+    alpha = "0123456789"
+    entry = alpha.index(letter)
+    
+    if invert == False:
+        inner = key[(entry+pos-1)%10]
+        outer = (alpha.index(inner)-pos+1)%10
+        return alpha[outer]
+    if invert == True:
+        inner = alpha[(entry+pos-1)%10]
+        outer = (key.index(inner)-pos+1)%10
         return alpha[outer]
     
 # Should get around to a copy of Enigma at some point
@@ -78,24 +91,34 @@ def SIGABA(text,keys,decode=False):
         # Encrypt the letter
         T = letter
         for R,P in zip(cipherRotors,cipherPos):
-            T = rotor(T,R,P)
+            T = rotorC(T,R,P)
         out.append(T)
         
         # Put A, B, C, and D through the control rotors
         L = ["A","B","C","D"]
         for R,P in zip(controlRotors,controlPos):
-            L[0] = rotor(L[0],R,P)
-            L[1] = rotor(L[1],R,P)
-            L[2] = rotor(L[2],R,P)
-            L[3] = rotor(L[3],R,P)
+            L[0] = rotorC(L[0],R,P)
+            L[1] = rotorC(L[1],R,P)
+            L[2] = rotorC(L[2],R,P)
+            L[3] = rotorC(L[3],R,P)
 
         # Group the results of the step maze for input to the index rotors
+        # There will be some duplicates here. That's okay we'll remove them later
         for i in range(4):
-            L[i] = indwiring[L[i]]
-    
+            L[i] = str(indwiring[L[i]])
+        
+        # Send the grouped wires into the index rotors
         for R,P in zip(indexRotors,indexPos):
-            pass
-            
+            L[0] = rotorI(L[0],R,P)
+            L[1] = rotorI(L[1],R,P)
+            L[2] = rotorI(L[2],R,P)
+            L[3] = rotorI(L[3],R,P)
+        
+        # Now get rid of the duplicates by fitting L into a set
+        # Turn the cipherRotors accordingly
+        for i in set(L):
+            rtr = int(i)//2
+            cipherPos[rtr] = (cipherPos[rtr] + 1) % 26
     
     return "".join(out)
 
