@@ -59,6 +59,8 @@ def createCodeGroups(n,decode=False):
     
     codeDict = {}
     
+    # Put letters and letter groups into the dictionary with each assigned to
+    # a number that reflects how colmmon it is.
     for n,d in enumerate(ngrams1):
         L = d.split(",")
         codeDict[L[0]] = int(L[1])
@@ -80,15 +82,21 @@ def createCodeGroups(n,decode=False):
         codeDict[L[0]] = int(L[1])
         if n > 30:
             break
-        
-    normalizingFactor = min(codeDict.values())//3
     
+    # Get the raw numbers into something more manageable. This is basically
+    # arbitrary and could be done in a lot of ways.
+    normalizingFactor = min(codeDict.values())//3
     for i in codeDict.items():
         codeDict[i[0]] = int(np.ceil(np.sqrt(i[1]//normalizingFactor)))
-
+    # Put the supernulls and ordinary nulls into the list
     codeDict[">"] = 30
     codeDict["_"] = 63
 
+
+    # When encoding we go through the dictionary and replace the number N with
+    # the next N code groups in the sorted list.
+    # This way we can quickly lookup a sequence of symbols and find all the
+    # codegroups that are used for it.
     if decode == False:
         for i in codeDict.items():
             L = []
@@ -97,7 +105,9 @@ def createCodeGroups(n,decode=False):
             codeDict[i[0]] = L
         return codeDict
     
-
+    # When decoding we make a new dictionary and for each item in the code
+    # dictionary make N new entries from the sorted code groups.
+    # This way we can quickly lookup a codegroup and get what it decodes as.
     if decode == True:
         decodeDict = {}
         for i in codeDict.items():
@@ -119,7 +129,7 @@ def nomenclator(text,key=1,decode=False,usenulls=True,dictionary=False,showgroup
         
         if usenulls == True:
 
-            numNulls = len(text)//20
+            numNulls = len(text)//25
 
             ## Insert nulls to break up words
             for i in range(numNulls):
