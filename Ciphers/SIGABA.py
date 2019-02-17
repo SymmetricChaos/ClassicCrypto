@@ -39,46 +39,36 @@ def SIGABA(text,keys,decode=False):
     controlPos = keys[4]
     indexPos = keys[5]
     
+    largeRotors = {"I": "PWJVDRGTMBHOLYXUZFQEAINKCS",
+                   "II": "MKLWAIBXRUYGTNCSPDFQHZJVOE",
+                   "III": "WVYLIJAMXZTSUROENDKQHCFBPG",
+                   "IV": "ZRMQWNITBJUKHOFPEYDXAVLSGC",
+                   "V": "LGBAZWMIPQTFHEVUYJNCRSKDOX",
+                   "VI": "YGOWZXPCBJTIARKHMELNDFVUSQ",
+                   "VII": "UZGKPDQRJTFCYOINVMALHEXWSB",
+                   "VIII": "OQRTDBUZGPHWNJFELKCIXVSAYM",
+                   "IX": "HLEDCOTJMUAWFZQIGRBVYPSNKX",
+                   "X": "QKCIYPWLZNHTJVFDURSXEBGMOA"}
+    
+    smallRotors = {"I": "9438705162",
+                   "II": "8135624097",
+                   "III": "5901284736",
+                   "IV": "1953742680",
+                   "V": "6482359170"}
+    
     # Rotor configurations were randomly generated.
     # Need to learn what actual configurations were or how they were chosen
     cipherRotors = []
     for num in cipherRotorsSet:
-        if num == "I":
-            cipherRotors.append("PWJVDRGTMBHOLYXUZFQEAINKCS")
-        if num == "II":
-            cipherRotors.append("MKLWAIBXRUYGTNCSPDFQHZJVOE")
-        if num == "III":
-            cipherRotors.append("WVYLIJAMXZTSUROENDKQHCFBPG")
-        if num == "IV":
-            cipherRotors.append("ZRMQWNITBJUKHOFPEYDXAVLSGC")
-        if num == "V":
-            cipherRotors.append("LGBAZWMIPQTFHEVUYJNCRSKDOX")
+        cipherRotors.append(largeRotors[num])
     
     controlRotors = []
     for num in controlRotorsSet:
-        if num == "I":
-            controlRotors.append("YGOWZXPCBJTIARKHMELNDFVUSQ")
-        if num == "II":
-            controlRotors.append("UZGKPDQRJTFCYOINVMALHEXWSB")
-        if num == "III":
-            controlRotors.append("OQRTDBUZGPHWNJFELKCIXVSAYM")
-        if num == "IV":
-            controlRotors.append("HLEDCOTJMUAWFZQIGRBVYPSNKX")
-        if num == "V":
-            controlRotors.append("QKCIYPWLZNHTJVFDURSXEBGMOA")
+        controlRotors.append(largeRotors[num])
     
     indexRotors = []
     for num in indexRotorsSet:
-        if num == "I":
-            indexRotors.append("9438705162")
-        if num == "II":
-            indexRotors.append("8135624097")
-        if num == "III":
-            indexRotors.append("5901284736")
-        if num == "IV":
-            indexRotors.append("1953742680")
-        if num == "V":
-            indexRotors.append("6482359170")
+        indexRotors.append(smallRotors[num])
     
     indwiring = {"A": 9, "B": 1, "C": 2, "D": 3, "E": 3, "F": 4,
                  "G": 4, "H": 4, "I": 5, "J": 5, "K": 5, "L": 6,
@@ -87,7 +77,7 @@ def SIGABA(text,keys,decode=False):
                  "Y": 8, "Z": 8}
     
     out = []
-    for letter in text:
+    for ctr,letter in enumerate(text):
         # Encrypt the letter
         T = letter
         for R,P in zip(cipherRotors,cipherPos):
@@ -113,6 +103,8 @@ def SIGABA(text,keys,decode=False):
             L[1] = rotorI(L[1],R,P)
             L[2] = rotorI(L[2],R,P)
             L[3] = rotorI(L[3],R,P)
+        
+        
         
         # Now get rid of the duplicates by fitting L into a set
         # Turn the cipherRotors accordingly
