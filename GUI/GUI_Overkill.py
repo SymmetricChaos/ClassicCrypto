@@ -104,7 +104,7 @@ exitbutton = tk.Button(root, text="Exit", command = qExit,
 # Labels
 ptextLab = tk.Label(root,text="Input:",font = ('arial',14))
 ctextLab = tk.Label(root,text="Output:",font = ('arial',14))
-keywordLab = tk.Label(root,text="Shuffle:",font = ('arial',14))
+keywordLab = tk.Label(root,text="Key:",font = ('arial',14))
 explainLab = tk.Label(root,
                       text="All symbols except letters from the standard English alphabet will be removed.",
                       font = ('arial',12),
@@ -126,7 +126,7 @@ ctext.bind("<Tab>", focus_next_widget)
 linkLab.place(x=620,y=730)
 linkLab.bind("<Button-1>", link)
 
-explainLab.place(x=550,y=200)
+explainLab.place(x=550,y=100)
 
 ptext.place(x=150,y=30)
 ptextLab.place(x=60,y=30)
