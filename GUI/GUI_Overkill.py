@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter.scrolledtext import ScrolledText
 
 from Ciphers.Nomenclator import nomenclator, PrintCodes
 from Ciphers.UtilityFunctions import preptext
@@ -18,7 +19,7 @@ root.title("The Overkill Cipher")
 ptext = tk.Text(root,height=16,width=40)
 key = tk.Text(root,height=1,width=16)
 ctext = tk.Text(root,height=16,width=40)
-cdgrps = tk.Text(root,height=16,width=32)
+cdgrps = ScrolledText(root,height=16,width=32)
 
 
 # Exit Button
@@ -49,8 +50,9 @@ def enc():
     K = key.get("1.0","end")[:-1]
 
     
-    # Blank the ctext box
+    # Blank the ctext and code groups boxes
     ctext.delete("1.0","end")
+    cdgrps.delete("1.0","end")
     
     # Try encrypting
     try:
@@ -75,8 +77,9 @@ def dec():
     K = key.get("1.0","end")[:-1]
     
   
-    # Blank the ctext box
+    # Blank the ctext and code groups boxes
     ctext.delete("1.0","end")
+    cdgrps.delete("1.0","end")
     
     # Try encrypting
     try:
@@ -98,8 +101,8 @@ encryptbutton = tk.Button(root, text="Encrypt", command = enc,
 decryptbutton = tk.Button(root, text="Decrypt", command = dec,
                           bg = 'lightgreen', font = ('arial',14,'bold'))
 
-
-resetbutton = tk.Button(root, text="Reset", command = Reset, 
+# Button to clear everything
+resetbutton = tk.Button(root, text="Clear", command = Reset, 
                        bg = 'lightslateblue', font = ('arial',14,'bold'))
 
 # Button to run cipher in decrypt mode
@@ -107,10 +110,12 @@ exitbutton = tk.Button(root, text="Exit", command = qExit,
                        bg = 'salmon', font = ('arial',14,'bold'))
 
 
+
 # Labels
 ptextLab = tk.Label(root,text="Input:",font = ('arial',14))
 ctextLab = tk.Label(root,text="Output:",font = ('arial',14))
 keywordLab = tk.Label(root,text="Key:",font = ('arial',14))
+dictLab = tk.Label(root,text="Code Groups:",font = ('arial',14))
 explainLab = tk.Label(root,
                       text="All symbols except letters from the standard English alphabet will be removed.",
                       font = ('arial',12),
@@ -122,6 +127,7 @@ linkLab = tk.Label(root, text="See The Code",
                    relief=tk.GROOVE,
                    padx = 5, pady = 5,
                    fg="blue", cursor="hand2")
+
 
 # Tab control
 ptext.bind("<Tab>", focus_next_widget)
@@ -142,11 +148,12 @@ keywordLab.place(x=40,y=300)
 
 encryptbutton.place(x=130,y=330)
 decryptbutton.place(x=230,y=330)
-resetbutton.place(x=410,y=330)
+resetbutton.place(x=380,y=330)
 
 ctext.place(x=130,y=380)
 ctextLab.place(x=30,y=380)
 
+dictLab.place(x=500,y=350)
 cdgrps.place(x=500,y=380)
 
 exitbutton.place(x=150,y=700)

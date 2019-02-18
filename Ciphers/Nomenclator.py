@@ -270,5 +270,5 @@ def PrintCodes(n,decode=False):
             ctr += 1
 
 #nomenclatorExample()
-for i in PrintCodes(1,decode=True):
-    print(i)
+#for i in PrintCodes(1,decode=True):
+#    print(i)
