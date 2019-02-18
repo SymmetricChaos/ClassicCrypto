@@ -221,40 +221,54 @@ def nomenclatorExample():
 
     print("\n\nDoes the Text Decode Correctly?",dtext == ptext)
 
-def PrintCodes(D):
-    for i,j in sorted(D.items()):
-        if i in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" and len(i) == 1:
-            S = i + ": "
-            for ctr,grp in enumerate(j,1):
-                S += grp
-                if ctr % 7 == 0 and grp != j[-1]:
-                    S += "\n   "
-            yield S
-
-    for L in [2,3,4]:
+def PrintCodes(n,decode=False):
+    
+    D = createCodeGroups(n,decode=decode)
+    
+    if decode == False:
         for i,j in sorted(D.items()):
-            if len(i) == L:
+            if i in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" and len(i) == 1:
                 S = i + ": "
                 for ctr,grp in enumerate(j,1):
                     S += grp
                     if ctr % 7 == 0 and grp != j[-1]:
-                        S += "\n   " + " "*(L-1)
+                        S += "\n   "
                 yield S
-
-    S = "_: "
-    for ctr,grp in enumerate(D["_"],1):
-        S += grp
-        if ctr % 7 == 0 and grp != j[-1]:
-            S += "\n   "
-    yield S
     
-    S = ">: "
-    for ctr,grp in enumerate(D[">"],1):
-        S += grp
-        if ctr % 7 == 0 and grp != j[-1]:
-            S += "\n   "
-    yield S
+        for L in [2,3,4]:
+            for i,j in sorted(D.items()):
+                if len(i) == L:
+                    S = i + ": "
+                    for ctr,grp in enumerate(j,1):
+                        S += grp
+                        if ctr % 7 == 0 and grp != j[-1]:
+                            S += "\n   " + " "*(L-1)
+                    yield S
+    
+        S = "_: "
+        for ctr,grp in enumerate(D["_"],1):
+            S += grp
+            if ctr % 7 == 0 and grp != j[-1]:
+                S += "\n   "
+        yield S
+        
+        S = ">: "
+        for ctr,grp in enumerate(D[">"],1):
+            S += grp
+            if ctr % 7 == 0 and grp != j[-1]:
+                S += "\n   "
+        yield S
+        
+    if decode == True:
+        ctr = 0
+        S = ""
+        for i,j in sorted(D.items()):
+            if ctr % 3 == 0 and ctr != 0:    
+                yield S
+                S = ""
+            S += "{}{:<4}  ".format(i,j)
+            ctr += 1
 
 #nomenclatorExample()
-#for i in PrintCodes(createCodeGroups(1)):
-#    print(i)
+for i in PrintCodes(1,decode=True):
+    print(i)

@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from Ciphers.Nomenclator import nomenclator, PrintCodes, createCodeGroups
+from Ciphers.Nomenclator import nomenclator, PrintCodes
 from Ciphers.UtilityFunctions import preptext
 import webbrowser
 
@@ -60,7 +60,7 @@ def enc():
     
     ctext.insert("insert",tx)
     
-    for i in PrintCodes(createCodeGroups(int(K))):
+    for i in PrintCodes(int(K)):
         cdgrps.insert("insert",i)
         cdgrps.insert("insert","\n")
 
@@ -85,7 +85,10 @@ def dec():
         ctext.insert("insert",str(e)) 
     
     ctext.insert("insert",tx)
-        
+    
+    for i in PrintCodes(int(K),decode=True):
+        cdgrps.insert("insert",i)
+        cdgrps.insert("insert","\n")
 
 # Button to run cipher in encrypt mode
 encryptbutton = tk.Button(root, text="Encrypt", command = enc,
