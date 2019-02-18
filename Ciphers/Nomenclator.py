@@ -224,28 +224,37 @@ def nomenclatorExample():
 def PrintCodes(D):
     for i,j in sorted(D.items()):
         if i in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" and len(i) == 1:
-            print("{}:".format(i),end=" ")
-            for grp in j:
-                print(grp,end = "")
-            print()
-        
+            S = i + ": "
+            for ctr,grp in enumerate(j,1):
+                S += grp
+                if ctr % 7 == 0 and grp != j[-1]:
+                    S += "\n   "
+            yield S
+
     for L in [2,3,4]:
         for i,j in sorted(D.items()):
             if len(i) == L:
-                print("{}:".format(i),end=" ")
-                for grp in j:
-                    print(grp,end = "")
-                print()
+                S = i + ": "
+                for ctr,grp in enumerate(j,1):
+                    S += grp
+                    if ctr % 7 == 0 and grp != j[-1]:
+                        S += "\n   " + " "*(L-1)
+                yield S
+
+    S = "_: "
+    for ctr,grp in enumerate(D["_"],1):
+        S += grp
+        if ctr % 7 == 0 and grp != j[-1]:
+            S += "\n   "
+    yield S
     
-    print("_:",end=" ")
-    for grp in D["_"]:
-        print(grp,end="")
-        
-    print()
-    
-    print(">:",end=" ")
-    for grp in D[">"]:
-        print(grp,end="")
+    S = ">: "
+    for ctr,grp in enumerate(D[">"],1):
+        S += grp
+        if ctr % 7 == 0 and grp != j[-1]:
+            S += "\n   "
+    yield S
 
 #nomenclatorExample()
-    
+for i in PrintCodes(createCodeGroups(1)):
+    print(i)
