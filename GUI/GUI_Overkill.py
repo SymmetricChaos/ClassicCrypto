@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from Ciphers.Nomenclator import nomenclator
+from Ciphers.Nomenclator import nomenclator, PrintCodes, createCodeGroups
 from Ciphers.UtilityFunctions import preptext
 import webbrowser
 
@@ -15,9 +15,10 @@ root.minsize(800,800)
 root.title("The Overkill Cipher")
 
 # Three textboxes
-ptext = tk.Text(root,height=16,width=44)
+ptext = tk.Text(root,height=16,width=40)
 key = tk.Text(root,height=1,width=16)
-ctext = tk.Text(root,height=16,width=44)
+ctext = tk.Text(root,height=16,width=40)
+cdgrps = tk.Text(root,height=16,width=32)
 
 
 # Exit Button
@@ -58,7 +59,10 @@ def enc():
         ctext.insert("insert",str(e)) 
     
     ctext.insert("insert",tx)
-         
+    
+    for i in PrintCodes(createCodeGroups(int(K))):
+        cdgrps.insert("insert",i)
+        cdgrps.insert("insert","\n")
 
 
 # Decrypt function 
@@ -95,7 +99,6 @@ decryptbutton = tk.Button(root, text="Decrypt", command = dec,
 resetbutton = tk.Button(root, text="Reset", command = Reset, 
                        bg = 'lightslateblue', font = ('arial',14,'bold'))
 
-
 # Button to run cipher in decrypt mode
 exitbutton = tk.Button(root, text="Exit", command = qExit, 
                        bg = 'salmon', font = ('arial',14,'bold'))
@@ -123,23 +126,25 @@ key.bind("<Tab>", focus_next_widget)
 ctext.bind("<Tab>", focus_next_widget)
 
 # Put everything in position
-linkLab.place(x=620,y=730)
+linkLab.place(x=600,y=730)
 linkLab.bind("<Button-1>", link)
 
-explainLab.place(x=550,y=100)
+explainLab.place(x=530,y=100)
 
-ptext.place(x=150,y=30)
-ptextLab.place(x=60,y=30)
+ptext.place(x=130,y=30)
+ptextLab.place(x=40,y=30)
 
-key.place(x=150,y=300)
-keywordLab.place(x=60,y=300)
+key.place(x=130,y=300)
+keywordLab.place(x=40,y=300)
 
-encryptbutton.place(x=150,y=330)
-decryptbutton.place(x=250,y=330)
-resetbutton.place(x=430,y=330)
+encryptbutton.place(x=130,y=330)
+decryptbutton.place(x=230,y=330)
+resetbutton.place(x=410,y=330)
 
-ctext.place(x=150,y=380)
-ctextLab.place(x=50,y=380)
+ctext.place(x=130,y=380)
+ctextLab.place(x=30,y=380)
+
+cdgrps.place(x=500,y=380)
 
 exitbutton.place(x=150,y=700)
 

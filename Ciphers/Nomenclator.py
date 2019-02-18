@@ -256,5 +256,5 @@ def PrintCodes(D):
     yield S
 
 #nomenclatorExample()
-for i in PrintCodes(createCodeGroups(1)):
-    print(i)
+#for i in PrintCodes(createCodeGroups(1)):
+#    print(i)
