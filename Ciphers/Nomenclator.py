@@ -221,4 +221,31 @@ def nomenclatorExample():
 
     print("\n\nDoes the Text Decode Correctly?",dtext == ptext)
 
+def PrintCodes(D):
+    for i,j in sorted(D.items()):
+        if i in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" and len(i) == 1:
+            print("{}:".format(i),end=" ")
+            for grp in j:
+                print(grp,end = "")
+            print()
+        
+    for L in [2,3,4]:
+        for i,j in sorted(D.items()):
+            if len(i) == L:
+                print("{}:".format(i),end=" ")
+                for grp in j:
+                    print(grp,end = "")
+                print()
+    
+    print("_:",end=" ")
+    for grp in D["_"]:
+        print(grp,end="")
+        
+    print()
+    
+    print(">:",end=" ")
+    for grp in D[">"]:
+        print(grp,end="")
+
 #nomenclatorExample()
+    
