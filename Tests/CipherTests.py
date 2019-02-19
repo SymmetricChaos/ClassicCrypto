@@ -38,6 +38,7 @@ from Ciphers.Enigma import enigma
 from Ciphers.HillCipher import hillCipher
 from Ciphers.PrimeHillCipher import primeHillCipher
 from Ciphers.TwoSquare import twoSquare
+from Ciphers.Hutton import hutton
 
 # Monoalphabetic
 decodetest(ptext,1,caesar)
@@ -62,11 +63,9 @@ decodetest(ptext,"GIANTUNICORNS",bifid)
 decodetest(ptext,"GIANTUNICORNS",trifid)
 
 
-# Transposition
-decodetest(ptext,"TABLES",columnarTransport)
-decodetest(ptext,["GIGANTIC","TABLES"],doubleColumnarTransport)
-decodetest(ptext,5,railfence)
-
+# Chaocipher
+decodetest(ptext,["",""],chaocipher)
+decodetest(ptext,["JUPTIER","FEDROA"],hutton)
 
 # Disks
 decodetest(ptext,"M0A8G7I4C3A2L6F4UNTI5MEL1AND",cipherDisk)
@@ -112,10 +111,11 @@ decodetest(ptext,key,primeHillCipher)
 # Straddling Checkerboard
 decodetest(ptext,["CIPHER",[5,7]],straddlingCheckerboard)
 
-
-# Chaocipher
-decodetest(ptext,["",""],chaocipher)
-
-
 # Codebook
 decodetest(ptext,5766645,nomenclator)
+
+
+# Transposition
+decodetest(ptext,"TABLES",columnarTransport)
+decodetest(ptext,["GIGANTIC","TABLES"],doubleColumnarTransport)
+decodetest(ptext,5,railfence)

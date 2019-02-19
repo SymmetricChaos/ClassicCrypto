@@ -9,7 +9,7 @@ root.maxsize(800,600)
 root.minsize(800,600)
 
 # Title of the window
-root.title("Substitution Cipher Cracker")
+root.title("Affine Cipher Cracker")
 
 # Two textboxes
 ctext = tk.Text(root,height=10,width=50)
