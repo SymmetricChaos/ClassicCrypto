@@ -24,9 +24,9 @@ cipher.set("Type I")
 cipherMenu = tk.OptionMenu(root,cipher,"Type I","Type II","Type III","Type IV")
 
 # Dropdown menu to pick what to do with formatting
-form = tk.StringVar(root)
-form.set("Keep")
-formMenu = tk.OptionMenu(root,form,"Keep","Remove")
+form = tk.IntVar(root)
+form.set(1)
+formMenu = tk.Checkbutton(root, text="Keep Formatting", variable=form)
 
 
 # Exit Button
@@ -81,7 +81,7 @@ def enc():
     except Exception as e:
         ctext.insert("insert",str(e)) 
     
-    if F == "Keep":
+    if F == 1:
         ctext.insert("insert",restoreFormat(tx, pos, char,case))
     else:
         ctext.insert("insert",tx)
@@ -121,7 +121,7 @@ def dec():
     except Exception as e:
         ctext.insert("insert",str(e)) 
     
-    if F == "Keep":
+    if F == 1:
         ctext.insert("insert",restoreFormat(tx, pos, char,case))
     else:
         ctext.insert("insert",tx)
@@ -155,8 +155,7 @@ explainLab = tk.Label(root,
                       wraplength=200,
                       relief=tk.GROOVE,
                       padx = 10, pady = 10)
-cipherLab = tk.Label(root,text="Cipher",font = ('arial',11))
-formLab = tk.Label(root,text="Formatting",font = ('arial',11))
+cipherLab = tk.Label(root,text="Cipher:",font = ('arial',12))
 
 # Tab control
 ptext.bind("<Tab>", focus_next_widget)
@@ -164,10 +163,9 @@ key.bind("<Tab>", focus_next_widget)
 ctext.bind("<Tab>", focus_next_widget)
 
 # Put everything in position
-cipherMenu.place(x=590,y=45)
-cipherLab.place(x=530,y=50)
-formMenu.place(x=620,y=95)
-formLab.place(x=530,y=100)
+cipherMenu.place(x=590,y=65)
+cipherLab.place(x=530,y=70)
+formMenu.place(x=530,y=40)
 
 explainLab.place(x=550,y=200)
 
