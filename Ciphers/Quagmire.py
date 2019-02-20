@@ -13,9 +13,15 @@ def quagmire1(text,keys,decode=False):
         table.append(alpha[sh:] + alpha[:sh])
         
     out = []
-    for ctr, ltr in enumerate(text):
-        t = table[ctr % len(indicator)]
-        out.append( t[key.index(ltr)] )
+    if decode == False:
+        for ctr, ltr in enumerate(text):
+            t = table[ctr % len(indicator)]
+            out.append( t[key.index(ltr)] )
+            
+    if decode == True:
+        for ctr, ltr in enumerate(text):
+            t = table[ctr % len(indicator)]
+            out.append( key[t.index(ltr)] )
     
     return "".join(out)
 
@@ -30,15 +36,24 @@ def quagmire2(text,keys,decode=False):
     for lt in indicator:
         sh = key.index(lt) % 26
         table.append(key[sh:] + key[:sh])
-        
-    out = []
-    for ctr, ltr in enumerate(text):
-        t = table[ctr % len(indicator)]
-        out.append( t[alpha.index(ltr)] )
     
-    return "".join(out) 
+    
+    out = []
+    
+    if decode == False:
+        for ctr, ltr in enumerate(text):
+            t = table[ctr % len(indicator)]
+            out.append( t[alpha.index(ltr)] )
         
-    print(table)
+        return "".join(out)
+    
+    if decode == True:
+        for ctr, ltr in enumerate(text):
+            t = table[ctr % len(indicator)]
+            out.append( alpha[t.index(ltr)] )
+        
+    return "".join(out)
+
     
 def quagmire3(text,keys,decode=False):
     key = alphabetPermutation(keys[0])
@@ -49,15 +64,22 @@ def quagmire3(text,keys,decode=False):
     for lt in indicator:
         sh = key.index(lt) % 26
         table.append(key[sh:] + key[:sh])
-        
+    
+    
+    
     out = []
-    for ctr, ltr in enumerate(text):
-        t = table[ctr % len(indicator)]
-        out.append( t[key.index(ltr)] )
+    if decode == False:
+        for ctr, ltr in enumerate(text):
+            t = table[ctr % len(indicator)]
+            out.append( t[key.index(ltr)] )
+            
+    if decode == True:
+        for ctr, ltr in enumerate(text):
+            t = table[ctr % len(indicator)]
+            out.append( key[t.index(ltr)] )
     
     return "".join(out) 
         
-    print(table)
     
 def quagmire4(text,keys,decode=False):
     key1 = alphabetPermutation(keys[0])
@@ -72,9 +94,15 @@ def quagmire4(text,keys,decode=False):
         
         
     out = []
-    for ctr, ltr in enumerate(text):
-        t = table[ctr % len(indicator)]
-        out.append( t[key1.index(ltr)] )
+    if decode == False:
+        for ctr, ltr in enumerate(text):
+            t = table[ctr % len(indicator)]
+            out.append( t[key1.index(ltr)] )
+    
+    if decode == True:
+        for ctr, ltr in enumerate(text):
+            t = table[ctr % len(indicator)]
+            out.append( key1[t.index(ltr)] )
     
     return "".join(out) 
         

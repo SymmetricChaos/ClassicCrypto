@@ -39,6 +39,7 @@ from Ciphers.HillCipher import hillCipher
 from Ciphers.PrimeHillCipher import primeHillCipher
 from Ciphers.TwoSquare import twoSquare
 from Ciphers.Hutton import hutton
+from Ciphers.Quagmire import quagmire1, quagmire2, quagmire3, quagmire4
 
 # Monoalphabetic
 decodetest(ptext,1,caesar)
@@ -62,9 +63,16 @@ decodetest(ptext,["17ZEBRAS529","GIGANTIC"],ADFGVX)
 decodetest(ptext,"GIANTUNICORNS",bifid)
 decodetest(ptext,"GIANTUNICORNS",trifid)
 
+# Quagmire Ciphers
+decodetest(ptext,["FLYING","ZEBRA"],quagmire1)
+decodetest(ptext,["FLYING","ZEBRA"],quagmire2)
+decodetest(ptext,["FLYING","ZEBRA"],quagmire3)
+decodetest(ptext,["FLYING","ZEBRA","CAVALRY"],quagmire4)
 
 # Chaocipher
 decodetest(ptext,["",""],chaocipher)
+
+# Hutton Cipher
 decodetest(ptext,["JUPTIER","FEDROA"],hutton)
 
 # Disks
