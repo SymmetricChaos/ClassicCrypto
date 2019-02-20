@@ -35,6 +35,7 @@ from Ciphers.Playfair import playfair
 from Ciphers.FourSquare import fourSquare
 from Ciphers.StraddlingCheckerboard import straddlingCheckerboard
 from Ciphers.Enigma import enigma
+from Ciphers.SIGABA import SIGABA
 from Ciphers.HillCipher import hillCipher
 from Ciphers.PrimeHillCipher import primeHillCipher
 from Ciphers.TwoSquare import twoSquare
@@ -95,6 +96,16 @@ plugs = ["AB","CD","EF","GH"]
 rings = ["A","A","A"]
 keySettings = [rotors,reflector,positions,plugs,rings]
 decodetest(ptext,keySettings,enigma)
+
+# SIGABA
+cipher =     ["IV","X","VII","III","II"]
+control =    ["IX","V","I","VI","VIII"]
+index =      ["II","IV","V","I","III"]
+indicator =  "HUPYU"
+controlPos = "JBKPO"
+indexPos =   "02384"
+keySettings = [cipher,control,index,indicator,controlPos,indexPos]
+decodetest(ptext,keySettings,SIGABA)
 
 
 # Hill Cipher

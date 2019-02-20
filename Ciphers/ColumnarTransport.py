@@ -80,7 +80,7 @@ def doubleColumnarTransport(text,key=["ABC","ABC"],decode=False,complete=True):
     else:
         return columnarTransport(columnarTransport(text,key[0],complete=complete),key[1],complete=complete)
 
-    
+
 def columnarTransportExample():
 
     print("Columnar Transport Example")

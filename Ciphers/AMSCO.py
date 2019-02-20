@@ -46,5 +46,6 @@ def AMSCO(text,key,decode=False):
 
 ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
 ptext = "INCOMPLETECOLUMNARWITHALTERNATINGSINGLELETTERSANDDIGRAPHS"
-ctext = AMSCO(ptext,"APPLES")
-dtext = AMSCO(ctext,"APPLES",decode=False)
+ctext = AMSCO(ptext,"13204")
+print(ctext)
+dtext = AMSCO(ctext,"13204",decode=False)
