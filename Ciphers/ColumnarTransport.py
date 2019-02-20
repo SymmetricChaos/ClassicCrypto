@@ -1,13 +1,13 @@
 from numpy import argsort
 import random
-from Ciphers.UtilityFunctions import uniqueRank
+from Ciphers.UtilityFunctions import uniqueRank, groups
 
 ## A transposition cipher is made by shuffling the letters of the message
 ## according to some rule. One of the most famous transposition ciphers is
 ## columnar transport. To do this the message is read into a matrix by rows
 ## then the columns of the matrix are suffled and read off by columns.
 
-def columnarTransport(text,key,decode=False):
+def columnarTransport(text,key,decode=False,complete=True):
     
     k = uniqueRank(key)
     
@@ -16,10 +16,12 @@ def columnarTransport(text,key,decode=False):
     # words at the end of the true message
     numcol = len(k)
     numrow,rem = divmod(len(text),numcol)
-    if rem != 0:
-        nulls = numcol-rem
-        text += "".join([random.choice(["Z","Q","J","X","V","W"]) for i in range(nulls)])
-        numrow += 1
+    if complete == True:
+        if rem != 0:
+            nulls = numcol-rem
+            text += "".join([random.choice(["Z","Q","J","X"]) for i in range(nulls)])
+            numrow += 1
+
 
     ## In case of decrypting
     if decode == True:
@@ -27,25 +29,29 @@ def columnarTransport(text,key,decode=False):
         for i in range(numrow):
             L.append(text[i::numrow])
         
+        print(L)
+        
         out = ""
         for i in L:
             for j in k:
                 out += i[j]
         
-        return out
+        return "".join(out)
     
     if decode == False:
-        ## Create the rows
-        L = []
-        for i in range(numrow):
-            L.append(text[i*numcol:numcol+i*numcol])
+        L = groups(text,len(k))
+        
+        #print(L)
         
         ## Read the columns 
-        out = ""
-        for x in argsort(k):
-            out += "".join([i[x] for i in L])
-            
-        return out
+        out = []
+        for col in argsort(k):
+            for row in L:
+                if len(row) > col:
+                    out.append(row[col])
+        return "".join(out)
+    
+
     
 ## Double columnar transport is a significant improvement on the single columnar
 ## transport cipher. With long keys it is even somewhat resistant to computer attack.
@@ -66,15 +72,15 @@ def doubleColumnarTransport(text,key=["ABC","ABC"],decode=False):
 def columnarTransportExample():
 
     print("Columnar Transport Example")
-    key = "ILIKECHICKENEGGS"
+    key = "ILIKETHEEGGS"
     print("The Key Is {}".format(key))
     
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = columnarTransport(ptext,key)
-    dtext = columnarTransport(ctext,key,decode=True)
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
+    ctext = columnarTransport(ptext,key,complete=False)
+    dtext = columnarTransport(ctext,key,decode=True,complete=False)
+    print("Plaintext is:\n{}".format(ptext))
+    print("Ciphertext is:\n{}".format(ctext))
+    print("Decodes As:\n{}".format(dtext))
     
 def doubleColumnarTransportExample():
 
@@ -85,8 +91,9 @@ def doubleColumnarTransportExample():
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = doubleColumnarTransport(ptext,keys)
     dtext = doubleColumnarTransport(ctext,keys,decode=True)
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
-    
+    print("Plaintext is:\n{}".format(ptext))
+    print("Ciphertext is:\n{}".format(ctext))
+    print("Decodes As:\n{}".format(dtext))
+
+columnarTransportExample()
 #doubleColumnarTransportExample()

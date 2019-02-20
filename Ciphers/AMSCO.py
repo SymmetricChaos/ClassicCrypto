@@ -13,7 +13,7 @@ def AMSCO(text,key,decode=False):
     T = list(text)
     L = []
     
-    for i in cycle([1,2]):
+    for i in cycle([2,1]):
         
         if len(T) == 0:
             break
@@ -24,13 +24,21 @@ def AMSCO(text,key,decode=False):
         else:
             L.append( T.pop(0) )
     
-    x = groups(L,7)
+    x = groups(L,len(k))
     for i in x:
         print(i)
     
-
+    if decode == False:
     
+        out = []
+        for col in argsort(k):
+            for row in x:
+                if len(row) > col:
+                    out.append(row[col])
+    
+        return "".join(out)
 
 
 ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-AMSCO(ptext,"LETTERS")
+ptext = "INCOMPLETECOLUMNARWITHALTERNATINGSINGLELETTERSANDDIGRAPHS"
+print(AMSCO(ptext,"12345"))
