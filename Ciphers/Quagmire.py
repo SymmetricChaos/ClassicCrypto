@@ -95,10 +95,13 @@ def quagmireExample():
         print("Ciphertext is:\n{}\n".format(ctext))
 
     
-    print("quagmire4")
-    print("Plaintext is:\n{}".format(ptext))
+    
     key = ["SENSORY","PERCEPTION","EXTRA"]
+    ctext = quagmire4(ptext,key)
+    
+    print("quagmire4")
     print("The Key Is: {}".format(key))
-    print(quagmire4(ptext,key))
+    print("Plaintext is:\n{}".format(ptext))
+    print("Ciphertext is:\n{}\n".format(ctext))
     
 #quagmireExample()
