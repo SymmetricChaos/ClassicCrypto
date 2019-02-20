@@ -1,5 +1,11 @@
 from Ciphers.UtilityFunctions import alphabetPermutation
 
+# The various quagmire ciphers are a variations on the vigenere cipher that use
+# scrambled alphabets rather than simply shifted alphabets.
+
+
+# The Quagmire One is essentially a simple substitution cipher which then has
+# vigenre cipher applied on top of it.
 def quagmire1(text,keys,decode=False):
     
     key = alphabetPermutation(keys[0])
@@ -25,6 +31,9 @@ def quagmire1(text,keys,decode=False):
     
     return "".join(out)
 
+# The Quagmire Two applies the vigenere cipher except that rather than shifting
+# the normal alphabet in accordance with the key it shifts a scrambled alphabet
+# instead.
 def quagmire2(text,keys,decode=False):
     key = alphabetPermutation(keys[0])
     indicator = keys[1]
@@ -54,7 +63,8 @@ def quagmire2(text,keys,decode=False):
         
     return "".join(out)
 
-    
+# The Quagmire Three is similar to the Quagmire Two but with the first key used
+# to apply a simple substitution cipher to the text first.
 def quagmire3(text,keys,decode=False):
     key = alphabetPermutation(keys[0])
     indicator = keys[1]
@@ -80,7 +90,8 @@ def quagmire3(text,keys,decode=False):
     
     return "".join(out) 
         
-    
+# The Quagmire Four is the same as the Quagmire Three except that a different
+# key is used for the intitial substitution.
 def quagmire4(text,keys,decode=False):
     key1 = alphabetPermutation(keys[0])
     key2 = alphabetPermutation(keys[1])
