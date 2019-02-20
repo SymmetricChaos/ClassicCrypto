@@ -338,3 +338,5 @@ def restoreFormat(S,pos,char,case):
     for ps,ch in zip(pos,char):
         S = S[:ps] + ch + S[ps:]
     return S
+
+# Custom argsort to avoid numpy since it doesn't play nice with tkinter

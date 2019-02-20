@@ -1,5 +1,5 @@
 from numpy import argsort
-from numpy.random import choice
+import random
 from Ciphers.UtilityFunctions import uniqueRank
 
 ## A transposition cipher is made by shuffling the letters of the message
@@ -17,7 +17,8 @@ def columnarTransport(text,key,decode=False):
     numcol = len(k)
     numrow,rem = divmod(len(text),numcol)
     if rem != 0:
-        text += "".join(choice(["Z","Q","J","X","V","W"],numcol-rem))
+        nulls = numcol-rem
+        text += "".join([random.choice(["Z","Q","J","X","V","W"]) for i in range(nulls)])
         numrow += 1
 
     ## In case of decrypting
@@ -25,13 +26,14 @@ def columnarTransport(text,key,decode=False):
         L = []
         for i in range(numrow):
             L.append(text[i::numrow])
-            
+        
         out = ""
         for i in L:
             for j in k:
                 out += i[j]
         
-        return out 
+        return out
+    
     if decode == False:
         ## Create the rows
         L = []
@@ -86,3 +88,5 @@ def doubleColumnarTransportExample():
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
+    
+#doubleColumnarTransportExample()
