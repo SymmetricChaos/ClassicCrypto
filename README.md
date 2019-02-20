@@ -41,6 +41,7 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 * Affine Vigenere Cipher
 * Autokey Cipher
 * Beaufort Cipher
+* Quagmire Cipher Family
 
 #### Polybius Square Variants:
 * Polybius Square
@@ -55,6 +56,7 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 
 #### Rotor Machines
 * Enigma
+* SIGABA (pending validation)
 
 #### Other Substitution Ciphers
 * Hill's Matrix Cipher
