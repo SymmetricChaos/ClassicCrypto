@@ -1,6 +1,8 @@
 #http://ucsb.curby.net/broadcast/thesis/thesis.pdf
 
-# Pass a singal through a rotor there are ten rotors with 26 contacts
+
+
+# Pass a signal through a Cipher or Control rotors
 def rotorC(letter,key,pos,invert=False):
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     entry = alpha.index(letter)
@@ -14,7 +16,7 @@ def rotorC(letter,key,pos,invert=False):
         outer = (key.index(inner)-pos+1)%26
         return alpha[outer]
 
-# There are five rotors with 10 contacts
+# Pass a signal through an index rotor   
 def rotorI(letter,key,pos,invert=False):
     alpha = "0123456789"
     entry = alpha.index(letter)
@@ -41,9 +43,8 @@ def SIGABA(text,keys,decode=False):
     indicator2 = keys[4]
     indicator3 = keys[5]
         
-    # Rotor configurations were randomly generated.
-    # Need to learn what actual configurations were or how they were chosen
-
+    # Rotor Wirings for the large rotors
+    # The actual wirings are apparently still classified.
     largeRotors = {"I":    "PWJVDRGTMBHOLYXUZFQEAINKCS",
                    "II":   "MKLWAIBXRUYGTNCSPDFQHZJVOE",
                    "III":  "WVYLIJAMXZTSUROENDKQHCFBPG",
@@ -55,6 +56,8 @@ def SIGABA(text,keys,decode=False):
                    "IX":   "HLEDCOTJMUAWFZQIGRBVYPSNKX",
                    "X":    "QKCIYPWLZNHTJVFDURSXEBGMOA"}
     
+    # Rotor Wirings for the small rotors
+    # The actual wirings are apparently still classified.
     smallRotors = {"I":   "9438705162",
                    "II":  "8135624097",
                    "III": "5901284736",
@@ -112,13 +115,22 @@ def SIGABA(text,keys,decode=False):
                 T = rotorC(T,R,P,invert=True)
             out.append(T)
         
-        # Put A, B, C, and D through the control rotors
+        # Put A, B, C, and D through the control rotors, this is called the "step maze"
         L = ["A","B","C","D"]
         for R,P in zip(controlRotors,controlPos):
             L[0] = rotorC(L[0],R,P)
             L[1] = rotorC(L[1],R,P)
             L[2] = rotorC(L[2],R,P)
             L[3] = rotorC(L[3],R,P)
+            
+        # Now advance the control rotors
+        # (Unsure if this is the exact scheme used but it is simple and matches
+        #  what is described in documentation I can find)
+        controlPos[2] = (controlPos[2] + 1) % 26
+        if ctr % 26 == 0:
+            controlPos[3] = (controlPos[3] + 1) % 26
+        if ctr % 676 == 0:
+            controlPos[1] = (controlPos[1] + 1) % 26     
 
         # Group the results of the step maze for input to the index rotors
         # There will be some duplicates here. That's okay we'll remove them later
@@ -132,15 +144,8 @@ def SIGABA(text,keys,decode=False):
             L[2] = rotorI(L[2],R,P)
             L[3] = rotorI(L[3],R,P)
         
-        # Advance the control rotors
-        controlPos[2] = (controlPos[2] + 1) % 26
-        if ctr % 26 == 0:
-            controlPos[3] = (controlPos[3] + 1) % 26
-        if ctr % 676 == 0:
-            controlPos[1] = (controlPos[1] + 1) % 26     
-        
-        # Now determine which cipher rotors should move
-        # To do this first we use floored division to make pairs out of 0 and 1, 2 and 3, 4 and 5, and so on
+        # The outputs of the index rotors determine which of the cipher rotors
+        # will move. We used floored vision to pair up each the sen signals.
         L = [(int(i))//2 for i in L]
         # We for the list into a set to ensure there are no duplicates
         for rtr in set(L):
@@ -151,8 +156,8 @@ def SIGABA(text,keys,decode=False):
 
 def SIGABAExample():
 
-    cipher =     ["V","I","II","IV","III"]
-    control =    ["IX","VI","X","VII","VIII"]
+    cipher =     ["V","IX","II","IV","III"]
+    control =    ["IX","VI","I","VII","VIII"]
     index =      ["II","I","V","IV","III"]
     indicator =  "TABLE"
     controlPos = "GRAPH"
