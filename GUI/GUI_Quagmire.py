@@ -15,7 +15,7 @@ root.title("Quagmire Cipher Family")
 
 # Three textboxes
 ptext = tk.Text(root,height=8,width=40)
-key = tk.Text(root,height=1,width=20)
+key = tk.Text(root,height=1,width=30)
 ctext = tk.Text(root,height=8,width=40)
 
 # Dropdown menu with ciphers
@@ -61,6 +61,15 @@ def enc():
     # Get the formatting rule
     F = form.get()
     
+    
+    
+    if C == "Type IV":
+        if len(K) != 3:
+            ctext.insert("insert","Quagmire IV requires three keywords") 
+    else:
+        if len(K) != 2:
+            ctext.insert("insert","Quagmire I, II, and III require two keywords") 
+    
 
     T, pos, char,case = saveFormat(T)
     
@@ -94,12 +103,26 @@ def dec():
 
     # Get the text from the ptext box
     T = ptext.get("1.0","end")[:-1]
+    
     # Get the key from the key box
     K = key.get("1.0","end")[:-1]
+    K = K.replace(" ","")
+    K = K.upper()
+    K = K.split(",")
+    
     # Get the selected cipher
     C = cipher.get()
     # Get the formatting rule
     F = form.get()
+    
+    
+    
+    if C == "Type IV":
+        if len(K) != 3:
+            ctext.insert("insert","Quagmire IV requires three keywords") 
+    else:
+        if len(K) != 2:
+            ctext.insert("insert","Quagmire I, II, and III require two keywords") 
     
 
     T, pos, char,case = saveFormat(T)
@@ -148,7 +171,7 @@ exitbutton = tk.Button(root, text="Exit", command = qExit,
 # Labels
 ptextLab = tk.Label(root,text="Input:",font = ('arial',14))
 ctextLab = tk.Label(root,text="Output:",font = ('arial',14))
-keywordLab = tk.Label(root,text="Keyword:",font = ('arial',14))
+keywordLab = tk.Label(root,text="Keywords:",font = ('arial',14))
 explainLab = tk.Label(root,
                       text="Both the input text and the key must consist of only uppercase letters taken from the standard English alphabet.",
                       font = ('arial',12),
@@ -173,7 +196,7 @@ ptext.place(x=150,y=30)
 ptextLab.place(x=60,y=30)
 
 key.place(x=150,y=200)
-keywordLab.place(x=60,y=200)
+keywordLab.place(x=50,y=195)
 
 encryptbutton.place(x=150,y=240)
 decryptbutton.place(x=250,y=240)
