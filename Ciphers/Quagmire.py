@@ -78,9 +78,27 @@ def quagmire4(text,keys,decode=False):
     
     return "".join(out) 
         
+def quagmireExample():
+    print("Quagmire Examples\n")
+    
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    
+    for cipher in [quagmire1,quagmire2,quagmire3]:
+        
+        print(cipher.__name__)
+        
+        key = ["ROMANCE","KINGDOMS"]
+        print("The Key Is: {}".format(key))
+        ctext = cipher(ptext,key)
+        
+        print("Plaintext is:\n{}".format(ptext))
+        print("Ciphertext is:\n{}\n".format(ctext))
 
-ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-print(quagmire1(ptext,["SPRINGFEVER","FLOWER"]))
-print(quagmire2(ptext,["SPRINGFEVER","FLOWER"]))
-print(quagmire3(ptext,["SPRINGFEVER","FLOWER"]))
-print(quagmire4(ptext,["SENSORY","PERCEPTION","EXTRA"]))
+    
+    print("quagmire4")
+    print("Plaintext is:\n{}".format(ptext))
+    key = ["SENSORY","PERCEPTION","EXTRA"]
+    print("The Key Is: {}".format(key))
+    print(quagmire4(ptext,key))
+    
+#quagmireExample()
