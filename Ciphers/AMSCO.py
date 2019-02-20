@@ -2,17 +2,19 @@
 
 from itertools import cycle
 from Ciphers.UtilityFunctions import uniqueRank, groups
-import random
 from numpy import argsort
 
 def AMSCO(text,key,decode=False):
     
+    # Derive the key
     k = uniqueRank(key)
     print(k)
 
+    # Convert the text to a list for easy maniplation
     T = list(text)
     L = []
     
+    # Divide the text into alternating groups of 2 and 1
     for i in cycle([2,1]):
         
         if len(T) == 0:
@@ -37,8 +39,12 @@ def AMSCO(text,key,decode=False):
                     out.append(row[col])
     
         return "".join(out)
+    
+    if decode == True:
+        pass
 
 
 ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
 ptext = "INCOMPLETECOLUMNARWITHALTERNATINGSINGLELETTERSANDDIGRAPHS"
-print(AMSCO(ptext,"12345"))
+ctext = AMSCO(ptext,"APPLES")
+dtext = AMSCO(ctext,"APPLES",decode=False)

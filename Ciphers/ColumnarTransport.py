@@ -18,35 +18,13 @@ def columnarTransport(text,key,decode=False,complete=True):
     numrow,rem = divmod(len(text),numcol)
     longCols = k[:rem]
 
+    # If complete is selected nulls are added so that the ciphertext fits
+    # perfectly into the grid.
     if complete == True:
         if rem != 0:
             nulls = numcol-rem
             text += "".join([random.choice(["Z","Q","J","X"]) for i in range(nulls)])
             numrow += 1
-    
-    if decode == True:
-        
-        ctr = 0
-        L = []
-        for i in range(numcol):
-            if i in longCols:
-                L.append(text[ctr:ctr+numrow+1])
-                ctr += (numrow+1)
-            else:
-                L.append(text[ctr:ctr+numrow])
-                ctr += numrow
-        
-        print(L)
-        
-        out = []
-        
-        for row in range(numrow+1):
-            for col in k:
-                if len(L[col]) > row:
-                    out.append( L[col][row] )
-        
-        return "".join(out)
-    
     
     if decode == False:
         
@@ -61,12 +39,36 @@ def columnarTransport(text,key,decode=False,complete=True):
                     out.append(row[col])
         return "".join(out)
     
+    if decode == True:
+        
+        ctr = 0
+        L = []
+        for i in range(numcol):
+            if i in longCols:
+                L.append(text[ctr:ctr+numrow+1])
+                ctr += (numrow+1)
+            else:
+                L.append(text[ctr:ctr+numrow])
+                ctr += numrow
+        
+        out = []
+        
+        for row in range(numrow+1):
+            for col in k:
+                if len(L[col]) > row:
+                    out.append( L[col][row] )
+        
+        return "".join(out)
+    
+    
+
+    
 
     
 ## Double columnar transport is a significant improvement on the single columnar
 ## transport cipher. With long keys it is even somewhat resistant to computer attack.
 
-def doubleColumnarTransport(text,key=["ABC","ABC"],decode=False):
+def doubleColumnarTransport(text,key=["ABC","ABC"],decode=False,complete=True):
     if len(key) != 2:
         raise Exception("Must have exactly two keys")
     while len(key[0]) > len(key[1]):
@@ -74,9 +76,9 @@ def doubleColumnarTransport(text,key=["ABC","ABC"],decode=False):
     while len(key[1]) > len(key[0]):
         key[0] += "Z"
     if decode == True:
-        return columnarTransport(columnarTransport(text,key[1],True),key[0],True)
+        return columnarTransport(columnarTransport(text,key[1],True,complete),key[0],True,complete)
     else:
-        return columnarTransport(columnarTransport(text,key[0]),key[1])
+        return columnarTransport(columnarTransport(text,key[0],complete=complete),key[1],complete=complete)
 
     
 def columnarTransportExample():
@@ -94,7 +96,7 @@ def columnarTransportExample():
     
 def doubleColumnarTransportExample():
 
-    print("Columnar Transport Example")
+    print("Double Columnar Transport Example")
     keys = ["ILIKEEGGS","BLAHDIBLAHBLAH"]
     print("The Key Is {}".format(keys))
     
@@ -105,5 +107,5 @@ def doubleColumnarTransportExample():
     print("Ciphertext is:\n{}".format(ctext))
     print("Decodes As:\n{}".format(dtext))
 
-columnarTransportExample()
+#columnarTransportExample()
 #doubleColumnarTransportExample()
