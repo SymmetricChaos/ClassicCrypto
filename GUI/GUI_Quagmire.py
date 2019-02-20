@@ -23,7 +23,7 @@ cipher = tk.StringVar(root)
 cipher.set("Type I")
 cipherMenu = tk.OptionMenu(root,cipher,"Type I","Type II","Type III","Type IV")
 
-# Dropdown menu to pick what to do with formatting
+# Tickbox to decide on formatting
 form = tk.IntVar(root)
 form.set(1)
 formMenu = tk.Checkbutton(root, text="Keep Formatting", variable=form)
@@ -173,7 +173,7 @@ ptextLab = tk.Label(root,text="Input:",font = ('arial',14))
 ctextLab = tk.Label(root,text="Output:",font = ('arial',14))
 keywordLab = tk.Label(root,text="Keywords:",font = ('arial',14))
 explainLab = tk.Label(root,
-                      text="Both the input text and the key must consist of only uppercase letters taken from the standard English alphabet.",
+                      text="Keywords must consist of English letters separated by commas.",
                       font = ('arial',12),
                       wraplength=200,
                       relief=tk.GROOVE,

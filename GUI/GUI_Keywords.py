@@ -27,10 +27,10 @@ cipher = tk.StringVar(root)
 cipher.set("substitution")
 cipherMenu = tk.OptionMenu(root,cipher,"substitution","vigenere","beaufort","autokey","playfair")
 
-# Dropdown menu to pick what to do with formatting
-form = tk.StringVar(root)
-form.set("Keep")
-formMenu = tk.OptionMenu(root,form,"Keep","Remove")
+# Tickbox to decide on formatting
+form = tk.IntVar(root)
+form.set(1)
+formMenu = tk.Checkbutton(root, text="Keep Formatting", variable=form)
 
 
 # Exit Button
@@ -56,6 +56,7 @@ def enc():
     T = ptext.get("1.0","end")[:-1]
     # Get the key from the key box
     K = key.get("1.0","end")[:-1]
+    K = K.upper()
     # Get the selected cipher
     C = cipher.get()
     # Get the formatting rule
@@ -82,7 +83,7 @@ def enc():
     except Exception as e:
         ctext.insert("insert",str(e)) 
     
-    if F == "Keep":
+    if F == 1:
         ctext.insert("insert",restoreFormat(tx, pos, char,case))
     else:
         ctext.insert("insert",tx)
@@ -97,6 +98,7 @@ def dec():
     T = ptext.get("1.0","end")[:-1]
     # Get the key from the key box
     K = key.get("1.0","end")[:-1]
+    K = K.upper()
     # Get the selected cipher
     C = cipher.get()
     # Get the formatting rule
@@ -123,7 +125,7 @@ def dec():
     except Exception as e:
         ctext.insert("insert",str(e)) 
     
-    if F == "Keep":
+    if F == 1:
         ctext.insert("insert",restoreFormat(tx, pos, char,case))
     else:
         ctext.insert("insert",tx)
@@ -152,13 +154,12 @@ ptextLab = tk.Label(root,text="Input:",font = ('arial',14))
 ctextLab = tk.Label(root,text="Output:",font = ('arial',14))
 keywordLab = tk.Label(root,text="Keyword:",font = ('arial',14))
 explainLab = tk.Label(root,
-                      text="Both the input text and the key must consist of only uppercase letters taken from the standard English alphabet.",
+                      text="The key must consist of english letters.",
                       font = ('arial',12),
                       wraplength=200,
                       relief=tk.GROOVE,
                       padx = 10, pady = 10)
-cipherLab = tk.Label(root,text="Cipher",font = ('arial',11))
-formLab = tk.Label(root,text="Formatting",font = ('arial',11))
+cipherLab = tk.Label(root,text="Cipher:",font = ('arial',12))
 
 # Tab control
 ptext.bind("<Tab>", focus_next_widget)
@@ -166,10 +167,9 @@ key.bind("<Tab>", focus_next_widget)
 ctext.bind("<Tab>", focus_next_widget)
 
 # Put everything in position
-cipherMenu.place(x=590,y=45)
-cipherLab.place(x=530,y=50)
-formMenu.place(x=620,y=95)
-formLab.place(x=530,y=100)
+cipherMenu.place(x=590,y=65)
+cipherLab.place(x=530,y=70)
+formMenu.place(x=530,y=40)
 
 explainLab.place(x=550,y=200)
 
