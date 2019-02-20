@@ -24,33 +24,27 @@ def columnarTransport(text,key,decode=False,complete=True):
             text += "".join([random.choice(["Z","Q","J","X"]) for i in range(nulls)])
             numrow += 1
     
-
-    x = groups(text,len(k))
-    for i in x:
-        print(i)
-    print()
-
-    ## In case of decrypting
     if decode == True:
-        L = []
-        for i in range(numrow):
-            L.append(text[i::numrow])
+
         
-        #ctr = 0
-        #for i in range(numcol):
-        #    if i in longCols:
-        #        L.append(text[ctr:ctr+numrow+1])
-        #        ctr += (numrow+1)
-        #    else:
-        #        L.append(text[ctr:ctr+numrow])
-        #        ctr += numrow
+        ctr = 0
+        L = []
+        for i in range(numcol):
+            if i in longCols:
+                L.append(text[ctr:ctr+numrow+1])
+                ctr += (numrow+1)
+            else:
+                L.append(text[ctr:ctr+numrow])
+                ctr += numrow
         
         print(L)
         
-        out = ""
-        for i in L:
-            for j in k:
-                out += i[j]
+        out = []
+        
+        for row in range(numrow+1):
+            for col in k:
+                if len(L[col]) > row:
+                    out.append( L[col][row] )
         
         return "".join(out)
     
@@ -92,8 +86,8 @@ def columnarTransportExample():
     print("The Key Is {}".format(key))
     
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = columnarTransport(ptext,key,complete=True)
-    dtext = columnarTransport(ctext,key,decode=True,complete=True)
+    ctext = columnarTransport(ptext,key)
+    dtext = columnarTransport(ctext,key,decode=True)
     print("Plaintext is:\n{}".format(ptext))
     print("Ciphertext is:\n{}".format(ctext))
     print("Decodes As:\n{}".format(dtext))
