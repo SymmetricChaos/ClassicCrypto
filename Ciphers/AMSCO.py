@@ -1,14 +1,14 @@
 # http://www.cryptogram.org/downloads/aca.info/ciphers/Amsco.pdf
 
 from itertools import cycle
-from Ciphers.UtilityFunctions import uniqueRank
+from Ciphers.UtilityFunctions import uniqueRank, groups
 import random
 from numpy import argsort
 
 def AMSCO(text,key,decode=False):
     
     k = uniqueRank(key)
-
+    print(k)
 
     T = list(text)
     L = []
@@ -24,10 +24,13 @@ def AMSCO(text,key,decode=False):
         else:
             L.append( T.pop(0) )
     
-    print(L)
+    x = groups(L,7)
+    for i in x:
+        print(i)
+    
 
     
 
 
 ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-print(AMSCO(ptext,"LETTERS"))
+AMSCO(ptext,"LETTERS")

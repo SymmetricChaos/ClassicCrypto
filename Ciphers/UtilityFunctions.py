@@ -43,9 +43,11 @@ def decodetest(text,keys,fun):
 # For example
 # groups("ABCDEFGHIJKL",3)
 # ["ABC","DEF","GHI","JKL"]
-def groups(text,n):     
-    return [text[i*n:i*n+n] for i in range(len(text)//n)]
-
+def groups(text,n):
+    if len(text) % n == 0:
+        return [text[i*n:i*n+n] for i in range(len(text)//n)]
+    else:
+        return [text[i*n:i*n+n] for i in range(len(text)//n+1)]
 
 ## Get prime numbers.
 def primes():
@@ -338,5 +340,3 @@ def restoreFormat(S,pos,char,case):
     for ps,ch in zip(pos,char):
         S = S[:ps] + ch + S[ps:]
     return S
-
-# Custom argsort to avoid numpy since it doesn't play nice with tkinter
