@@ -25,7 +25,6 @@ def columnarTransport(text,key,decode=False,complete=True):
             numrow += 1
     
     if decode == True:
-
         
         ctr = 0
         L = []
@@ -47,6 +46,7 @@ def columnarTransport(text,key,decode=False,complete=True):
                     out.append( L[col][row] )
         
         return "".join(out)
+    
     
     if decode == False:
         

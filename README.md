@@ -43,13 +43,13 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 * Beaufort Cipher
 * Quagmire Cipher Family
 
-#### Polybius Square Variants:
+#### Polybius Square:
 * Polybius Square
 * ADFGX and ADFGVX
 * Bifid and Trifid
 * Nihilist Cipher
 
-#### Playfair Type Cipher
+#### Playfair
 * Playfair Cipher
 * Two Square Cipher
 * Four Square Cipher
@@ -71,9 +71,10 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 * Rail Fence Cipher
 * Route Cipher
 * Turning Grille
+* AMSCO
 
 #### Variable Codebooks
-* Nomenclator (variation on Le Grand Chiffre)
+* Nomenclator (based on Le Grand Chiffre)
 
 #### Composite Ciphers:
 * Checkboard/DRYAD
@@ -92,7 +93,7 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 * Brevity Code
 * Braille
 * Morse Code
-* Bacon Cipher (using any binary code)
+* Bacon Cipher (using any supported binary code)
 
 ## Random Number Generators:
 * Reihenschieber
