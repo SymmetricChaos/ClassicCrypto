@@ -13,9 +13,14 @@ root.minsize(800,600)
 # Title of the window
 root.title("SIGABA Emulator")
 
-# Three textboxes
+# Textboxes
 ptext = tk.Text(root,height=8,width=40)
-key = tk.Text(root,height=1,width=30)
+cipherRotors = tk.Text(root,height=1,width=12)
+controlRotors = tk.Text(root,height=1,width=12)
+indexRotors = tk.Text(root,height=1,width=12)
+indicator =  tk.Text(root,height=1,width=7)
+controlPos = tk.Text(root,height=1,width=7)
+indexPos =   tk.Text(root,height=1,width=7)
 ctext = tk.Text(root,height=8,width=40)
 
 # Exit Button
@@ -26,8 +31,13 @@ def qExit():
 def Reset(): 
     ctext.delete("1.0","end")
     ptext.delete("1.0","end") 
-    key.delete("1.0","end")
-
+    cipherRotors.delete("1.0","end")
+    controlRotors.delete("1.0","end")
+    indexRotors.delete("1.0","end")
+    indicator.delete("1.0","end")
+    controlPos.delete("1.0","end")
+    indexPos.delete("1.0","end")
+    
 # 
 def focus_next_widget(event):
     event.widget.tk_focusNext().focus()
@@ -38,13 +48,29 @@ def enc():
 
     # Get the text from the ptext box
     T = ptext.get("1.0","end")[:-1]
+    T = T.upper()
     
-    # Get the key from the key box
+    for i in T:
+        if i not in "ABCDEFGHIJKLMNOPQRSTUVWXYZ ":
+            ctext.insert("insert","Letters and spaces only.")
+            break
+    
+    # Get the key settings
+    k1 = cipherRotors.get("1.0","end")[:-1]
+    k2 = controlRotors.get("1.0","end")[:-1]
+    k3 = indexRotors.get("1.0","end")[:-1]
+    k4 = indicator.get("1.0","end")[:-1]
+    k5 = controlPos.get("1.0","end")[:-1]
+    k6 = indexPos.get("1.0","end")[:-1]
+    
+
+    
+   
     ctext.delete("1.0","end")
     
     # Try encrypting
     try:
-        tx = SIGABA(T,K,decode=False)
+        tx = SIGABA(T,[k1,k2,k3,k4,k5,k6],decode=False)
     except Exception as e:
         ctext.insert("insert",str(e)) 
     
@@ -58,20 +84,26 @@ def dec():
 
     # Get the text from the ptext box
     T = ptext.get("1.0","end")[:-1]
+    T = T.upper()
     
-    # Get the key from the key box
-    K = key.get("1.0","end")[:-1]
-    K = K.replace(" ","")
-    K = K.upper()
-    K = K.split(",")
-        
+    for i in T:
+        if i not in "ABCDEFGHIJKLMNOPQRSTUVWXYZ ":
+            ctext.insert("insert","Letters and spaces only.")
+            break
     
+    # Get the key settings
+    k1 = cipherRotors.get("1.0","end")[:-1]
+    k2 = controlRotors.get("1.0","end")[:-1]
+    k3 = indexRotors.get("1.0","end")[:-1]
+    k4 = indicator.get("1.0","end")[:-1]
+    k5 = controlPos.get("1.0","end")[:-1]
+    k6 = indexPos.get("1.0","end")[:-1]
     
-
-    T, pos, char,case = saveFormat(T)
+    ctext.delete("1.0","end")
     
+    # Try decrypting
     try:
-        tx = SIGABA(T,K,decode=False)
+        tx = SIGABA(T,[k1,k2,k3,k4,k5,k6],decode=True)
     except Exception as e:
         ctext.insert("insert",str(e)) 
     
@@ -99,19 +131,25 @@ exitbutton = tk.Button(root, text="Exit", command = qExit,
 # Labels
 ptextLab = tk.Label(root,text="Input:",font = ('arial',14))
 ctextLab = tk.Label(root,text="Output:",font = ('arial',14))
-keywordLab = tk.Label(root,text="Keywords:",font = ('arial',14))
 explainLab = tk.Label(root,
                       text="Plaintext can only include letters and spaces.",
                       font = ('arial',12),
                       wraplength=200,
                       relief=tk.GROOVE,
                       padx = 10, pady = 10)
-cipherLab = tk.Label(root,text="Cipher:",font = ('arial',12))
+cipherLab =  tk.Label(root,text=" Cipher Settings",font = ('arial',10))
+controlLab = tk.Label(root,text="Control Settings",font = ('arial',10))
+indexLab =   tk.Label(root,text="  Index Settings",font = ('arial',10))
+rotorLab =   tk.Label(root,text="Rotors",font = ('arial',10))
+indicatorLab =  tk.Label(root,text="Indicators",font = ('arial',10))
+
 
 # Tab control
-ptext.bind("<Tab>", focus_next_widget)
-key.bind("<Tab>", focus_next_widget)
-ctext.bind("<Tab>", focus_next_widget)
+#ptext.bind("<Tab>", focus_next_widget)
+#key.bind("<Tab>", focus_next_widget)
+#ctext.bind("<Tab>", focus_next_widget)
+
+
 
 # Put everything in position
 explainLab.place(x=550,y=200)
@@ -119,16 +157,30 @@ explainLab.place(x=550,y=200)
 ptext.place(x=150,y=30)
 ptextLab.place(x=60,y=30)
 
-key.place(x=150,y=200)
-keywordLab.place(x=50,y=195)
+# Setting Labels
+cipherLab.place(x=45,y=190)
+controlLab.place(x=45,y=220)
+indexLab.place(x=45,y=250)
 
-encryptbutton.place(x=150,y=240)
-decryptbutton.place(x=250,y=240)
-resetbutton.place(x=400,y=240)
+rotorLab.place(x=150,y=165)
+indicatorLab.place(x=300,y=165)
 
-ctext.place(x=150,y=300)
-ctextLab.place(x=50,y=300)
+# Setting inputs
+cipherRotors.place(x=150,y=190)
+controlRotors.place(x=150,y=220)
+indexRotors.place(x=150,y=250)
+indicator.place(x=300,y=190)
+controlPos.place(x=300,y=220)
+indexPos.place(x=300,y=250)
 
-exitbutton.place(x=150,y=450)
+# Buttons
+encryptbutton.place(x=150,y=290)
+decryptbutton.place(x=250,y=290)
+resetbutton.place(x=400,y=290)
+
+ctext.place(x=150,y=350)
+ctextLab.place(x=50,y=350)
+
+exitbutton.place(x=150,y=500)
 
 root.mainloop()
