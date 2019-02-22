@@ -34,6 +34,11 @@ def rotorI(letter,key,pos,invert=False):
 # Need to find a way to confirm behavior
 def SIGABA(text,keys,decode=False):
     
+    if decode == False:
+        # SIGABA turned Z into X and turned spaces in Z
+        text = text.replace("Z","X")
+        text = text.replace(" ","Z")
+    
     # Settings for each of the rotor groups
     cipherRotorsSet = keys[0].copy()
     controlRotorsSet = keys[1].copy()
@@ -115,8 +120,8 @@ def SIGABA(text,keys,decode=False):
                 T = rotorC(T,R,P,invert=True)
             out.append(T)
         
-        # Put A, B, C, and D through the control rotors, this is called the "step maze"
-        L = ["A","B","C","D"]
+        # Put F, G, H, and I through the control rotors, this is called the "step maze"
+        L = ["F","G","H","I"]
         for R,P in zip(controlRotors,controlPos):
             L[0] = rotorC(L[0],R,P)
             L[1] = rotorC(L[1],R,P)
@@ -151,8 +156,15 @@ def SIGABA(text,keys,decode=False):
         for rtr in set(L):
             cipherPos[rtr] = (cipherPos[rtr] + 1) % 26
 
-        
-    return "".join(out)
+
+    outtext = "".join(out)
+
+    if decode == True:
+        # SIGABA turned Z into X and turned spaces in Z
+        outtext = outtext.replace("Z"," ")
+        outtext = outtext.replace("Z","X")
+
+    return outtext
 
 def SIGABAExample():
 
@@ -163,7 +175,7 @@ def SIGABAExample():
     controlPos = "GRAPH"
     indexPos =   "02367"
     
-    ptext = "IAMTHEVERYMODELOFAMODERNMAJORGENERAL"
+    ptext = "THE QUICK BROWN FOX JUMPED OVER THE LAZY DOG"
     
     ctext = SIGABA(ptext,[cipher,control,index,indicator,controlPos,indexPos],
                    decode=False)
@@ -174,4 +186,4 @@ def SIGABAExample():
     print(ctext)
     print(dtext)
     
-#SIGABAExample()
+SIGABAExample()

@@ -1,7 +1,6 @@
 import tkinter as tk
 
 from Ciphers.SIGABA import SIGABA
-from Ciphers.UtilityFunctions import saveFormat, restoreFormat
 
 # Create the window
 root = tk.Tk()

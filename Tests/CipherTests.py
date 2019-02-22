@@ -105,6 +105,9 @@ indicator =  "HUPYU"
 controlPos = "JBKPO"
 indexPos =   "02384"
 keySettings = [cipher,control,index,indicator,controlPos,indexPos]
+SIGtext = ptext
+SIGtext = SIGtext.replace("Z","X")
+SIGtext = SIGtext.replace(" ","Z")
 decodetest(ptext,keySettings,SIGABA)
 
 
@@ -114,7 +117,7 @@ key = [[12,14,24,4,6,4,13],
        [17,0,18,6,22,22,11],
        [1,15,11,9,10,13,1],
        [9,9,16,9,18,24,6],
-       [1,9,17,15,14,4,19],
+      [1,9,17,15,14,4,19],
        [24,20,5,0,15,21,12]]
 decodetest(ptext,key,hillCipher)
 
