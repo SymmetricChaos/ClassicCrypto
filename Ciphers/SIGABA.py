@@ -160,9 +160,9 @@ def SIGABA(text,keys,decode=False):
     outtext = "".join(out)
 
     if decode == True:
-        # SIGABA turned Z into X and turned spaces in Z
+        # When decrypting reverse the changes to spaces
+        # The changes to Z cannot be reversed
         outtext = outtext.replace("Z"," ")
-        outtext = outtext.replace("Z","X")
 
     return outtext
 

@@ -33,21 +33,22 @@ def qExit():
 def Reset(): 
     ctext.delete("1.0","end")
     ptext.delete("1.0","end") 
-    cipherRotors.delete("1.0","end")
-    controlRotors.delete("1.0","end")
-    indexRotors.delete("1.0","end")
-    indicator.delete("1.0","end")
-    controlPos.delete("1.0","end")
-    indexPos.delete("1.0","end")
-    
-# 
+    #cipherRotors.delete("1.0","end")
+    #controlRotors.delete("1.0","end")
+    #indexRotors.delete("1.0","end")
+    #indicator.delete("1.0","end")
+    #controlPos.delete("1.0","end")
+    #indexPos.delete("1.0","end")
+
+# Move between widgets
 def focus_next_widget(event):
     event.widget.tk_focusNext().focus()
     return("break")
 
+
+# Get the key settings
 def keysets():
 
-    # Get the key settings
     k1 = cipherRotors.get("1.0","end")[:-1]
     k2 = controlRotors.get("1.0","end")[:-1]
     k3 = indexRotors.get("1.0","end")[:-1]
@@ -69,8 +70,9 @@ def keysets():
     
     return [k1,k2,k3,k4,k5,k6]
 
+
+# Get the text from the ptext box and prepare it
 def gettext():
-    # Get the text from the ptext box
     T = ptext.get("1.0","end")[:-1]
     T = T.upper()
     
@@ -127,8 +129,6 @@ def randomize():
     controls = ",".join(C[5:])
     indexes = ",".join(I)
     
-    
-    
     ind1 = "".join(random.choices(alpha,k=5))
     ind2 = "".join(random.choices(alpha,k=5))
     ind3 = "".join(random.choices(nums,k=5))
@@ -157,7 +157,7 @@ decryptbutton = tk.Button(root, text="Decrypt", command = dec,
                           bg = 'lightgreen', font = ('arial',14,'bold'))
 
 
-resetbutton = tk.Button(root, text="Reset", command = Reset, 
+resetbutton = tk.Button(root, text="Clear", command = Reset, 
                        bg = 'lightslateblue', font = ('arial',14,'bold'))
 
 
@@ -181,7 +181,7 @@ explainLab1 = tk.Label(root,
                       padx = 10, pady = 10)
 
 explainLab2 = tk.Label(root,
-                      text="Cipher and Control Rotors must be five roman numerals between one and ten.\n\nIndex Rotors must be five roman numerals between oen and five.",
+                      text="Cipher and Control Rotors must be five roman numerals between one and ten.\n\nIndex Rotors must be five roman numerals between one and five.",
                       font = ('arial',12),
                       wraplength=220,
                       relief=tk.GROOVE,
