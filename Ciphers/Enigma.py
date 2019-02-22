@@ -46,37 +46,27 @@ def enigma(text,keys,decode=False):
     if len(keys) != 5:
         raise Exception('the "keys" argument must provide rotors, reflector, rotor positions, plugs, and ring settings')
     
+    # Dictionary of rotors and notch positions
+    rtrSelect = {"I":    ["EKMFLGDQVZNTOWYHXUSPAIBRCJ",18],
+                 "II":   ["AJDKSIRUXBLHWTMCQGZNPYFVOE",6],
+                 "III":  ["BDFHJLCPRTXVZNYEIWGAKMUSQO",14],
+                 "IV":   ["ESOVPZJAYQUIRHXLNFTGKDCMWB",11],
+                 "V":    ["VZBRGITYUPSDNHLXAWMJQOFECK",0],}
+    
+    # Dictionary of reflectors
+    refSelect = {"RA":  "EJMZALYXVBWFCRQUONTSPIKHGD",
+                 "RB":  "YRUHQSLDPXNGOKMIEBFZCWVJAT",
+                 "RC":  "FVPJIAOYEDRZXWGCTKUQSBNMHL",}
     
     # Check the rotors listed to get the wiring and notch positions for them
     rotors = []
     notches = []
     for num in keys[0]:
-        if num == "I":
-            rotors.append("EKMFLGDQVZNTOWYHXUSPAIBRCJ")
-            notches.append(18)
-        if num == "II":
-            rotors.append("AJDKSIRUXBLHWTMCQGZNPYFVOE")
-            notches.append(6)
-        if num == "III":
-            rotors.append("BDFHJLCPRTXVZNYEIWGAKMUSQO")
-            notches.append(14)
-        if num == "IV":
-            rotors.append("ESOVPZJAYQUIRHXLNFTGKDCMWB")
-            notches.append(11)
-        if num == "V":
-            rotors.append("VZBRGITYUPSDNHLXAWMJQOFECK")
-            notches.append(0)
+        rotors.append(rtrSelect[num][0])
+        notches.append(rtrSelect[num][1])
     
-
     # Get the wiring of the reflector
-    reflector = ""
-    if keys[1] == "RA":
-        reflector = "EJMZALYXVBWFCRQUONTSPIKHGD"
-    if keys[1] == "RB":
-        reflector = "YRUHQSLDPXNGOKMIEBFZCWVJAT"
-    if keys[1] == "RC":
-        reflector = "FVPJIAOYEDRZXWGCTKUQSBNMHL"
-    
+    reflector = refSelect[keys[1]]
     
     # Translate the letters of the rotor positions and ring positions to numbers
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -197,4 +187,4 @@ def enigmaExample():
         print(dtext)
 
 
-#enigmaExample()
+enigmaExample()
