@@ -143,12 +143,20 @@ exitbutton = tk.Button(root, text="Exit", command = qExit,
 # Labels
 ptextLab = tk.Label(root,text="Input:",font = ('arial',14))
 ctextLab = tk.Label(root,text="Output:",font = ('arial',14))
-explainLab = tk.Label(root,
+explainLab1 = tk.Label(root,
                       text="Plaintext can only include letters and spaces.",
                       font = ('arial',12),
-                      wraplength=200,
+                      wraplength=220,
                       relief=tk.GROOVE,
                       padx = 10, pady = 10)
+
+explainLab2 = tk.Label(root,
+                      text="Cipher and Control Rotors must be five roman numerals between one and ten.\n\nIndex Rotors must be five roman numerals between oen and five.",
+                      font = ('arial',12),
+                      wraplength=220,
+                      relief=tk.GROOVE,
+                      padx = 10, pady = 10)
+
 cipherLab =  tk.Label(root,text=" Cipher Settings",font = ('arial',10))
 controlLab = tk.Label(root,text="Control Settings",font = ('arial',10))
 indexLab =   tk.Label(root,text="  Index Settings",font = ('arial',10))
@@ -164,7 +172,8 @@ indicatorLab =  tk.Label(root,text="Indicators",font = ('arial',10))
 
 
 # Put everything in position
-explainLab.place(x=550,y=200)
+explainLab1.place(x=550,y=120)
+explainLab2.place(x=550,y=200)
 
 ptext.place(x=150,y=30)
 ptextLab.place(x=60,y=30)
