@@ -11,7 +11,7 @@ root.maxsize(800,600)
 root.minsize(800,600)
 
 # Title of the window
-root.title("SIGABA Emulator")
+root.title("SIGABA Simulation")
 
 # Textboxes
 ptext = tk.Text(root,height=8,width=40)

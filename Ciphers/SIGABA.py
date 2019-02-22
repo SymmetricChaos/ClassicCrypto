@@ -1,5 +1,22 @@
 #http://ucsb.curby.net/broadcast/thesis/thesis.pdf
 
+# SIGABA was among the most complex of the historical cipher machines as rather
+# than following a straightforward progression of the rotors their behavior was
+# controlled by two additional banks of rotors. In a sense it worked like an
+# Enigma machine with its rotors controlled by a second Engima machine. Unlike
+# the Engima there was no reflector so it was possible for a letter to encrypt
+# as itself.
+
+# Famously SIGABA was not only never broken but Axis cryptographers actually
+# gave up on trying to break it. This was in part because the United States was
+# extremely paranoid about the machine and its operation. No copy of the device
+# was ever captured. Despite this fear that it might have happened resulted in
+# the issuing of a complete new set of rotors.
+
+# The major practical weakness of the SIGABA was that it was impossible to use
+# in the field due to its weight and fragility. It could be used aboard ships
+# and in military bases for strategic communiations but was useless for
+# tactical information.
 
 
 # Pass a signal through a Cipher or Control rotors
