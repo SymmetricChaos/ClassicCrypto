@@ -108,7 +108,7 @@ keySettings = [cipher,control,index,indicator,controlPos,indexPos]
 SIGtext = ptext
 SIGtext = SIGtext.replace("Z","X")
 SIGtext = SIGtext.replace(" ","Z")
-decodetest(ptext,keySettings,SIGABA)
+decodetest(SIGtext,keySettings,SIGABA)
 
 
 # Hill Cipher
