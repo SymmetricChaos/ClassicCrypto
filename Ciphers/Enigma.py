@@ -54,9 +54,9 @@ def enigma(text,keys,decode=False):
                  "V":    ["VZBRGITYUPSDNHLXAWMJQOFECK",0],}
     
     # Dictionary of reflectors
-    refSelect = {"RA":  "EJMZALYXVBWFCRQUONTSPIKHGD",
-                 "RB":  "YRUHQSLDPXNGOKMIEBFZCWVJAT",
-                 "RC":  "FVPJIAOYEDRZXWGCTKUQSBNMHL",}
+    refSelect = {"A":  "EJMZALYXVBWFCRQUONTSPIKHGD",
+                 "B":  "YRUHQSLDPXNGOKMIEBFZCWVJAT",
+                 "C":  "FVPJIAOYEDRZXWGCTKUQSBNMHL",}
     
     # Check the rotors listed to get the wiring and notch positions for them
     rotors = []
@@ -151,7 +151,7 @@ def enigmaExample():
     # Randomly pick the rotors, the reflector, the positions, and the plugboard
     # settings for the day
     rotors = random.sample(["I","II","III","IV","V"],k=3)
-    reflector = random.choice(["RA","RB","RC"])
+    reflector = random.choice(["A","B","C"])
     positions = random.choices("ABCDEFGHIJKLMNOPQRSTUVWXYZ",k=3)
     plugs = []
     for i in groups(random.sample("ABCDEFGHIJKLMNOPQRSTUVWXYZ",k=20),2):
@@ -187,4 +187,4 @@ def enigmaExample():
         print(dtext)
 
 
-enigmaExample()
+#enigmaExample()

@@ -8,14 +8,18 @@ def AMSCO(text,key,decode=False):
     
     # Derive the key
     k = uniqueRank(key)
-    print(k)
+    #print(k)
 
     # Convert the text to a list for easy maniplation
     T = list(text)
     L = []
     
     # Divide the text into alternating groups of 2 and 1
-    for i in cycle([2,1]):
+    if decode == False:
+        e = [2,1]
+    else:
+        e = [1,2]
+    for i in cycle(e):
         
         if len(T) == 0:
             break
@@ -30,6 +34,13 @@ def AMSCO(text,key,decode=False):
     for i in x:
         print(i)
     
+    # Determine which columns are long
+    # Sometimes all columns are long but we correct for that by reducing the
+    # number of rows by 1.
+    longCols = [i for i in range(len(x[-1]))]
+    numRow = len(x)-1
+    numCol = len(k)
+    
     if decode == False:
     
         out = []
@@ -41,11 +52,18 @@ def AMSCO(text,key,decode=False):
         return "".join(out)
     
     if decode == True:
-        pass
+        out = []
+        for col in k:
+            for row in x:
+                if len(row) > col:
+                    out.append(row[col])
+    
+        return "".join(out)
 
 
 ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
 ptext = "INCOMPLETECOLUMNARWITHALTERNATINGSINGLELETTERSANDDIGRAPHS"
 ctext = AMSCO(ptext,"13204")
 print(ctext)
-dtext = AMSCO(ctext,"13204",decode=False)
+dtext = AMSCO(ctext,"13204",decode=True)
+print(dtext)

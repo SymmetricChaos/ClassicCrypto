@@ -90,7 +90,7 @@ decodetest(ptext,["4SQUARE2","10CODE7"],twoSquare)
 
 # Enigma Machine
 rotors = ["V","III","II"]
-reflector = "RB"
+reflector = "B"
 positions = ["H","L","B"]
 plugs = ["AB","CD","EF","GH"]
 rings = ["A","A","A"]
@@ -107,7 +107,6 @@ indexPos =   "02384"
 keySettings = [cipher,control,index,indicator,controlPos,indexPos]
 SIGtext = ptext
 SIGtext = SIGtext.replace("Z","X")
-SIGtext = SIGtext.replace(" ","Z")
 decodetest(SIGtext,keySettings,SIGABA)
 
 
