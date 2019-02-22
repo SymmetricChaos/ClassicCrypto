@@ -15,12 +15,12 @@ root.title("SIGABA Emulator")
 
 # Textboxes
 ptext = tk.Text(root,height=8,width=40)
-cipherRotors = tk.Text(root,height=1,width=12)
-controlRotors = tk.Text(root,height=1,width=12)
-indexRotors = tk.Text(root,height=1,width=12)
-indicator =  tk.Text(root,height=1,width=7)
-controlPos = tk.Text(root,height=1,width=7)
-indexPos =   tk.Text(root,height=1,width=7)
+cipherRotors = tk.Text(root,height=1,width=20)
+controlRotors = tk.Text(root,height=1,width=20)
+indexRotors = tk.Text(root,height=1,width=20)
+indicator =  tk.Text(root,height=1,width=10)
+controlPos = tk.Text(root,height=1,width=10)
+indexPos =   tk.Text(root,height=1,width=10)
 ctext = tk.Text(root,height=8,width=40)
 
 # Exit Button
@@ -43,6 +43,31 @@ def focus_next_widget(event):
     event.widget.tk_focusNext().focus()
     return("break")
 
+def keysets():
+
+    
+    # Get the key settings
+    k1 = cipherRotors.get("1.0","end")[:-1]
+    k2 = controlRotors.get("1.0","end")[:-1]
+    k3 = indexRotors.get("1.0","end")[:-1]
+    
+    k1 = k1.replace(" ","")
+    k1 = k1.split(",")
+    
+        
+    k2 = k2.replace(" ","")
+    k2 = k2.split(",")
+        
+    k3 = k3.replace(" ","")
+    k3 = k3.split(",")
+    
+    
+    k4 = indicator.get("1.0","end")[:-1]
+    k5 = controlPos.get("1.0","end")[:-1]
+    k6 = indexPos.get("1.0","end")[:-1]
+    
+    return [k1,k2,k3,k4,k5,k6]
+
 # Encrypt function
 def enc(): 
 
@@ -55,22 +80,13 @@ def enc():
             ctext.insert("insert","Letters and spaces only.")
             break
     
-    # Get the key settings
-    k1 = cipherRotors.get("1.0","end")[:-1]
-    k2 = controlRotors.get("1.0","end")[:-1]
-    k3 = indexRotors.get("1.0","end")[:-1]
-    k4 = indicator.get("1.0","end")[:-1]
-    k5 = controlPos.get("1.0","end")[:-1]
-    k6 = indexPos.get("1.0","end")[:-1]
+    K = keysets()
     
-
-    
-   
     ctext.delete("1.0","end")
     
-    # Try encrypting
+    # Try decrypting
     try:
-        tx = SIGABA(T,[k1,k2,k3,k4,k5,k6],decode=False)
+        tx = SIGABA(T,K,decode=False)
     except Exception as e:
         ctext.insert("insert",str(e)) 
     
@@ -92,18 +108,14 @@ def dec():
             break
     
     # Get the key settings
-    k1 = cipherRotors.get("1.0","end")[:-1]
-    k2 = controlRotors.get("1.0","end")[:-1]
-    k3 = indexRotors.get("1.0","end")[:-1]
-    k4 = indicator.get("1.0","end")[:-1]
-    k5 = controlPos.get("1.0","end")[:-1]
-    k6 = indexPos.get("1.0","end")[:-1]
+    K = keysets()
+    
     
     ctext.delete("1.0","end")
     
     # Try decrypting
     try:
-        tx = SIGABA(T,[k1,k2,k3,k4,k5,k6],decode=True)
+        tx = SIGABA(T,K,decode=True)
     except Exception as e:
         ctext.insert("insert",str(e)) 
     
@@ -163,15 +175,15 @@ controlLab.place(x=45,y=220)
 indexLab.place(x=45,y=250)
 
 rotorLab.place(x=150,y=165)
-indicatorLab.place(x=300,y=165)
+indicatorLab.place(x=330,y=165)
 
 # Setting inputs
 cipherRotors.place(x=150,y=190)
 controlRotors.place(x=150,y=220)
 indexRotors.place(x=150,y=250)
-indicator.place(x=300,y=190)
-controlPos.place(x=300,y=220)
-indexPos.place(x=300,y=250)
+indicator.place(x=330,y=190)
+controlPos.place(x=330,y=220)
+indexPos.place(x=330,y=250)
 
 # Buttons
 encryptbutton.place(x=150,y=290)
