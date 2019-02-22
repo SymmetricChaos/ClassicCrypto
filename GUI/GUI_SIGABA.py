@@ -15,12 +15,14 @@ root.title("SIGABA Emulator")
 
 # Textboxes
 ptext = tk.Text(root,height=8,width=40)
+
 cipherRotors = tk.Text(root,height=1,width=20)
-controlRotors = tk.Text(root,height=1,width=20)
-indexRotors = tk.Text(root,height=1,width=20)
 indicator =  tk.Text(root,height=1,width=10)
+controlRotors = tk.Text(root,height=1,width=20)
 controlPos = tk.Text(root,height=1,width=10)
+indexRotors = tk.Text(root,height=1,width=20)
 indexPos =   tk.Text(root,height=1,width=10)
+
 ctext = tk.Text(root,height=8,width=40)
 
 # Exit Button
@@ -165,9 +167,14 @@ indicatorLab =  tk.Label(root,text="Indicators",font = ('arial',10))
 
 
 # Tab control
-#ptext.bind("<Tab>", focus_next_widget)
-#key.bind("<Tab>", focus_next_widget)
-#ctext.bind("<Tab>", focus_next_widget)
+ptext.bind("<Tab>", focus_next_widget)
+cipherRotors.bind("<Tab>", focus_next_widget)
+indicator.bind("<Tab>", focus_next_widget)
+controlRotors.bind("<Tab>", focus_next_widget)
+controlPos.bind("<Tab>", focus_next_widget)
+indexRotors.bind("<Tab>", focus_next_widget)
+indexPos.bind("<Tab>", focus_next_widget)
+ctext.bind("<Tab>", focus_next_widget)
 
 
 
@@ -188,10 +195,12 @@ indicatorLab.place(x=330,y=165)
 
 # Setting inputs
 cipherRotors.place(x=150,y=190)
-controlRotors.place(x=150,y=220)
-indexRotors.place(x=150,y=250)
 indicator.place(x=330,y=190)
+
+controlRotors.place(x=150,y=220)
 controlPos.place(x=330,y=220)
+
+indexRotors.place(x=150,y=250)
 indexPos.place(x=330,y=250)
 
 # Buttons
