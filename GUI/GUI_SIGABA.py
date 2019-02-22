@@ -1,6 +1,7 @@
 import tkinter as tk
-
+import random
 from Ciphers.SIGABA import SIGABA
+
 
 # Create the window
 root = tk.Tk()
@@ -16,11 +17,11 @@ root.title("SIGABA Emulator")
 ptext = tk.Text(root,height=8,width=40)
 
 cipherRotors = tk.Text(root,height=1,width=20)
-indicator =  tk.Text(root,height=1,width=10)
+indicator =  tk.Text(root,height=1,width=8)
 controlRotors = tk.Text(root,height=1,width=20)
-controlPos = tk.Text(root,height=1,width=10)
+controlPos = tk.Text(root,height=1,width=8)
 indexRotors = tk.Text(root,height=1,width=20)
-indexPos =   tk.Text(root,height=1,width=10)
+indexPos =   tk.Text(root,height=1,width=8)
 
 ctext = tk.Text(root,height=8,width=40)
 
@@ -46,7 +47,6 @@ def focus_next_widget(event):
 
 def keysets():
 
-    
     # Get the key settings
     k1 = cipherRotors.get("1.0","end")[:-1]
     k2 = controlRotors.get("1.0","end")[:-1]
@@ -69,9 +69,7 @@ def keysets():
     
     return [k1,k2,k3,k4,k5,k6]
 
-# Encrypt function
-def enc(): 
-
+def gettext():
     # Get the text from the ptext box
     T = ptext.get("1.0","end")[:-1]
     T = T.upper()
@@ -81,7 +79,13 @@ def enc():
             ctext.insert("insert","Letters and spaces only.")
             break
     
+    return T
+
+# Encrypt function
+def enc(): 
+
     K = keysets()
+    T = gettext()
     
     ctext.delete("1.0","end")
     
@@ -93,24 +97,11 @@ def enc():
     
     ctext.insert("insert",tx)
          
-
-
 # Decrypt function 
 def dec(): 
 
-
-    # Get the text from the ptext box
-    T = ptext.get("1.0","end")[:-1]
-    T = T.upper()
-    
-    for i in T:
-        if i not in "ABCDEFGHIJKLMNOPQRSTUVWXYZ ":
-            ctext.insert("insert","Letters and spaces only.")
-            break
-    
-    # Get the key settings
     K = keysets()
-    
+    T = gettext()
     
     ctext.delete("1.0","end")
     
@@ -121,7 +112,41 @@ def dec():
         ctext.insert("insert",str(e)) 
     
     ctext.insert("insert",tx)
-        
+    
+# Randomize Key Settings
+def randomize():
+    
+    C = ["I","II","III","IV","V","VI","VII","VIII","IX","X"]
+    I = ["I","II","III","IV","V"]
+    alpha = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    nums = list("0123456789")
+    random.shuffle(C)
+    random.shuffle(I)
+    
+    ciphers = ",".join(C[:5])
+    controls = ",".join(C[5:])
+    indexes = ",".join(I)
+    
+    
+    
+    ind1 = "".join(random.choices(alpha,k=5))
+    ind2 = "".join(random.choices(alpha,k=5))
+    ind3 = "".join(random.choices(nums,k=5))
+    
+    cipherRotors.delete("1.0","end")
+    controlRotors.delete("1.0","end")
+    indexRotors.delete("1.0","end")
+    indicator.delete("1.0","end")
+    controlPos.delete("1.0","end")
+    indexPos.delete("1.0","end")
+    
+    cipherRotors.insert("insert",ciphers)
+    controlRotors.insert("insert",controls)
+    indexRotors.insert("insert",indexes)
+    indicator.insert("insert",ind1)
+    controlPos.insert("insert",ind2)
+    indexPos.insert("insert",ind3)
+    
 
 # Button to run cipher in encrypt mode
 encryptbutton = tk.Button(root, text="Encrypt", command = enc,
@@ -140,6 +165,10 @@ resetbutton = tk.Button(root, text="Reset", command = Reset,
 exitbutton = tk.Button(root, text="Exit", command = qExit, 
                        bg = 'salmon', font = ('arial',14,'bold'))
 
+
+# Button to randomize key settings
+randombutton = tk.Button(root, text="Random\nSettings", command = randomize, 
+                       bg = 'orange', font = ('arial',10))
 
 # Labels
 ptextLab = tk.Label(root,text="Input:",font = ('arial',14))
@@ -206,10 +235,13 @@ indexPos.place(x=330,y=250)
 encryptbutton.place(x=150,y=290)
 decryptbutton.place(x=250,y=290)
 resetbutton.place(x=400,y=290)
+randombutton.place(x=430,y=190)
 
 ctext.place(x=150,y=350)
 ctextLab.place(x=50,y=350)
 
 exitbutton.place(x=150,y=500)
+
+randomize()
 
 root.mainloop()
