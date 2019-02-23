@@ -62,21 +62,23 @@ def num2ltr(K):
 def overlaps(lugs,lugp):
     overlaps = {}
     numOverlap = 0
+    
     for bar in range(27):
         ctr = 0
         for wheel in range(6):
             if lugp[bar][wheel]:
                ctr += 1
+    
         if ctr > 1:
             numOverlap += 1
             indx = ""
             for wheel in range(6):
                 if lugp[bar][wheel]:
                     indx += str(wheel)
-                if indx in overlaps:
-                    overlaps[indx] += 1 
-                else:
-                    overlaps[indx] = 1 
+            if indx in overlaps:
+                overlaps[indx] += 1 
+            else:
+                overlaps[indx] = 1 
     return overlaps
 
 def M209(text,key,decode=False):
