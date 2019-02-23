@@ -61,6 +61,8 @@ def num2ltr(K):
 
 def overlaps(lugs,lugp):
     overlaps = {}
+    for i in ['01','02','03','04','05','12','13','14','15','23','24','25','34','35','45']:
+        overlaps[i] = 0
     numOverlap = 0
     
     for bar in range(27):
@@ -75,18 +77,40 @@ def overlaps(lugs,lugp):
             for wheel in range(6):
                 if lugp[bar][wheel]:
                     indx += str(wheel)
-            if indx in overlaps:
-                overlaps[indx] += 1 
-            else:
-                overlaps[indx] = 1 
+
+            overlaps[indx] += 1 
+
     return overlaps
+
+# Use pins and overlaps to calculate total overlaps
+def totaloverlaps(O,P,i):
+    total = [
+            P[0][i%26]*P[1][i%25]*O['01'],
+            P[0][i%26]*P[2][i%23]*O['02'],
+            P[0][i%26]*P[3][i%21]*O['03'],
+            P[0][i%26]*P[4][i%19]*O['04'],
+            P[0][i%26]*P[5][i%17]*O['05'],
+            P[1][i%25]*P[2][i%23]*O['12'],
+            P[1][i%25]*P[3][i%21]*O['13'],
+            P[1][i%25]*P[4][i%19]*O['14'],
+            P[1][i%25]*P[5][i%17]*O['15'],
+            P[2][i%23]*P[3][i%21]*O['23'],
+            P[2][i%23]*P[4][i%19]*O['24'],
+            P[2][i%23]*P[5][i%17]*O['25'],
+            P[3][i%21]*P[4][i%19]*O['34'],
+            P[3][i%21]*P[5][i%17]*O['35'],
+            P[4][i%19]*P[5][i%17]*O['45']
+            ]
+
+    return sum(total)
+    
 
 def M209(text,key,decode=False):
     
     text = ltr2num(text)
     indi = ltr2num(key[0])
     pins = transPins(key[1])
-    acpins = activePins(key[1])
+    #acpins = activePins(key[1])
     lugs = countLugs(key[2])
     lugp = lugPos(key[2])
     over = overlaps(lugs,lugp)
@@ -104,7 +128,7 @@ def M209(text,key,decode=False):
     
     wheelLen = [26,25,23,21,19,17]
     sh = [15,14,13,12,11,10]
-    
+    sl = 25
     
     pins[0] = [1,1,0,1,0,0,0,1,1,0,1,0,1,1,0,0,0,0,1,1,0,1,1,0,0,0]
     pins[1] = [1,0,0,1,1,0,1,0,0,1,1,1,0,0,1,0,0,1,1,0,1,0,1,0,0]
@@ -133,22 +157,26 @@ def M209(text,key,decode=False):
     
     over = overlaps(lugs,lugp)
     print(over)
+    print()
     
     L = []
-    out = []
     for k,letter in enumerate(text):
         s = 0
         for w in range(6):
             #print(sh[w],indi[w],k,lugs[w])
-            s += pins[w][ (sh[w] + indi[w] + k) % wheelLen[w]] * lugs[w]
+            s += ( pins[w][ (sh[w] + indi[w] + k) % wheelLen[w]] * lugs[w] )
         
-        L.append((letter+s)%26)
-        #print()
+        ov = totaloverlaps(over,pins,k)
+        
+        KK = (s-ov) % 26
+        print("{:<3} {:<3} {:<3} {:<3} {:<3}".format(letter,s,ov,(s-ov)%26,((sl+KK)-letter) % 26))
+        
+        L.append( ((sl+KK)-letter) % 26)
         #print()
 
     #printColumns(L,10,4)
     
-    print(num2ltr(L))
+    return "".join( num2ltr(L) )
     
 def M209Example():
     
@@ -174,6 +202,6 @@ def M209Example():
     
     printColumns(lugs,6)
     
-    M209("THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG",["PEOPLE",pins,lugs])
+    print(M209("ATTACKZATZDAWN",["PEOPLE",pins,lugs]))
     
 M209Example()
