@@ -1,3 +1,6 @@
+# http://www.jfbouch.fr/crypto/m209/WORK/mathematical.html
+# http://www.jfbouch.fr/crypto/m209/WORK/computer.html
+
 from Ciphers.UtilityFunctions import printColumns
 
 # The M209 was, in sense, one of the simplest of the cipher machines as it was
@@ -12,11 +15,37 @@ def transPins(P):
     return out
 
 
+# Count up the lugs in each wheel position keeping in mind that 0 is in effective
+# and that Python arrays start at zero.
+def countLugs(L):
+    count = [0,0,0,0,0,0]
+    for l in L:
+        for pos in l:
+            if pos != 0:
+                count[pos-1] += 1
+    return count
+
+def activePins(P):
+    out = []
+    for pinList in P:
+        s = []
+        for pos,pin in enumerate(pinList):
+            if pin == "+":
+                s.append(pos)
+        out.append(s)
+    return out
+
 def M209(text,key,decode=False):
     
     indi = key[0]
     pins = transPins(key[1])
-    lugs = key[2]
+    acpins = activePins(key[1])
+    lugs = countLugs(key[2])
+    
+    #for setting in [lugs,pins,acpins]:
+    #    for i in setting:
+    #        print(i)
+    #   print()
     
     R1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     R2 = "ABCDEFGHIJKLMNOPQRSTUVXYZ" 
@@ -24,13 +53,19 @@ def M209(text,key,decode=False):
     R4 = "ABCDEFGHIJKLMNOPQRSTU"
     R5 = "ABCDEFGHIJKLMNOPQRS"
     R6 = "ABCDEFGHIJKLMNOPQ"
+    wheelLen = [26,25,23,21,19,17]
     
-    print(pins[0][1])
+    for k in range(20):
+        s = 0
+        for w in range(6):
+            s += pins[w][k % wheelLen[w]]*lugs[w]
+        print(s%26)
+
 
 def M209Example():
     
     import random
-    
+    random.seed(1)
     # Pins can be in either effective + or ineffective - positions
     pins = []
     for p in [26,25,23,21,19,17]:
