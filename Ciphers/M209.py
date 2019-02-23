@@ -4,10 +4,18 @@ from Ciphers.UtilityFunctions import printColumns
 # operated entirely mechanically. However the machine settings were extremely
 # elaborate.
 
+# Translate the nice looking +-+-+ string into a list of 0s and 1s
+def transPins(P):
+    out = []
+    for pins in P:
+        out.append( [0 if i == "-" else 1 for i in pins] )
+    return out
+
+
 def M209(text,key,decode=False):
     
     indi = key[0]
-    pins = key[1]
+    pins = transPins(key[1])
     lugs = key[2]
     
     R1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
