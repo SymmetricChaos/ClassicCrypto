@@ -35,6 +35,9 @@ def activePins(P):
         out.append(s)
     return out
 
+#def overlaps(P,L):
+    
+
 def M209(text,key,decode=False):
     
     indi = key[0]
@@ -54,14 +57,33 @@ def M209(text,key,decode=False):
     R5 = "ABCDEFGHIJKLMNOPQRS"
     R6 = "ABCDEFGHIJKLMNOPQ"
     wheelLen = [26,25,23,21,19,17]
+    sh = [15,14,13,12,11,10]
+    indi = [15,4,14,15,11,4]
+    pins[0] = [1,1,0,1,0,0,0,1,1,0,1,0,1,1,0,0,0,0,1,1,0,1,1,0,0,0]
+    pins[1] = [1,0,0,1,1,0,1,0,0,1,1,1,0,0,1,0,0,1,1,0,1,0,1,0,0]
+    pins[2] = [1,1,0,0,0,0,1,1,0,1,0,1,1,1,0,0,0,1,1,1,1,0,1]
+    pins[3] = [0,0,1,0,1,1,0,1,1,0,0,0,1,1,0,1,0,0,1,1,1]
+    pins[4] = [0,1,0,1,1,1,0,1,1,0,0,0,1,1,0,1,0,0,1]
+    pins[5] = [1,1,0,1,0,0,0,1,0,0,1,0,0,1,1,0,1]
     
+    lugs[0] = 2
+    lugs[1] = 12
+    lugs[2] = 1
+    lugs[3] = 5
+    lugs[4] = 10
+    lugs[5] = 3
+    
+    L = []
     for k in range(20):
         s = 0
         for w in range(6):
-            s += pins[w][k % wheelLen[w]]*lugs[w]
-        print(s%26)
+            #print(sh[w],indi[w],k,lugs[w])
+            s += pins[w][ (sh[w] + indi[w] + k) % wheelLen[w]] * lugs[w]
+        L.append(s)
+        #print(s%26)
+        #print()
 
-
+    printColumns(L,10,4)
 def M209Example():
     
     import random
