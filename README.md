@@ -56,7 +56,8 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 
 #### Rotor Machines
 * Enigma
-* SIGABA (pending validation)
+* SIGABA
+* M209 (in progress)
 
 #### Other Substitution Ciphers
 * Hill's Matrix Cipher
