@@ -1,11 +1,14 @@
+from Ciphers.UtilityFunctions import printColumns
+
 # The M209 was, in sense, one of the simplest of the cipher machines as it was
 # operated entirely mechanically. However the machine settings were extremely
 # elaborate.
 
 def M209(text,key,decode=False):
     
-    pins = key[0]
-    lugs = key[0]
+    indi = key[0]
+    pins = key[1]
+    lugs = key[2]
     
     R1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     R2 = "ABCDEFGHIJKLMNOPQRSTUVXYZ" 
@@ -14,7 +17,7 @@ def M209(text,key,decode=False):
     R5 = "ABCDEFGHIJKLMNOPQRS"
     R6 = "ABCDEFGHIJKLMNOPQ"
     
-
+    print(pins[0][1])
 
 def M209Example():
     
@@ -38,6 +41,8 @@ def M209Example():
         
         lugs.append(random.sample([0,0,1,2,3,4,5,6],k=2))
     
-    for i in lugs:
-        print(i)
+    printColumns(lugs,6)
+    
+    M209("THEQUICKBROWNFOX",["AAAAA",pins,lugs])
+    
 M209Example()

@@ -340,3 +340,20 @@ def restoreFormat(S,pos,char,case):
     for ps,ch in zip(pos,char):
         S = S[:ps] + ch + S[ps:]
     return S
+
+# Given a list and a number of columns print the list into
+# that many columns. If desired specifiy a width for the
+# columns.
+def printColumns(L,N,W=0):
+    
+    # By default assume all are the same width and with one space
+    if W == 0:
+        W = len(str(L[0]))+1
+    
+    for ctr,element in enumerate(L,1):
+        s = "{: <{}}".format(str(element),W)
+        print(s,end="")
+        if ctr % N == 0 or ctr == len(L):
+            print()
+    
+    
