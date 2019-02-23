@@ -41,6 +41,7 @@ from Ciphers.PrimeHillCipher import primeHillCipher
 from Ciphers.TwoSquare import twoSquare
 from Ciphers.Hutton import hutton
 from Ciphers.Quagmire import quagmire1, quagmire2, quagmire3, quagmire4
+from Ciphers.AMSCO import AMSCO
 
 # Monoalphabetic
 decodetest(ptext,1,caesar)
@@ -140,3 +141,4 @@ decodetest(ptext,5766645,nomenclator)
 decodetest(ptext,"TABLES",columnarTransport)
 decodetest(ptext,["GIGANTIC","TABLES"],doubleColumnarTransport)
 decodetest(ptext,5,railfence)
+decodetest(ptext,"GIGANTIC",AMSCO)

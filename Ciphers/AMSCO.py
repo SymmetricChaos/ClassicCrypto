@@ -38,8 +38,8 @@ def AMSCO(text,key,decode=False):
 
     if decode == False:
         
-        for i in x:
-            print(i)
+        #for i in x:
+        #    print(i)
     
         out = []
         for col in argsort(k):
@@ -51,7 +51,8 @@ def AMSCO(text,key,decode=False):
     
     if decode == True:
         
-        
+        #for i in x:
+        #    print(i)
         # In order to decode we need to figure out a bunch about the grid that
         # was used based on what the key is. We don't care what is in the grid
         # right now only how many letters are in each cell because this is the
@@ -69,28 +70,67 @@ def AMSCO(text,key,decode=False):
         colLens = {}
         for i,s in zip(range(numCol),k):
             ctr = 0
+            
             for j in range(numRow):
                 ctr += len(x[j][i])
-                if ctr == 2:
-                    n = "even"
-                if ctr == 1:
-                    n = "odd"
+
+            if len(x[0][i]) == 2:
+                n = "even"
+            if len(x[0][i]) == 1:
+                n = "odd"
+
             colLens[s] = [ctr,n]
-            
         
+        G = []
         ctr = 0
         for i in range(numCol):
             l,e = colLens[i]
-            print(alternating(text[ctr:ctr+l],e))
-            ctr += l
+            
+            # If the key length is odd alternate the groupings
+            if len(k) % 2 == 1:
+                G.append( alternating(text[ctr:ctr+l],e) )
+                ctr += l
+            # Otherwise groups of 2 or groups of 1
+            else:
+                if e == "even":
+                    G.append( groups(text[ctr:ctr+l],2) )
+                if e == "odd":
+                    G.append( groups(text[ctr:ctr+l],1) )
+                ctr += l
         
+        # These groups also need to be evened out in length with zero length
+        # strings
+        for i in G:
+            if len(i) < numRow:
+                i.append("")
+        
+        #print(numRow)
+        #for i in G:
+        #    print(len(i),end="  ")
+        #    print(i)
+        
+        out = []
+        for j in range(numRow):
+            for i in k:
+                out.append(G[i][j])
+        
+        return "".join(out)
         
 
-
-ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-ptext = "INCOMPLETECOLUMNARWITHALTERNATINGSINGLELETTERSANDDIGRAPHS"
-ctext = AMSCO(ptext,"13204")
-print(ctext)
-print()
-dtext = AMSCO(ctext,"13204",decode=True)
-print(dtext)
+def AMSCOExample():
+    import random
+    
+    alpha = list("ABCDEFGHIJKLMNOPQRSTUVWZYZ")
+    random.shuffle(alpha)
+    l = random.randint(4,12)
+    
+    key = alpha[:l]
+    
+    print(key)
+    
+    ptext = "INCOMPLETECOLUMNARWITHALTERNATINGSINGLELETTERSAND"
+    ctext = AMSCO(ptext,key)
+    dtext = AMSCO(ctext,key,decode=True)
+    print(ptext)
+    print(ctext)
+    print(dtext)
