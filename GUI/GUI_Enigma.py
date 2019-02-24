@@ -7,8 +7,8 @@ from Ciphers.UtilityFunctions import preptext
 root = tk.Tk()
 
 # Don't let the user change the window size
-root.maxsize(800,600)
-root.minsize(800,600)
+root.maxsize(800,700)
+root.minsize(800,700)
 
 # Title of the window
 root.title("Enigma Emulator")
@@ -23,6 +23,25 @@ plugboard = tk.Text(root,height=1,width=20)
 ringsets = tk.Text(root,height=1,width=4)
 
 ctext = tk.Text(root,height=8,width=40)
+
+R1 = tk.StringVar()
+R1.set(0)
+rotorG1 = []
+for i,j in zip(["I","II","III","IV","V"],[0,1,2,3,4]):
+    rotorG1.append(tk.Radiobutton(root, text = i, variable = R1, value = j) )
+
+R2 = tk.StringVar()
+R2.set(1)
+rotorG2 = []
+for i,j in zip(["I","II","III","IV","V"],[0,1,2,3,4]):
+    rotorG2.append(tk.Radiobutton(root, text = i, variable = R2, value = j) )
+
+R3 = tk.StringVar()
+R3.set(2)
+rotorG3 = []
+for i,j in zip(["I","II","III","IV","V"],[0,1,2,3,4]):
+    rotorG3.append(tk.Radiobutton(root, text = i, variable = R3, value = j) )
+
 
 # Exit Button
 def qExit(): 
@@ -47,14 +66,16 @@ def focus_next_widget(event):
 # Get the key settings
 def keysets():
 
-    k1 = rotors.get("1.0","end")[:-1]
+    rtrL = ["I","II","III","IV","V"]
+    
+    RG = [R1.get(), R2.get(), R3.get()]
+    k1 = [rtrL[int(i)] for i in RG]
+    
     k2 = reflector.get("1.0","end")[:-1]
     k3 = positions.get("1.0","end")[:-1]
     k4 = plugboard.get("1.0","end")[:-1]
     k5 = ringsets.get("1.0","end")[:-1]
     
-    k1 = k1.replace(" ","")
-    k1 = k1.split(",")
     
     k4 = k4.replace(" ","")
     k4 = k4.split(",")
@@ -65,7 +86,7 @@ def keysets():
 # Get the text from the ptext box and prepare it
 def gettext():
     T = ptext.get("1.0","end")[:-1]
-    T = preptext(T)
+    T = preptext(T,silent=True)
         
     return T
 
@@ -74,7 +95,6 @@ def enc():
 
     K = keysets()
     T = gettext()
-    print(K)
     ctext.delete("1.0","end")
     
     # Try decrypting
@@ -103,6 +123,11 @@ def dec():
 
 # Randomize Key Settings
 def randomize():
+    
+    rtr = list("01234")
+    random.shuffle(rtr)
+    for radio,pos in zip([R1,R2,R3],rtr[:3]):
+        radio.set(pos)
     
     C = ["I","II","III","IV","V"]
     random.shuffle(C)
@@ -178,6 +203,12 @@ explainLab2 = tk.Label(root,
                       relief=tk.GROOVE,
                       padx = 10, pady = 10)
 
+explainLab3 = tk.Label(root,
+                      text="Rotor",
+                      font = ('arial',12),
+                      wraplength=220,
+                      relief=tk.GROOVE,
+                      padx = 10, pady = 10)
 
 
 # Tab control
@@ -185,12 +216,6 @@ ptext.bind("<Tab>", focus_next_widget)
 
 ctext.bind("<Tab>", focus_next_widget)
 
-
-reflector.delete("1.0","end")
-rotors.delete("1.0","end")
-positions.delete("1.0","end")
-ringsets.delete("1.0","end")
-plugboard.delete("1.0","end")
 
 # Put everything in position
 explainLab1.place(x=550,y=120)
@@ -200,25 +225,27 @@ ptext.place(x=150,y=30)
 ptextLab.place(x=60,y=30)
 
 # Setting Labels
-
-
+keysets()
 # Setting inputs
-reflector.place(x=150,y=190)
-rotors.place(x=185,y=190)
-positions.place(x=275,y=190)
-plugboard.place(x=150,y=220)
-ringsets.place(x=150,y=250)
+#reflector.place(x=150,y=190)
+for x,rg in enumerate([rotorG1,rotorG2,rotorG3]):
+    for y,button in enumerate(rg):
+        button.place(x=180+x*45,y=190+y*20)
+
+#positions.place(x=275,y=190)
+#plugboard.place(x=150,y=220)
+#ringsets.place(x=150,y=250)
 
 # Buttons
-encryptbutton.place(x=150,y=290)
-decryptbutton.place(x=250,y=290)
-resetbutton.place(x=400,y=290)
+encryptbutton.place(x=150,y=340)
+decryptbutton.place(x=250,y=340)
+resetbutton.place(x=400,y=340)
 randombutton.place(x=400,y=190)
 
-ctext.place(x=150,y=350)
-ctextLab.place(x=50,y=350)
+ctext.place(x=150,y=400)
+ctextLab.place(x=50,y=400)
 
-exitbutton.place(x=150,y=500)
+exitbutton.place(x=150,y=550)
 
 randomize()
 
