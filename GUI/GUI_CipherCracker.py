@@ -1,5 +1,6 @@
 import tkinter as tk
 from Attacks.SubstitutionCracker import substitutionCracker
+from Ciphers.UtilityFunctions import saveFormat, restoreFormat
 
 # Create the window
 root = tk.Tk()
@@ -16,7 +17,7 @@ ctext = tk.Text(root,height=10,width=50)
 ptext = tk.Text(root,height=10,width=50)
 
 rounds = tk.Text(root,height=1,width=5)
-
+rounds.insert("insert","10")
 # Exit Button
 def qExit(): 
     root.destroy() 
@@ -32,13 +33,15 @@ def crackIt():
 
     # Get the text from the ptext box
     T = ctext.get("1.0","end")[:-1]
+    T, pos, char,case = saveFormat(T)
 
     R = int(rounds.get("1.0","end")[:-1])
 
+    tx = substitutionCracker(T,R)
+
     # Blank the ctext box then put the text in it
     ptext.delete("1.0","end")
-    ptext.insert("insert",substitutionCracker(T,R)) 
-
+    ptext.insert("insert",restoreFormat(tx, pos, char,case))
   
 # Button to run cipher in encrypt mode
 crackbutton = tk.Button(root, text="Solve", command = crackIt,
@@ -57,7 +60,7 @@ exitbutton = tk.Button(root, text="Exit", command = qExit,
 ptextLab = tk.Label(root,text="Plaintext:",font = ('arial',14))
 ctextLab = tk.Label(root,text="Ciphertext:",font = ('arial',14))
 
-describe = tk.Label(root,text="Provide ciphertext as uppercase letters from the standard English alphabet. You may have to run the program multiple times.",
+describe = tk.Label(root,text="You may have to run the program multiple times.",
                     font = ('arial',12),
                     wraplength=200,
                     relief=tk.GROOVE,
