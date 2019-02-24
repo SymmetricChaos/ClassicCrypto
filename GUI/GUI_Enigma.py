@@ -17,12 +17,17 @@ root.title("Enigma Emulator")
 ptext = tk.Text(root,height=8,width=40)
 
 reflector = tk.Text(root,height=1,width=3)
-rotors = tk.Text(root,height=1,width=10)
 positions = tk.Text(root,height=1,width=4)
 plugboard = tk.Text(root,height=1,width=20)
 ringsets = tk.Text(root,height=1,width=4)
 
 ctext = tk.Text(root,height=8,width=40)
+
+RE = tk.StringVar()
+RE.set(0)
+reflectG = []
+for i,j in zip(["A","B","C"],[0,1,2]):
+    reflectG.append(tk.Radiobutton(root, text = i, variable = RE, value = j) )
 
 R1 = tk.StringVar()
 R1.set(0)
@@ -52,7 +57,6 @@ def Reset():
     ctext.delete("1.0","end")
     ptext.delete("1.0","end")
     reflector.delete("1.0","end")
-    rotors.delete("1.0","end")
     positions.delete("1.0","end")
     plugboard.delete("1.0","end")
     ringsets.delete("1.0","end")
@@ -129,9 +133,8 @@ def randomize():
     for radio,pos in zip([R1,R2,R3],rtr[:3]):
         radio.set(pos)
     
-    C = ["I","II","III","IV","V"]
-    random.shuffle(C)
-    R = ["A","B","C"]
+    RE.set(random.randint(0,2))
+    
     
     alpha = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     random.shuffle(alpha)
@@ -143,21 +146,15 @@ def randomize():
              "".join(alpha[8:10]),
              "".join(alpha[10:12])]
     
-    k1 = ",".join(C[:3])
-    k2 = random.choice(R)
     k3 = "".join(random.choices(alpha,k=3))
     k4 = "".join(random.choices(alpha,k=3))
     k5 = ",".join(plugs)
     
-    reflector.delete("1.0","end")
-    rotors.delete("1.0","end")
     positions.delete("1.0","end")
     ringsets.delete("1.0","end")
     plugboard.delete("1.0","end")
     
     
-    reflector.insert("insert",k2)
-    rotors.insert("insert",k1)
     positions.insert("insert",k3)
     ringsets.insert("insert",k4)
     plugboard.insert("insert",k5)
@@ -228,9 +225,9 @@ ptextLab.place(x=60,y=30)
 keysets()
 # Setting inputs
 #reflector.place(x=150,y=190)
-for x,rg in enumerate([rotorG1,rotorG2,rotorG3]):
+for x,rg in enumerate([reflectG,rotorG1,rotorG2,rotorG3]):
     for y,button in enumerate(rg):
-        button.place(x=180+x*45,y=190+y*20)
+        button.place(x=160+x*45,y=190+y*20)
 
 #positions.place(x=275,y=190)
 #plugboard.place(x=150,y=220)
