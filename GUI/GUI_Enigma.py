@@ -11,7 +11,7 @@ root.maxsize(800,600)
 root.minsize(800,600)
 
 # Title of the window
-root.title("SIGABA Simulation")
+root.title("Enigma Simulation")
 
 # Textboxes
 ptext = tk.Text(root,height=8,width=40)
@@ -104,29 +104,33 @@ def randomize():
     R = ["A","B","C"]
     
     alpha = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-
+    random.shuffle(alpha)
     
-    ciphers = ",".join(C[:3])
-    reflect = random.choice(R)
-    indexes = ",".join(I)
+    plugs = ["".join(alpha[:2]),
+             "".join(alpha[2:4]),
+             "".join(alpha[4:6]),
+             "".join(alpha[6:8]),
+             "".join(alpha[8:10])]
     
-    ind1 = "".join(random.choices(alpha,k=5))
-    ind2 = "".join(random.choices(alpha,k=5))
-    ind3 = "".join(random.choices(nums,k=5))
+    k1 = ",".join(C[:3])
+    k2 = random.choice(R)
+    k3 = random.choices(alpha,k=3)
+    k4 = random.choices(alpha,k=3)
+    k5 = ",".join(plugs)
     
-    cipherRotors.delete("1.0","end")
-    controlRotors.delete("1.0","end")
-    indexRotors.delete("1.0","end")
-    indicator.delete("1.0","end")
-    controlPos.delete("1.0","end")
-    indexPos.delete("1.0","end")
+    reflector.delete("1.0","end")
+    rotors.delete("1.0","end")
+    positions.delete("1.0","end")
+    ringsets.delete("1.0","end")
+    plugboard.delete("1.0","end")
     
-    cipherRotors.insert("insert",ciphers)
-    controlRotors.insert("insert",controls)
-    indexRotors.insert("insert",indexes)
-    indicator.insert("insert",ind1)
-    controlPos.insert("insert",ind2)
-    indexPos.insert("insert",ind3)
+    
+    reflector.insert("insert",k2)
+    rotors.insert("insert",k1)
+    positions.insert("insert",k3)
+    ringsets.insert("insert",k4)
+    plugboard.insert("insert",k5)
+    
     
 
 # Button to run cipher in encrypt mode
@@ -177,15 +181,15 @@ indicatorLab =  tk.Label(root,text="Indicators",font = ('arial',10))
 
 # Tab control
 ptext.bind("<Tab>", focus_next_widget)
-cipherRotors.bind("<Tab>", focus_next_widget)
-indicator.bind("<Tab>", focus_next_widget)
-controlRotors.bind("<Tab>", focus_next_widget)
-controlPos.bind("<Tab>", focus_next_widget)
-indexRotors.bind("<Tab>", focus_next_widget)
-indexPos.bind("<Tab>", focus_next_widget)
+
 ctext.bind("<Tab>", focus_next_widget)
 
 
+reflector.delete("1.0","end")
+rotors.delete("1.0","end")
+positions.delete("1.0","end")
+ringsets.delete("1.0","end")
+plugboard.delete("1.0","end")
 
 # Put everything in position
 explainLab1.place(x=550,y=120)
@@ -203,14 +207,11 @@ rotorLab.place(x=150,y=165)
 indicatorLab.place(x=330,y=165)
 
 # Setting inputs
-cipherRotors.place(x=150,y=190)
-indicator.place(x=330,y=190)
-
-controlRotors.place(x=150,y=220)
-controlPos.place(x=330,y=220)
-
-indexRotors.place(x=150,y=250)
-indexPos.place(x=330,y=250)
+reflector.place(x=150,y=190)
+rotors.place(x=330,y=190)
+positions.place(x=150,y=220)
+ringsets.place(x=330,y=220)
+plugboard.place(x=150,y=250)
 
 # Buttons
 encryptbutton.place(x=150,y=290)
