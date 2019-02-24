@@ -11,16 +11,16 @@ root.maxsize(800,600)
 root.minsize(800,600)
 
 # Title of the window
-root.title("Enigma Simulation")
+root.title("Enigma Emulator")
 
 # Textboxes
 ptext = tk.Text(root,height=8,width=40)
 
-reflector = tk.Text(root,height=1,width=20)
-rotors = tk.Text(root,height=1,width=20)
-positions = tk.Text(root,height=1,width=20)
+reflector = tk.Text(root,height=1,width=3)
+rotors = tk.Text(root,height=1,width=10)
+positions = tk.Text(root,height=1,width=4)
 plugboard = tk.Text(root,height=1,width=20)
-ringsets = tk.Text(root,height=1,width=20)
+ringsets = tk.Text(root,height=1,width=4)
 
 ctext = tk.Text(root,height=8,width=40)
 
@@ -31,13 +31,12 @@ def qExit():
 # Reset Button
 def Reset(): 
     ctext.delete("1.0","end")
-    ptext.delete("1.0","end") 
-    #cipherRotors.delete("1.0","end")
-    #controlRotors.delete("1.0","end")
-    #indexRotors.delete("1.0","end")
-    #indicator.delete("1.0","end")
-    #controlPos.delete("1.0","end")
-    #indexPos.delete("1.0","end")
+    ptext.delete("1.0","end")
+    reflector.delete("1.0","end")
+    rotors.delete("1.0","end")
+    positions.delete("1.0","end")
+    plugboard.delete("1.0","end")
+    ringsets.delete("1.0","end")
 
 # Move between widgets
 def focus_next_widget(event):
@@ -48,11 +47,17 @@ def focus_next_widget(event):
 # Get the key settings
 def keysets():
 
-    k1 = reflector.get("1.0","end")[:-1]
-    k2 = rotors.get("1.0","end")[:-1]
+    k1 = rotors.get("1.0","end")[:-1]
+    k2 = reflector.get("1.0","end")[:-1]
     k3 = positions.get("1.0","end")[:-1]
     k4 = plugboard.get("1.0","end")[:-1]
     k5 = ringsets.get("1.0","end")[:-1]
+    
+    k1 = k1.replace(" ","")
+    k1 = k1.split(",")
+    
+    k4 = k4.replace(" ","")
+    k4 = k4.split(",")
     
     return [k1,k2,k3,k4,k5]
 
@@ -69,17 +74,17 @@ def enc():
 
     K = keysets()
     T = gettext()
-    
+    print(K)
     ctext.delete("1.0","end")
     
     # Try decrypting
     try:
         tx = enigma(T,K,decode=False)
+        ctext.insert("insert",tx)
     except Exception as e:
         ctext.insert("insert",str(e)) 
-    
-    ctext.insert("insert",tx)
-         
+
+
 # Decrypt function 
 def dec(): 
 
@@ -91,11 +96,11 @@ def dec():
     # Try decrypting
     try:
         tx = enigma(T,K,decode=True)
+        ctext.insert("insert",tx)
     except Exception as e:
         ctext.insert("insert",str(e)) 
-    
-    ctext.insert("insert",tx)
-    
+
+
 # Randomize Key Settings
 def randomize():
     
@@ -110,12 +115,13 @@ def randomize():
              "".join(alpha[2:4]),
              "".join(alpha[4:6]),
              "".join(alpha[6:8]),
-             "".join(alpha[8:10])]
+             "".join(alpha[8:10]),
+             "".join(alpha[10:12])]
     
     k1 = ",".join(C[:3])
     k2 = random.choice(R)
-    k3 = random.choices(alpha,k=3)
-    k4 = random.choices(alpha,k=3)
+    k3 = "".join(random.choices(alpha,k=3))
+    k4 = "".join(random.choices(alpha,k=3))
     k5 = ",".join(plugs)
     
     reflector.delete("1.0","end")
@@ -159,7 +165,7 @@ randombutton = tk.Button(root, text="Random\nSettings", command = randomize,
 ptextLab = tk.Label(root,text="Input:",font = ('arial',14))
 ctextLab = tk.Label(root,text="Output:",font = ('arial',14))
 explainLab1 = tk.Label(root,
-                      text="Plaintext can only include letters and spaces.",
+                      text="Plaintext can only include letters.",
                       font = ('arial',12),
                       wraplength=220,
                       relief=tk.GROOVE,
@@ -172,11 +178,6 @@ explainLab2 = tk.Label(root,
                       relief=tk.GROOVE,
                       padx = 10, pady = 10)
 
-cipherLab =  tk.Label(root,text=" Cipher Settings",font = ('arial',10))
-controlLab = tk.Label(root,text="Control Settings",font = ('arial',10))
-indexLab =   tk.Label(root,text="  Index Settings",font = ('arial',10))
-rotorLab =   tk.Label(root,text="Rotors",font = ('arial',10))
-indicatorLab =  tk.Label(root,text="Indicators",font = ('arial',10))
 
 
 # Tab control
@@ -199,25 +200,20 @@ ptext.place(x=150,y=30)
 ptextLab.place(x=60,y=30)
 
 # Setting Labels
-cipherLab.place(x=45,y=190)
-controlLab.place(x=45,y=220)
-indexLab.place(x=45,y=250)
 
-rotorLab.place(x=150,y=165)
-indicatorLab.place(x=330,y=165)
 
 # Setting inputs
 reflector.place(x=150,y=190)
-rotors.place(x=330,y=190)
-positions.place(x=150,y=220)
-ringsets.place(x=330,y=220)
-plugboard.place(x=150,y=250)
+rotors.place(x=185,y=190)
+positions.place(x=275,y=190)
+plugboard.place(x=150,y=220)
+ringsets.place(x=150,y=250)
 
 # Buttons
 encryptbutton.place(x=150,y=290)
 decryptbutton.place(x=250,y=290)
 resetbutton.place(x=400,y=290)
-randombutton.place(x=430,y=190)
+randombutton.place(x=400,y=190)
 
 ctext.place(x=150,y=350)
 ctextLab.place(x=50,y=350)

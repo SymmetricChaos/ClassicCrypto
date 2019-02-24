@@ -47,16 +47,16 @@ def enigma(text,keys,decode=False):
         raise Exception('the "keys" argument must provide rotors, reflector, rotor positions, plugs, and ring settings')
     
     # Dictionary of rotors and notch positions
-    rtrSelect = {"I":    ["EKMFLGDQVZNTOWYHXUSPAIBRCJ",18],
-                 "II":   ["AJDKSIRUXBLHWTMCQGZNPYFVOE",6],
-                 "III":  ["BDFHJLCPRTXVZNYEIWGAKMUSQO",14],
-                 "IV":   ["ESOVPZJAYQUIRHXLNFTGKDCMWB",11],
-                 "V":    ["VZBRGITYUPSDNHLXAWMJQOFECK",0],}
+    rtrSelect = {"I":   ["EKMFLGDQVZNTOWYHXUSPAIBRCJ",18],
+                 "II":  ["AJDKSIRUXBLHWTMCQGZNPYFVOE",6],
+                 "III": ["BDFHJLCPRTXVZNYEIWGAKMUSQO",14],
+                 "IV":  ["ESOVPZJAYQUIRHXLNFTGKDCMWB",11],
+                 "V":   ["VZBRGITYUPSDNHLXAWMJQOFECK",0],}
     
     # Dictionary of reflectors
-    refSelect = {"A":  "EJMZALYXVBWFCRQUONTSPIKHGD",
-                 "B":  "YRUHQSLDPXNGOKMIEBFZCWVJAT",
-                 "C":  "FVPJIAOYEDRZXWGCTKUQSBNMHL",}
+    refSelect = {"A": "EJMZALYXVBWFCRQUONTSPIKHGD",
+                 "B": "YRUHQSLDPXNGOKMIEBFZCWVJAT",
+                 "C": "FVPJIAOYEDRZXWGCTKUQSBNMHL",}
     
     # Check the rotors listed to get the wiring and notch positions for them
     rotors = []
@@ -135,7 +135,7 @@ def enigma(text,keys,decode=False):
 def enigmaExample():
     
     import random
-    from UtilityFunctions import groups
+    from Ciphers.UtilityFunctions import groups
     import datetime
     
     print("Enigma Example\n")
