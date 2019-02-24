@@ -6,6 +6,8 @@ from Codes.PrefixCode import prefixCode
 from Codes.ASCIICode import ASCII
 from Codes.BaconCipher import baconCipher
 
+from Ciphers.UtilityFunctions import preptext
+
 # Create the window
 root = tk.Tk()
 
@@ -14,17 +16,17 @@ root.maxsize(800,600)
 root.minsize(800,600)
 
 # Title of the window
-root.title("Binary Codes")
+root.title("Bacon Cipher")
 
 # Three textboxes
-ptext = tk.Text(root,height=5,width=40)
-stego = tk.Text(root,height=5,width=40)
-ctext = tk.Text(root,height=5,width=40)
+ptext = tk.Text(root,height=7,width=40)
+stego = tk.Text(root,height=7,width=40)
+ctext = tk.Text(root,height=7,width=40)
 
 # Dropdown Menu
 code = tk.StringVar(root)
-code.set("choose a code")
-codeMenu = tk.OptionMenu(root,code,"morse","bacon","prefix","ASCII")
+code.set("bacon")
+codeMenu = tk.OptionMenu(root,code,"bacon","morse","prefix","ASCII")
 
 # Exit Button
 def qExit(): 
@@ -44,12 +46,19 @@ def focus_next_widget(event):
 # Encrypt function
 def enc(): 
 
-    # Get the text from the ptext box
+    # Get the text
     T = ptext.get("1.0","end")[:-1]
     S = stego.get("1.0","end")[:-1]
-
+    
     # Get the selected cipher
     C = code.get()
+    
+    
+    # Clean the text provided
+    # If we are using ASCII the true message doesn't have to be modified
+    S = preptext(S,silent=True)
+    if C != "ASCII":
+        T = preptext(T,silent=True)
     
     # We use a dictionary as basically a as a switch statement
     # They keys are the names of the cipher while the values are the cipher
@@ -89,7 +98,9 @@ def dec():
     try:
         ctext.insert("insert",baconCipher(T,codeDict[C],S,decode=True)) 
     except Exception as e:
-        ctext.insert("insert",str(e)) 
+        ctext.insert("insert",str(e))
+
+
 # Button to run cipher in encrypt mode
 encryptbutton = tk.Button(root, text="Encode", command = enc,
                           bg = 'lightblue', font = ('arial',14,'bold'))
@@ -129,19 +140,19 @@ codeMenu.place(x=500,y=20)
 ptext.place(x=150,y=30)
 ptextLab.place(x=50,y=30)
 
-stego.place(x=150,y=140)
-stegoLab.place(x=40,y=140)
+stego.place(x=150,y=170)
+stegoLab.place(x=40,y=170)
 
 
 explainLab.place(x=550,y=200)
 
-encryptbutton.place(x=150,y=250)
-decryptbutton.place(x=250,y=250)
-resetbutton.place(x=400,y=250)
+encryptbutton.place(x=150,y=300)
+decryptbutton.place(x=250,y=300)
+resetbutton.place(x=400,y=300)
 
-ctext.place(x=150,y=300)
-ctextLab.place(x=50,y=300)
+ctext.place(x=150,y=350)
+ctextLab.place(x=50,y=350)
 
-exitbutton.place(x=150,y=400)
+exitbutton.place(x=150,y=500)
 
 root.mainloop()
