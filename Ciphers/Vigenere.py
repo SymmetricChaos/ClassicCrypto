@@ -1,4 +1,5 @@
-from Ciphers.UtilityFunctions import lcm, validptext, validkeys
+from Ciphers.UtilityFunctions import lcm, validptext, validkeys, alphaToNumber, numberToAlpha
+from itertools import cycle
 
 # The Vigenere cipher was the first polyalphabetic cipher invented as was once
 # considered to be unbreakable as it makes simple frequency analysis of the
@@ -37,7 +38,6 @@ def vigenere(text,key,decode=False):
         
     return "".join(T)
 
-
 # Using multiple vigenere ciphers on the same ciphertext increases security
 # dramatically. If the two keys are coprime then the result is equivalent to a
 # Vigenere cipher with a key equal to the product of their length but is much
@@ -52,6 +52,28 @@ def multiVigenere(text,key,decode=False):
     for i in key:
         out = vigenere(out,i,decode=decode)
     return out
+
+# The Trithemius cipher is not a true cipher as it has no key. However it is the
+# predecessor to the Vigenere cipher. Each letter is shifted by one more than
+# the previous letter.
+def trithemius(text,key="",decode=False):
+    
+    # The key is the same every time. The key argument is kept for compatibility.
+    K = [i for i in range(26)]
+
+    # Convert the text into numbers
+    N = alphaToNumber(text)
+
+    out = []
+
+    for keynum,textnum in zip(cycle(K),N):
+        
+        if decode == False:
+            out.append( (textnum+keynum) % 26)
+        else:
+            out.append( (textnum-keynum) % 26)
+
+    return "".join(numberToAlpha(out))
 
 def vigenereExample():
 
@@ -80,6 +102,19 @@ def multiVigenereExample():
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
-
+    
+def trithemiusExample():
+    print("Trithemius Example\n")
+    print("The Key Is: ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = trithemius(ptext)
+    dtext = trithemius(ctext,decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+    
 #vigenereExample()
 #multiVigenereExample()
+#trithemiusExample()
+    

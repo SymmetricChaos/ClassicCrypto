@@ -356,4 +356,8 @@ def printColumns(L,N,W=0):
         if ctr % N == 0 or ctr == len(L):
             print()
     
+def alphaToNumber(L,alpha="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
+    return [alpha.index(i) for i in L]
     
+def numberToAlpha(L,alpha="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
+    return [alpha[i] for i in L]
