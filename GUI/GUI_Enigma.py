@@ -36,13 +36,13 @@ for i,j in zip(["I","II","III","IV","V"],[0,1,2,3,4]):
     rotorG1.append(tk.Radiobutton(root, text = i, variable = R1, value = j) )
 
 R2 = tk.StringVar()
-R2.set(1)
+R2.set(0)
 rotorG2 = []
 for i,j in zip(["I","II","III","IV","V"],[0,1,2,3,4]):
     rotorG2.append(tk.Radiobutton(root, text = i, variable = R2, value = j) )
 
 R3 = tk.StringVar()
-R3.set(2)
+R3.set(0)
 rotorG3 = []
 for i,j in zip(["I","II","III","IV","V"],[0,1,2,3,4]):
     rotorG3.append(tk.Radiobutton(root, text = i, variable = R3, value = j) )
@@ -226,10 +226,11 @@ ctext.bind("<Tab>", focus_next_widget)
 
 
 # Put everything in position
-
-
 ptext.place(x=150,y=30)
 ptextLab.place(x=60,y=30)
+
+ctext.place(x=150,y=450)
+ctextLab.place(x=50,y=450)
 
 # Setting Labels
 plugLab.place(x=100,y=300)
@@ -240,11 +241,12 @@ explainLab1.place(x=550,y=120)
 explainLab2.place(x=550,y=200)
 rotorLab.place(x=150,y=170)
 
-# Setting inputs
+# Position rotor settings
 for x,rg in enumerate([reflectG,rotorG1,rotorG2,rotorG3]):
     for y,button in enumerate(rg):
         button.place(x=150+x*45,y=190+y*20)
 
+# Boxes for Positions, ring settings, and plugboard.
 positions.place(x=335,y=195)
 ringsets.place(x=150,y=360)
 plugboard.place(x=150,y=300)
@@ -257,11 +259,9 @@ resetbutton.place(x=400,y=buttonRow)
 
 randombutton.place(x=400,y=190)
 
-ctext.place(x=150,y=450)
-ctextLab.place(x=50,y=450)
+exitbutton.place(x=150,y=590)
 
-exitbutton.place(x=150,y=580)
-
+# Randomize the settings whenever the program is started
 randomize()
 
 root.mainloop()
