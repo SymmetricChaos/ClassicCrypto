@@ -71,11 +71,12 @@ def focus_next_widget(event):
 def keysets():
 
     rtrL = ["I","II","III","IV","V"]
+    refL = ["A","B","C"]
     
     RG = [R1.get(), R2.get(), R3.get()]
     k1 = [rtrL[int(i)] for i in RG]
-    
-    k2 = reflector.get("1.0","end")[:-1]
+        
+    k2 = refL[int(RE.get())]
     k3 = positions.get("1.0","end")[:-1]
     k4 = plugboard.get("1.0","end")[:-1]
     k5 = ringsets.get("1.0","end")[:-1]
@@ -83,6 +84,8 @@ def keysets():
     
     k4 = k4.replace(" ","")
     k4 = k4.split(",")
+    
+    print([k1,k2,k3,k4,k5])
     
     return [k1,k2,k3,k4,k5]
 
