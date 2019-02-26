@@ -200,13 +200,21 @@ explainLab2 = tk.Label(root,
                       relief=tk.GROOVE,
                       padx = 10, pady = 10)
 
-explainLab3 = tk.Label(root,
-                      text="Rotor",
-                      font = ('arial',12),
-                      wraplength=220,
-                      relief=tk.GROOVE,
-                      padx = 10, pady = 10)
+rotorLab = tk.Label(root,
+                      text="Reflector and Rotors",
+                      font = ('arial',10))
 
+ringLab = tk.Label(root,
+                      text="Rings",
+                      font = ('arial',10))
+
+plugLab = tk.Label(root,
+                      text="Plugs",
+                      font = ('arial',10))
+
+offsetLab = tk.Label(root,
+                      text="Offsets",
+                      font = ('arial',10))
 
 # Tab control
 ptext.bind("<Tab>", focus_next_widget)
@@ -215,34 +223,41 @@ ctext.bind("<Tab>", focus_next_widget)
 
 
 # Put everything in position
-explainLab1.place(x=550,y=120)
-explainLab2.place(x=550,y=200)
+
 
 ptext.place(x=150,y=30)
 ptextLab.place(x=60,y=30)
 
 # Setting Labels
-keysets()
+plugLab.place(x=100,y=300)
+ringLab.place(x=100,y=360)
+offsetLab.place(x=330,y=170)
+
+explainLab1.place(x=550,y=120)
+explainLab2.place(x=550,y=200)
+rotorLab.place(x=150,y=170)
+
 # Setting inputs
-#reflector.place(x=150,y=190)
 for x,rg in enumerate([reflectG,rotorG1,rotorG2,rotorG3]):
     for y,button in enumerate(rg):
-        button.place(x=160+x*45,y=190+y*20)
+        button.place(x=150+x*45,y=190+y*20)
 
-#positions.place(x=275,y=190)
-#plugboard.place(x=150,y=220)
-#ringsets.place(x=150,y=250)
+positions.place(x=335,y=195)
+ringsets.place(x=150,y=360)
+plugboard.place(x=150,y=300)
 
 # Buttons
-encryptbutton.place(x=150,y=340)
-decryptbutton.place(x=250,y=340)
-resetbutton.place(x=400,y=340)
+buttonRow = 390
+encryptbutton.place(x=150,y=buttonRow)
+decryptbutton.place(x=250,y=buttonRow)
+resetbutton.place(x=400,y=buttonRow)
+
 randombutton.place(x=400,y=190)
 
-ctext.place(x=150,y=400)
-ctextLab.place(x=50,y=400)
+ctext.place(x=150,y=450)
+ctextLab.place(x=50,y=450)
 
-exitbutton.place(x=150,y=550)
+exitbutton.place(x=150,y=580)
 
 randomize()
 
