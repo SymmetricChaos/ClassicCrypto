@@ -38,6 +38,7 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 
 #### Vigenere Variants:
 * Vigenere Cipher
+** Trithemius Cipher
 * Affine Vigenere Cipher
 * Autokey Cipher
 * Beaufort Cipher
@@ -66,6 +67,7 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 * Cipher Disk
 * Disrupted Tableau
 * Hutton Cipher
+* Quagmire Cipher Family
 
 #### Transposition Ciphers
 * Columnar Transport
