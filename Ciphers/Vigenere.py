@@ -7,36 +7,23 @@ from itertools import cycle
 
 def vigenere(text,key,decode=False):
     
-    
-    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    
-    validptext(text,alphabet)
+    validptext(text,"ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     validkeys(key,str)
 
-    T = []
-    kLen = len(key)
-    
-    # convert the keys to lists of numbers
-    K = []
-    
-    for i in key:
-        K.append(alphabet.index(i))
-    
+    # Convert both the text and key to a list of numbers
+    K = alphaToNumber(key)
+    T = alphaToNumber(text)
+        
 
-    for ind,let in enumerate(text):
-        N = alphabet.index(let)
-
+    out = []
+    for keynum,textnum in zip(cycle(K),T):
+        
         if decode == False:
-            N = (N+K[ind%kLen])%26
+            out.append( (textnum+keynum) % 26)
         else:
-            N = (N-K[ind%kLen])%26
+            out.append( (textnum-keynum) % 26)
         
-        T.append(N)
-        
-    for t in range(len(T)):
-        T[t] = alphabet[T[t]]
-        
-    return "".join(T)
+    return "".join(numberToAlpha(out))
 
 # Using multiple vigenere ciphers on the same ciphertext increases security
 # dramatically. If the two keys are coprime then the result is equivalent to a

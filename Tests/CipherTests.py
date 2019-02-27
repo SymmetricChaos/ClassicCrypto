@@ -16,7 +16,7 @@ print()
 from Ciphers.Affine import affine
 from Ciphers.Caesar import caesar
 from Ciphers.Substitution import substitution
-from Ciphers.Vigenere import vigenere, multiVigenere
+from Ciphers.Vigenere import vigenere, multiVigenere, trithemius
 from Ciphers.Beaufort import beaufort, multiBeaufort
 from Ciphers.Autokey import autokey
 from Ciphers.AffineVigenere import affineVigenere
@@ -56,6 +56,7 @@ decodetest(ptext,["THIS","IS","ABOUT","FARMING"],multiVigenere)
 decodetest(ptext,["THIS","IS","ABOUT","FARMING"],multiBeaufort)
 decodetest(ptext,"FARMING",autokey)
 decodetest(ptext,["SUGAR","CANE"],affineVigenere)
+decodetest(ptext,"",trithemius)
 
 
 # Polybius Square
@@ -90,11 +91,11 @@ decodetest(ptext,["4SQUARE2","10CODE7"],twoSquare)
 
 
 # Enigma Machine
-rotors = ["V","III","II"]
+rotors =    ["V","III","II"]
 reflector = "B"
 positions = ["H","L","B"]
-plugs = ["AB","CD","EF","GH"]
-rings = ["A","A","A"]
+plugs =     ["AB","CD","EF","GH"]
+rings =     ["A","A","A"]
 keySettings = [rotors,reflector,positions,plugs,rings]
 decodetest(ptext,keySettings,enigma)
 
