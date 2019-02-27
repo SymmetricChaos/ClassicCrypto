@@ -38,7 +38,7 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 
 #### Vigenere Variants:
 * Vigenere Cipher
-** Trithemius Cipher
+* Trithemius Cipher
 * Affine Vigenere Cipher
 * Autokey Cipher
 * Beaufort Cipher
@@ -96,12 +96,13 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 * Brevity Code
 * Braille
 * Morse Code
-* Bacon Cipher (using any supported binary code)
+* Bacon Cipher
 
 ## Random Number Generators:
 * Reihenschieber
 * Weyel Sequence
 * Linear Congruential Generator
+* Linear Feedback Shift Register
 
 ## Available Attacks:
 
