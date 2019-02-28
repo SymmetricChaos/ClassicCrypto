@@ -45,17 +45,16 @@ def beaufort(text,key,decode=False,extended=False):
 # Vigenere ciphers. The key has a length equal to the least common multiple of
 # the key lengths. However the cipher is not longer an involution. The keys
 # must be used in reverse.
-def multiBeaufort(text,key,decode=False):
+def multiBeaufort(text,key,decode=False,extended=False):
     
-    if type(key) != list:
-        raise Exception("Must provide a list of keys")
+    validkeys(key,list)
     
     if decode == True:
         key.reverse()
     
     out = text
     for i in key:
-        out = beaufort(out,i)
+        out = beaufort(out,i,extended=extended)
 
     return out
 
