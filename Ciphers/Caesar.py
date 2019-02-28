@@ -7,10 +7,15 @@ from Ciphers.UtilityFunctions import validptext, validkeys
 # cipher the letters are shifted back. The popular ROT13 is simply the caesar
 # cipher with a key of 13.
 
-def caesar(text,key,decode=False):
+def caesar(text,key,decode=False,extended=False):
     text = text.upper()
     
-    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    if extended == True:
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        M = 36
+    else:
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        M = 26
     
     # Allow key to be specified by letter
     if type(key) == str:
@@ -22,14 +27,14 @@ def caesar(text,key,decode=False):
     validkeys(key,int)
     
     if decode == True:
-        key = 26-key
+        key = M-key
         
     out = []
     for i in text:
         # Convert each letter to its numeric values
         val = alphabet.index(i)
         # Shift the number by the key value
-        val = (val + key) %26
+        val = (val + key) % M
         # Convert back to a letter
         out.append(alphabet[val])
     return "".join(out)
@@ -78,7 +83,7 @@ def ROT13(text,key=None,decode=False):
 
 def caesarExample():
     print("Caesar Cipher Example\n")
-    key = 1
+    key = 3
     print("The Key Is: {}\n".format(key))
     
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
