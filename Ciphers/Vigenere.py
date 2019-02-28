@@ -42,14 +42,14 @@ def vigenere(text,key,decode=False,extended=False):
 # Vigenere cipher with a key equal to the product of their length but is much
 # easier to remember. For example if one key has a length of 7 and the other a
 # length of 10 the resulting key has a length of 70!
-def multiVigenere(text,key,decode=False):
+def multiVigenere(text,key,decode=False,extended=False):
     
     if type(key) != list:
         raise Exception("Must provide a list of keys")
     
     out = text
     for i in key:
-        out = vigenere(out,i,decode=decode)
+        out = vigenere(out,i,decode=decode,extended=extended)
     return out
 
 # The Trithemius cipher is not a true cipher as it has no key. However it is the
