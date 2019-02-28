@@ -5,25 +5,37 @@ from itertools import cycle
 # considered to be unbreakable as it makes simple frequency analysis of the
 # ciphertext impossible. It operates as several Caesar ciphers.
 
-def vigenere(text,key,decode=False):
+def vigenere(text,key,decode=False,extended=False):
     
-    validptext(text,"ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    validkeys(key,str)
-
-    # Convert both the text and key to a list of numbers
-    K = alphaToNumber(key)
-    T = alphaToNumber(text)
-        
-
+    # Validate the inputs
+    # Convert the inputs to numbers
+    # Select the correct modulus
+    if extended == True:
+        alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        validptext(text,alpha)
+        validkeys(key,str)
+        K = alphaToNumber(key,alpha)
+        T = alphaToNumber(text,alpha)
+        M = 36
+    else:
+        alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        validptext(text,alpha)
+        validkeys(key,str)
+        K = alphaToNumber(key)
+        T = alphaToNumber(text)
+        M = 26
+  
     out = []
+        
     for keynum,textnum in zip(cycle(K),T):
         
         if decode == False:
-            out.append( (textnum+keynum) % 26)
+            out.append( (textnum+keynum) % M)
         else:
-            out.append( (textnum-keynum) % 26)
+            out.append( (textnum-keynum) % M)
         
-    return "".join(numberToAlpha(out))
+    return "".join(numberToAlpha(out,alpha))
+
 
 # Using multiple vigenere ciphers on the same ciphertext increases security
 # dramatically. If the two keys are coprime then the result is equivalent to a
@@ -68,9 +80,18 @@ def vigenereExample():
     key = "APPLES"
     print("The Key Is: {}\n".format(key))
     
+    print("In Normal Mode")    
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = vigenere(ptext,key)
     dtext = vigenere(ctext,key,decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+    
+    print("\nIn Extended Mode")
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = vigenere(ptext,key,extended=True)
+    dtext = vigenere(ctext,key,decode=True,extended=True)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))

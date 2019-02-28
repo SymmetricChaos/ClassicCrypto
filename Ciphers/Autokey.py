@@ -72,4 +72,4 @@ def autokeyExample():
         print("Ciphertext is: {}".format(ctext))
         print("Decodes As:    {}".format(dtext))
     
-autokeyExample()
+#autokeyExample()
