@@ -5,7 +5,7 @@ from itertools import cycle
 # values of the text are subtracted from the numeric values of the key. This
 # provides the same degree of security sas the Vigenere but is involutive.
 
-def beaufort(text,key,decode=False):
+def beaufort(text,key,decode=False,extended=False):
     
     """
 :param text: The text to be encrypyed. Must be uppercase
@@ -13,25 +13,33 @@ def beaufort(text,key,decode=False):
 :param decode: Boolean. Ignored as the Beaufort cipher is reciprocal.
     """
     
-    # Valid inputs
-    validptext(text,"ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    # Effect of the mode
+    if extended == True:
+        alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        M = 36
+    else:
+        alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        M = 26
+   
+    # Validate input and convert as necessary
+    validptext(text,alpha)
     validkeys(key,str)
 
     # Convert both the text and key to a list of numbers
-    K = cycle(alphaToNumber(key))
-    T = alphaToNumber(text)
-        
+    K = cycle(alphaToNumber(key,alpha))
+    T = alphaToNumber(text,alpha)
+    
     out = []
     for keynum,textnum in zip(K,T):
 
         # The beaufort cipher is involutive so the decode argument is ignored
         # but still exist for compatibility.
-        N = (keynum-textnum)%26
+        N = (keynum-textnum)%M
         
         out.append(N)
         
         
-    return "".join(numberToAlpha(out))
+    return "".join(numberToAlpha(out,alpha))
 
 # Using multiple Beaufort ciphers has the same advantages as using multiple
 # Vigenere ciphers. The key has a length equal to the least common multiple of
@@ -57,9 +65,18 @@ def beaufortExample():
     key = "APPLES"
     print("The Key Is: {}\n".format(key))
     
+    print("Normal Mode")
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = beaufort(ptext,key)
     dtext = beaufort(ctext,key)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+    
+    print("\nExtended Mode")
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = beaufort(ptext,key,extended=True)
+    dtext = beaufort(ctext,key,extended=True)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
