@@ -39,6 +39,33 @@ def caesar(text,key,decode=False):
 # But these ciphers are meant to be easy to read and interpret so we just make
 # explicit reference to the alphabet used.
 
+def caesarCustom(text,key,alphabet="",decode=False):
+
+    if alphabet == "":
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    
+    # Allow key to be specified by letter
+    if type(key) == str:
+        if key in alphabet:
+            key = alphabet.index(key)
+    
+
+    validptext(text,alphabet)
+    validkeys(key,int)
+    
+    if decode == True:
+        key = len(alphabet)-key
+        
+    out = []
+    for i in text:
+        # Convert each letter to its numeric values
+        val = alphabet.index(i)
+        # Shift the number by the key value
+        val = (val + key) % len(alphabet)
+        # Convert back to a letter
+        out.append(alphabet[val])
+    return "".join(out)
+
 
 # A very popular version of the caesar cipher is the ROT13 version. The shift
 # is always 13 so there is no key and it is not a true cipher. However it is 
@@ -57,9 +84,23 @@ def caesarExample():
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = caesar(ptext,key)
     dtext = caesar(ctext,key,decode=True)
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
+    print("Plaintext is:\n{}".format(ptext))
+    print("Ciphertext is:\n{}".format(ctext))
+    print("Decodes As:\n{}".format(dtext))
+    
+def caesarCustomExample():
+    print("Caesar Cipher Example\n")
+    key = 41
+    alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+"
+    print("The Key Is: {}\n".format(key))
+    print("Custom Alphabet:\n{}".format(alphabet))
+    
+    ptext = "TheQuickBrownFoxJumpsOverTheLazyDog"
+    ctext = caesarCustom(ptext,key,alphabet=alphabet)
+    dtext = caesarCustom(ctext,key,decode=True,alphabet=alphabet)
+    print("Plaintext is:\n{}".format(ptext))
+    print("Ciphertext is:\n{}".format(ctext))
+    print("Decodes As:\n{}".format(dtext))
     
 def ROT13Example():
     print("ROT13 Example\n")
@@ -67,9 +108,10 @@ def ROT13Example():
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = ROT13(ptext)
     dtext = ROT13(ctext)
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
+    print("Plaintext is:\n{}".format(ptext))
+    print("Ciphertext is:\n{}".format(ctext))
+    print("Decodes As:\n{}".format(dtext))
 
 #caesarExample()
+#caesarCustomExample()
 #ROT13Example()
