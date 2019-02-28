@@ -18,6 +18,13 @@ def autokey(text,key,decode=False,mode="vigenere"):
     validptext(text,"ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     validkeys(key,str)
     
+    if mode in ["v","vig","vigenere"]:
+        mode = "vigenere"
+    elif mode in ["b","beau","beaufort"]:
+        mode = "beaufort"
+    else:
+        raise Exception("{} is not a valid mode".format(mode))
+    
     # Convert the text to numbers
     T = alphaToNumber(text)
     # Conver the key to numbers
@@ -31,26 +38,38 @@ def autokey(text,key,decode=False,mode="vigenere"):
     out = []
     for keynum,textnum in zip(K,T):
 
-        if decode == False:
-            out.append( (textnum+keynum)%26 )
-        else:
-            # Decode a letter then add it to the keystrean
-            out.append( (textnum-keynum)%26 )
-            K.append( out[-1] )
+        if mode == "vigenere":
+            if decode == False:
+                out.append( (textnum+keynum)%26 )
+            else:
+                # Decode a letter then add it to the keystrean
+                out.append( (textnum-keynum)%26 )
+                K.append( out[-1] )
+        
+        if mode == "beaufort":
+            if decode == False:
+                out.append( (keynum-textnum)%26 )
+            else:
+                # Decode a letter then add it to the keystrean
+                out.append( (keynum-textnum)%26 )
+                K.append( out[-1] )       
+                
 
     return "".join(numberToAlpha(out))
 
 def autokeyExample():
 
-    print("Vigenere Autokey Example\n")
+    print("Autokey Example\n")
     key = "APPLES"
     print("The Key Is: {}\n".format(key))
     
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = autokey(ptext,key)
-    dtext = autokey(ctext,key,decode=True)
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
+    for mode in ["vigenere","beaufort"]:
+        print("\nIn {} mode".format(mode))
+        ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+        ctext = autokey(ptext,key,mode=mode)
+        dtext = autokey(ctext,key,decode=True,mode=mode)
+        print("Plaintext is:  {}".format(ptext))
+        print("Ciphertext is: {}".format(ctext))
+        print("Decodes As:    {}".format(dtext))
     
-#autokeyExample()
+autokeyExample()
