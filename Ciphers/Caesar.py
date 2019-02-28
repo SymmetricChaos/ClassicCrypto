@@ -1,4 +1,4 @@
-from Ciphers.UtilityFunctions import validptext, validkeys
+from Ciphers.UtilityFunctions import validptext, validkeys, alphaToNumber, numberToAlpha
 
 # The caesar cipher, named after Julius Caesar who is said to have used it to
 # protect his military secrets. Every letter is shifted a certain number of
@@ -16,6 +16,40 @@ def caesar(text,key,decode=False,extended=False):
     else:
         alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         M = 26
+
+    # Convert each letter to its numeric values
+    T = alphaToNumber(text,alphabet)
+    
+    # Allow key to be specified by letter
+    if type(key) == str:
+        if key in alphabet:
+            key = alphabet.index(key)
+    
+    validptext(text,alphabet)
+    validkeys(key,int)
+    
+    if decode == True:
+        key = M-key
+        
+    out = []
+    for i in T:
+        # Shift the number by the key value
+        out.append( (i + key) % M )
+
+    return "".join(numberToAlpha(out,alphabet))
+
+# Yes we could do this in one line as
+# return "".join([chr((ord(i)-65+key)%26+65) for i in text])
+# But these ciphers are meant to be easy to read and interpret so we just make
+# explicit reference to the alphabet used.
+
+def caesarCustom(text,key,alphabet="",decode=False):
+
+    if alphabet == "":
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    
+    M = len(alphabet)
+    T = alphaToNumber(text,alphabet)
     
     # Allow key to be specified by letter
     if type(key) == str:
@@ -30,46 +64,11 @@ def caesar(text,key,decode=False,extended=False):
         key = M-key
         
     out = []
-    for i in text:
-        # Convert each letter to its numeric values
-        val = alphabet.index(i)
+    for i in T:
         # Shift the number by the key value
-        val = (val + key) % M
-        # Convert back to a letter
-        out.append(alphabet[val])
-    return "".join(out)
-
-# Yes we could do this in one line as
-# return "".join([chr((ord(i)-65+key)%26+65) for i in text])
-# But these ciphers are meant to be easy to read and interpret so we just make
-# explicit reference to the alphabet used.
-
-def caesarCustom(text,key,alphabet="",decode=False):
-
-    if alphabet == "":
-        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        out.append( (i + key) % M )
     
-    # Allow key to be specified by letter
-    if type(key) == str:
-        if key in alphabet:
-            key = alphabet.index(key)
-    
-
-    validptext(text,alphabet)
-    validkeys(key,int)
-    
-    if decode == True:
-        key = len(alphabet)-key
-        
-    out = []
-    for i in text:
-        # Convert each letter to its numeric values
-        val = alphabet.index(i)
-        # Shift the number by the key value
-        val = (val + key) % len(alphabet)
-        # Convert back to a letter
-        out.append(alphabet[val])
-    return "".join(out)
+    return "".join(numberToAlpha(out,alphabet))
 
 
 # A very popular version of the caesar cipher is the ROT13 version. The shift
