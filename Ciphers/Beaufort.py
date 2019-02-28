@@ -1,4 +1,5 @@
-from Ciphers.UtilityFunctions import lcm
+from Ciphers.UtilityFunctions import lcm, validptext, validkeys, alphaToNumber, numberToAlpha
+from itertools import cycle
 
 # The Beaufort cipher is a sort of dual to the Vigenere cipher. The numeric
 # values of the text are subtracted from the numeric values of the key. This
@@ -9,34 +10,28 @@ def beaufort(text,key,decode=False):
     """
 :param text: The text to be encrypyed. Must be uppercase
 :param key: A keyword that is used to encrypt the text.
-:param decode: Boolean. If false encrypt plaintext. If true decode ciphertext
+:param decode: Boolean. Ignored as the Beaufort cipher is reciprocal.
     """
     
+    # Valid inputs
+    validptext(text,"ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    validkeys(key,str)
 
-    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    T = []
-    kLen = len(key)
-    
-    # convert the keys to lists of numbers
-    K = []
-    
-    for i in key:
-        K.append(alphabet.index(i))
-    
-
-    for ind,let in enumerate(text):
-        N = alphabet.index(let)
+    # Convert both the text and key to a list of numbers
+    K = cycle(alphaToNumber(key))
+    T = alphaToNumber(text)
+        
+    out = []
+    for keynum,textnum in zip(K,T):
 
         # The beaufort cipher is involutive so the decode argument is ignored
         # but still exist for compatibility.
-        N = (K[ind%kLen]-N)%26
+        N = (keynum-textnum)%26
         
-        T.append(N)
+        out.append(N)
         
-    for t in range(len(T)):
-        T[t] = alphabet[T[t]]
         
-    return "".join(T)
+    return "".join(numberToAlpha(out))
 
 # Using multiple Beaufort ciphers has the same advantages as using multiple
 # Vigenere ciphers. The key has a length equal to the least common multiple of
@@ -84,5 +79,5 @@ def multiBeaufortExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
 
-#beaufortExample()
+beaufortExample()
 #multiBeaufortExample()
