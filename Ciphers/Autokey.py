@@ -1,47 +1,44 @@
+from Ciphers.UtilityFunctions import validptext, validkeys, alphaToNumber, numberToAlpha
+
 # The autokey cipher works similarly to the Vigenere cipher but rather than
 # repeated the keys over and over it extends the key by using the plaintext
 # itself. In essence the plaintext is appended to the key of the Vigenere
 # cipher so that it doesn't repeat in a clear pattern.
 
 
-def autokey(text,key,decode=False):
+def autokey(text,key,decode=False,mode="vigenere"):
 
     """
 :param text: The text to be encrypyed. Must be uppercase.
 :param key: A keyword that is used to encrypt the first few letters.
-:param decode: Boolean. If false encrypt plaintext. If true decode ciphertext
+:param decode: Boolean. If false encrypt plaintext. If true decode ciphertext.
+:param mode: String to select between vigenere and beaufort modes.
     """
     
-    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    T = []
+    validptext(text,"ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    validkeys(key,str)
     
-    # convert the keys to lists of numbers
-    K = []
+    # Convert the text to numbers
+    T = alphaToNumber(text)
+    # Conver the key to numbers
+    K = alphaToNumber(key) 
     
-    for i in key:
-        K.append(alphabet.index(i))
-    
+    # When encoding append the text to the key, we use a different method when
+    # decoding
     if decode == False:
-        for i in text:
-            K.append(alphabet.index(i))
+        K += T
 
-    for ind,let in enumerate(text):
-        N = alphabet.index(let)
+    out = []
+    for keynum,textnum in zip(K,T):
 
         if decode == False:
-            N = (N+K[ind])%26
+            out.append( (textnum+keynum)%26 )
         else:
+            # Decode a letter then add it to the keystrean
+            out.append( (textnum-keynum)%26 )
+            K.append( out[-1] )
 
-            N = (N-K[ind])%26
-            K.append(N)
-
-            
-        T.append(N)
-        
-    for t in range(len(T)):
-        T[t] = alphabet[T[t]]
-        
-    return "".join(T)
+    return "".join(numberToAlpha(out))
 
 def autokeyExample():
 
@@ -55,3 +52,5 @@ def autokeyExample():
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
+    
+#autokeyExample()
