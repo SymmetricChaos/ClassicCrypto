@@ -5,25 +5,21 @@ from itertools import cycle
 # considered to be unbreakable as it makes simple frequency analysis of the
 # ciphertext impossible. It operates as several Caesar ciphers.
 
-def vigenere(text,key,decode=False,extended=False):
+def vigenere(text,key,decode=False,alphabet=""):
+    
+    if alphabet == "":
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     
     # Validate the inputs
-    # Convert the inputs to numbers
-    # Select the correct modulus
-    if extended == True:
-        alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        validptext(text,alpha)
-        validkeys(key,str)
-        K = alphaToNumber(key,alpha)
-        T = alphaToNumber(text,alpha)
-        M = 36
-    else:
-        alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        validptext(text,alpha)
-        validkeys(key,str)
-        K = alphaToNumber(key)
-        T = alphaToNumber(text)
-        M = 26
+    validptext(text,alphabet)
+    validkeys(key,str)
+    
+    if len(set(alphabet)) != len(alphabet):
+        raise Exception("Alphabet cannot repeat any symbols")
+    
+    K = alphaToNumber(key,alphabet)
+    T = alphaToNumber(text,alphabet)
+    M = len(alphabet)
   
     out = []
         
@@ -34,7 +30,7 @@ def vigenere(text,key,decode=False,extended=False):
         else:
             out.append( (textnum-keynum) % M)
         
-    return "".join(numberToAlpha(out,alpha))
+    return "".join(numberToAlpha(out,alphabet))
 
 
 # Using multiple vigenere ciphers on the same ciphertext increases security
@@ -42,14 +38,14 @@ def vigenere(text,key,decode=False,extended=False):
 # Vigenere cipher with a key equal to the product of their length but is much
 # easier to remember. For example if one key has a length of 7 and the other a
 # length of 10 the resulting key has a length of 70!
-def multiVigenere(text,key,decode=False,extended=False):
+def multiVigenere(text,key,decode=False,alphabet=""):
     
     if type(key) != list:
         raise Exception("Must provide a list of keys")
     
     out = text
     for i in key:
-        out = vigenere(out,i,decode=decode,extended=extended)
+        out = vigenere(out,i,decode=decode,alphabet=alphabet)
     return out
 
 # The Trithemius cipher is not a true cipher as it has no key. However it is the
@@ -88,10 +84,11 @@ def vigenereExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
     
+    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     print("\nIn Extended Mode")
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = vigenere(ptext,key,extended=True)
-    dtext = vigenere(ctext,key,decode=True,extended=True)
+    ctext = vigenere(ptext,key,alphabet=alpha)
+    dtext = vigenere(ctext,key,decode=True,alphabet=alpha)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
