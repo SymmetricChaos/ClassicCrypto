@@ -73,7 +73,7 @@ def trithemius(text,key="",decode=False):
 def vigenereExample():
 
     print("Vigenere Example\n")
-    key = "APPLES"
+    key = "ZEBRAS"
     print("The Key Is: {}\n".format(key))
     
     print("In Normal Mode")    
@@ -84,9 +84,9 @@ def vigenereExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
     
-    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     print("\nIn Extended Mode")
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ptext = "TheQuickBrownFoxJumpsOverTheLazyDog"
     ctext = vigenere(ptext,key,alphabet=alpha)
     dtext = vigenere(ctext,key,decode=True,alphabet=alpha)
     print("Plaintext is:  {}".format(ptext))
