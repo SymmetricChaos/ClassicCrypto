@@ -1,4 +1,4 @@
-from Ciphers.UtilityFunctions import alphabetPermutation
+from Ciphers.UtilityFunctions import alphabetPermutation, validptext, validkeys
 
 # The general substitution cipher. It simple replaces letters
 # with other letters. To make this easier the key may be any sequence of
@@ -10,6 +10,9 @@ def substitution(text,key,decode=False,alphabet=""):
     
     if alphabet == "":
         alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    
+    validptext(text,alphabet)
+    validkeys(key,str)
     
     # Derive the internally used key from the input
     KEY = alphabetPermutation(key,alphabet)
@@ -43,7 +46,7 @@ def substitutionExample():
     print("Decodes As:    {}".format(dtext))
     
     
-    print("\n\nExample of A Custom Alphabet")
+    print("\n\nExample of a Custom Alphabet")
     key = "0I1L2O3V4E5Z6E7B8R9AS"
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     
