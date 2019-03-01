@@ -40,9 +40,9 @@ def affine(text,key=[0,1],decode=False,alphabet=""):
     for textnum in T:
         
         if decode == False:
-            out.append( (textnum * key[0] + key[1]) %26 )
+            out.append( (textnum * key[0] + key[1]) % M )
         else:
-            out.append( ((textnum - key[1]) * inv) %26 )
+            out.append( ((textnum - key[1]) * inv) % M )
         
         
     return "".join(numberToAlpha(out,alphabet))
@@ -51,12 +51,22 @@ def affine(text,key=[0,1],decode=False,alphabet=""):
 def affineExample():
     print("Example of the Affine Cipher\n")
     
-    key = [3,7]
+    key = [7,11]
     print("The Key is: Multiply by {} then Add {}".format(key[0],key[1]))
 
+    print("\nIn Normal Mode")
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = affine(ptext,key)
     dtext = affine(ctext,key,decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+    
+    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    print("\n\nUsing Custom Alphabet:\n{}".format(alpha))
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = affine(ptext,key,alphabet=alpha)
+    dtext = affine(ctext,key,decode=True,alphabet=alpha)
     print("\nPlaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
