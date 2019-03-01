@@ -1,5 +1,7 @@
 from Ciphers.UtilityFunctions import modinv, alphaToNumber, numberToAlpha
 from itertools import cycle
+
+
 def affineVigenere(text,key=["A","A"],decode=False):
     
     """
