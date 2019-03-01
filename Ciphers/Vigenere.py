@@ -76,7 +76,7 @@ def vigenereExample():
     key = "ZEBRAS"
     print("The Key Is: {}\n".format(key))
     
-    print("In Normal Mode")    
+    print("Normal Mode")    
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = vigenere(ptext,key)
     dtext = vigenere(ctext,key,decode=True)
@@ -85,7 +85,7 @@ def vigenereExample():
     print("Decodes As:    {}".format(dtext))
     
     alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-    print("\nIn Extended Mode")
+    print("\nExtended Mode")
     ptext = "TheQuickBrownFoxJumpsOverTheLazyDog"
     ctext = vigenere(ptext,key,alphabet=alpha)
     dtext = vigenere(ctext,key,decode=True,alphabet=alpha)

@@ -5,7 +5,7 @@ from itertools import cycle
 # values of the text are subtracted from the numeric values of the key. This
 # provides the same degree of security sas the Vigenere but is involutive.
 
-def beaufort(text,key,decode=False,extended=False):
+def beaufort(text,key,decode=False,alphabet=""):
     
     """
 :param text: The text to be encrypyed. Must be uppercase
@@ -13,21 +13,18 @@ def beaufort(text,key,decode=False,extended=False):
 :param decode: Boolean. Ignored as the Beaufort cipher is reciprocal.
     """
     
-    # Effect of the mode
-    if extended == True:
-        alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        M = 36
-    else:
-        alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        M = 26
-   
+    if alphabet == "":
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    
+    M = len(alphabet)
+       
     # Validate input and convert as necessary
-    validptext(text,alpha)
+    validptext(text,alphabet)
     validkeys(key,str)
 
     # Convert both the text and key to a list of numbers
-    K = cycle(alphaToNumber(key,alpha))
-    T = alphaToNumber(text,alpha)
+    K = cycle(alphaToNumber(key,alphabet))
+    T = alphaToNumber(text,alphabet)
     
     out = []
     for keynum,textnum in zip(K,T):
@@ -39,13 +36,13 @@ def beaufort(text,key,decode=False,extended=False):
         out.append(N)
         
         
-    return "".join(numberToAlpha(out,alpha))
+    return "".join(numberToAlpha(out,alphabet))
 
 # Using multiple Beaufort ciphers has the same advantages as using multiple
 # Vigenere ciphers. The key has a length equal to the least common multiple of
 # the key lengths. However the cipher is not longer an involution. The keys
 # must be used in reverse.
-def multiBeaufort(text,key,decode=False,extended=False):
+def multiBeaufort(text,key,decode=False,alphabet=""):
     
     validkeys(key,list)
     
@@ -54,7 +51,7 @@ def multiBeaufort(text,key,decode=False,extended=False):
     
     out = text
     for i in key:
-        out = beaufort(out,i,extended=extended)
+        out = beaufort(out,i,alphabet=alphabet)
 
     return out
 
@@ -72,10 +69,11 @@ def beaufortExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
     
+    alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     print("\nExtended Mode")
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = beaufort(ptext,key,extended=True)
-    dtext = beaufort(ctext,key,extended=True)
+    ctext = beaufort(ptext,key,alphabet=alpha)
+    dtext = beaufort(ctext,key,alphabet=alpha)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
