@@ -1,8 +1,6 @@
 # http://www.jfbouch.fr/crypto/m209/WORK/mathematical.html
 # http://www.jfbouch.fr/crypto/m209/WORK/computer.html
 
-from Ciphers.UtilityFunctions import printColumns
-
 # The M209 was, in sense, one of the simplest of the cipher machines as it was
 # operated entirely mechanically. However the machine settings were extremely
 # elaborate.
@@ -14,7 +12,7 @@ def transPins(P):
         out.append( [0 if i == "-" else 1 for i in pins] )
     return out
 
-# Convert the friendly [a,b] lug settings into binary lists
+# Convert the friendly [x,y] lug settings into binary lists
 def lugPos(L):
     lugs = []
     for l in L:
@@ -24,16 +22,6 @@ def lugPos(L):
                 x[i-1] = 1
         lugs.append(x)
     return lugs
-
-# Count up the lugs in each wheel position keeping in mind that 0 is in effective
-# and that Python arrays start at zero.
-def countLugs(L):
-    count = [0,0,0,0,0,0]
-    for l in L:
-        for pos in l:
-            if pos != 0:
-                count[pos-1] += 1
-    return count
 
 def ltr2num(K):
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -49,7 +37,6 @@ def num2ltr(K):
         out.append( alpha[i] )
     return out
 
-
 def keystream(textlen,Lugs,Wheels,Pins,activePins):
     for i in range(textlen):
         K = 0
@@ -63,15 +50,16 @@ def keystream(textlen,Lugs,Wheels,Pins,activePins):
         yield K
         for wheel in range(len(Wheels)):
             activePins[wheel] += 1
-    
+
+
 
 def M209(text,key,decode=False):
     
     text = ltr2num(text)
     pins = transPins(key[1])
     Lugs = lugPos(key[2])
-    
-    
+
+
     Wheels = [
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
         "ABCDEFGHIJKLMNOPQRSTUVXYZ",
@@ -79,7 +67,7 @@ def M209(text,key,decode=False):
         "ABCDEFGHIJKLMNOPQRSTU",
         "ABCDEFGHIJKLMNOPQRS",
         "ABCDEFGHIJKLMNOPQ"]
-    
+
     sh = [15,14,13,12,11,10]
 
     # For each wheel add up the shift of the wheel and the position of the key
@@ -88,7 +76,6 @@ def M209(text,key,decode=False):
     for wheel in range(len(Wheels)):
         activePins[wheel] = sh[wheel] + Wheels[wheel].index(key[0][wheel])
     
-    # Generator that outputs the keystream
     K = keystream(len(text),Lugs,Wheels,pins,activePins)
     
     L = []
@@ -109,40 +96,37 @@ def M209Example():
     for p in [26,25,23,21,19,17]:
          pins.append(random.choices("-+",k=p))
     
-    pins[0] = [1,1,0,1,0,0,0,1,1,0,1,0,1,1,0,0,0,0,1,1,0,1,1,0,0,0]
-    pins[1] = [1,0,0,1,1,0,1,0,0,1,1,1,0,0,1,0,0,1,1,0,1,0,1,0,0]
-    pins[2] = [1,1,0,0,0,0,1,1,0,1,0,1,1,1,0,0,0,1,1,1,1,0,1]
-    pins[3] = [0,0,1,0,1,1,0,1,1,0,0,0,1,1,0,1,0,0,1,1,1]
-    pins[4] = [0,1,0,1,1,1,0,1,1,0,0,0,1,1,0,1,0,0,1]
-    pins[5] = [1,1,0,1,0,0,0,1,0,0,1,0,0,1,1,0,1]
-    
-        
-    Lugs = [[0,0,1,0,0,1], [0,1,0,0,0,0], [0,1,0,0,0,0], [0,0,0,0,0,1], 
-            [0,1,0,0,0,0], [0,1,0,0,1,0], [1,0,0,0,0,1], [0,1,0,0,0,0], 
-            [0,1,0,0,1,0], [1,0,0,0,1,0], [0,1,0,0,0,0], [0,0,0,0,1,0],
-            [0,0,0,1,1,0], [0,1,0,0,0,0], [0,0,0,0,1,0], [0,0,0,1,0,0], 
-            [0,1,0,0,0,0], [0,0,0,0,1,0], [0,0,0,1,0,0], [0,1,0,0,0,0], 
-            [0,0,0,0,1,0], [0,0,0,1,0,0], [0,1,0,0,0,0], [0,0,0,0,1,0],
-            [0,0,0,1,0,0], [0,1,0,0,0,0], [0,0,0,0,1,0],
-            ]
-    
-    
-    
     # There are 27 pairs of lugs 
     # They can be in one of six effective positions or in one of two ineffective
     # positions. Both lugs can be ineffective but both cannot be assigned to the
     # save effective position.
     # REMEMBER PYTHON ARRAYS START AT ZERO BUT M209 SPECIFICATION STARTS AT 1
+    
     lugs = []
     for l in range(27):
         
         lugs.append(random.sample([0,0,1,2,3,4,5,6],k=2))
     
-    #printColumns(lugs,6)
+    #        ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    pins = ["++-+---++-+-++----++-++---",
+            "+--++-+--+++--+--++-+-+--",
+            "++----++-+-+++---++++-+",
+            "--+-++-++---++-+--+++",
+            "-+-+++-++---++-+--+",
+            "++-+---+--+--++-+"]
+         
+    lugs = [[3,6], [0,6], [1,6], [1,5], [4,5], [0,4], [0,4],
+            [0,4], [0,4], [2,0], [2,0], [2,0], [2,0], [2,0],
+            [2,0], [2,0], [2,0], [2,0], [2,0], [2,5], [2,5],
+            [0,5], [0,5], [0,5], [0,5], [0,5], [0,5]]
+
+    
+
     
     ptext = "ATTACKZATZDAWN"
-    ctext = M209(ptext,["PEOPLE",pins,lugs])
-    dtext = M209(ctext,["PEOPLE",pins,lugs])
+    ptext = "A"*50
+    ctext = M209(ptext,["AAAAAA",pins,lugs])
+    dtext = M209(ctext,["AAAAAA",pins,lugs])
     print(ptext)
     print(ctext)
     print(dtext)
