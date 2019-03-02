@@ -14,7 +14,7 @@ def transPins(P):
         out.append( [0 if i == "-" else 1 for i in pins] )
     return out
 
-# Convert the friend [x,y] lug settings into binary lists
+# Convert the friendly [a,b] lug settings into binary lists
 def lugPos(L):
     lugs = []
     for l in L:
@@ -35,16 +35,6 @@ def countLugs(L):
                 count[pos-1] += 1
     return count
 
-#def activePins(P):
-#    out = []
-#    for pinList in P:
-#        s = []
-#        for pos,pin in enumerate(pinList):
-#            if pin == "+":
-#                s.append(pos)
-#        out.append(s)
-#    return out
-
 def ltr2num(K):
     alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     out = []
@@ -59,28 +49,20 @@ def num2ltr(K):
         out.append( alpha[i] )
     return out
 
-def overlaps(lugs,lugp):
-    overlaps = {}
-    for i in ['01','02','03','04','05','12','13','14','15','23','24','25','34','35','45']:
-        overlaps[i] = 0
-    numOverlap = 0
-    
-    for bar in range(27):
-        ctr = 0
-        for wheel in range(6):
-            if lugp[bar][wheel]:
-               ctr += 1
-    
-        if ctr > 1:
-            numOverlap += 1
-            indx = ""
-            for wheel in range(6):
-                if lugp[bar][wheel]:
-                    indx += str(wheel)
 
-            overlaps[indx] += 1 
-
-    return overlaps
+def keystream(textlen,Lugs,Wheels,Pins,activePins):
+    for i in range(textlen):
+        K = 0
+        for aBar in range(len(Lugs)):
+            aBarShifted = False
+            for wheel in range(len(Wheels)):
+                if Pins[wheel][activePins[wheel] % len(Pins[wheel])] * Lugs[aBar][wheel]:
+                    aBarShifted = True
+            if aBarShifted:
+                K += 1
+        yield K
+        for wheel in range(len(Wheels)):
+            activePins[wheel] += 1
 
 # Use pins and overlaps to calculate total overlaps
 def totaloverlaps(O,P,i):
@@ -108,28 +90,26 @@ def totaloverlaps(O,P,i):
 def M209(text,key,decode=False):
     
     text = ltr2num(text)
-    indi = ltr2num(key[0])
     pins = transPins(key[1])
-    #acpins = activePins(key[1])
-    lugs = countLugs(key[2])
-    lugp = lugPos(key[2])
-    over = overlaps(lugs,lugp)
+    LugsByWheel = countLugs(key[2])
+    Lugs = lugPos(key[2])
     
     #   for i in setting:
     #        print(i)
     #   print()
     
-    R1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    R2 = "ABCDEFGHIJKLMNOPQRSTUVXYZ" 
-    R3 = "ABCDEFGHIJKLMNOPQRSTUVX"
-    R4 = "ABCDEFGHIJKLMNOPQRSTU"
-    R5 = "ABCDEFGHIJKLMNOPQRS"
-    R6 = "ABCDEFGHIJKLMNOPQ"
+    Wheels = [
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        "ABCDEFGHIJKLMNOPQRSTUVXYZ",
+        "ABCDEFGHIJKLMNOPQRSTUVX",
+        "ABCDEFGHIJKLMNOPQRSTU",
+        "ABCDEFGHIJKLMNOPQRS",
+        "ABCDEFGHIJKLMNOPQ"]
     
-    wheelLen = [26,25,23,21,19,17]
+
+    
     sh = [15,14,13,12,11,10]
-    sl = 25
-    
+
     pins[0] = [1,1,0,1,0,0,0,1,1,0,1,0,1,1,0,0,0,0,1,1,0,1,1,0,0,0]
     pins[1] = [1,0,0,1,1,0,1,0,0,1,1,1,0,0,1,0,0,1,1,0,1,0,1,0,0]
     pins[2] = [1,1,0,0,0,0,1,1,0,1,0,1,1,1,0,0,0,1,1,1,1,0,1]
@@ -137,14 +117,15 @@ def M209(text,key,decode=False):
     pins[4] = [0,1,0,1,1,1,0,1,1,0,0,0,1,1,0,1,0,0,1]
     pins[5] = [1,1,0,1,0,0,0,1,0,0,1,0,0,1,1,0,1]
     
-    lugs[0] = 2
-    lugs[1] = 12
-    lugs[2] = 1
-    lugs[3] = 5
-    lugs[4] = 10
-    lugs[5] = 3
     
-    lugp = [[0,0,1,0,0,1], [0,1,0,0,0,0], [0,1,0,0,0,0],
+    LugsByWheel[0] = 2
+    LugsByWheel[1] = 12
+    LugsByWheel[2] = 1
+    LugsByWheel[3] = 5
+    LugsByWheel[4] = 10
+    LugsByWheel[5] = 3
+    
+    Lugs = [[0,0,1,0,0,1], [0,1,0,0,0,0], [0,1,0,0,0,0],
             [0,0,0,0,0,1], [0,1,0,0,0,0], [0,1,0,0,1,0],
             [1,0,0,0,0,1], [0,1,0,0,0,0], [0,1,0,0,1,0],
             [1,0,0,0,1,0], [0,1,0,0,0,0], [0,0,0,0,1,0],
@@ -155,26 +136,20 @@ def M209(text,key,decode=False):
             [0,0,0,1,0,0], [0,1,0,0,0,0], [0,0,0,0,1,0],
             ]
     
-    over = overlaps(lugs,lugp)
-    print(over)
-    print()
+    # For each wheel add up the shift of the wheel and the position of the key
+    # letter that is on it.
+    activePins = [0,0,0,0,0,0]
+    for wheel in range(len(Wheels)):
+        activePins[wheel] = sh[wheel] + Wheels[wheel].index(key[0][wheel])
+    
+    K = keystream(len(text),Lugs,Wheels,pins,activePins)
     
     L = []
-    for k,letter in enumerate(text):
-        s = 0
-        for w in range(6):
-            #print(sh[w],indi[w],k,lugs[w])
-            s += ( pins[w][ (sh[w] + indi[w] + k) % wheelLen[w]] * lugs[w] )
-        
-        ov = totaloverlaps(over,pins,k)
-        
-        KK = (s-ov) % 26
-        print("{:<3} {:<3} {:<3} {:<3} {:<3}".format(letter,s,ov,(s-ov)%26,((sl+KK)-letter) % 26))
-        
-        L.append( ((sl+KK)-letter) % 26)
-        #print()
+    for ltr,k in zip(text,K):
 
-    #printColumns(L,10,4)
+        s = ((25+k) - ltr) % 26
+            
+        L.append(s)
     
     return "".join( num2ltr(L) )
     
@@ -187,8 +162,8 @@ def M209Example():
     for p in [26,25,23,21,19,17]:
          pins.append(random.choices("-+",k=p))
     
-    for i in pins:
-        print("".join(i))
+    #for i in pins:
+    #    print("".join(i))
     
     # There are 27 pairs of lugs 
     # They can be in one of six effective positions or in one of two ineffective
@@ -200,8 +175,14 @@ def M209Example():
         
         lugs.append(random.sample([0,0,1,2,3,4,5,6],k=2))
     
-    printColumns(lugs,6)
+    #printColumns(lugs,6)
     
-    print(M209("ATTACKZATZDAWN",["PEOPLE",pins,lugs]))
+    ptext = "ATTACKZATZDAWN"
+    ctext = M209(ptext,["PEOPLE",pins,lugs])
+    dtext = M209(ctext,["PEOPLE",pins,lugs])
+    print(ptext)
+    print(ctext)
+    print(dtext)
+    
     
 M209Example()
