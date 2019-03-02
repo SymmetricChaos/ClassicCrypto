@@ -67,7 +67,7 @@ def M209(text,key,decode=False):
         "ABCDEFGHIJKLMNOPQRSTU",
         "ABCDEFGHIJKLMNOPQRS",
         "ABCDEFGHIJKLMNOPQ"]
-
+    
     sh = [15,14,13,12,11,10]
 
     # For each wheel add up the shift of the wheel and the position of the key
@@ -114,17 +114,16 @@ def M209Example():
             "--+-++-++---++-+--+++",
             "-+-+++-++---++-+--+",
             "++-+---+--+--++-+"]
+    
          
     lugs = [[3,6], [0,6], [1,6], [1,5], [4,5], [0,4], [0,4],
             [0,4], [0,4], [2,0], [2,0], [2,0], [2,0], [2,0],
             [2,0], [2,0], [2,0], [2,0], [2,0], [2,5], [2,5],
             [0,5], [0,5], [0,5], [0,5], [0,5], [0,5]]
 
-    
 
     
-    ptext = "ATTACKZATZDAWN"
-    ptext = "A"*50
+    ptext = "THEZQUICKZBROWNZDOGZJUMPSZOVERZTHEZLAZYZDOG"
     ctext = M209(ptext,["AAAAAA",pins,lugs])
     dtext = M209(ctext,["AAAAAA",pins,lugs])
     print(ptext)
@@ -132,4 +131,5 @@ def M209Example():
     print(dtext)
     
     
-M209Example()
+    
+#M209Example()

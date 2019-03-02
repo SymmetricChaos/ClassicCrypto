@@ -41,6 +41,7 @@ from Ciphers.TwoSquare import twoSquare
 from Ciphers.Hutton import hutton
 from Ciphers.Quagmire import quagmire1, quagmire2, quagmire3, quagmire4
 from Ciphers.AMSCO import AMSCO
+from Ciphers.M209 import M209
 
 # Monoalphabetic
 decodetest(ptext,1,caesar)
@@ -108,6 +109,18 @@ SIGtext = ptext
 SIGtext = SIGtext.replace("Z","X")
 decodetest(SIGtext,keySettings,SIGABA)
 
+# M209
+pins = ["++-+---++-+-++----++-++---",
+        "+--++-+--+++--+--++-+-+--",
+        "++----++-+-+++---++++-+",
+        "--+-++-++---++-+--+++",
+        "-+-+++-++---++-+--+",
+        "++-+---+--+--++-+"]
+lugs = [[3,6], [0,6], [1,6], [1,5], [4,5], [0,4], [0,4],
+        [0,4], [0,4], [2,0], [2,0], [2,0], [2,0], [2,0],
+        [2,0], [2,0], [2,0], [2,0], [2,0], [2,5], [2,5],
+        [0,5], [0,5], [0,5], [0,5], [0,5], [0,5]]
+decodetest(ptext,["TABLEA",pins,lugs],M209)
 
 # Hill Cipher
 key = [[12,14,24,4,6,4,13],
