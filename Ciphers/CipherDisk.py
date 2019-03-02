@@ -14,9 +14,11 @@ from Ciphers.UtilityFunctions import alphabetPermutation
 # When decrypting one simply checks shfits the cipher wheel whenever a digit is
 # found.
 
-# They key is simply the cipher wheel itself. In practice there should be a
-# particular letter marked as a starting point. The shift away from the start
-# can be a part of the key.
+# They key is simply the cipher wheel itself and the symbol which should be
+# rotated to the start position. And addition argument for the turning rate can
+# also be provided which determines how much to turn after each letter. By
+# default the turning rate is zero the inner ring only turns when a number is
+# encrypted.
 
 # Step the inner disk forward by N
 def stepN(R,n):
