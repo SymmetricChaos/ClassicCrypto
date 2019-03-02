@@ -103,4 +103,4 @@ def cipherDiskExample():
     print("Ciphertext is:\n{}".format(ctext))
     print("Decodes As:\n{}".format(dtext))
     
-cipherDiskExample()
+#cipherDiskExample()

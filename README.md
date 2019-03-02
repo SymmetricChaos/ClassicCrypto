@@ -65,9 +65,8 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 * DRYAD
 * Straddling Checkerboard
 * Cipher Disk
-* Disrupted Tableau
 * Hutton Cipher
-* Quagmire Cipher Family
+* Chaocipher
 
 #### Transposition Ciphers
 * Columnar Transport

@@ -28,7 +28,6 @@ from Ciphers.Trifid import trifid
 from Ciphers.ColumnarTransport import columnarTransport, doubleColumnarTransport
 from Ciphers.Railfence import railfence
 from Ciphers.CipherDisk import cipherDisk
-from Ciphers.DisruptedTableau import disruptedTableau
 from Ciphers.Chaocipher import chaocipher
 from Ciphers.Nomenclator import nomenclator
 from Ciphers.Playfair import playfair
@@ -80,8 +79,6 @@ decodetest(ptext,["JUPTIER","FEDROA"],hutton)
 
 # Disks
 decodetest(ptext,"M0A8G7I4C3A2L6F4UNTI5MEL1AND",cipherDisk)
-decodetest(ptext,"M0A8G7I4C3A2L6F4UNTI5MEL1AND",disruptedTableau)
-
 
 # Playfair
 ptextPlayfair = playfairPrep(ptext)
