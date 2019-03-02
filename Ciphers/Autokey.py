@@ -6,7 +6,7 @@ from Ciphers.UtilityFunctions import validptext, validkeys, alphaToNumber, numbe
 # cipher so that it doesn't repeat in a clear pattern.
 
 
-def autokey(text,key,decode=False,mode="vigenere"):
+def autokey(text,key,decode=False,mode="vigenere",alphabet=""):
 
     """
 :param text: The text to be encrypyed. Must be uppercase.
@@ -15,7 +15,11 @@ def autokey(text,key,decode=False,mode="vigenere"):
 :param mode: String to select between vigenere and beaufort modes.
     """
     
-    validptext(text,"ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    if alphabet == "":
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    M = len(alphabet)
+    
+    validptext(text,alphabet)
     validkeys(key,str)
     
     if mode in ["v","vig","vigenere"]:
@@ -26,9 +30,9 @@ def autokey(text,key,decode=False,mode="vigenere"):
         raise Exception("{} is not a valid mode".format(mode))
     
     # Convert the text to numbers
-    T = alphaToNumber(text)
+    T = alphaToNumber(text,alphabet)
     # Conver the key to numbers
-    K = alphaToNumber(key) 
+    K = alphaToNumber(key,alphabet) 
     
     # When encoding append the text to the key, we use a different method when
     # decoding
@@ -36,26 +40,27 @@ def autokey(text,key,decode=False,mode="vigenere"):
         K += T
 
     out = []
-    for keynum,textnum in zip(K,T):
-
-        if mode == "vigenere":
-            if decode == False:
-                out.append( (textnum+keynum)%26 )
-            else:
-                # Decode a letter then add it to the keystrean
-                out.append( (textnum-keynum)%26 )
-                K.append( out[-1] )
+    if mode == "vigenere":
+        for keynum,textnum in zip(K,T):
+    
+                if decode == False:
+                    out.append( (textnum+keynum) % M )
+                else:
+                    # Decode a letter then add it to the keystrean
+                    out.append( (textnum-keynum) % M )
+                    K.append( out[-1] )
         
-        if mode == "beaufort":
+    if mode == "beaufort":
+        for keynum,textnum in zip(K,T):
             if decode == False:
-                out.append( (keynum-textnum)%26 )
+                out.append( (keynum-textnum) % M )
             else:
                 # Decode a letter then add it to the keystrean
-                out.append( (keynum-textnum)%26 )
+                out.append( (keynum-textnum) % M )
                 K.append( out[-1] )       
                 
 
-    return "".join(numberToAlpha(out))
+    return "".join(numberToAlpha(out,alphabet))
 
 def autokeyExample():
 

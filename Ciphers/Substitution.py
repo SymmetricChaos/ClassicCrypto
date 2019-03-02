@@ -69,5 +69,5 @@ def atbashExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
     
-substitutionExample()
+#substitutionExample()
 #atbashExample()

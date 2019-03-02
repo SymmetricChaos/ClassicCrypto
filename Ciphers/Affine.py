@@ -1,4 +1,4 @@
-from Ciphers.UtilityFunctions import modinv, factors, alphaToNumber, numberToAlpha
+from Ciphers.UtilityFunctions import modinv, factors, alphaToNumber, numberToAlpha, validptext, validkeys
 
 # The affine cipher is very similar but requires more of an understanding of
 # modular arithmetic. Each letter is assigned a number with A = 0, B = 1, and
@@ -15,6 +15,10 @@ def affine(text,key=[0,1],decode=False,alphabet=""):
     
     if alphabet == "":
         alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    
+    #
+    validptext(text,alphabet)
+    validkeys(key,[int,int])
     
     # The length of the alphabet and its factors
     M = len(alphabet)
@@ -71,4 +75,4 @@ def affineExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
 
-affineExample()
+#affineExample()
