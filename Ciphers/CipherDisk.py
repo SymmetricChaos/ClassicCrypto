@@ -4,9 +4,15 @@ from Ciphers.UtilityFunctions import alphabetPermutation
 # This cipher is based on the Alberti Cipher Disk. Encryption works as a
 # simple substitution cipher. However the person encrypting can choose to shift
 # the key of the cipher by encrypting a digit indicating the size of the shift
-# they want. This computer implementation has a ten percent chance of shifting 
-# the wheel after each letter. When decrypting one simply checks shfits the 
-# cipher wheel whenever a digit is found.
+# they want.
+
+# Choosing when the place the shifts is a trade off between security and the
+# usability of the cipher. Short gaps are more secure but they make the 
+# ciphertext longer and decoding more difficult. This implementation specifies
+# a "gaprange" placing the next shift after between n and m letters.
+
+# When decrypting one simply checks shfits the cipher wheel whenever a digit is
+# found.
 
 # They key is simply the cipher wheel itself. In practice there should be a
 # particular letter marked as a starting point. The shift away from the start
@@ -22,6 +28,7 @@ def stepN(R,n):
 
 def cipherDisk(text,key="",decode=False,gaprange=[6,8]):
     
+
     outer = "ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789"
     
     if key == "":
@@ -31,6 +38,14 @@ def cipherDisk(text,key="",decode=False,gaprange=[6,8]):
 
     out = []
     if decode == False:
+        
+        # Raise an error if there are digits in the plaintext since they will
+        # cause decoding errors.
+        for i in "0123456789":
+            if i in text:
+                raise Exception("Cannot include numbers in the plaintext.")
+        
+        
         gap = random.randint(gaprange[0],gaprange[1])
         for i in text:
             out.append( inner[outer.index(i)] )
@@ -64,8 +79,8 @@ def cipherDiskExample():
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = cipherDisk(ptext,inner)
     dtext = cipherDisk(ctext,inner,decode=True)
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
+    print("Plaintext is:\n{}".format(ptext))
+    print("Ciphertext is:\n{}".format(ctext))
+    print("Decodes As:\n{}".format(dtext))
     
 cipherDiskExample()
