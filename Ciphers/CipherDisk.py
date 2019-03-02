@@ -12,7 +12,7 @@ from Ciphers.UtilityFunctions import alphabetPermutation
 # particular letter marked as a starting point. The shift away from the start
 # can be a part of the key.
 
-# Step forward by N
+# Step the inner disk forward by N
 def stepN(R,n):
     x = R[:]
     for i in range(n):
@@ -25,31 +25,33 @@ def cipherDisk(text,key="",decode=False):
     outer = "ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789"
     
     if key == "":
-        inner = "ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789"
+        inner = outer
     else:
-        inner = alphabetPermutation(key,"ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789")
+        inner = alphabetPermutation(key,outer)
 
+    out = []
     if decode == False:
-        out = ""
+        gap = random.randint(6,8)
         for i in text:
-            out += inner[outer.index(i)]
-            if random.random() < .1:
+            out.append( inner[outer.index(i)] )
+            gap -= 1
+            if gap == 0:
                 R = random.choice("0123456789")
                 out += inner[outer.index(R)]
                 inner = stepN(inner,int(R))
-
-        return out
-
+                gap = random.randint(6,8)
 
     if decode == True:
-        out = ""
         for i in text:
             dec = outer[inner.index(i)]
             if dec in "0123456789":
                 inner = stepN(inner,int(dec))
             else:
-                out += dec
-        return out
+                out.append(dec)
+    
+    return "".join(out)
+
+
     
 def cipherDiskExample():
 
@@ -57,7 +59,7 @@ def cipherDiskExample():
     
     inner = "1YW7USQ2OM8KIG3ECA9BD4FHJ0LNP5RTVX6Z"
     
-    print("Inner Ring Setting Is:\n{}".format(inner))
+    print("Inner Ring Setting Is:\n{}\n".format(inner))
 
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = cipherDisk(ptext,inner)
@@ -65,3 +67,5 @@ def cipherDiskExample():
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
+    
+cipherDiskExample()

@@ -42,13 +42,12 @@ def autokey(text,key,decode=False,mode="vigenere",alphabet=""):
     out = []
     if mode == "vigenere":
         for keynum,textnum in zip(K,T):
-    
-                if decode == False:
-                    out.append( (textnum+keynum) % M )
-                else:
-                    # Decode a letter then add it to the keystrean
-                    out.append( (textnum-keynum) % M )
-                    K.append( out[-1] )
+            if decode == False:
+                out.append( (textnum+keynum) % M )
+            else:
+                # Decode a letter then add it to the keystrean
+                out.append( (textnum-keynum) % M )
+                K.append( out[-1] )
         
     if mode == "beaufort":
         for keynum,textnum in zip(K,T):
@@ -57,7 +56,7 @@ def autokey(text,key,decode=False,mode="vigenere",alphabet=""):
             else:
                 # Decode a letter then add it to the keystrean
                 out.append( (keynum-textnum) % M )
-                K.append( out[-1] )       
+                K.append( out[-1] )
                 
 
     return "".join(numberToAlpha(out,alphabet))
