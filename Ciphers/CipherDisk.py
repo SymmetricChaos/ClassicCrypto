@@ -26,15 +26,25 @@ def stepN(R,n):
     return x
 
 
-def cipherDisk(text,key="",decode=False,gaprange=[6,8]):
+def cipherDisk(text,key=["","A"],decode=False,gaprange=[6,8],turn=0):
     
-
+    # The outer ring is in order
     outer = "ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789"
     
-    if key == "":
+    # Determine the inner ring
+    if key[0] == "":
         inner = outer
     else:
-        inner = alphabetPermutation(key,outer)
+        inner = alphabetPermutation(key[0],outer)
+    
+    
+    if key[1] not in outer:
+        raise Exception("Start position must exist in the inner ring.")
+    
+    # Turn the inner ring until the correct symbol is in the first position
+    while inner[0] != key[1]:
+        inner = stepN(inner,1)
+
 
     out = []
     if decode == False:
@@ -55,6 +65,7 @@ def cipherDisk(text,key="",decode=False,gaprange=[6,8]):
                 out += inner[outer.index(R)]
                 inner = stepN(inner,int(R))
                 gap = random.randint(gaprange[0],gaprange[1])
+            inner = stepN(inner,turn)
 
     if decode == True:
         for i in text:
@@ -63,6 +74,7 @@ def cipherDisk(text,key="",decode=False,gaprange=[6,8]):
                 inner = stepN(inner,int(dec))
             else:
                 out.append(dec)
+            inner = stepN(inner,turn)
     
     return "".join(out)
 
@@ -73,12 +85,18 @@ def cipherDiskExample():
     print("Example of a Cipher Disk\n")
     
     inner = "1YW7USQ2OM8KIG3ECA9BD4FHJ0LNP5RTVX6Z"
-    
-    print("Inner Ring Setting Is:\n{}\n".format(inner))
+    start = "K"
+    inStart = inner[:]
+    while inStart[0] != start:
+        inStart = stepN(inStart,1)
+    print("Inner Ring Is:\n{}".format(inner))
+    print("Rotated To Start Position {}:\n{}\n".format(start,inStart))
+
+    key = [inner,start]
 
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = cipherDisk(ptext,inner)
-    dtext = cipherDisk(ctext,inner,decode=True)
+    ctext = cipherDisk(ptext,key)
+    dtext = cipherDisk(ctext,key,decode=True)
     print("Plaintext is:\n{}".format(ptext))
     print("Ciphertext is:\n{}".format(ctext))
     print("Decodes As:\n{}".format(dtext))
