@@ -20,7 +20,7 @@ def stepN(R,n):
     return x
 
 
-def cipherDisk(text,key="",decode=False):
+def cipherDisk(text,key="",decode=False,gaprange=[6,8]):
     
     outer = "ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789"
     
@@ -31,7 +31,7 @@ def cipherDisk(text,key="",decode=False):
 
     out = []
     if decode == False:
-        gap = random.randint(6,8)
+        gap = random.randint(gaprange[0],gaprange[1])
         for i in text:
             out.append( inner[outer.index(i)] )
             gap -= 1
@@ -39,7 +39,7 @@ def cipherDisk(text,key="",decode=False):
                 R = random.choice("0123456789")
                 out += inner[outer.index(R)]
                 inner = stepN(inner,int(R))
-                gap = random.randint(6,8)
+                gap = random.randint(gaprange[0],gaprange[1])
 
     if decode == True:
         for i in text:
