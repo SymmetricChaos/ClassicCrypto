@@ -1,5 +1,4 @@
-# http://www.jfbouch.fr/crypto/m209/WORK/mathematical.html
-# http://www.jfbouch.fr/crypto/m209/WORK/computer.html
+from Ciphers.UtilityFunctions import alphaToNumber, numberToAlpha
 
 # The M209 was, in sense, one of the simplest of the cipher machines as it was
 # operated entirely mechanically. However the machine settings were extremely
@@ -12,7 +11,7 @@ def transPins(P):
         out.append( [0 if i == "-" else 1 for i in pins] )
     return out
 
-# Convert the friendly [x,y] lug settings into binary lists
+# Convert the friendly [a,b] lug settings into binary lists
 def lugPos(L):
     lugs = []
     for l in L:
@@ -22,20 +21,6 @@ def lugPos(L):
                 x[i-1] = 1
         lugs.append(x)
     return lugs
-
-def ltr2num(K):
-    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    out = []
-    for i in K:
-        out.append( alpha.index(i) )
-    return out
-
-def num2ltr(K):
-    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    out = []
-    for i in K:
-        out.append( alpha[i] )
-    return out
 
 # Generate the keystream
 def keystream(textlen,Lugs,Wheels,Pins,activePins):
@@ -56,11 +41,7 @@ def keystream(textlen,Lugs,Wheels,Pins,activePins):
 
 def M209(text,key,decode=False):
     
-    text = ltr2num(text)
-    pins = transPins(key[1])
-    Lugs = lugPos(key[2])
-
-
+    # We need the wheels to check for possible errors
     Wheels = [
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
         "ABCDEFGHIJKLMNOPQRSTUVXYZ",
@@ -69,6 +50,20 @@ def M209(text,key,decode=False):
         "ABCDEFGHIJKLMNOPQRS",
         "ABCDEFGHIJKLMNOPQ"]
     
+    # Wrong number of letters
+    if len(key[0]) != 6:
+        raise Exception("Key must have exactly six letters")
+    
+    # Check if valid letters were used in the key
+    for i in range(6):
+        if key[0][i] not in Wheels[i]:
+            raise Exception("Wheel {} can only have letters in {}".format(i+1,Wheels[i]))
+
+
+    text = alphaToNumber(text)
+    pins = transPins(key[1])
+    Lugs = lugPos(key[2])
+
     sh = [15,14,13,12,11,10]
 
     # For each wheel add up the shift of the wheel and the position of the key
@@ -86,16 +81,16 @@ def M209(text,key,decode=False):
             
         L.append(s)
     
-    return "".join( num2ltr(L) )
+    return "".join( numberToAlpha(L) )
     
 def M209Example():
     
-    import random
-    random.seed(1)
+    #import random
+    #random.seed(1)
     # Pins can be in either effective + or ineffective - positions
-    pins = []
-    for p in [26,25,23,21,19,17]:
-         pins.append(random.choices("-+",k=p))
+    #pins = []
+    #for p in [26,25,23,21,19,17]:
+    #     pins.append(random.choices("-+",k=p))
     
     # There are 27 pairs of lugs 
     # They can be in one of six effective positions or in one of two ineffective
@@ -103,11 +98,10 @@ def M209Example():
     # save effective position.
     # REMEMBER PYTHON ARRAYS START AT ZERO BUT M209 SPECIFICATION STARTS AT 1
     
-    lugs = []
-    for l in range(27):
-        
-        lugs.append(random.sample([0,0,1,2,3,4,5,6],k=2))
-    
+    #lugs = []
+    #for l in range(27):  
+    #    lugs.append(random.sample([0,0,1,2,3,4,5,6],k=2))
+
     #        ABCDEFGHIJKLMNOPQRSTUVWXYZ
     pins = ["++-+---++-+-++----++-++---",
             "+--++-+--+++--+--++-+-+--",
@@ -115,22 +109,17 @@ def M209Example():
             "--+-++-++---++-+--+++",
             "-+-+++-++---++-+--+",
             "++-+---+--+--++-+"]
-    
-         
+
     lugs = [[3,6], [0,6], [1,6], [1,5], [4,5], [0,4], [0,4],
             [0,4], [0,4], [2,0], [2,0], [2,0], [2,0], [2,0],
             [2,0], [2,0], [2,0], [2,0], [2,0], [2,5], [2,5],
             [0,5], [0,5], [0,5], [0,5], [0,5], [0,5]]
 
-
-    
     ptext = "THEZQUICKZBROWNZDOGZJUMPSZOVERZTHEZLAZYZDOG"
-    ctext = M209(ptext,["AAAAAA",pins,lugs])
-    dtext = M209(ctext,["AAAAAA",pins,lugs])
+    ctext = M209(ptext,["TABLEA",pins,lugs])
+    dtext = M209(ctext,["TABLEA",pins,lugs])
     print(ptext)
     print(ctext)
     print(dtext)
-    
-    
     
 #M209Example()
