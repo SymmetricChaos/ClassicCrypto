@@ -30,9 +30,9 @@ def alphabetPermutation(key,alphabet=""):
     return k
 
 # A very simple function for testing if inputs matches output
-def decodetest(text,keys,fun):
-    ctext = fun(text,keys)
-    dtext = fun(ctext,keys,decode=True)
+def decodetest(text,keys,fun,**kwargs):
+    ctext = fun(text,keys,**kwargs)
+    dtext = fun(ctext,keys,decode=True,**kwargs)
     if text == dtext[:len(text)]:
         print("Success With {}".format(fun.__name__))
     else:

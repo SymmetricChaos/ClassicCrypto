@@ -48,7 +48,6 @@ decodetest(ptext,1,caesar)
 decodetest(ptext,[3,4],affine)
 decodetest(ptext,"IOWNAXYLOPHONE",substitution)
 
-
 # Vigenere
 decodetest(ptext,"THISISABOUTFARMING",vigenere)
 decodetest(ptext,"SUGARCANE",beaufort)
