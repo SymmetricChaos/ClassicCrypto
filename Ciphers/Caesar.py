@@ -7,7 +7,7 @@ from Ciphers.UtilityFunctions import validptext, validkeys, alphaToNumber, numbe
 # cipher the letters are shifted back. The popular ROT13 is simply the caesar
 # cipher with a key of 13.
 
-def caesar(text,key,alphabet="",decode=False):
+def caesar(text,key,decode=False,alphabet=""):
 
     if alphabet == "":
         alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
