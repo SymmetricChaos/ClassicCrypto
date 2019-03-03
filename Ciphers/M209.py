@@ -37,6 +37,7 @@ def num2ltr(K):
         out.append( alpha[i] )
     return out
 
+# Generate the keystream
 def keystream(textlen,Lugs,Wheels,Pins,activePins):
     for i in range(textlen):
         K = 0

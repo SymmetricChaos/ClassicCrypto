@@ -3,28 +3,33 @@ Python repo for implementing classic methods of encryption and techniques for br
 
 ## Classical Cryptography
 The term "classical cryptography" refers broadly to two different concepts.
-* Firstly it is used for ciphers that allow an ordinary person to encrypt and decrypt a useful amount of information in a reasonable amount of time without anything but simple tools. Most of the ciphers presented here are of that form. Using a computer many of these techniques can be performed much faster and more accurately.
+* Firstly it is used for ciphers that allow an ordinary person to encrypt and decrypt a useful amount of information in a reasonable amount of time without anything but simple tools. Most of the ciphers presented here are of that form and can be implemented with only a pen and paper.
 * Secondly classical cryptography includes any method of cryptography that is no longer considered to be secure in practice. This includes devices like the Enigma machine from World War II but also much more recent ciphers such as RC4 and DES. For the purpose of this project the era of classical cryptography is ended, somewhat arbitrarily, in 1950 following the publication of "A Mathematical Theory of Cryptography" by Claude Shannon.
 
 ## Codes vs Ciphers
-The difference between codes and ciphers in classical cryptography is fairly vague, indeed the terms are sometimes used interchangeably. Within this project a cipher must have a changeable key that is needed in order to determine the plaintext. A code on the otherhand is fixed and can be read by anyone who knows the method.
+There is not a strict divide between what is meany by "codes" and "ciphers" in classical cryptography as most of it predates any formal study of cryptography. Indeed the terms are sometimes used interchangeably. For the purposes of this project a cipher must have a changable key which makes it easier for a person with the key to read the message than for a person without it. In contrast a code here will refer to only a change in the representation of the plaintext. Anyone familiar with the code can read anything encoded that way.
 
 ## Details
-All ciphers are functions of the form `cipherName(text,key,decode=False)`
+All ciphers are functions of the form `cipherName(text,key,decode=False)` sometimes with additional keywords arguments.
 *  `text` must be a string with either plaintext or ciphertext
 *  `key` is whatever kind of key the cipher uses, if it requires multiple keys they must be in a list
 *  `decode` is boolean and sets the function to either encode or decode
 
-All ciphers will return a string containing either the ciphertext or the decoded text.
+All ciphers will return a string containing either the ciphertext or the deciphered text.
 
+### Additional Arguments
+
+#### Polybius Squares
 Ciphers based on the Polybius Square or on the Playfair Cipher have the argument `mode` which can be:
 *  `IJ` replaces J with I to get a 25 letter square
 *  `CK` replaces C with K to get a 25 letter square
 *  `QK` replaces Q with K to get a 25 letter square
 *  `EX` appends the digits 0 to 9 to the alphabet to get a 36 letter alphabet
 
-The nomenclator cipher has an alternate mode that returns the dictionary that serves as the internal key.
+#### Vigenere Type Ciphers
+The Vigenere, Beaufort, Autokey, and Substitution ciphers have an argument `alphabet` that allows the user to specify a custom alphabet to act on. If no alphabet is supplied the standard uppercase English alphabet is used.
 
+### Examples
 Each cipher has an example of the form `cipherNameExample()` which gives a quick example of the cipher and the kind of key it uses. A few ciphers provide additional information about how the cipher is used.
 
 ##  Ciphers:
@@ -58,7 +63,7 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 #### Rotor Machines
 * Enigma
 * SIGABA
-* M209 (in progress)
+* M209
 
 #### Other Substitution Ciphers
 * Hill's Matrix Cipher
