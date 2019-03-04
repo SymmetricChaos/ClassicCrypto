@@ -13,44 +13,44 @@ ptext = preptext(textfile.readline())
 print()
 
 # Import the various ciphers
-from Ciphers.Affine import affine
-from Ciphers.Caesar import caesar
-from Ciphers.Substitution import substitution
+from Ciphers import affine
+from Ciphers import caesar
+from Ciphers import substitution
 
-from Ciphers.Vigenere import vigenere, multiVigenere, trithemius
-from Ciphers.Beaufort import beaufort, multiBeaufort
-from Ciphers.Autokey import autokey
-from Ciphers.AffineVigenere import affineVigenere
-from Ciphers.Quagmire import quagmire1, quagmire2, quagmire3, quagmire4
+from Ciphers import vigenere, multiVigenere, trithemius
+from Ciphers import beaufort, multiBeaufort
+from Ciphers import autokey
+from Ciphers import affineVigenere
+from Ciphers import quagmire1, quagmire2, quagmire3, quagmire4
 
-from Ciphers.Playfair import playfair
-from Ciphers.TwoSquare import twoSquare
-from Ciphers.FourSquare import fourSquare
+from Ciphers import playfair
+from Ciphers import twoSquare
+from Ciphers import fourSquare
 
-from Ciphers.Polybius import polybiusSquare
-from Ciphers.Nihilist import nihilist
-from Ciphers.ADFGVX import ADFGVX
-from Ciphers.Bifid import bifid
-from Ciphers.Trifid import trifid
+from Ciphers import polybiusSquare
+from Ciphers import nihilist
+from Ciphers import ADFGVX
+from Ciphers import bifid
+from Ciphers import trifid
 
-from Ciphers.CipherDisk import cipherDisk
+from Ciphers import cipherDisk
 
-from Ciphers.Nomenclator import nomenclator
+from Ciphers import nomenclator
 
-from Ciphers.StraddlingCheckerboard import straddlingCheckerboard
+from Ciphers import straddlingCheckerboard
 
-from Ciphers.HillCipher import hillCipher
+from Ciphers import hillCipher
 
-from Ciphers.Chaocipher import chaocipher
-from Ciphers.Hutton import hutton
+from Ciphers import chaocipher
+from Ciphers import hutton
 
-from Ciphers.AMSCO import AMSCO
-from Ciphers.ColumnarTransport import columnarTransport, doubleColumnarTransport
-from Ciphers.Railfence import railfence
+from Ciphers import AMSCO
+from Ciphers import columnarTransport, doubleColumnarTransport
+from Ciphers import railfence
 
-from Ciphers.Enigma import enigma
-from Ciphers.SIGABA import SIGABA
-from Ciphers.M209 import M209
+from Ciphers import enigma
+from Ciphers import SIGABA
+from Ciphers import M209
 
 # Monoalphabetic
 decodetest(ptext,1,caesar)
