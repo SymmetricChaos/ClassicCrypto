@@ -40,7 +40,6 @@ from Ciphers.Nomenclator import nomenclator
 from Ciphers.StraddlingCheckerboard import straddlingCheckerboard
 
 from Ciphers.HillCipher import hillCipher
-from Ciphers.PrimeHillCipher import primeHillCipher
 
 from Ciphers.Chaocipher import chaocipher
 from Ciphers.Hutton import hutton

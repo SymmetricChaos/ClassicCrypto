@@ -18,7 +18,6 @@ def createMatrixKey(n,M=26):
     # Get the prime factors of M so we can check if it is singular
     F = factors(M,prime=True)
 
-    
     while True:
         print("!")
         L = [[random.randint(0,M) for i in range(n)] for j in range(n)]
