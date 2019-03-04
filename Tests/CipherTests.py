@@ -13,51 +13,39 @@ ptext = preptext(textfile.readline())
 print()
 
 # Import the various ciphers
-from Ciphers import affine
-from Ciphers import caesar
-from Ciphers import substitution
 
-from Ciphers import vigenere, multiVigenere, trithemius
-from Ciphers import beaufort, multiBeaufort
-from Ciphers import autokey
-from Ciphers import affineVigenere
-from Ciphers import quagmire1, quagmire2, quagmire3, quagmire4
+# Monoalphabetic substitution
+from Ciphers import affine, caesar, substitution
 
-from Ciphers import playfair
-from Ciphers import twoSquare
-from Ciphers import fourSquare
+# Variation on the Vigenere cipher
+from Ciphers import vigenere, multiVigenere, trithemius, beaufort, \
+                    multiBeaufort, autokey, affineVigenere, \
+                    quagmire1, quagmire2, quagmire3, quagmire4
 
-from Ciphers import polybiusSquare
-from Ciphers import nihilist
-from Ciphers import ADFGVX
-from Ciphers import bifid
-from Ciphers import trifid
+# Variation on the Playfair Cipher
+from Ciphers import playfair, twoSquare, fourSquare
 
-from Ciphers import cipherDisk
+# Variations on the polybius square
+from Ciphers import polybiusSquare, nihilist, ADFGVX, bifid, trifid
 
-from Ciphers import nomenclator
+# Transposition ciphers
+from Ciphers import AMSCO, columnarTransport, doubleColumnarTransport, railfence
 
-from Ciphers import straddlingCheckerboard
+# Rotor machines
+from Ciphers import enigma, SIGABA, M209
 
-from Ciphers import hillCipher
+# Mutating alphabet ciphers
+from Ciphers import chaocipher, hutton
 
-from Ciphers import chaocipher
-from Ciphers import hutton
+# Everything else
+from Ciphers import cipherDisk, nomenclator, straddlingCheckerboard, hillCipher
 
-from Ciphers import AMSCO
-from Ciphers import columnarTransport, doubleColumnarTransport
-from Ciphers import railfence
 
-from Ciphers import enigma
-from Ciphers import SIGABA
-from Ciphers import M209
 
-# Monoalphabetic
 decodetest(ptext,1,caesar)
 decodetest(ptext,[3,4],affine)
 decodetest(ptext,"IOWNAXYLOPHONE",substitution)
 
-# Vigenere
 decodetest(ptext,"THISISABOUTFARMING",vigenere)
 decodetest(ptext,"SUGARCANE",beaufort)
 decodetest(ptext,["THIS","IS","ABOUT","FARMING"],multiVigenere)
@@ -66,37 +54,27 @@ decodetest(ptext,"FARMING",autokey)
 decodetest(ptext,["SUGAR","CANE"],affineVigenere)
 decodetest(ptext,"",trithemius)
 
-
-# Polybius Square
 decodetest(ptext,"ZEBRAS",polybiusSquare)
 decodetest(ptext,["NIHILIST","CIPHER"],nihilist)
 decodetest(ptext,["17ZEBRAS529","GIGANTIC"],ADFGVX)
 decodetest(ptext,"GIANTUNICORNS",bifid)
 decodetest(ptext,"GIANTUNICORNS",trifid)
 
-# Quagmire Ciphers
 decodetest(ptext,["FLYING","ZEBRA"],quagmire1)
 decodetest(ptext,["FLYING","ZEBRA"],quagmire2)
 decodetest(ptext,["FLYING","ZEBRA"],quagmire3)
 decodetest(ptext,["FLYING","ZEBRA","CAVALRY"],quagmire4)
 
-# Chaocipher
 decodetest(ptext,["",""],chaocipher)
-
-# Hutton Cipher
 decodetest(ptext,["JUPTIER","FEDROA"],hutton)
 
-# Disks
 decodetest(ptext,"M0A8G7I4C3A2L6F4UNTI5MEL1AND",cipherDisk)
 
-# Playfair
 ptextPlayfair = playfairPrep(ptext)
 decodetest(ptextPlayfair,"ILIKEANTELOPES",playfair)
 decodetest(ptext,["4SQUARE2","10CODE7"],fourSquare)
 decodetest(ptext,["4SQUARE2","10CODE7"],twoSquare)
 
-
-# Enigma Machine
 rotors =    ["V","III","II"]
 reflector = "B"
 positions = ["H","L","B"]
@@ -105,7 +83,6 @@ rings =     ["A","A","A"]
 keySettings = [rotors,reflector,positions,plugs,rings]
 decodetest(ptext,keySettings,enigma)
 
-# SIGABA
 cipher =     ["IV","X","VII","III","II"]
 control =    ["IX","V","I","VI","VIII"]
 index =      ["II","IV","V","I","III"]
@@ -117,7 +94,6 @@ SIGtext = ptext
 SIGtext = SIGtext.replace("Z","X")
 decodetest(SIGtext,keySettings,SIGABA)
 
-# M209
 pins = ["++-+---++-+-++----++-++---",
         "+--++-+--+++--+--++-+-+--",
         "++----++-+-+++---++++-+",
@@ -130,7 +106,6 @@ lugs = [[3,6], [0,6], [1,6], [1,5], [4,5], [0,4], [0,4],
         [0,5], [0,5], [0,5], [0,5], [0,5], [0,5]]
 decodetest(ptext,["TABLEA",pins,lugs],M209)
 
-# Hill Cipher
 key = [[12,14,24,4,6,4,13],
        [23,24,4,17,24,10,15],
        [17,0,18,6,22,22,11],
@@ -140,15 +115,10 @@ key = [[12,14,24,4,6,4,13],
        [24,20,5,0,15,21,12]]
 decodetest(ptext,key,hillCipher)
 
-
-# Straddling Checkerboard
 decodetest(ptext,["CIPHER",[5,7]],straddlingCheckerboard)
 
-# Codebook
 decodetest(ptext,5766645,nomenclator)
 
-
-# Transposition
 decodetest(ptext,"TABLES",columnarTransport)
 decodetest(ptext,["GIGANTIC","TABLES"],doubleColumnarTransport)
 decodetest(ptext,5,railfence)
