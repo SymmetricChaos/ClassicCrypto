@@ -1,4 +1,4 @@
-from Ciphers.UtilityFunctions import groups
+from Ciphers.UtilityFunctions import groups, factors
 import random
 from sympy import Matrix, pprint
 
@@ -11,42 +11,38 @@ from sympy import Matrix, pprint
 
 
 # The crudest possible method of creating keys. Pick a size and randomly
-# generate matrices until one of them is truly invertible.
-# It can take a while to generate a key if n is more than 8.
-def createMatrixKey(n,involute=False):
+# generate matrices until one of them is invertible modulo M.
+# It can take a while to generate a key if n is more than 10.
+def createMatrixKey(n,M=26):
     
-    if involute == False:
+    # Get the prime factors of M so we can check if it is singular
+    F = factors(M,prime=True)
+
     
-        while True:
-            L = [[random.randint(0,26) for i in range(n)] for j in range(n)]
-            M = Matrix(L)
-            
-            # If it is signular start over
-            if M.det() % 2 == 0:
-                continue
-            
-            if M.det() % 13 == 0:
-                continue
-            
-            return M
+    while True:
+        print("!")
+        L = [[random.randint(0,M) for i in range(n)] for j in range(n)]
+        mat = Matrix(L)
         
-    # We can use this to reduce a matrix modulo 26
-    mod26 = lambda x : x % 26
-    
-    if involute == True:
-    
-        ident = Matrix.eye(n)
+        # Check if the matrix is singular modulo M
+        singular = False
+        for factor in F:
+            if mat.det() % factor == 0:
+                singular = True
+                break
+
+        # If it is retry
+        if singular == True:
+            continue
         
-        while True:
-            L = [[random.randint(0,26) for i in range(n)] for j in range(n)]
-            M = Matrix(L)
-            Z = M * M
-            if Z.applyfunc(mod26) == ident:
-            
-                return M 
+        return mat
+        
+
     
  
-def hillCipher(text,key,decode=False):
+def hillCipher(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
+    
+    M = len(alphabet)
     
     # If a list is provided turn it into a sympy Matrix
     if type(key) == list:
@@ -54,7 +50,7 @@ def hillCipher(text,key,decode=False):
     
     # If we are decoding invert the key
     if decode == True:
-        key = key.inv_mod(26)
+        key = key.inv_mod(M)
 
     # Get the dimension of the key
     N = key.shape[0]
@@ -63,29 +59,41 @@ def hillCipher(text,key,decode=False):
     rem = len(text) % N
     if rem != 0:
         text += "X"*(N-rem)
-
-    # Alphabet we are using
-    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     
     out = ""
     for i in groups(text,N):
-        x = Matrix([alpha.index(let) for let in i])
+        x = Matrix([alphabet.index(let) for let in i])
         y = key.dot(x)
-        out += "".join([alpha[j%26] for j in y])
+        out += "".join([alphabet[j%M] for j in y])
 
     return out
 
 def hillCipherExample():
     print("Example of the Hill Cipher\n")
 
-    key = createMatrixKey(3)
+    key = createMatrixKey(6)
     
-    print("The key is:\n")
+    print("The key is:")
     pprint(key)
     print()
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = hillCipher(ptext,key)
     dtext = hillCipher(ctext,key,decode=True)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+    
+    print("\n\nCustom Alphabet Example\n")
+
+    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#"
+    key = createMatrixKey(4,len(alpha))
+    
+    print("The key is:")
+    pprint(key)
+    print("\nThe alphabet is\n{}\nWhich has length {}\n".format(alpha,len(alpha)))
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = hillCipher(ptext,key,alphabet=alpha)
+    dtext = hillCipher(ctext,key,decode=True,alphabet=alpha)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))

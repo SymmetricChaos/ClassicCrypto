@@ -49,7 +49,7 @@ def groups(text,n):
     else:
         return [text[i*n:i*n+n] for i in range(len(text)//n+1)]
 
-## Get prime numbers.
+## Generator that returns primes
 def primes():
     D = {}
     q = 2
@@ -66,12 +66,25 @@ def primes():
 
 # This is an excessively simple way of finding all the factors btu we're only
 # using it on very small numbers.
-def factors(n):
+def factors(n,prime=False):
     L = []
-    for i in range(2,n):
-        if n % i == 0:
-            L.append(i)
-    return L
+    
+    # If not in primes mode just check all the numbers
+    if prime == False:
+        for i in range(2,n+1):
+            if n % i == 0:
+                L.append(i)
+        return L
+    
+    # If it is in primes mode check all primes
+    else:
+        for i in primes():
+            if i > n:
+                break
+            if n % i == 0:
+                L.append(i)
+        return L
+
 
 # Extended Euclidean algorithm
 # Return greatest common denominator and the numbers x and y such that
