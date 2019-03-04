@@ -87,8 +87,8 @@ def factors(n,prime=False):
 
 
 # Extended Euclidean algorithm
-# Return greatest common denominator and the numbers x and y such that
-# g = ax + by
+# g - Greatest common denominator
+# x,y = integers such that g = ax + by
 def egcd(a, b):
     if a == 0:
         return (b, 0, 1)
