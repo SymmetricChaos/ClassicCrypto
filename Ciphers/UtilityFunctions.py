@@ -396,9 +396,11 @@ def printColumns(L,N,W=0):
         print(s,end="")
         if ctr % N == 0 or ctr == len(L):
             print()
-    
+
+# Convert letters to numbers according to some alphabet
 def alphaToNumber(L,alpha="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     return [alpha.index(i) for i in L]
-    
+
+# Convert numbers to letters according to some alphabet
 def numberToAlpha(L,alpha="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     return [alpha[i] for i in L]

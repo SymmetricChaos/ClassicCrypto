@@ -26,7 +26,7 @@ from Ciphers import vigenere, multiVigenere, trithemius, beaufort, \
 from Ciphers import playfair, twoSquare, fourSquare
 
 # Variations on the polybius square
-from Ciphers import polybiusSquare, nihilist, ADFGVX, bifid, trifid
+from Ciphers import polybiusSquare, nihilist, ADFGX, ADFGVX, bifid, trifid
 
 # Transposition ciphers
 from Ciphers import AMSCO, columnarTransport, doubleColumnarTransport, railfence
@@ -56,6 +56,7 @@ decodetest(ptext,"",trithemius)
 
 decodetest(ptext,"ZEBRAS",polybiusSquare)
 decodetest(ptext,["NIHILIST","CIPHER"],nihilist)
+decodetest(ptext.replace("J","I"),["ZEBRAS","GIGANTIC"],ADFGX)
 decodetest(ptext,["17ZEBRAS529","GIGANTIC"],ADFGVX)
 decodetest(ptext,"GIANTUNICORNS",bifid)
 decodetest(ptext,"GIANTUNICORNS",trifid)
@@ -70,8 +71,7 @@ decodetest(ptext,["JUPTIER","FEDROA"],hutton)
 
 decodetest(ptext,"M0A8G7I4C3A2L6F4UNTI5MEL1AND",cipherDisk)
 
-ptextPlayfair = playfairPrep(ptext)
-decodetest(ptextPlayfair,"ILIKEANTELOPES",playfair)
+decodetest(playfairPrep(ptext),"ILIKEANTELOPES",playfair)
 decodetest(ptext,["4SQUARE2","10CODE7"],fourSquare)
 decodetest(ptext,["4SQUARE2","10CODE7"],twoSquare)
 
