@@ -3,6 +3,8 @@
 ###############################################################################
 
 
+import re
+
 # Many ciphers need to create a permutation of the alphabet. A common way to do
 # this for classical cryptography is to specify a key. The letters of the key
 # are form the beginning of the new alphabet, skipping any repetition, and then
@@ -189,7 +191,27 @@ def squareIndex(sq):
             D[letter] = (i,j)
     return D
 
-import re
+
+def digitsToNames(text,simple=True):
+    
+    # Give each digit its name
+    if simple == True:
+        for i,j in zip(range(10),["ZERO","ONE","TWO","THREE","FOUR","FIVE","SIX","SEVEN","EIGHT","NINE"]):
+            text = re.sub(r'[{}]'.format(i), j, text)
+        return text
+    
+    else:
+        L = []
+        cur = ""
+        for sym in text:
+            if sym in "0123456789":
+                cur += sym
+            else:
+                if len(cur) > 0:
+                    L.append(cur)
+                    cur = ""
+        if len(cur) > 0:
+            L.append(cur)
 
 def preptext(text,keepSpaces=False,keepDigits=False,silent=False):
 
@@ -208,9 +230,9 @@ def preptext(text,keepSpaces=False,keepDigits=False,silent=False):
     if keepDigits == False:
         if silent == False:
             print("DIGITS REPLACED WITH NAMES")
-
-        for i,j in zip(range(10),["ZERO","ONE","TWO","THREE","FOUR","FIVE","SIX","SEVEN","EIGHT","NINE"]):
-            T = re.sub(r'[{}]'.format(i), j, T)
+        T = digitsToNames(T)
+        
+        
 
     # Convert letters to uppercase
     if silent == False:
@@ -218,6 +240,7 @@ def preptext(text,keepSpaces=False,keepDigits=False,silent=False):
     T = T.upper()
     
     return T
+
 
 def playfairPrep(text,mode="IJ"):
 
