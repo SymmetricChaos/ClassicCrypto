@@ -20,18 +20,15 @@ import random
 # are random letters. Of course this should be different if the plaintext might
 # actually contain three Xs in a row.
     
-# The printkey argument allows the grille to be printed out with a # showing
-# where the holes are.
-# The printgrid agument allows the grid containing the ciphertext to be shown
-# along with the ciphertext returned as a simple string. 
-def turningGrille(text,key,decode=False,N=2,printkey=False,printgrid=False):
+def turningGrille(text,key,decode=False,N=4):
     
+    if len(key) != N**2:
+        raise Exception("Key must have of the size N")
     
-    key = groups(key,N**2)
+    key = groups(key,(N//2)**2)
+    S = N*2
     
-    S = N*4
-        
-    # Can't work with more than 64 characters at a time 
+    # Can't work with more than S^2 characters at a time 
     if len(text) > S**2:
         raise Exception("Text is too long.")
     
@@ -42,7 +39,7 @@ def turningGrille(text,key,decode=False,N=2,printkey=False,printgrid=False):
     while len(text) < S**2:
 
         if ctr > 3:
-            text += choice([i for i in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"])
+            text += choice(list("ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
         else:
             text += "X"
             ctr += 1
@@ -59,13 +56,7 @@ def turningGrille(text,key,decode=False,N=2,printkey=False,printgrid=False):
             pos = np.divmod(digit,S//2)
             grille[pos[0],pos[1]] = 1
         grille = np.rot90(grille)
-    
-    # If requested print out the grille in a more human readable way
-    if printkey == True:
-        for i in grille:
-            t = ["_" if j == 0 else "#" for j in i]
-            print("|","|".join(t),"|",sep="")
-    
+
     # When encoding write the letters of the text into the open spaces of the
     # grille. Then rotate the grille 90 degrees and continue.
     if decode == False:
@@ -78,8 +69,6 @@ def turningGrille(text,key,decode=False,N=2,printkey=False,printgrid=False):
         
         out = ""
         for i in outmat:
-            if printgrid == True:
-                print("".join(i))
             out += "".join(i)
             
         return out
@@ -96,18 +85,40 @@ def turningGrille(text,key,decode=False,N=2,printkey=False,printgrid=False):
             
         return out
 
-def turningGrilleExample():
+def printGrille(key,N):
+    S = N*2
+    key = groups(key,(N//2)**2)
+    # The grille is actual key used for encryption, the key argument provided
+    # specifies how to put it together.
+    grille = np.zeros([S,S],dtype=int)
+    
+    # Generate the grille to be used as the key
+    for block in key:
+        for digit in block:
+            pos = np.divmod(digit,S//2)
+            grille[pos[0],pos[1]] = 1
+        grille = np.rot90(grille)
+    
+    # If requested print out the grille in a more human readable way
+    for i in grille:
+        t = ["_" if j == 0 else "#" for j in i]
+        print("|","|".join(t),"|",sep="")
 
+
+def turningGrilleExample():
     print("Turning Grille Example")
-    key = [i for i in range(16)]
+    key = [i for i in range(25)]
     random.shuffle(key)
     print("The Grille Is:")
-    turningGrille("",key,printkey=True)
+    N = 5
+    printGrille(key,N)
     
-    
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = turningGrille(ptext,key)
-    dtext = turningGrille(ctext,key,decode=True)
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"*2
+    ctext = turningGrille(ptext,key,N=N)
+    dtext = turningGrille(ctext,key,decode=True,N=N)
     print("Plaintext is:  {}".format(ptext))
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
+    print("\n\n")
+    
+turningGrilleExample()

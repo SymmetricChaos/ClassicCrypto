@@ -29,7 +29,7 @@ from Ciphers import playfair, twoSquare, fourSquare
 from Ciphers import polybiusSquare, nihilist, ADFGX, ADFGVX, bifid, trifid
 
 # Transposition ciphers
-from Ciphers import AMSCO, columnarTransport, doubleColumnarTransport, railfence
+from Ciphers import AMSCO, columnarTransport, doubleColumnarTransport, railfence, turningGrille
 
 # Rotor machines
 from Ciphers import enigma, SIGABA, M209
@@ -123,3 +123,4 @@ decodetest(ptext,"TABLES",columnarTransport)
 decodetest(ptext,["GIGANTIC","TABLES"],doubleColumnarTransport)
 decodetest(ptext,5,railfence)
 decodetest(ptext,"GIGANTIC",AMSCO)
+decodetest(ptext[:128],[i for i in range(36)],turningGrille,N=3)
