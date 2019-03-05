@@ -1,7 +1,8 @@
 import numpy as np
 from numpy.random import choice
-from Ciphers.UtilityFunctions import groups
 import random
+from Ciphers.UtilityFunctions import groups
+
 
 # The turning grille was invented by Edouard Fleissner using an 8x8 grid.
 # That used a grille with four 4x4 subgrids with spaces numbered 1 through 16. 
@@ -23,7 +24,7 @@ import random
 def turningGrille(text,key,decode=False,N=4):
     
     if len(key) != N**2:
-        raise Exception("Key must have of the size N")
+        raise Exception("Key must have of the size N^2")
     
     key = groups(key,(N//2)**2)
     S = N*2
@@ -107,7 +108,7 @@ def printGrille(key,N):
 
 def turningGrilleExample():
     print("Turning Grille Example")
-    key = [i for i in range(25)]
+    key = [i for i in range(24)]
     random.shuffle(key)
     print("The Grille Is:")
     N = 5
@@ -121,4 +122,4 @@ def turningGrilleExample():
     print("Decodes As:    {}".format(dtext))
     print("\n\n")
     
-turningGrilleExample()
+#turningGrilleExample()
