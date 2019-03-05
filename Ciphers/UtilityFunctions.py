@@ -192,28 +192,34 @@ def squareIndex(sq):
     return D
 
 
-def digitsToNames(text,simple=True):
+def digitsToNames(text):
     
     # Give each digit its name
-    if simple == True:
-        for i,j in zip(range(10),["ZERO","ONE","TWO","THREE","FOUR","FIVE","SIX","SEVEN","EIGHT","NINE"]):
-            text = re.sub(r'[{}]'.format(i), j, text)
-        return text
-    
-    else:
-        L = []
-        cur = ""
-        for sym in text:
-            if sym in "0123456789":
-                cur += sym
-            else:
-                if len(cur) > 0:
-                    L.append(cur)
-                    cur = ""
-        if len(cur) > 0:
-            L.append(cur)
+    for i,j in zip(range(10),["ZERO","ONE","TWO","THREE","FOUR","FIVE","SIX","SEVEN","EIGHT","NINE"]):
+        text = re.sub(r'[{}]'.format(i), j, text)
+    return text
 
-def preptext(text,keepSpaces=False,keepDigits=False,silent=False):
+#def numbersToWords(text)
+#    else:
+#        L = []
+#        cur = ""
+#        for sym in text:
+#            if sym in "0123456789":
+#                cur += sym
+#            else:
+#                if len(cur) > 0:
+#                    L.append(cur)
+#                    cur = ""
+#        if len(cur) > 0:
+#            L.append(cur)
+#    
+#    D = {}
+#    for i in L:
+#        if i[0] == "0":
+#            D[i] = digitsToNames(i)
+#        else:
+
+def preptext(text,keepSpaces=False,keepDigits=False,keepCase=False,silent=False):
 
     # Remove anything that isn't an alphanumeric character. Keep spaces if
     # requested.
@@ -232,12 +238,11 @@ def preptext(text,keepSpaces=False,keepDigits=False,silent=False):
             print("DIGITS REPLACED WITH NAMES")
         T = digitsToNames(T)
         
-        
-
     # Convert letters to uppercase
-    if silent == False:
-        print("CONVERTING TO UPPERCASE")        
-    T = T.upper()
+    if keepCase == False:
+        if silent == False:
+            print("CONVERTING TO UPPERCASE")        
+        T = T.upper()
     
     return T
 
