@@ -7,6 +7,7 @@ from Ciphers.Beaufort import beaufort, multiBeaufort
 from Ciphers.Autokey import autokey
 from Ciphers.AffineVigenere import affineVigenere
 from Ciphers.Quagmire import quagmire1, quagmire2, quagmire3, quagmire4
+from Ciphers.ProgressiveKey import progressiveKey
 
 from Ciphers.Playfair import playfair
 from Ciphers.TwoSquare import twoSquare
@@ -47,4 +48,4 @@ __all__=["affine","caesar","ROT13","substitution","atbash","vigenere","multiVige
 		 "quagmire4","playfair","twoSquare","fourSquare","polybiusSquare","nihilist","ADFGX","ADFGVX",
 		 "bifid","trifid","cipherDisk","nomenclator","straddlingCheckerboard","DRYAD","hillCipher",
 		 "chaocipher","hutton","AMSCO","columnarTransport","doubleColumnarTransport","railfence",
-		 "turningGrille","routeCipher","enigma","SIGABA","M209"]
+		 "turningGrille","routeCipher","enigma","SIGABA","M209","progressiveKey"]
