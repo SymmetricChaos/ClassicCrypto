@@ -34,12 +34,15 @@ def progressiveKey(text,key,decode=False,alphabet=""):
         
     return "".join(numberToAlpha(out,alphabet))
 
-ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-ptext = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-ctext = progressiveKey(ptext,["APPLE",3])
-dtext = progressiveKey(ctext,["APPLE",3],decode=True)
 
+def progressiveKeyExample():
 
-print(ptext)
-print(ctext)
-print(dtext)
+    print("Example of the Progressive Key Cipher")
+    
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = progressiveKey(ptext,["APPLE",3])
+    dtext = progressiveKey(ctext,["APPLE",3],decode=True)
+    
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
