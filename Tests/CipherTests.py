@@ -15,7 +15,8 @@ print()
 # Import the various ciphers
 
 # Monoalphabetic substitution
-from Ciphers import affine, caesar, substitution
+#from Ciphers import affine, caesar, substitution
+from Ciphers.Simple import affine, caesar, substitution
 
 # Variation on the Vigenere cipher
 from Ciphers import vigenere, multiVigenere, trithemius, beaufort, \
@@ -48,8 +49,8 @@ decodetest(ptext,"IOWNAXYLOPHONE",substitution)
 
 decodetest(ptext,"THISISABOUTFARMING",vigenere)
 decodetest(ptext,"SUGARCANE",beaufort)
-decodetest(ptext,["THIS","IS","ABOUT","FARMING"],multiVigenere)
-decodetest(ptext,["THIS","IS","ABOUT","FARMING"],multiBeaufort)
+#decodetest(ptext,["THIS","IS","ABOUT","FARMING"],multiVigenere)
+#decodetest(ptext,["THIS","IS","ABOUT","FARMING"],multiBeaufort)
 decodetest(ptext,"FARMING",autokey)
 decodetest(ptext,["SUGAR","CANE"],affineVigenere)
 decodetest(ptext,"",trithemius)
