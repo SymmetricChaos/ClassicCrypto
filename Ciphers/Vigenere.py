@@ -36,7 +36,7 @@ def vigenere(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
 # Vigenere cipher with a key equal to the product of their length but is much
 # easier to remember. For example if one key has a length of 7 and the other a
 # length of 10 the resulting key has a length of 70!
-def multiVigenere(text,key,decode=False,alphabet=""):
+def multiVigenere(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     
     if type(key) != list:
         raise Exception("Must provide a list of keys")
@@ -118,6 +118,6 @@ def trithemiusExample():
     print("Decodes As:    {}".format(dtext))
     
 #vigenereExample()
-#multiVigenereExample()
+multiVigenereExample()
 #trithemiusExample()
     

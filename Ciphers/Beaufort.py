@@ -39,7 +39,7 @@ def beaufort(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
 # Vigenere ciphers. The key has a length equal to the least common multiple of
 # the key lengths. However the cipher is not longer an involution. The keys
 # must be used in reverse.
-def multiBeaufort(text,key,decode=False,alphabet=""):
+def multiBeaufort(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     
     validkeys(key,list)
     
