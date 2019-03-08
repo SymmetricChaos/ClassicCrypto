@@ -17,6 +17,9 @@ print()
 # Monoalphabetic substitution
 from Ciphers.Simple import affine, caesar, substitution
 
+# Variation on the Playfair Cipher
+from Ciphers.Playfair import playfair, twoSquare, fourSquare
+
 # Rotor machines
 from Ciphers.RotorMachine import enigma, SIGABA, M209
 
@@ -25,15 +28,12 @@ from Ciphers import vigenere, multiVigenere, trithemius, beaufort, \
                     multiBeaufort, autokey, affineVigenere, \
                     quagmire1, quagmire2, quagmire3, quagmire4
 
-# Variation on the Playfair Cipher
-from Ciphers import playfair, twoSquare, fourSquare
 
 # Variations on the polybius square
 from Ciphers import polybiusSquare, nihilist, ADFGX, ADFGVX, bifid, trifid
 
 # Transposition ciphers
 from Ciphers import AMSCO, columnarTransport, doubleColumnarTransport, railfence, turningGrille
-
 
 # Mutating alphabet ciphers
 from Ciphers import chaocipher, hutton

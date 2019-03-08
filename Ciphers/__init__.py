@@ -9,12 +9,12 @@ from Ciphers.AffineVigenere import affineVigenere
 from Ciphers.Quagmire import quagmire1, quagmire2, quagmire3, quagmire4
 from Ciphers.ProgressiveKey import progressiveKey
 
-from Ciphers.Playfair import playfair
-from Ciphers.TwoSquare import twoSquare
-from Ciphers.FourSquare import fourSquare
+#from Ciphers.Playfair import playfair
+#from Ciphers.TwoSquare import twoSquare
+#from Ciphers.FourSquare import fourSquare
+
 from Ciphers.Polybius import polybiusSquare
 from Ciphers.Nihilist import nihilist
-
 from Ciphers.ADFGX import ADFGX 
 from Ciphers.ADFGVX import ADFGVX
 
@@ -39,13 +39,13 @@ from Ciphers.Railfence import railfence
 from Ciphers.TurningGrille import turningGrille
 from Ciphers.RouteCipher import routeCipher
 
-from Ciphers.Enigma import enigma
-from Ciphers.SIGABA import SIGABA
-from Ciphers.M209 import M209
+#from Ciphers.Enigma import enigma
+#from Ciphers.SIGABA import SIGABA
+#from Ciphers.M209 import M209
 
-__all__=["affine","caesar","ROT13","substitution","atbash","vigenere","multiVigenere","trithemius",
+__all__=["vigenere","multiVigenere","trithemius",
 		 "beaufort","multiBeaufort","autokey","affineVigenere","quagmire1","quagmire2","quagmire3",
-		 "quagmire4","playfair","twoSquare","fourSquare","polybiusSquare","nihilist","ADFGX","ADFGVX",
+		 "quagmire4","polybiusSquare","nihilist","ADFGX","ADFGVX",
 		 "bifid","trifid","cipherDisk","nomenclator","straddlingCheckerboard","DRYAD","hillCipher",
 		 "chaocipher","hutton","AMSCO","columnarTransport","doubleColumnarTransport","railfence",
-		 "turningGrille","routeCipher","enigma","SIGABA","M209","progressiveKey"]
+		 "turningGrille","routeCipher","progressiveKey"]
