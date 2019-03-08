@@ -309,6 +309,11 @@ def validkeys(K,types):
             if type(pair[0]) != pair[1]:
                 raise Exception("Key #{} must be {}".format(pos,pair[1]))
 
+# Make sure the alphabet is an made of unique letters
+def validalpha(alphabet):
+    if len(set(alphabet)) != len(alphabet):
+        raise Exception("Alphabet cannot repeat any symbols")
+    
 
 # Clever recursive function that converts decimal numbers to another base (not my work)
 # Returns a string not a number.

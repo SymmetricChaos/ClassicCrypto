@@ -1,4 +1,4 @@
-from Ciphers.UtilityFunctions import validptext, validkeys, alphaToNumber, numberToAlpha
+from Ciphers.UtilityFunctions import validptext, validkeys, validalpha, alphaToNumber, numberToAlpha
 
 # The caesar cipher, named after Julius Caesar who is said to have used it to
 # protect his military secrets. Every letter is shifted a certain number of
@@ -9,10 +9,7 @@ from Ciphers.UtilityFunctions import validptext, validkeys, alphaToNumber, numbe
 
 def caesar(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
 
-    
-    if len(set(alphabet)) != len(alphabet):
-        raise Exception("Alphabet cannot repeat any symbols")
-    
+    validalpha(alphabet)
     validptext(text,alphabet)
     validkeys(key,int)
     
