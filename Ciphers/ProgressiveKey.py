@@ -1,10 +1,7 @@
 from Ciphers.UtilityFunctions import validptext, validkeys, alphaToNumber, numberToAlpha
 from itertools import cycle
 
-def progressiveKey(text,key,decode=False,alphabet=""):
-    
-    if alphabet == "":
-        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+def progressiveKey(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     
     # Validate the inputs
     validptext(text,alphabet)

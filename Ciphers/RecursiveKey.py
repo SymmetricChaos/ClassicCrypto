@@ -1,9 +1,6 @@
 from Ciphers.UtilityFunctions import validptext, validkeys, alphaToNumber, numberToAlpha
 
-def recursiveKey(text,key,decode=False,alphabet=""):
-    
-    if alphabet == "":
-        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+def recursiveKey(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     
     # Validate the inputs
     validptext(text,alphabet)
