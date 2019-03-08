@@ -6,17 +6,15 @@ from Ciphers.UtilityFunctions import validptext, validkeys, alphaToNumber, numbe
 # cipher so that it doesn't repeat in a clear pattern.
 
 
-def autokey(text,key,decode=False,mode="vigenere",alphabet=""):
+def autokey(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ",mode="vigenere"):
 
     """
-:param text: The text to be encrypyed. Must be uppercase.
+:param text: The text to be encrypyed or decrypted. Must be uppercase.
 :param key: A keyword that is used to encrypt the first few letters.
 :param decode: Boolean. If false encrypt plaintext. If true decode ciphertext.
 :param mode: String to select between vigenere and beaufort modes.
     """
     
-    if alphabet == "":
-        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     M = len(alphabet)
     
     validptext(text,alphabet)

@@ -5,10 +5,8 @@ from itertools import cycle
 # considered to be unbreakable as it makes simple frequency analysis of the
 # ciphertext impossible. It operates as several Caesar ciphers.
 
-def vigenere(text,key,decode=False,alphabet=""):
+def vigenere(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     
-    if alphabet == "":
-        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     
     # Validate the inputs
     validptext(text,alphabet)

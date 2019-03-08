@@ -5,17 +5,14 @@ from itertools import cycle
 # values of the text are subtracted from the numeric values of the key. This
 # provides the same degree of security sas the Vigenere but is involutive.
 
-def beaufort(text,key,decode=False,alphabet=""):
+def beaufort(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     
     """
 :param text: The text to be encrypyed. Must be uppercase
 :param key: A keyword that is used to encrypt the text.
 :param decode: Boolean. Ignored as the Beaufort cipher is reciprocal.
     """
-    
-    if alphabet == "":
-        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    
+        
     M = len(alphabet)
        
     # Validate input and convert as necessary
