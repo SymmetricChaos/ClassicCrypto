@@ -17,6 +17,9 @@ print()
 # Monoalphabetic substitution
 from Ciphers.Simple import affine, caesar, substitution
 
+# Rotor machines
+from Ciphers.RotorMachine import enigma, SIGABA, M209
+
 # Variation on the Vigenere cipher
 from Ciphers import vigenere, multiVigenere, trithemius, beaufort, \
                     multiBeaufort, autokey, affineVigenere, \
@@ -31,8 +34,6 @@ from Ciphers import polybiusSquare, nihilist, ADFGX, ADFGVX, bifid, trifid
 # Transposition ciphers
 from Ciphers import AMSCO, columnarTransport, doubleColumnarTransport, railfence, turningGrille
 
-# Rotor machines
-from Ciphers import enigma, SIGABA, M209
 
 # Mutating alphabet ciphers
 from Ciphers import chaocipher, hutton

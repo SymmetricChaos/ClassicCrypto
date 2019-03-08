@@ -118,6 +118,6 @@ def trithemiusExample():
     print("Decodes As:    {}".format(dtext))
     
 #vigenereExample()
-multiVigenereExample()
+#multiVigenereExample()
 #trithemiusExample()
     
