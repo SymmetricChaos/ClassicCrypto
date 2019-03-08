@@ -15,7 +15,6 @@ print()
 # Import the various ciphers
 
 # Monoalphabetic substitution
-#from Ciphers import affine, caesar, substitution
 from Ciphers.Simple import affine, caesar, substitution
 
 # Variation on the Vigenere cipher
