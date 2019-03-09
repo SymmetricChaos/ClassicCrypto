@@ -102,6 +102,9 @@ def egcd(a, b):
 
 # Use egcd to calculate the modular inverse
 def modinv(a, m):
+    """
+    
+    """
     g, x, y = egcd(a, m)
     if g != 1:
         raise Exception('modular inverse does not exist')
@@ -201,25 +204,6 @@ def digitsToNames(text):
         text = re.sub(r'[{}]'.format(i), j, text)
     return text
 
-#def numbersToWords(text)
-#    else:
-#        L = []
-#        cur = ""
-#        for sym in text:
-#            if sym in "0123456789":
-#                cur += sym
-#            else:
-#                if len(cur) > 0:
-#                    L.append(cur)
-#                    cur = ""
-#        if len(cur) > 0:
-#            L.append(cur)
-#    
-#    D = {}
-#    for i in L:
-#        if i[0] == "0":
-#            D[i] = digitsToNames(i)
-#        else:
 
 def preptext(text,keepSpaces=False,keepDigits=False,keepCase=False,silent=False):
 
@@ -288,6 +272,7 @@ def playfairPrep(text,mode="IJ"):
             text += "X"
     return text
 
+
 # Plaintext must have specific form which we can check for.
 def validptext(T,alpha):
     if type(T) != str:
@@ -296,6 +281,7 @@ def validptext(T,alpha):
     for i in T:
         if i not in alpha:
             raise Exception("{} is not a valid plaintext character".format(i))
+
 
 # Keys must also have specific form which we can check for.
 def validkeys(K,types):
@@ -310,6 +296,7 @@ def validkeys(K,types):
 
             if type(pair[0]) != pair[1]:
                 raise Exception("Key #{} must be {}".format(pos,pair[1]))
+
 
 # Make sure the alphabet is an made of unique letters
 def validalpha(alphabet):
@@ -334,6 +321,7 @@ def baseConvert(n,base=10):
     else:
         return baseConvert(n//base,base) + vals[n%base]
 
+
 # Convert a string in a given base to a decimal number
 def str2dec(s,base=2):
     
@@ -351,6 +339,7 @@ def str2dec(s,base=2):
     for n,b in enumerate(s):
         out += base**n * vals.index(b)
     return out
+
 
 # Find all the characters which are not part of a given alphabet and save what
 # they are and where they go.
@@ -389,6 +378,7 @@ def restoreFormat(S,pos,char,case):
         S = S[:ps] + ch + S[ps:]
     return S
 
+
 # Given a list and a number of columns print the list into
 # that many columns. If desired specifiy a width for the
 # columns.
@@ -404,9 +394,11 @@ def printColumns(L,N,W=0):
         if ctr % N == 0 or ctr == len(L):
             print()
 
+
 # Convert letters to numbers according to some alphabet
 def alphaToNumber(L,alpha="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     return [alpha.index(i) for i in L]
+
 
 # Convert numbers to letters according to some alphabet
 def numberToAlpha(L,alpha="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):

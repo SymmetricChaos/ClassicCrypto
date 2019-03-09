@@ -58,20 +58,3 @@ def autokey(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ",mode="vi
                 
 
     return "".join(numberToAlpha(out,alphabet))
-
-def autokeyExample():
-
-    print("Autokey Example\n")
-    key = "APPLES"
-    print("The Key Is: {}\n".format(key))
-    
-    for mode in ["vigenere","beaufort"]:
-        print("\nIn {} mode".format(mode))
-        ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-        ctext = autokey(ptext,key,mode=mode)
-        dtext = autokey(ctext,key,decode=True,mode=mode)
-        print("Plaintext is:  {}".format(ptext))
-        print("Ciphertext is: {}".format(ctext))
-        print("Decodes As:    {}".format(dtext))
-    
-#autokeyExample()
