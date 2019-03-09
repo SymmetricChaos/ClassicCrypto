@@ -26,17 +26,16 @@ from Ciphers.RotorMachine import enigma, SIGABA, M209
 # Variations on the polybius square
 from Ciphers.Polybius import polybiusSquare, ADFGX, ADFGVX, bifid, trifid
 
-
 # Transposition ciphers
 from Ciphers.Transposition import AMSCO, columnarTransport, doubleColumnarTransport, \
                                   railfence, turningGrille, turningGrilleExtended
-
 
 # Variation on the Vigenere cipher
 from Ciphers.Vigenere import vigenere, multiVigenere, trithemius, beaufort, \
                              multiBeaufort, autokey, affineVigenere
                              
 
+# The quagmire family of ciphers
 from Ciphers import quagmire1, quagmire2, quagmire3, quagmire4
 
 # Mutating alphabet ciphers
@@ -44,7 +43,6 @@ from Ciphers import chaocipher, hutton
 
 # Everything else
 from Ciphers import cipherDisk, nomenclator, straddlingCheckerboard, hillCipher, nihilist
-
 
 
 decodetest(caesar,ptext,1)
