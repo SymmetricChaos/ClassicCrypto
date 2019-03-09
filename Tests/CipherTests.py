@@ -23,24 +23,26 @@ from Ciphers.Playfair import playfair, twoSquare, fourSquare
 # Rotor machines
 from Ciphers.RotorMachine import enigma, SIGABA, M209
 
+# Variations on the polybius square
+from Ciphers.Polybius import polybiusSquare, ADFGX, ADFGVX, bifid, trifid
+
+
+# Transposition ciphers
+from Ciphers.Transposition import AMSCO, columnarTransport, doubleColumnarTransport, \
+                                  railfence, turningGrille, turningGrilleExtended
+
+
 # Variation on the Vigenere cipher
 from Ciphers import vigenere, multiVigenere, trithemius, beaufort, \
                     multiBeaufort, autokey, affineVigenere, \
                     quagmire1, quagmire2, quagmire3, quagmire4
 
 
-# Variations on the polybius square
-from Ciphers import polybiusSquare, nihilist, ADFGX, ADFGVX, bifid, trifid
-
-# Transposition ciphers
-from Ciphers import AMSCO, columnarTransport, doubleColumnarTransport, \
-                    railfence, turningGrille, turningGrilleExtended
-
 # Mutating alphabet ciphers
 from Ciphers import chaocipher, hutton
 
 # Everything else
-from Ciphers import cipherDisk, nomenclator, straddlingCheckerboard, hillCipher
+from Ciphers import cipherDisk, nomenclator, straddlingCheckerboard, hillCipher, nihilist
 
 
 

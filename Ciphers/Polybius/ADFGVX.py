@@ -1,6 +1,6 @@
 from itertools import product
 from Ciphers.UtilityFunctions import alphabetPermutation, groups, makeSquare
-from Ciphers.ColumnarTransport import columnarTransport
+from Ciphers.Transposition.ColumnarTransport import columnarTransport
 
 # A version of the ADFGX that allows the use of numbers. The polybius square is
 # 6x6 instead of 5x5
@@ -43,23 +43,3 @@ def ADFGVX(text,keys=["A",[0,1]],decode=False,printkey=False):
     ctext = "".join([D2[i] for i in ctext])
 
     return ctext
-
-def ADFGVXExample():
-    
-    print("Example of the ADFGX Cipher\n")
-    
-    key = ["715ZEBRAS290","TABLES"]
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    
-    print("They Polybius Square:")
-    ADFGVX(ptext,key,printkey=True)
-    print("\nThe Columnar Transport Key:")
-    print(key[1],end="\n\n")
-
-    ctext = ADFGVX(ptext,key)
-    dtext = ADFGVX(ctext,key,decode=True)
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
-    
-#ADFGVXExample()

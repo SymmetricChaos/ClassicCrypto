@@ -1,6 +1,6 @@
 from itertools import product
 from Ciphers.UtilityFunctions import alphabetPermutation, groups, makeSquare
-from Ciphers.ColumnarTransport import columnarTransport
+from Ciphers.Transposition.ColumnarTransport import columnarTransport
 
 # The ADFGX cipher is an important early example of a fractionated cipher that
 # successfully causes each character of the ciphertext to depend on characters 
