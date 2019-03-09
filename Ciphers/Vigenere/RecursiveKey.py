@@ -36,7 +36,7 @@ def recursiveKey(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
 
 def recursiveKeyExample():
 
-    print("Example of the Progressive Key Cipher")
+    print("Example of the Recursive Key Cipher")
     
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = recursiveKey(ptext,["TABLE",3])
@@ -46,4 +46,4 @@ def recursiveKeyExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
     
-recursiveKeyExample()
+#recursiveKeyExample()

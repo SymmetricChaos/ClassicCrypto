@@ -33,10 +33,11 @@ from Ciphers.Transposition import AMSCO, columnarTransport, doubleColumnarTransp
 
 
 # Variation on the Vigenere cipher
-from Ciphers import vigenere, multiVigenere, trithemius, beaufort, \
-                    multiBeaufort, autokey, affineVigenere, \
-                    quagmire1, quagmire2, quagmire3, quagmire4
+from Ciphers.Vigenere import vigenere, multiVigenere, trithemius, beaufort, \
+                             multiBeaufort, autokey, affineVigenere
+                             
 
+from Ciphers import quagmire1, quagmire2, quagmire3, quagmire4
 
 # Mutating alphabet ciphers
 from Ciphers import chaocipher, hutton
