@@ -32,7 +32,7 @@ def alphabetPermutation(key,alphabet=""):
     return k
 
 # A very simple function for testing if inputs matches output
-def decodetest(text,keys,fun,**kwargs):
+def decodetest(fun,text,keys,**kwargs):
     ctext = fun(text,keys,**kwargs)
     dtext = fun(ctext,keys,decode=True,**kwargs)
     if text == dtext[:len(text)]:

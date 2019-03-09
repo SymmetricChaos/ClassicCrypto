@@ -24,14 +24,14 @@ from Ciphers.UtilityFunctions import groups
 def turningGrille(text,key,decode=False,N=4):
     
     if len(key) != N**2:
-        raise Exception("Key must have of the size N^2")
+        raise Exception("Key must have of the size {}".format(N**2))
     
     key = groups(key,(N//2)**2)
     S = N*2
     
     # Can't work with more than S^2 characters at a time 
     if len(text) > S**2:
-        raise Exception("Text is too long.")
+        raise Exception("Text cannot be longer than {}".format(S**2))
     
     # If we have less than 64 characters first insert Xs as nulls to indicate
     # that we have reached the end of the message. Then put in common letters
@@ -86,6 +86,28 @@ def turningGrille(text,key,decode=False,N=4):
             
         return out
 
+def turningGrilleExtended(text,key,decode=False,N=4):
+    
+    S = N*2
+    block_size = S**2
+    
+    # If the length of the text is not a multiple of the block size first
+    # append some Xs to indicate the end of the message then random letters
+    ctr = 0
+    while len(text) % S**2 != 0:
+
+        if ctr > 3:
+            text += choice(list("ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+        else:
+            text += "X"
+            ctr += 1
+    
+    out = []
+    for i in groups(text,block_size):
+        out.append(turningGrille(i,key=key,decode=decode,N=N))
+    
+    return "".join(out)
+
 def printGrille(key,N):
     S = N*2
     key = groups(key,(N//2)**2)
@@ -108,13 +130,13 @@ def printGrille(key,N):
 
 def turningGrilleExample():
     print("Turning Grille Example")
-    key = [i for i in range(24)]
+    key = [i for i in range(36)]
     random.shuffle(key)
     print("The Grille Is:")
-    N = 5
+    N = 6
     printGrille(key,N)
     
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"*2
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"*4
     ctext = turningGrille(ptext,key,N=N)
     dtext = turningGrille(ctext,key,decode=True,N=N)
     print("Plaintext is:  {}".format(ptext))
@@ -122,4 +144,21 @@ def turningGrilleExample():
     print("Decodes As:    {}".format(dtext))
     print("\n\n")
     
+def turningGrilleExtendedExample():
+    print("Turning Grille Extended Example")
+    key = [i for i in range(16)]
+    random.shuffle(key)
+    print("The Grille Is:")
+    N = 4
+    printGrille(key,N)
+    
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"*4
+    ctext = turningGrilleExtended(ptext,key,N=N)
+    dtext = turningGrilleExtended(ctext,key,decode=True,N=N)
+    print("Plaintext is:  {}".format(ptext))
+    print("Ciphertext is: {}".format(ctext))
+    print("Decodes As:    {}".format(dtext))
+    print("\n\n")
+    
 #turningGrilleExample()
+#turningGrilleExtendedExample()

@@ -36,7 +36,7 @@ from Ciphers.Hutton import hutton
 from Ciphers.AMSCO import AMSCO
 from Ciphers.ColumnarTransport import columnarTransport, doubleColumnarTransport
 from Ciphers.Railfence import railfence
-from Ciphers.TurningGrille import turningGrille
+from Ciphers.TurningGrille import turningGrille, turningGrilleExtended
 from Ciphers.RouteCipher import routeCipher
 
 #from Ciphers.Enigma import enigma
@@ -45,7 +45,7 @@ from Ciphers.RouteCipher import routeCipher
 
 __all__=["vigenere","multiVigenere","trithemius",
 		 "beaufort","multiBeaufort","autokey","affineVigenere","quagmire1","quagmire2","quagmire3",
-		 "quagmire4","polybiusSquare","nihilist","ADFGX","ADFGVX",
+		 "quagmire4","polybiusSquare","nihilist","ADFGX","ADFGVX","turningGrilleExtended",
 		 "bifid","trifid","cipherDisk","nomenclator","straddlingCheckerboard","DRYAD","hillCipher",
 		 "chaocipher","hutton","AMSCO","columnarTransport","doubleColumnarTransport","railfence",
 		 "turningGrille","routeCipher","progressiveKey"]

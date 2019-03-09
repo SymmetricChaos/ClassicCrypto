@@ -33,7 +33,8 @@ from Ciphers import vigenere, multiVigenere, trithemius, beaufort, \
 from Ciphers import polybiusSquare, nihilist, ADFGX, ADFGVX, bifid, trifid
 
 # Transposition ciphers
-from Ciphers import AMSCO, columnarTransport, doubleColumnarTransport, railfence, turningGrille
+from Ciphers import AMSCO, columnarTransport, doubleColumnarTransport, \
+                    railfence, turningGrille, turningGrilleExtended
 
 # Mutating alphabet ciphers
 from Ciphers import chaocipher, hutton
@@ -43,38 +44,38 @@ from Ciphers import cipherDisk, nomenclator, straddlingCheckerboard, hillCipher
 
 
 
-decodetest(ptext,1,caesar)
-decodetest(ptext,[3,4],affine)
-decodetest(ptext,"IOWNAXYLOPHONE",substitution)
+decodetest(caesar,ptext,1)
+decodetest(affine, ptext,[3,4])
+decodetest(substitution, ptext,"IOWNAXYLOPHONE",)
 
-decodetest(ptext,"THISISABOUTFARMING",vigenere)
-decodetest(ptext,"SUGARCANE",beaufort)
-decodetest(ptext,["THIS","IS","ABOUT","FARMING"],multiVigenere)
-decodetest(ptext,["THIS","IS","ABOUT","FARMING"],multiBeaufort)
-decodetest(ptext,"FARMING",autokey)
-decodetest(ptext,["SUGAR","CANE"],affineVigenere)
-decodetest(ptext,"",trithemius)
+decodetest(vigenere, ptext,"THISISABOUTFARMING")
+decodetest(beaufort, ptext,"SUGARCANE")
+decodetest(multiVigenere, ptext,["THIS","IS","ABOUT","FARMING"])
+decodetest(multiBeaufort,ptext,["THIS","IS","ABOUT","FARMING"])
+decodetest(autokey, ptext,"FARMING")
+decodetest(affineVigenere, ptext,["SUGAR","CANE"],)
+decodetest(trithemius, ptext,"")
 
-decodetest(ptext,"ZEBRAS",polybiusSquare)
-decodetest(ptext,["NIHILIST","CIPHER"],nihilist)
-decodetest(ptext.replace("J","I"),["ZEBRAS","GIGANTIC"],ADFGX)
-decodetest(ptext,["17ZEBRAS529","GIGANTIC"],ADFGVX)
-decodetest(ptext,"GIANTUNICORNS",bifid)
-decodetest(ptext,"GIANTUNICORNS",trifid)
+decodetest(polybiusSquare, ptext,"ZEBRAS")
+decodetest(nihilist, ptext,["NIHILIST","CIPHER"])
+decodetest(ADFGX, ptext.replace("J","I"),["ZEBRAS","GIGANTIC"])
+decodetest(ADFGVX, ptext,["17ZEBRAS529","GIGANTIC"],)
+decodetest(bifid, ptext,"GIANTUNICORNS")
+decodetest(trifid, ptext,"GIANTUNICORNS")
 
-decodetest(ptext,["FLYING","ZEBRA"],quagmire1)
-decodetest(ptext,["FLYING","ZEBRA"],quagmire2)
-decodetest(ptext,["FLYING","ZEBRA"],quagmire3)
-decodetest(ptext,["FLYING","ZEBRA","CAVALRY"],quagmire4)
+decodetest(quagmire1, ptext,["FLYING","ZEBRA"])
+decodetest(quagmire2, ptext,["FLYING","ZEBRA"])
+decodetest(quagmire3, ptext,["FLYING","ZEBRA"])
+decodetest(quagmire4, ptext,["FLYING","ZEBRA","CAVALRY"])
 
-decodetest(ptext,["",""],chaocipher)
-decodetest(ptext,["JUPTIER","FEDROA"],hutton)
+decodetest(chaocipher, ptext,["",""])
+decodetest(hutton, ptext,["JUPTIER","FEDROA"])
 
-decodetest(ptext,"M0A8G7I4C3A2L6F4UNTI5MEL1AND",cipherDisk)
+decodetest(cipherDisk, ptext,"M0A8G7I4C3A2L6F4UNTI5MEL1AND",)
 
-decodetest(playfairPrep(ptext),"ILIKEANTELOPES",playfair)
-decodetest(ptext,["4SQUARE2","10CODE7"],fourSquare)
-decodetest(ptext,["4SQUARE2","10CODE7"],twoSquare)
+decodetest(playfair, playfairPrep(ptext),"ILIKEANTELOPES")
+decodetest(fourSquare, ptext,["4SQUARE2","10CODE7"])
+decodetest(twoSquare, ptext,["4SQUARE2","10CODE7"])
 
 rotors =    ["V","III","II"]
 reflector = "B"
@@ -82,7 +83,7 @@ positions = ["H","L","B"]
 plugs =     ["AB","CD","EF","GH"]
 rings =     ["A","A","A"]
 keySettings = [rotors,reflector,positions,plugs,rings]
-decodetest(ptext,keySettings,enigma)
+decodetest(enigma, ptext,keySettings)
 
 cipher =     ["IV","X","VII","III","II"]
 control =    ["IX","V","I","VI","VIII"]
@@ -93,7 +94,7 @@ indexPos =   "02384"
 keySettings = [cipher,control,index,indicator,controlPos,indexPos]
 SIGtext = ptext
 SIGtext = SIGtext.replace("Z","X")
-decodetest(SIGtext,keySettings,SIGABA)
+decodetest(SIGABA, SIGtext,keySettings)
 
 pins = ["++-+---++-+-++----++-++---",
         "+--++-+--+++--+--++-+-+--",
@@ -105,7 +106,7 @@ lugs = [[3,6], [0,6], [1,6], [1,5], [4,5], [0,4], [0,4],
         [0,4], [0,4], [2,0], [2,0], [2,0], [2,0], [2,0],
         [2,0], [2,0], [2,0], [2,0], [2,0], [2,5], [2,5],
         [0,5], [0,5], [0,5], [0,5], [0,5], [0,5]]
-decodetest(ptext,["TABLEA",pins,lugs],M209)
+decodetest(M209, ptext,["TABLEA",pins,lugs])
 
 key = [[12,14,24,4,6,4,13],
        [23,24,4,17,24,10,15],
@@ -114,14 +115,19 @@ key = [[12,14,24,4,6,4,13],
        [9,9,16,9,18,24,6],
       [1,9,17,15,14,4,19],
        [24,20,5,0,15,21,12]]
-decodetest(ptext,key,hillCipher)
+decodetest(hillCipher, ptext,key)
 
-decodetest(ptext,["CIPHER",[5,7]],straddlingCheckerboard)
+decodetest(straddlingCheckerboard, ptext,["CIPHER",[5,7]])
 
-decodetest(ptext,5766645,nomenclator)
+decodetest(nomenclator, ptext,5766645)
 
-decodetest(ptext,"TABLES",columnarTransport)
-decodetest(ptext,["GIGANTIC","TABLES"],doubleColumnarTransport)
-decodetest(ptext,5,railfence)
-decodetest(ptext,"GIGANTIC",AMSCO)
-decodetest(ptext[:144],[i for i in range(36)],turningGrille,N=6)
+decodetest(columnarTransport, ptext,"TABLES",)
+decodetest(doubleColumnarTransport, ptext,["GIGANTIC","TABLES"],)
+decodetest(railfence, ptext,5)
+decodetest(AMSCO, ptext,"GIGANTIC")
+
+grille = [35, 4, 23, 9, 14, 5, 12, 32, 24, 20, 15, 11, 33, 10,
+          27, 31, 16, 29, 34, 1, 13, 18, 0, 28, 6, 2, 7, 21, 
+          17, 30, 25, 19, 22, 26, 8, 3]
+decodetest(turningGrille, ptext[:144],grille, N=6)
+decodetest(turningGrilleExtended, ptext,grille, N=6)
