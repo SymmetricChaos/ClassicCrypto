@@ -45,13 +45,15 @@ def decodetest(fun,text,keys,**kwargs):
 # For example
 # groups("ABCDEFGHIJKL",3)
 # ["ABC","DEF","GHI","JKL"]
+# groups("ABCDEFGHIJK",3)   
+# ["ABC","DEF","GHI","JK"]
 def groups(text,n):
     if len(text) % n == 0:
         return [text[i*n:i*n+n] for i in range(len(text)//n)]
     else:
         return [text[i*n:i*n+n] for i in range(len(text)//n+1)]
 
-## Generator that returns primes
+## Generator that returns primes (not my work)
 def primes():
     D = {}
     q = 2
@@ -67,7 +69,7 @@ def primes():
         q += 1
 
 # This is an excessively simple way of finding all the factors btu we're only
-# using it on very small numbers.
+# using it on very small numbers. Can be set to return prime factors.
 def factors(n,prime=False):
     L = []
     
@@ -89,8 +91,8 @@ def factors(n,prime=False):
 
 
 # Extended Euclidean algorithm
-# g - Greatest common denominator
-# x,y = integers such that g = ax + by
+# g   : Greatest common denominator
+# x,y : integers such that g = ax + by
 def egcd(a, b):
     if a == 0:
         return (b, 0, 1)
