@@ -96,21 +96,3 @@ def playfair(text,key,decode=False,mode="IJ",printkey=False):
                 out += sq[B[0]][A[1]]
         
         return out
-    
-
-def playfairExample():
-    print("Example of the Playfair Cipher")
-
-    
-    for i in ["IJ","CK","KQ","EX"]:
-        print("\n\nIn {} mode the key is:".format(i))
-        key = "PLAYFAIREXAMPLE"
-        
-        ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-        ctext = playfair(ptext,key,mode=i,printkey=True)
-        dtext = playfair(ctext,key,decode=True,mode=i)
-        print("\nPlaintext is:  {}".format(ptext))
-        print("Ciphertext is: {}".format(ctext))
-        print("Decodes As:    {}".format(dtext))
-        
-#playfairExample()

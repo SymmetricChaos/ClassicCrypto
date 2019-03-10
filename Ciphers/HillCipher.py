@@ -15,6 +15,8 @@ from sympy import Matrix
 # It can take a while to generate a key if n is more than 10.
 def createMatrixKey(n,M=26):
     
+    """Generate random matricies until one is found that is not singular modulo M"""
+    
     # Get the prime factors of M so we can check if it is singular
     F = factors(M,prime=True)
 
@@ -37,6 +39,8 @@ def createMatrixKey(n,M=26):
         return mat
         
 def hillCipher(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
+    
+    """Encrypt text using matrix multiplication."""
     
     M = len(alphabet)
     

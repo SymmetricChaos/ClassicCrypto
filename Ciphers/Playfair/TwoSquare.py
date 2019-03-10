@@ -80,18 +80,3 @@ def twoSquare(text,keys,decode=False,mode="EX",printkey=False):
     return out
 
     
-def twoSquareExample():
-    print("Example of the Two Square Cipher\n")
-    print("The key is:")
-    keys = ["TWOSQUARE","CIPHER"]
-    twoSquare("",keys,printkey=True,mode="IJ")
-    
-    print("")
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = twoSquare(ptext,keys,mode="IJ")
-    dtext = twoSquare(ctext,keys,decode=True,mode="IJ")
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
-    
-#twoSquareExample()
