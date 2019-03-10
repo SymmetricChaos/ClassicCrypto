@@ -75,7 +75,7 @@ decodetest(hutton, ptext,["JUPTIER","FEDROA"])
 decodetest(cipherDisk, ptext,"M0A8G7I4C3A2L6F4UNTI5MEL1AND",)
 
 decodetest(playfair, playfairPrep(ptext),"ILIKEANTELOPES")
-decodetest(fourSquare, ptext,["4SQUARE2","10CODE7"])
+decodetest(fourSquare, ptext,["4SQUARE2","10CODE7"],mode="EX")
 decodetest(twoSquare, ptext,["4SQUARE2","10CODE7"])
 
 rotors =    ["V","III","II"]
