@@ -4,7 +4,7 @@ from Ciphers.UtilityFunctions import validptext
 # not technically a binary code since it requires dots, dashes, and spaces in
 # order to be interpreted.
 
-def morseCode(text,decode=False):
+def morseCode(text,decode=False,style="dash"):
     A = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     M = [".- ","-... ","-.-. ","-.. ",". ","..-. ","--. ",".... ",
          ".. ",".--- ","-.- ",".-.. ","-- ","-. ","--- ",".--. ",
@@ -12,7 +12,27 @@ def morseCode(text,decode=False):
          "-.-- ","--.. ","----- ",".---- ","..--- ","...-- ",
          "....- ","..... ","-.... ","--... ","---.. ","----. "]
 
-
+    if style == "block":
+        for i in range(len(M)):
+            t = M[i]
+            t = t.replace(".","▄ ")
+            t = t.replace("-","▄▄▄ ")
+            M[i] = t
+    
+    if style == "word":
+        for i in range(len(M)):
+            t = M[i]
+            t = t.replace(".","dit")
+            t = t.replace("-","dah")
+            M[i] = t
+            
+    if style == "digit":
+        for i in range(len(M)):
+            t = M[i]
+            t = t.replace(".","0")
+            t = t.replace("-","1")
+            M[i] = t
+            
     validptext(text,A)
 
     D = {}
