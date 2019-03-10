@@ -1,6 +1,6 @@
 from Ciphers.UtilityFunctions import groups, factors
 import random
-from sympy import Matrix, pprint
+from sympy import Matrix
 
 ## Hill's matrix cipher is based on the fundamental operation of linear
 ## algebra, matrix multiplication. This is accomplished by dividing the text
@@ -19,7 +19,7 @@ def createMatrixKey(n,M=26):
     F = factors(M,prime=True)
 
     while True:
-        print("!")
+        #print("!")
         L = [[random.randint(0,M) for i in range(n)] for j in range(n)]
         mat = Matrix(L)
         
@@ -63,35 +63,3 @@ def hillCipher(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
         out += "".join([alphabet[j%M] for j in y])
 
     return out
-
-def hillCipherExample():
-    print("Example of the Hill Cipher\n")
-
-    key = createMatrixKey(6)
-    
-    print("The key is:")
-    pprint(key)
-    print()
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = hillCipher(ptext,key)
-    dtext = hillCipher(ctext,key,decode=True)
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
-    
-    print("\n\nCustom Alphabet Example\n")
-
-    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#"
-    key = createMatrixKey(4,len(alpha))
-    
-    print("The key is:")
-    pprint(key)
-    print("\nThe alphabet is\n{}\nWhich has length {}\n".format(alpha,len(alpha)))
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = hillCipher(ptext,key,alphabet=alpha)
-    dtext = hillCipher(ctext,key,decode=True,alphabet=alpha)
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
-
-#hillCipherExample()
