@@ -109,14 +109,17 @@ lugs = [[3,6], [0,6], [1,6], [1,5], [4,5], [0,4], [0,4],
         [0,5], [0,5], [0,5], [0,5], [0,5], [0,5]]
 decodetest(M209, ptext,["TABLEA",pins,lugs])
 
-key = [[12,14,24,4,6,4,13],
-       [23,24,4,17,24,10,15],
-       [17,0,18,6,22,22,11],
-       [1,15,11,9,10,13,1],
-       [9,9,16,9,18,24,6],
-      [1,9,17,15,14,4,19],
-       [24,20,5,0,15,21,12]]
+key = [[ 4, 15, 23,  5], 
+       [12,  6,  2,  9], 
+       [ 8,  5, 24,  4], 
+       [21, 25, 19, 16]]
 decodetest(hillCipher, ptext,key)
+
+key = [[32, 21, 30, 19], 
+       [10, 14, 31, 29], 
+       [17, 10, 30, 29], 
+       [28, 29,  3, 11]]
+decodetest(hillCipher, ptext,key,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 
 decodetest(straddlingCheckerboard, ptext,["CIPHER",[5,7]])
 
@@ -127,8 +130,11 @@ decodetest(doubleColumnarTransport, ptext,["GIGANTIC","TABLES"],)
 decodetest(railfence, ptext,5)
 decodetest(AMSCO, ptext,"GIGANTIC")
 
-grille = [35, 4, 23, 9, 14, 5, 12, 32, 24, 20, 15, 11, 33, 10,
-          27, 31, 16, 29, 34, 1, 13, 18, 0, 28, 6, 2, 7, 21, 
-          17, 30, 25, 19, 22, 26, 8, 3]
+grille = [35, 4, 23, 9, 14, 5, 
+          12, 32, 24, 20, 15, 11,
+          33, 10, 27, 31, 16, 29, 
+          34, 1, 13, 18, 0, 28, 
+          6, 2, 7, 21, 17, 30, 
+          25, 19, 22, 26, 8, 3]
 decodetest(turningGrille, ptext[:144],grille, N=6)
 decodetest(turningGrilleExtended, ptext,grille, N=6)

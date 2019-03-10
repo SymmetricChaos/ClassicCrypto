@@ -36,9 +36,6 @@ def createMatrixKey(n,M=26):
         
         return mat
         
-
-    
- 
 def hillCipher(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     
     M = len(alphabet)

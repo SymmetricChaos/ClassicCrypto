@@ -1,4 +1,4 @@
-from Ciphers.UtilityFunctions import lcm, validptext, validkeys, alphaToNumber, numberToAlpha
+from Ciphers.UtilityFunctions import validptext, validkeys, alphaToNumber, numberToAlpha
 from itertools import cycle
 
 # The Beaufort cipher is a sort of dual to the Vigenere cipher. The numeric
@@ -7,11 +7,7 @@ from itertools import cycle
 
 def beaufort(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     
-    """
-:param text: The text to be encrypyed. Must be uppercase
-:param key: A keyword that is used to encrypt the text.
-:param decode: Boolean. Ignored as the Beaufort cipher is reciprocal.
-    """
+    """The Beaufort cipher subtracts the text from key. This makes it a reciprocal cipher that works the same when encrypting and decrypting."""
         
     M = len(alphabet)
        
@@ -51,44 +47,3 @@ def multiBeaufort(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
         out = beaufort(out,i,alphabet=alphabet)
 
     return out
-
-def beaufortExample():
-
-    print("Beaufort Example\n")
-    key = "APPLES"
-    print("The Key Is: {}\n".format(key))
-    
-    print("Normal Mode")
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = beaufort(ptext,key)
-    dtext = beaufort(ctext,key)
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
-    
-    alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-    print("\nExtended Mode")
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = beaufort(ptext,key,alphabet=alpha)
-    dtext = beaufort(ctext,key,alphabet=alpha)
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
-    
-def multiBeaufortExample():
-
-    print("Multiple Beaufort Example\n")
-    key = ["ROMANCE","KINGDOMS"]
-    print("The Key Is: {}\n".format(key))
-    L = lcm( len(key[0]), len(key[1])  )
-    print("Effective Key Length: {}\n".format(L))
-    
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = multiBeaufort(ptext,key)
-    dtext = multiBeaufort(ctext,key,True)
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
-
-#beaufortExample()
-#multiBeaufortExample()
