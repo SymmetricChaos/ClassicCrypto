@@ -102,19 +102,30 @@ def egcd(a, b):
 
 # Use egcd to calculate the modular inverse
 def modinv(a, m):
-    """
-    
-    """
     g, x, y = egcd(a, m)
     if g != 1:
         raise Exception('modular inverse does not exist')
     else:
         return x % m
 
-# Use egcd to calculate the least common multiple
-def lcm(a,b):
-    g,x,y = egcd(a,b)
-    return abs(a*b)//g
+# Use egcd calculate the least common multiple
+def lcm(*args):
+    
+    # simplest case
+    if len(args) == 1:
+        return args[0]
+    
+    # calculate lcm for two numbers
+    if len(args) == 2:
+        a = args[0]
+        b = args[1]
+        g,x,y = egcd(a,b)
+        return abs(a*b)//g
+    
+    # if more than two break it up recursively
+    a = lcm(*args[0:2])
+    b = lcm(*args[2:])
+    return lcm(a,b)
 
 # Unique rank for each element of a list
 # Uses two dictionaries and a counter.

@@ -1,40 +1,29 @@
 from Ciphers.Vigenere import beaufort, multiBeaufort
 from Ciphers.UtilityFunctions import lcm
+from Tests.ExampleTemplate import example
 
-def beaufortExample():
+
+def beaufortExample(ptext="THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"):
 
     print("Beaufort Example\n")
     key = "APPLES"
     print("The Key Is: {}\n".format(key))
     
-    print("Normal Mode")
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = beaufort(ptext,key)
-    dtext = beaufort(ctext,key)
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
+    example(beaufort,ptext,key)
     
-    alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-    print("\nExtended Mode")
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = beaufort(ptext,key,alphabet=alpha)
-    dtext = beaufort(ctext,key,alphabet=alpha)
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
-    
+
 def multiBeaufortExample():
 
     print("Multiple Beaufort Example\n")
-    key = ["ROMANCE","KINGDOMS"]
+    key = ["AB","CDE","FGHIJ"]
+    
     print("The Key Is: {}\n".format(key))
-    L = lcm( len(key[0]), len(key[1])  )
+    
+    L = lcm( *[len(i) for i in key] )
     print("Effective Key Length: {}\n".format(L))
     
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = multiBeaufort(ptext,key)
-    dtext = multiBeaufort(ctext,key,True)
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
+    example(multiBeaufort,ptext,key)
+        
+beaufortExample()
+multiBeaufortExample()

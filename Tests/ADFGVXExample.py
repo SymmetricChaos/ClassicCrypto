@@ -14,8 +14,8 @@ def ADFGVXExample():
 
     ctext = ADFGVX(ptext,key)
     dtext = ADFGVX(ctext,key,decode=True)
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
-    
-#ADFGVXExample()
+    print("{}".format(ptext))
+    print("{}".format(ctext))
+        
+    if ptext != dtext:
+        print("Decodes Error\n{}\n".format(dtext))
