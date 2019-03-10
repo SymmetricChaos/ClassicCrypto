@@ -115,12 +115,6 @@ key = [[ 4, 15, 23,  5],
        [21, 25, 19, 16]]
 decodetest(hillCipher, ptext,key)
 
-key = [[32, 21, 30, 19], 
-       [10, 14, 31, 29], 
-       [17, 10, 30, 29], 
-       [28, 29,  3, 11]]
-decodetest(hillCipher, ptext,key,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
-
 decodetest(straddlingCheckerboard, ptext,["CIPHER",[5,7]])
 
 decodetest(nomenclator, ptext,5766645)
