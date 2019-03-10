@@ -1,7 +1,7 @@
 from Ciphers.UtilityFunctions import makeSquare, groups
 import numpy as np
 
-def fourSquare(text,keys,decode=False,mode="EX",printkey=False):
+def fourSquare(text,keys,decode=False,mode="IJ",printkey=False):
         
     # Convert the squares to numpy arrays to we can use numpy's indexing
     sq1 = np.array(makeSquare(keys[0],mode=mode))
@@ -16,11 +16,14 @@ def fourSquare(text,keys,decode=False,mode="EX",printkey=False):
         text = text.replace("C","K")
     
     if printkey == True:
-        for i in range(6):
+        n = 5
+        if mode == "EX":
+            n = 6
+        for i in range(n):
             print(" ".join(alphasq[i]),end="  ")
             print(" ".join(sq1[i]))
         print()
-        for i in range(6):
+        for i in range(n):
             print(" ".join(sq2[i]),end="  ")
             print(" ".join(alphasq[i]))
         return ""
@@ -51,19 +54,3 @@ def fourSquare(text,keys,decode=False,mode="EX",printkey=False):
             out += sq2[B[0],A[1]][0]
             
         return out
-    
-def fourSquareExample():
-    print("Example of the Four Square Cipher\n")
-    print("The key is:")
-    keys = ["49SQUARE25","738CIPHER091"]
-    fourSquare("TEST",keys,printkey=True)
-    
-    print("")
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = fourSquare(ptext,["49SQUARE25","738CIPHER091"])
-    dtext = fourSquare(ctext,["49SQUARE25","738CIPHER091"],decode=True)
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
-    
-#fourSquareExample()
