@@ -23,7 +23,7 @@
 
 from Ciphers.UtilityFunctions import baseConvert, str2dec
 
-def LFSR(seed,taps,length):
+def LFSR(seed,taps,length,bits=False):
     reg = baseConvert(seed,2)
     reg = [int(i) for i in reg]
 
@@ -46,8 +46,13 @@ def LFSR(seed,taps,length):
         # Convert the list into a string
         S = "".join([str(i) for i in reg])
         
-        # Turn the binary string back into a decimal number
-        yield int(str2dec(S,2))
+        # If bits are requested return one bit at a time
+        if bits == True:
+            for b in S:
+                yield int(b)
+        # Otherwise turn the binary string back into a decimal number
+        else:
+            yield int(str2dec(S,2))
 
 def LFSRExample():
     print("Example of Linear Feedback Shift Register\n")

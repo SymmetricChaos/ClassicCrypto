@@ -1,18 +1,19 @@
+from Ciphers.UtilityFunctions import validptext
+
 # Morse code is a very popular method of encoding letters and numbers. It is
 # not technically a binary code since it requires dots, dashes, and spaces in
 # order to be interpreted.
 
 def morseCode(text,decode=False):
-    if "." in text or "-" in text:
-        if decode == False:
-            raise Exception('text contains dots and dashes')
-    
     A = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     M = [".- ","-... ","-.-. ","-.. ",". ","..-. ","--. ",".... ",
          ".. ",".--- ","-.- ",".-.. ","-- ","-. ","--- ",".--. ",
          "--.- ",".-. ","... ","- ","..- ","...- ",".-- ","-..- ",
          "-.-- ","--.. ","----- ",".---- ","..--- ","...-- ",
          "....- ","..... ","-.... ","--... ","---.. ","----. "]
+
+
+    validptext(text,A)
 
     D = {}
     
