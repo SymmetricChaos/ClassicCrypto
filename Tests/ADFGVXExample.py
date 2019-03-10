@@ -1,4 +1,5 @@
-from Ciphers.ADFGVX import ADFGVX
+from Ciphers.Polybius import ADFGVX
+from Tests.ExampleTemplate import example
 
 def ADFGVXExample():
     
@@ -12,10 +13,6 @@ def ADFGVXExample():
     print("\nThe Columnar Transport Key:")
     print(key[1],end="\n\n")
 
-    ctext = ADFGVX(ptext,key)
-    dtext = ADFGVX(ctext,key,decode=True)
-    print("{}".format(ptext))
-    print("{}".format(ctext))
-        
-    if ptext != dtext:
-        print("Decodes Error\n{}\n".format(dtext))
+    example(ADFGVX,ptext,key)
+
+ADFGVXExample()
