@@ -50,12 +50,3 @@ def hutton(text,keys=["",""],decode=False):
             swap(k2,letter,k2[A])
     
     return out
-        
-def huttonExample():
-    ptext = "MEETMEATTHEGREENMANATTHREE"
-    ctext = hutton(ptext,["FEDORA","JUPITER"])
-    dtext = hutton(ctext,["FEDORA","JUPITER"],decode=True)
-    
-    print(ptext)
-    print(ctext)
-    print(dtext)
