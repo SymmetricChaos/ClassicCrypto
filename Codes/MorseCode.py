@@ -41,7 +41,7 @@ def morseCode(text,decode=False,style="dash"):
         for a,m in zip(A,M):
             D[a] = m
         
-        out = [D[letter] for letter in text]
+        out = [D[char] for char in text]
         
         return "".join(out)
             

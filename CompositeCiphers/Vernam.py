@@ -2,32 +2,37 @@ from Ciphers.UtilityFunctions import saveFormat,restoreFormat
 from Codes import morseCode
 from RNG import LFSR
 
+def vernam(text,key,decode=False):
+    
+    text = morseCode(text)
+    
+    
+    text = morseCode(ptext)
+    text = text.replace("-","1")
+    text = text.replace(".","0")
+    
+    text, pos, char, case = saveFormat(text,"01")
+    
+    
+    bits = LFSR(key[0],key[1],16,bits=True)
+    
+    out = []
+    for t,b in zip(text,bits):
+        if t == " ":
+            out.append(" ")
+            continue
+        if b == 0:
+            out.append(t)
+        else:
+            if t == "0":
+                out.append("1")
+            else:
+                out.append("0")
+    
+    ftext = restoreFormat("".join(out),pos, char, case)
+    
+    print(ftext)
+
 ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
 
-print(ptext,"\n")
-
-ctext = morseCode(ptext)
-ctext = ctext.replace("-","1")
-ctext = ctext.replace(".","0")
-print(ctext,"\n")
-
-ctext, pos, char, case = saveFormat(ctext,"01")
-
-
-bits = LFSR(156,[9,4],10,bits=True)
-
-out = []
-for c,b in zip(ctext,bits):
-    if c == " ":
-        out.append(" ")
-        continue
-    if b == 0:
-        out.append(c)
-    else:
-        if c == "0":
-            out.append("1")
-        else:
-            out.append("0")
-
-ftext = restoreFormat("".join(out),pos, char, case)
-print(ftext)
+vernam(ptext,[6545,[15,7,4,3]])
