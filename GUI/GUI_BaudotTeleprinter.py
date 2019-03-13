@@ -1,13 +1,13 @@
 import tkinter as tk
-
+from itertools import product
 from Codes import baudot
 
 # Create the window
 root = tk.Tk()
 
 # Don't let the user change the window size
-root.maxsize(800,600)
-root.minsize(800,600)
+root.maxsize(900,600)
+root.minsize(900,600)
 
 # Title of the window
 root.title("Baudot Teleprinter")
@@ -23,12 +23,8 @@ def qExit():
 def Reset(): 
     outtext.delete("1.0","end")
 
-B = []
-for i in range(32):
-    B.append( tk.Button(root, text=str(i), command = Reset, 
-                       bg = 'lightslateblue', font = ('arial',14,'bold')) )
 
-fr = tk.Frame(height=2, bd=1, relief=tk.SUNKEN)
+
 
 resetbutton = tk.Button(root, text="Reset", command = Reset, 
                        bg = 'lightslateblue', font = ('arial',14,'bold'))
@@ -43,7 +39,11 @@ exitbutton = tk.Button(root, text="Exit", command = qExit,
 ptextLab = tk.Label(root,text="Input:",font = ('arial',14))
 
 # Put everything in position
-fr.place(x=200,y=30)
+L = list("&<>_QWERTYUIOPASDFGHJKLZXCVBNM*a")
+for x,y in product(range(8),range(4)):
+    bt = tk.Button(root, text=L.pop(0), command = Reset, 
+                       bg = 'lightslateblue', font = ('arial',14,'bold'))
+    bt.place( x = 420+x*50, y = 50+y*50 )
 
 outtext.place(x=50,y=30)
 
