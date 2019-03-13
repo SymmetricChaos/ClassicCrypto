@@ -39,11 +39,12 @@ exitbutton = tk.Button(root, text="Exit", command = qExit,
 ptextLab = tk.Label(root,text="Input:",font = ('arial',14))
 
 # Put everything in position
-L = list("&<>_QWERTYUIOPASDFGHJKLZXCVBNM*a")
-for x,y in product(range(8),range(4)):
+L = list("QWERTYUIOPASDFGHJKLZXCVBNM*a&<>_")
+for y,x in product(range(4),range(8)):
     bt = tk.Button(root, text=L.pop(0), command = Reset, 
                        bg = 'lightslateblue', font = ('arial',14,'bold'))
     bt.place( x = 420+x*50, y = 50+y*50 )
+    bt.config(width=2, height=1)
 
 outtext.place(x=50,y=30)
 
