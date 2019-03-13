@@ -119,10 +119,9 @@ def vigenereCracker(s,klen=0,verbose=True):
 def vigenereCrackerExample():
 
     textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
-    ptext = "rzvmvyzrxemajtvavsedmiscnccphibsndbcerhmffruhpnkcuhvcnrtssoqadvshidgyyh"
-    ctext = ptext.upper()
-   # ptext = preptext(textfile.readline(),silent=True)
-    #ctext = vigenere(ptext,"ZEBRAS")
+
+    ptext = preptext(textfile.readline(),silent=True)
+    ctext = vigenere(ptext,"ZEBRAS")
     
     vigenereCracker(ctext)
 vigenereCrackerExample()

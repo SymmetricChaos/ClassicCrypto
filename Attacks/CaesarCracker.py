@@ -1,4 +1,4 @@
-from Ciphers.Caesar import caesar
+from Ciphers.Simple import caesar
 from TextScoring import quadgramScore
 
 # Breaking the Caesar cipher is trivial since there are only 26 possible keys
@@ -40,4 +40,4 @@ that is the only tricky part.
     
     caesarCracker(ctext)
     
-#caesarCrackerExample()
+caesarCrackerExample()

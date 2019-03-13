@@ -1,7 +1,6 @@
 from Ciphers.HillCipher import hillCipher, createMatrixKey
-from Ciphers.UtilityFunctions import groups
+from Ciphers.UtilityFunctions import groups, preptext
 from sympy import Matrix, pprint
-from Ciphers.PrepareText import preptext1
 from Attacks.TextScoring import quadgramScore
 
 def hillCipherCracker(ctext,crib,N):
@@ -62,7 +61,7 @@ def hillCipherCracker(ctext,crib,N):
                 bestKey = tKey
                 
     if bestKey.det() % 2 == 0 or bestKey.det() % 13 == 0:
-        print("Something Strange Happened")
+        print("Non-singular matrix error")
         print("Key Should be Inverse of:")
         pprint(bestKey)
         print()
@@ -100,7 +99,7 @@ SACCHARINEJUICE
     
     # Load up the text to use
     textfile = open('C:\\Users\\Alexander\\Documents\\GitHub\\ClassicCrypto\\SampleText\\text1.txt', 'r')
-    ptext = preptext1(textfile.readline(),silent=True)
+    ptext = preptext(textfile.readline(),silent=True)
     ptext = ptext[:600]
     key = createMatrixKey(3)
     ctext = hillCipher(ptext,key)
@@ -116,4 +115,4 @@ SACCHARINEJUICE
         hillCipherCracker(ctext,crib,3)
         print("\n\n")
     
-#hillCipherCrackerExample()
+hillCipherCrackerExample()

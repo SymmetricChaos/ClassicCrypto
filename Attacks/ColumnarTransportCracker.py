@@ -1,4 +1,4 @@
-from Ciphers.ColumnarTransport import columnarTransport
+from Ciphers.Transposition import columnarTransport
 from Ciphers.UtilityFunctions import factors, preptext
 from TextScoring import quadgramScore
 from itertools import permutations
@@ -44,4 +44,4 @@ practical if the length of the key is more than about nine.
     
     columnarTransportCracker(ctext)
 
-#columnarTransportCrackerExample()
+columnarTransportCrackerExample()
