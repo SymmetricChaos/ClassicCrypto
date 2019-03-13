@@ -89,9 +89,10 @@ def baudot(text,decode=False):
             
         return "".join(out)
 
-ptext = "FOX\FS01 \BEL7\LS ABC\FS...\LS"
-ctext = baudot(ptext)
-dtext = baudot(ctext,decode=True)
-print(ptext)
-print(ctext)
-print(dtext)
+def baudotExample()
+    ptext = "FOX\FS01 \BEL7\LS ABC\FS...\LS"
+    ctext = baudot(ptext)
+    dtext = baudot(ctext,decode=True)
+    print(ptext)
+    print(ctext)
+    print(dtext)
