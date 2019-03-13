@@ -1,4 +1,4 @@
-from Ciphers.Autokey import autokey
+from Ciphers.Vigenere import autokey
 from Attacks.TextScoring import bigramScore
 
 

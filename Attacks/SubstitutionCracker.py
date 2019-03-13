@@ -1,6 +1,6 @@
 # based on http://practicalcryptography.com/cryptanalysis/stochastic-searching/cryptanalysis-simple-substitution-cipher/
 
-from Ciphers.Substitution import substitution
+from Ciphers.Simple import substitution
 from Attacks.TextScoring import quadgramScore
 from Attacks.AffineCracker import affineCracker
 import random

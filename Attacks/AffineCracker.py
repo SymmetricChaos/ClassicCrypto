@@ -1,4 +1,4 @@
-from Ciphers.Affine import affine
+from Ciphers.Simple import affine
 from Attacks.TextScoring import quadgramScore
 from itertools import product
 
