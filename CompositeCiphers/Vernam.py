@@ -2,14 +2,10 @@ from Ciphers.UtilityFunctions import saveFormat,restoreFormat
 from Codes import morseCode
 from RNG import LFSR
 
+
+
+
 def vernam(text,key,decode=False):
-    
-    text = morseCode(text)
-    
-    
-    text = morseCode(ptext)
-    text = text.replace("-","1")
-    text = text.replace(".","0")
     
     text, pos, char, case = saveFormat(text,"01")
     
@@ -31,8 +27,15 @@ def vernam(text,key,decode=False):
     
     ftext = restoreFormat("".join(out),pos, char, case)
     
-    print(ftext)
+    return ftext
 
-ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"    
+ptext = morseCode(ptext,style="digit")
 
-vernam(ptext,[6545,[15,7,4,3]])
+ctext = vernam(ptext,[6545,[15,7,4,3]])
+
+dtext = vernam(ctext,[6545,[15,7,4,3]])
+
+print(morseCode(ptext,decode=True,style="digit"))
+print(ctext)
+print(morseCode(dtext,decode=True,style="digit"))

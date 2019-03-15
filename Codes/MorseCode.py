@@ -11,6 +11,7 @@ def morseCode(text,decode=False,style="dash"):
          "--.- ",".-. ","... ","- ","..- ","...- ",".-- ","-..- ",
          "-.-- ","--.. ","----- ",".---- ","..--- ","...-- ",
          "....- ","..... ","-.... ","--... ","---.. ","----. "]
+    
 
     if style == "block":
         for i in range(len(M)):
@@ -32,8 +33,11 @@ def morseCode(text,decode=False,style="dash"):
             t = t.replace(".","0")
             t = t.replace("-","1")
             M[i] = t
-            
-    validptext(text,A)
+    
+    if decode == False:
+        validptext(text,A)
+    else:
+        validptext(text,M[0])
 
     D = {}
     
