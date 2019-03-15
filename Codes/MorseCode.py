@@ -5,19 +5,20 @@ from Ciphers.UtilityFunctions import validptext
 # order to be interpreted.
 
 def morseCode(text,decode=False,style="dash"):
-    A = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    A = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
     M = [".- ","-... ","-.-. ","-.. ",". ","..-. ","--. ",".... ",
          ".. ",".--- ","-.- ",".-.. ","-- ","-. ","--- ",".--. ",
          "--.- ",".-. ","... ","- ","..- ","...- ",".-- ","-..- ",
          "-.-- ","--.. ","----- ",".---- ","..--- ","...-- ",
-         "....- ","..... ","-.... ","--... ","---.. ","----. "]
+         "....- ","..... ","-.... ","--... ","---.. ","----. ","/ "]
     
 
     if style == "block":
         for i in range(len(M)):
             t = M[i]
-            t = t.replace(".","▄\u3000")
-            t = t.replace("-","▄▄\u3000")
+            t = t.replace(".","▄ ")
+            t = t.replace("-","▄▄ ")
+            t = t.replace("/"," ")
             M[i] = t
     
     if style == "word":
@@ -87,15 +88,12 @@ def binaryMorseCode(text,decode=False):
     
 def morseCodeExample():
     print("Example of Morse Code\n")
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ptext = "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG"
     ctext = morseCode(ptext)
     print(ptext)
     print(ctext)
     
-    print("Example of Morse Code\n")
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = morseCode(ptext,style="block")
-    print(ptext)
     print(ctext)
 
 def binaryMorseCodeExample():
