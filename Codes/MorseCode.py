@@ -16,8 +16,8 @@ def morseCode(text,decode=False,style="dash"):
     if style == "block":
         for i in range(len(M)):
             t = M[i]
-            t = t.replace(".","▄ ")
-            t = t.replace("-","▄▄▄ ")
+            t = t.replace(".","▄\u3000")
+            t = t.replace("-","▄▄\u3000")
             M[i] = t
     
     if style == "word":
@@ -66,7 +66,7 @@ def morseCode(text,decode=False,style="dash"):
     
 
 # We can turn Morse code into a true binary code by representing the current on
-# the line directly. 
+# the line directly.
 
 def binaryMorseCode(text,decode=False):
     if decode == False:
@@ -91,6 +91,12 @@ def morseCodeExample():
     ctext = morseCode(ptext)
     print(ptext)
     print(ctext)
+    
+    print("Example of Morse Code\n")
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
+    ctext = morseCode(ptext,style="block")
+    print(ptext)
+    print(ctext)
 
 def binaryMorseCodeExample():
     print("Example of Binary Morse Code\n")
@@ -98,3 +104,5 @@ def binaryMorseCodeExample():
     ctext = binaryMorseCode(ptext)
     print(ptext)
     print(ctext)
+    
+morseCodeExample()
