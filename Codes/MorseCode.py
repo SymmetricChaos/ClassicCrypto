@@ -103,4 +103,4 @@ def binaryMorseCodeExample():
     print(ptext)
     print(ctext)
     
-morseCodeExample()
+#morseCodeExample()
