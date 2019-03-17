@@ -19,8 +19,9 @@ M = [".-","-...","-.-.","-..",".","..-.","--.","....",
 # A wrapper function to make it easier to use
 def morseDecoder(text,crib):
     
-    if morseCode(crib) not in text:
-        raise Exception("The crib {} does not appear in the text".format(crib))
+    
+    #if morseCode(crib) not in text:
+    #    raise Exception("The crib {} does not appear in the text".format(crib))
     
     out = [float("-inf"),""]
     
@@ -57,7 +58,7 @@ def morseDecoder(text,crib):
     
     return out[1]
 
-ptext = morseCode("HELLOWORLD")
+ptext = morseCode("HELLO")
 ptext = ptext.replace(" ","")
-morseDecoder(ptext,"W")
-#print(ptext)
+print(ptext)
+morseDecoder(ptext,"LL")
