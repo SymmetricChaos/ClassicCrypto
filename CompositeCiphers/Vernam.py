@@ -29,13 +29,23 @@ def vernam(text,key,decode=False):
     
     return ftext
 
-ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"    
-ptext = morseCode(ptext,style="digit")
+def vernamExample():
 
-ctext = vernam(ptext,[6545,[15,7,4,3]])
-
-dtext = vernam(ctext,[6545,[15,7,4,3]])
-
-print(morseCode(ptext,decode=True,style="digit"))
-print(ctext)
-print(morseCode(dtext,decode=True,style="digit"))
+    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"    
+    ptext = morseCode(ptext,style="digit")
+    
+    ctext = vernam(ptext,[6545,[15,7,4,3]])
+    
+    dtext = vernam(ctext,[6545,[15,7,4,3]])
+    
+    
+    print(morseCode(ptext,decode=True,style="digit"))
+    print()
+    print(ptext)
+    print()
+    print(ctext)
+    
+    if morseCode(ptext,decode=True,style="digit") != morseCode(dtext,decode=True,style="digit"):
+        print("ERROR")
+    
+vernamExample()
