@@ -1,5 +1,6 @@
 from Ciphers.UtilityFunctions import uniqueRank
-
+from Ciphers import straddlingCheckerboard
+from Ciphers.Transposition import columnarTransport
 
 def chainAddition(L,n):
     for i in range(n):
@@ -35,18 +36,19 @@ def VICkeystream(keys):
     n2 = [(i+1) % 10 for i in n2]
     
     # Add the first list of numbers to the keystream
-    #print(n1)
-    #print(kstr)
+    print(n1)
+    print(kstr)
     kstr = addLists(n1,kstr)
 
     # Used the second list of numbers to encode the keystream
-    #print(nums)
-    #print(n2)
-    #print(kstr)
     nums = [1,2,3,4,5,6,7,8,9,0]
     kstr = [n2[nums.index(i)] for i in kstr]
+    print(nums)
+    print(n2)
+    print(kstr)
     
-    #chainAddition(n1[:5],5)
+    chainAddition(kstr,50)
+    print(kstr)
 
 def VIC(text,keys,decode=False):
     if len(text) > 50:
