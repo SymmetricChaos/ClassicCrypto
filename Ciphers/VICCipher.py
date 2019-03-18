@@ -1,4 +1,4 @@
-from Ciphers.UtilityFunctions import uniqueRank
+from Ciphers.UtilityFunctions import uniqueRank, find_all
 from Ciphers import straddlingCheckerboard
 from Ciphers.Transposition import columnarTransport
 
@@ -36,25 +36,48 @@ def VICkeystream(keys):
     n2 = [(i+1) % 10 for i in n2]
     
     # Add the first list of numbers to the keystream
-    print(n1)
-    print(kstr)
+    #print(n1)
+    #print(kstr)
     kstr = addLists(n1,kstr)
 
     # Used the second list of numbers to encode the keystream
     nums = [1,2,3,4,5,6,7,8,9,0]
     kstr = [n2[nums.index(i)] for i in kstr]
-    print(nums)
-    print(n2)
-    print(kstr)
+    #print(nums)
+    #print(n2)
+    #print(kstr)
     
     chainAddition(kstr,50)
-    print(kstr)
+    #print(kstr)
+    return kstr
+
+# Use a list of numbers to shuffle a straddlingCheckboard
+def VICboard(L):
+    keys = ["",[]]
+    board = ["ET AONR IS","BCDFGHJKLM","PQ/UVWXYZ."]
+    for i in range(3):
+        board[i] = columnarTransport(board[i],L)
+        
+    keys[1] = [i for i in find_all(board[0]," ")]
+    keys[0] = board[0].replace(" ","") + board[1] + board[2]
+    
+    return keys
 
 def VIC(text,keys,decode=False):
     if len(text) > 50:
         raise Exception("Text is too long.")
     if len(keys[2]) != 20:
         raise Exception("Keyphrase must be exactly 20 letters")
+        
+    kstr = VICkeystream(keys)
+    print(kstr)
     
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ./"
+
+    K = VICboard(kstr[50:])
+    print(K)
+
+    print(straddlingCheckerboard(text,keys=K,alphabet=alphabet))
     
-VICkeystream(["77651","74177","IDREAMOFJEANNIEWITHT"])
+
+VIC("THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG",["77651","74177","IDREAMOFJEANNIEWITHT"])
