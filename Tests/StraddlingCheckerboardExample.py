@@ -1,11 +1,7 @@
 from Ciphers import straddlingCheckerboard
 from Ciphers.UtilityFunctions import alphabetPermutation
 
-def straddlingCheckerboardExample():
-    print("Example of the Straddling Checkerboard\n")
-    keys = ["ZEBRA",[1,3]]
-    print("The key is {}\n".format(keys))
-    
+def showCheckerboard(keys):
     al = list(alphabetPermutation(keys[0]))
     
     print("  0 1 2 3 4 5 6 7 8 9")
@@ -25,6 +21,13 @@ def straddlingCheckerboardExample():
     for i in range(8):
         print(al.pop(0),end=" ")
     print("\n")
+
+def straddlingCheckerboardExample():
+    print("Example of the Straddling Checkerboard\n")
+    keys = ["ZEBRA",[1,3]]
+    print("The key is {}\n".format(keys))
+    
+    showCheckerboard(keys)
     
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
     ctext = straddlingCheckerboard(ptext,keys)
