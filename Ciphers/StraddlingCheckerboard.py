@@ -17,7 +17,7 @@ from Ciphers.UtilityFunctions import alphabetPermutation
 # There is no ambiguity because every two digit code MUST start with a 4 or a 7
 # while NO single digit code can ever start with 4 or 7.
 
-def straddlingCheckerboard(text,keys=["A",[0,1]],decode=False):
+def straddlingCheckerboard(text,keys=["A",[0,1]],decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
 
     if len(keys) != 2:
         raise Exception('must provide both keys')
@@ -25,9 +25,9 @@ def straddlingCheckerboard(text,keys=["A",[0,1]],decode=False):
         raise Exception('must provide two numbers for checkboard')
     
     # Derive the internally used key from the input
-    KEY = alphabetPermutation(keys[0])
+    KEY = alphabetPermutation(keys[0],alphabet)
     # Divide they KEY into a mutable list so we can pop from it
-    KEY = [i for i in KEY]
+    KEY = list(KEY)
     
     D = {}
     
