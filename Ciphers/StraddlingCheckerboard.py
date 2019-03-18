@@ -17,6 +17,8 @@ from Ciphers.UtilityFunctions import alphabetPermutation
 # There is no ambiguity because every two digit code MUST start with a 4 or a 7
 # while NO single digit code can ever start with 4 or 7.
 
+
+
 def straddlingCheckerboard(text,keys=["A",[0,1]],decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
 
     if len(keys) != 2:
@@ -28,7 +30,6 @@ def straddlingCheckerboard(text,keys=["A",[0,1]],decode=False,alphabet="ABCDEFGH
     KEY = alphabetPermutation(keys[0],alphabet)
     # Divide they KEY into a mutable list so we can pop from it
     KEY = list(KEY)
-    
     D = {}
     
     if decode == False:
@@ -44,7 +45,7 @@ def straddlingCheckerboard(text,keys=["A",[0,1]],decode=False,alphabet="ABCDEFGH
             D[KEY.pop(0)] = codegroup
 
         # Third row   
-        for i in range(8):
+        for i in range(len(KEY)):
             codegroup = str(keys[1][1])+str(i)
             D[KEY.pop(0)] = codegroup
 
@@ -62,7 +63,7 @@ def straddlingCheckerboard(text,keys=["A",[0,1]],decode=False,alphabet="ABCDEFGH
             D[codegroup] = KEY.pop(0)
 
         # Third row   
-        for i in range(8):
+        for i in range(len(KEY)):
             codegroup = str(keys[1][1])+str(i)
             D[codegroup] = KEY.pop(0)
         
@@ -76,4 +77,4 @@ def straddlingCheckerboard(text,keys=["A",[0,1]],decode=False,alphabet="ABCDEFGH
                 L.append(text.pop(0))
                 
         return "".join([D[i] for i in L])
-    
+
