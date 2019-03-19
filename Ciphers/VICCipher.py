@@ -1,7 +1,13 @@
-from Ciphers.UtilityFunctions import uniqueRank, find_all
+from Ciphers.UtilityFunctions import uniqueRank, find_all, printColumns, groups
 from Ciphers import straddlingCheckerboard
 from Ciphers.Transposition import columnarTransport
 
+# The VIC cipher (apparently) treated 0 as greater than 9 in ordering
+def VICRank(S):
+    L = uniqueRank(S)
+    return [ (i+1) % 10 for i in L]
+    
+# Quickly apply the chain addition, fibonnaci 
 def chainAddition(L,n):
     for i in range(n):
         L.append( (L[i] + L[i+1]) % 10 )
@@ -12,6 +18,19 @@ def addLists(A,B):
 
 def subLists(A,B):
     return [(a-b) % 10 for a,b in zip(A,B)]
+
+# Use a list of numbers to shuffle a straddlingCheckerboard with the specific 
+# layout used for a VIC style checkerboard
+def VICboard(L):
+    keys = ["",[]]
+    board = ["ET AONR IS","BCDFGHJKLM","PQ/UVWXYZ."]
+    for i in range(3):
+        board[i] = columnarTransport(board[i],L)
+        
+    keys[1] = [i for i in find_all(board[0]," ")]
+    keys[0] = board[0].replace(" ","") + board[1] + board[2]
+    
+    return keys
 
 def VICkeystream(keys):
     
@@ -26,15 +45,12 @@ def VICkeystream(keys):
     kstr = subLists(aInd,rInd)
     chainAddition(kstr,5)
     
-    # Use uniqueRank to turn the keyphrase into two lists of 10 numbers
-    n1 = uniqueRank(S[:10])
-    n2 = uniqueRank(S[10:])
-    
-    # The historical VIC used a slightly different scheme with 1 for the first 
-    # symbol and 0 for the last
-    n1 = [(i+1) % 10 for i in n1]
-    n2 = [(i+1) % 10 for i in n2]
-    
+    # Use VICRank to turn the keyphrase into two lists of 10 numbers
+    n1 = VICRank(S[:10])
+    n2 = VICRank(S[10:])
+    print(n1)
+    print(n2)
+        
     # Add the first list of numbers to the keystream
     #print(n1)
     #print(kstr)
@@ -51,26 +67,21 @@ def VICkeystream(keys):
     #print(kstr)
     return kstr
 
-# Use a list of numbers to shuffle a straddlingCheckboard
-def VICboard(L):
-    keys = ["",[]]
-    board = ["ET AONR IS","BCDFGHJKLM","PQ/UVWXYZ."]
-    for i in range(3):
-        board[i] = columnarTransport(board[i],L)
-        
-    keys[1] = [i for i in find_all(board[0]," ")]
-    keys[0] = board[0].replace(" ","") + board[1] + board[2]
-    
-    return keys
+
 
 def VIC(text,keys,decode=False):
-    if len(text) > 50:
-        raise Exception("Text is too long.")
+
     if len(keys[2]) != 20:
         raise Exception("Keyphrase must be exactly 20 letters")
         
     kstr = VICkeystream(keys)
-    print(kstr)
+    printColumns(kstr[10:],10)
+    
+    transKey = [ (i-2) % 10 for i in VICRank(kstr[:10])]
+    print(kstr[:10])
+    print(transKey)
+    G = groups(kstr[10:],10)
+    print(G)
     
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ./"
 
