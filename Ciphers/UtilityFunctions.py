@@ -416,11 +416,13 @@ def alphaToNumber(L,alpha="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
 def numberToAlpha(L,alpha="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     return [alpha[i] for i in L]
 
-def nulls(text,total_len,sep="XXX",alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
+# Append nulls to fill out text to a given length. First the characters of the 
+# seperator are appended and then random letters from an alphabet.
+def addNulls(text,total_len,sep="XXX",alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     
     ctr = 0
     while len(text) < total_len:
-        print(ctr)
+        
         if ctr >= len(sep):
             text += random.choice(list("ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
         else:
