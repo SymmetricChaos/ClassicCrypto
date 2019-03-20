@@ -28,14 +28,20 @@ def disruptedTransposition(text,key,decode=False):
     for num in range(len(rank)):
         rm = len(key) - len(G[num])
         s,text = text[:rm], text[rm:]
-        G[num] += s.lower()
+        G[num] += s#.lower()
         
     #print(key)
     for row in G:
         print(row)
-        
+    print()
+    
+    out = ""
+    for x in range(len(key)):
+        for y in range(len(key)):
+            out += G[y][x]
+            
+    return out
     
         
 ptext = "THEYHAVEDISCOVEREDTHATTHEQUICKBROWNFOXJUMPEDOVERTHELAZYDOGFLEEIMMEDIATELY"
-
-disruptedTransposition(ptext,"BIRTHDAYS")
+ctext = disruptedTransposition(ptext,"BIRTHDAYS")
