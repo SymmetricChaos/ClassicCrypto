@@ -1,4 +1,6 @@
 from Ciphers.UtilityFunctions import uniqueRank, addNulls
+from numpy import argsort
+
 
 def disruptedTransposition(text,key,decode=False):
     
@@ -31,13 +33,14 @@ def disruptedTransposition(text,key,decode=False):
             G[num] += s#.lower()
             
         #print(key)
+        print("".join([str(i) for i in rank]))
         for row in G:
             print(row)
         print()
         
         # Read off the grid by rows
         out = ""
-        for x in range(len(key)):
+        for x in argsort(rank):
             for y in range(len(key)):
                 out += G[y][x]
                 
@@ -45,33 +48,33 @@ def disruptedTransposition(text,key,decode=False):
     
     if decode == True:
         
-        G = ["" for i in key]
+        # transpose grid
+        Gt = ["" for i in key]
         text = list(text)
-        for x in range(len(key)):
+        for x in argsort(rank):
             for y in range(len(key)):
-                G[y] += text.pop(0)
-        
-        for row in G:
-            print(row)
-        print()
+                Gt[x] += text.pop(0)
         
         out1 = ""
         out2 = ""
         for num in range(len(rank)):
             L = rank.index(num)+1
-            out1 += G[num][:L]
-            out2 += G[num][L:]
+            
+            for row in range(L):
+                out1 += Gt[row][num]
+                
+            for row in range(L,len(key)):
+                out2 += Gt[row][num]
         
-        #print(out1)
-        #print(out2)
         
         return out1 + out2
         
-        #print(out)
         
 ptext = "THEYHAVEDISCOVEREDTHATTHEQUICKBROWNFOXJUMPEDOVERTHELAZYDOGFLEENOW"
 ctext = disruptedTransposition(ptext,"BIRTHDAYS")
 dtext = disruptedTransposition(ctext,"BIRTHDAYS",decode=True)
 print(ptext)
+print()
 print(ctext)
+print()
 print(dtext)
