@@ -62,7 +62,6 @@ def columnarTransport(text,key,decode=False,complete=True):
     
     
 
-    
 
     
 ## Double columnar transport is a significant improvement on the single columnar
