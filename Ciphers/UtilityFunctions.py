@@ -4,6 +4,7 @@
 
 
 import re
+import random
 
 # Many ciphers need to create a permutation of the alphabet. A common way to do
 # this for classical cryptography is to specify a key. The letters of the key
@@ -414,3 +415,20 @@ def alphaToNumber(L,alpha="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
 # Convert numbers to letters according to some alphabet
 def numberToAlpha(L,alpha="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     return [alpha[i] for i in L]
+
+def nulls(text,total_len,sep="XXX",alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
+    
+    ctr = 0
+    while len(text) < total_len:
+        print(ctr)
+        if ctr >= len(sep):
+            text += random.choice(list("ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+        else:
+            text += sep[ctr]
+            ctr += 1
+    
+    return text
+    
+    
+    
+    
