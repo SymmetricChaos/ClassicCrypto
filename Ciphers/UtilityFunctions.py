@@ -424,7 +424,7 @@ def addNulls(text,total_len,sep="XXX",alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     while len(text) < total_len:
         
         if ctr >= len(sep):
-            text += random.choice(list("ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+            text += random.choice(list(alphabet))
         else:
             text += sep[ctr]
             ctr += 1
