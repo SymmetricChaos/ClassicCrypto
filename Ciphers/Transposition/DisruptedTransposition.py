@@ -1,4 +1,4 @@
-from Ciphers.UtilityFunctions import uniqueRank
+from Ciphers.UtilityFunctions import uniqueRank, addNulls
 
 def disruptedTransposition(text,key,decode=False):
     
@@ -6,11 +6,8 @@ def disruptedTransposition(text,key,decode=False):
     if len(text) > len(key)**2:
         raise Exception("Grid will be too small to fit the text")
     
-    # Insert nulls, this should be improved
-    if len(text) < len(key)**2:
-        nulls = len(key)**2 - len(text)
-        text += "X"*nulls
-    
+    # Insert nulls
+    text = addNulls(text,len(key)**2)
         
     rank = uniqueRank(key)
     
@@ -72,8 +69,9 @@ def disruptedTransposition(text,key,decode=False):
         
         #print(out)
         
-ptext = "THEYHAVEDISCOVEREDTHATTHEQUICKBROWNFOXJUMPEDOVERTHELAZYDOGFLEEIMMEDIATELY"
+ptext = "THEYHAVEDISCOVEREDTHATTHEQUICKBROWNFOXJUMPEDOVERTHELAZYDOGFLEENOW"
 ctext = disruptedTransposition(ptext,"BIRTHDAYS")
 dtext = disruptedTransposition(ctext,"BIRTHDAYS",decode=True)
-#print(ctext)
+print(ptext)
+print(ctext)
 print(dtext)
