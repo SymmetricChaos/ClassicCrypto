@@ -7,4 +7,4 @@ def example(cipher,ptext,key,**kwargs):
     if ptext != dtext[:len(ptext)]:
         print("DECRYPTION ERROR\n{}\n".format(dtext))
     
-    print("\n\n")
+    print("\n")
