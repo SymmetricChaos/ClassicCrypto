@@ -1,6 +1,5 @@
 from numpy import argsort
-import random
-from Ciphers.UtilityFunctions import uniqueRank, groups
+from Ciphers.UtilityFunctions import uniqueRank, groups, addNulls
 
 ## A transposition cipher is made by shuffling the letters of the message
 ## according to some rule. One of the most famous transposition ciphers is
@@ -21,10 +20,7 @@ def columnarTransport(text,key,decode=False,complete=True):
     # If complete is selected nulls are added so that the ciphertext fits
     # perfectly into the grid.
     if complete == True:
-        if rem != 0:
-            nulls = numcol-rem
-            text += "".join([random.choice(["Z","Q","J","X"]) for i in range(nulls)])
-            numrow += 1
+        text = addNulls(text,total_len=numcol*(numrow+rem))
     
     if decode == False:
         
