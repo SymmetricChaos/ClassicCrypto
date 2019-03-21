@@ -60,10 +60,6 @@ def columnarTransport(text,key,decode=False,complete=True):
         
         return "".join(out)
     
-    
-
-
-    
 ## Double columnar transport is a significant improvement on the single columnar
 ## transport cipher. With long keys it is even somewhat resistant to computer attack.
 
@@ -78,33 +74,3 @@ def doubleColumnarTransport(text,key=["ABC","ABC"],decode=False,complete=True):
         return columnarTransport(columnarTransport(text,key[1],True,complete),key[0],True,complete)
     else:
         return columnarTransport(columnarTransport(text,key[0],complete=complete),key[1],complete=complete)
-
-
-def columnarTransportExample():
-
-    print("Columnar Transport Example")
-    key = "ILIKETHEEGGS"
-    print("The Key Is {}".format(key))
-    
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = columnarTransport(ptext,key)
-    dtext = columnarTransport(ctext,key,decode=True)
-    print("Plaintext is:\n{}".format(ptext))
-    print("Ciphertext is:\n{}".format(ctext))
-    print("Decodes As:\n{}".format(dtext))
-    
-def doubleColumnarTransportExample():
-
-    print("Double Columnar Transport Example")
-    keys = ["ILIKEEGGS","BLAHDIBLAHBLAH"]
-    print("The Key Is {}".format(keys))
-    
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = doubleColumnarTransport(ptext,keys)
-    dtext = doubleColumnarTransport(ctext,keys,decode=True)
-    print("Plaintext is:\n{}".format(ptext))
-    print("Ciphertext is:\n{}".format(ctext))
-    print("Decodes As:\n{}".format(dtext))
-
-#columnarTransportExample()
-#doubleColumnarTransportExample()
