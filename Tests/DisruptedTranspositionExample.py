@@ -1,12 +1,52 @@
-from Ciphers import disruptedTransposition
+from Ciphers.Transposition import disruptedTransposition
+from Ciphers.UtilityFunctions import addNulls, uniqueRank
+from Tests.ExampleTemplate import example
 
-def disruptedTranspositionExample()
-
+def disruptedTranspositionExample():
+    
+    
+    key = "BIRTHDAYS"
     ptext = "THEYHAVEDISCOVEREDTHATTHEQUICKBROWNFOXJUMPEDOVERTHELAZYDOGFLEENOW"
-    ctext = disruptedTransposition(ptext,"BIRTHDAYS")
-    dtext = disruptedTransposition(ctext,"BIRTHDAYS",decode=True)
-    print(ptext)
+    rank = uniqueRank(key)
+    print("Example of Completed Disrupted Transposition\n")
+    
+    print("The Key is: {}".format(key))
+    
+    print("\nThe plaintext is\n{}".format(ptext))
+    ptext = addNulls(ptext,len(key)**2)
+    print("\nWe extend it with nulls to be\n{}".format(ptext))
     print()
-    print(ctext)
+
+    G = ["" for i in key]
+    
+    # Here we copy some code from the cipher to make a nice graphic
+    text = ptext
+    for num in range(len(rank)):
+        L = rank.index(num)+1
+        G[num], text = text[:L], text[L:]
+        
+        
+    print("The first half of the text is read into columns like this\n")
+    
+    print("".join([str(i) for i in rank]))
+    for row in G:
+        print(row)
     print()
-    print(dtext)
+        
+    for num in range(len(rank)):
+        rm = len(key) - len(G[num])
+        s,text = text[:rm], text[rm:]
+        G[num] += s.lower()
+    
+    print("\nThe remaining text then fills in the remaining spaces\nShown here in lowercase for ease of reading.\n")
+    print("".join([str(i) for i in rank]))
+    for row in G:
+        print(row)
+    print()
+    
+    print("Then it is read off by columns starting with the one marked zero, then one, and so on.\n")
+    
+    print("The completed cipher.")
+    example(disruptedTransposition,ptext,key)
+    
+disruptedTranspositionExample()

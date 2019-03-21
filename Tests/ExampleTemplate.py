@@ -1,7 +1,6 @@
 def example(cipher,ptext,key,**kwargs):    
     ctext = cipher(ptext,key,False,**kwargs)
     dtext = cipher(ctext,key,True,**kwargs)
-    print("{}".format(ptext))
     print("{}".format(ctext))
     if len(ptext) != len(ctext):
         print("Note that plaintext and ciphertext differ in length.")

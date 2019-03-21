@@ -31,13 +31,7 @@ def disruptedTransposition(text,key,decode=False):
             rm = len(key) - len(G[num])
             s,text = text[:rm], text[rm:]
             G[num] += s#.lower()
-            
-        #print(key)
-        print("".join([str(i) for i in rank]))
-        for row in G:
-            print(row)
-        print()
-        
+                    
         # Read off the grid by rows
         out = ""
         for x in argsort(rank):
@@ -70,11 +64,3 @@ def disruptedTransposition(text,key,decode=False):
         return out1 + out2
         
         
-ptext = "THEYHAVEDISCOVEREDTHATTHEQUICKBROWNFOXJUMPEDOVERTHELAZYDOGFLEENOW"
-ctext = disruptedTransposition(ptext,"BIRTHDAYS")
-dtext = disruptedTransposition(ctext,"BIRTHDAYS",decode=True)
-print(ptext)
-print()
-print(ctext)
-print()
-print(dtext)
