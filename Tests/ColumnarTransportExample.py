@@ -1,4 +1,4 @@
-from Ciphers.Transposition import columnarTransport, doubleColumnarTransport
+from Ciphers.Transposition import columnarTransport
 from Ciphers.UtilityFunctions import addNulls, uniqueRank, groups
 from Tests.ExampleTemplate import example
 
@@ -21,31 +21,14 @@ def columnarTransportExample():
     print("\nThe plaintext is\n{}".format(ptext))
     ptext = addNulls(ptext,40)
     
-    print("\nNow the text is read into columns with some nulls added with they key above it.")
+    print("\nNow the text is read into columns with some nulls added to fill it out. The with they key is placed above.\n")
 
     print("".join([str(i) for i in rank]))
     for i in groups(ptext,8):
         print(i)
 
-
+    print("\nFinally the grid is read off in accordance with column numbers starting with zero, then one, and so on.\n")
     
-    #example(columnarTransport,ptext,key,complete=False)
+    example(columnarTransport,ptext,key,complete=True)
     
-    #example(columnarTransport,ptext,key,complete=True)
-    
-    
-def doubleColumnarTransportExample():
-
-    print("Double Columnar Transport Example")
-    keys = ["ILIKEEGGS","BLAHDIBLAHBLAH"]
-    print("The Key Is {}".format(keys))
-    
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = doubleColumnarTransport(ptext,keys)
-    dtext = doubleColumnarTransport(ctext,keys,decode=True)
-    print("Plaintext is:\n{}".format(ptext))
-    print("Ciphertext is:\n{}".format(ctext))
-    print("Decodes As:\n{}".format(dtext))
-
 columnarTransportExample()
-#doubleColumnarTransportExample()
