@@ -26,21 +26,18 @@ def alternating(text,mode="odd"):
                 
     return L
 
-def AMSCO(text,key,decode=False):
+def AMSCO(text,key,decode=False,mode="odd"):
     
     # Derive the key
     k = uniqueRank(key)
     
     # Divide the text into alternating groups of 2 and 1
-    L = alternating(text)
+    L = alternating(text,mode=mode)
     
     x = groups(L,len(k))    
 
     if decode == False:
         
-        #for i in x:
-        #    print(i)
-    
         out = []
         for col in argsort(k):
             for row in x:
