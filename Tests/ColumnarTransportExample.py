@@ -21,7 +21,7 @@ def columnarTransportExample():
     print("\nThe plaintext is\n{}".format(ptext))
     ptext = addNulls(ptext,40)
     
-    print("\nNow the text is read into columns with some nulls added to fill it out. The with they key is placed above.\n")
+    print("\nNow the text is read into the grid by rows with some nulls added to fill it out.  The key is placed above.\n")
 
     print("".join([str(i) for i in rank]))
     for i in groups(ptext,8):
