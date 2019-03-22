@@ -1,21 +1,37 @@
 from Ciphers.Transposition import columnarTransport, doubleColumnarTransport
-from Ciphers.UtilityFunctions import addNulls, uniqueRank
+from Ciphers.UtilityFunctions import addNulls, uniqueRank, groups
 from Tests.ExampleTemplate import example
 
 
 
 def columnarTransportExample():
     
-    print("Example of the columnar transport cipher.")
+    print("Example of the columnar transport cipher")
 
-    print("Columnar Transport Example")
-    key = "BIRTHDAYS"
-    print("The Key Is {}".format(key))
-    
+    key = "BIRTHDAY"
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    example(columnarTransport,ptext,key,complete=False)
+    rank = uniqueRank(key)
     
-    example(columnarTransport,ptext,key,complete=True)
+    
+    print("\nThe Key Is {}".format(key))
+    
+    print("Each letter of the key is ranked to get")
+    print(*rank)
+
+    print("\nThe plaintext is\n{}".format(ptext))
+    ptext = addNulls(ptext,40)
+    
+    print("\nNow the text is read into columns with some nulls added with they key above it.")
+
+    print("".join([str(i) for i in rank]))
+    for i in groups(ptext,8):
+        print(i)
+
+
+    
+    #example(columnarTransport,ptext,key,complete=False)
+    
+    #example(columnarTransport,ptext,key,complete=True)
     
     
 def doubleColumnarTransportExample():

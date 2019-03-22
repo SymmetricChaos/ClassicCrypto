@@ -20,8 +20,10 @@ def columnarTransport(text,key,decode=False,complete=True):
     # If complete is selected nulls are added so that the ciphertext fits
     # perfectly into the grid.
     if complete == True:
-        text = addNulls(text,total_len=numcol*(numrow+rem))
-    
+        if rem > 0:
+            text = addNulls(text,total_len=numcol*(numrow+1))
+        else:
+            text = addNulls(text,total_len=numcol*numrow)
     if decode == False:
         
         # Read the text into the rows
