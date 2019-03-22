@@ -116,21 +116,3 @@ def AMSCO(text,key,decode=False):
         
         return "".join(out)
         
-
-def AMSCOExample():
-    import random
-    
-    alpha = list("ABCDEFGHIJKLMNOPQRSTUVWZYZ")
-    random.shuffle(alpha)
-    l = random.randint(4,12)
-    
-    key = alpha[:l]
-    
-    print(key)
-    
-    ptext = "INCOMPLETECOLUMNARWITHALTERNATINGSINGLELETTERSAND"
-    ctext = AMSCO(ptext,key)
-    dtext = AMSCO(ctext,key,decode=True)
-    print(ptext)
-    print(ctext)
-    print(dtext)
