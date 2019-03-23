@@ -1,6 +1,6 @@
 from Ciphers.Transposition import disruptedTransposition
-from Ciphers.UtilityFunctions import addNulls, uniqueRank
-from Tests.ExampleTemplate import example
+from Ciphers.UtilityFunctions import uniqueRank
+from Examples.ExampleTemplate import example
 
 def disruptedTranspositionExample():
     
@@ -13,7 +13,7 @@ def disruptedTranspositionExample():
     print("The Key is: {}".format(key))
     
     print("\nThe plaintext is\n{}".format(ptext))
-    ptext = addNulls(ptext,len(key)**2)
+    #ptext = addNulls(ptext,len(key)**2)
     print("\nWe extend it with nulls to be\n{}".format(ptext))
     print()
 
@@ -24,7 +24,6 @@ def disruptedTranspositionExample():
     for num in range(len(rank)):
         L = rank.index(num)+1
         G[num], text = text[:L], text[L:]
-        
         
     print("The first half of the text is read into columns like this\n")
     
@@ -46,7 +45,8 @@ def disruptedTranspositionExample():
     
     print("Then it is read off by columns starting with the one marked zero, then one, and so on.\n")
     
-    print("The completed cipher.")
-    example(disruptedTransposition,ptext,key)
+    print("The completed cipher:")
+    ctext, dtext = example(disruptedTransposition,ptext,key,complete=False)
+    print(ctext)
     
 disruptedTranspositionExample()
