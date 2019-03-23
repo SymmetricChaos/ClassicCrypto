@@ -27,9 +27,9 @@ def disruptedTranspositionExample():
         
     print("The first half of the text is read into columns like this\n")
     
-    print("".join([str(i) for i in rank]))
+    print(" ".join([str(i) for i in rank]))
     for row in G:
-        print(row)
+        print(" ".join([i for i in row]))
     print()
         
     for num in range(len(rank)):
@@ -37,10 +37,10 @@ def disruptedTranspositionExample():
         s,text = text[:rm], text[rm:]
         G[num] += s.lower()
     
-    print("\nThe remaining text then fills in the remaining spaces\nShown here in lowercase for ease of reading.\n")
-    print("".join([str(i) for i in rank]))
+    print("\nThe remaining text then fills in the remaining spaces. Shown here in lowercase for ease of reading.\n")
+    print(" ".join([str(i) for i in rank]))
     for row in G:
-        print(row)
+        print(" ".join([i for i in row]))
     print()
     
     print("Then it is read off by columns starting with the one marked zero, then one, and so on.\n")

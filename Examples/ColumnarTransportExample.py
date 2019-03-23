@@ -1,6 +1,6 @@
 from Ciphers.Transposition import columnarTransport
 from Ciphers.UtilityFunctions import addNulls, uniqueRank, groups
-from Tests.ExampleTemplate import example
+from Examples.ExampleTemplate import example
 
 
 
@@ -23,12 +23,13 @@ def columnarTransportExample():
     
     print("\nNow the text is read into the grid by rows with some nulls added to fill it out.  The key is placed above.\n")
 
-    print("".join([str(i) for i in rank]))
+    print(" ".join([str(i) for i in rank]))
     for i in groups(ptext,8):
-        print(i)
+        print(" ".join([e for e in i]))
 
     print("\nFinally the grid is read off in accordance with column numbers starting with zero, then one, and so on.\n")
     
-    example(columnarTransport,ptext,key,complete=True)
+    ctext, dtext = example(columnarTransport,ptext,key,complete=True)
+    print(ctext)
     
 columnarTransportExample()
