@@ -6,7 +6,7 @@ from Ciphers.UtilityFunctions import uniqueRank, groups, addNulls
 ## columnar transport. To do this the message is read into a matrix by rows
 ## then the columns of the matrix are suffled and read off by columns.
 
-def columnarTransport(text,key,decode=False,complete=True):
+def columnarTransport(text,key,decode=False,complete=False):
     
     k = uniqueRank(key)
     
