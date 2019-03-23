@@ -28,7 +28,8 @@ from Ciphers.Polybius import polybiusSquare, ADFGX, ADFGVX, bifid, trifid
 
 # Transposition ciphers
 from Ciphers.Transposition import AMSCO, columnarTransport, doubleColumnarTransport, \
-                                  railfence, turningGrille, turningGrilleExtended
+                                  railfence, turningGrille, turningGrilleExtended, \
+                                  disruptedTransposition
 
 # Variation on the Vigenere cipher
 from Ciphers.Vigenere import vigenere, multiVigenere, trithemius, beaufort, \
@@ -132,3 +133,6 @@ grille = [35, 4, 23, 9, 14, 5,
           25, 19, 22, 26, 8, 3]
 decodetest(turningGrille, ptext[:144],grille, N=6)
 decodetest(turningGrilleExtended, ptext,grille, N=6)
+
+
+decodetest(disruptedTransposition,ptext[:289],"GIANTZEBRACAVALRY")
