@@ -1,6 +1,6 @@
 from Ciphers.Vigenere import vigenere, multiVigenere, trithemius
 from Ciphers.UtilityFunctions import lcm
-from Tests.ExampleTemplate import example
+from Examples.ExampleTemplate import example
 
 def vigenereExample():
 

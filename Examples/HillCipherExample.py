@@ -1,6 +1,6 @@
 from Ciphers.HillCipher import hillCipher, createMatrixKey
 from sympy import pprint
-from Tests.ExampleTemplate import example
+from Examples.ExampleTemplate import example
 
 def hillCipherExample():
     print("Example of the Hill Cipher\n")
@@ -11,18 +11,9 @@ def hillCipherExample():
     pprint(key)
     print()
     ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    example(hillCipher,ptext,key)
+    print(ptext)
+    ctext, dtext = example(hillCipher,ptext,key)
+    print(ctext)
     
     
-    
-    print("\nUsing a Prime Alphabet")
-    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#"
-    print("\nThe alphabet is\n{}\nWhich has length {}\n".format(alpha,len(alpha)))
-    key = createMatrixKey(4,len(alpha))
-    print("The key is:")
-    pprint(key)
-    print()
-    
-    example(hillCipher,ptext,key,alphabet=alpha)
-
 hillCipherExample()

@@ -1,7 +1,7 @@
 from Ciphers.Transposition import AMSCO
 from Ciphers.Transposition.AMSCO import alternating
 from Ciphers.UtilityFunctions import printColumns, uniqueRank
-from Tests.ExampleTemplate import example
+from Examples.ExampleTemplate import example
 
 def AMSCOExample():
     
@@ -26,6 +26,7 @@ def AMSCOExample():
     
     print("\nFinally the grid is read off in accordance with column numbers starting with zero, then one, and so on.\n")
     
-    example(AMSCO,ptext,key)
+    ctext, dtext = example(AMSCO,ptext,key)
+    print(ctext)
 
 AMSCOExample()

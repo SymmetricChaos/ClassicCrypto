@@ -1,4 +1,4 @@
-from Ciphers.Autokey import autokey
+from Ciphers.Vigenere import autokey
 
 def autokeyExample():
 
@@ -16,3 +16,5 @@ def autokeyExample():
         
         if ptext != dtext:
             print("Decodes Error\n{}\n".format(dtext))
+            
+autokeyExample()

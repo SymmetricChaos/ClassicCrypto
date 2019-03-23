@@ -1,6 +1,6 @@
 from Ciphers.Vigenere import beaufort, multiBeaufort
 from Ciphers.UtilityFunctions import lcm
-from Tests.ExampleTemplate import example
+from Examples.ExampleTemplate import example
 
 def beaufortExample():
 
@@ -10,8 +10,8 @@ def beaufortExample():
     key = "APPLES"
     print("The Key Is: {}\n".format(key))
     
-    example(beaufort,ptext,key)
-    
+    ctext, dtext = example(beaufort,ptext,key)
+    print(ctext)
 
 def multiBeaufortExample():
 
@@ -25,7 +25,9 @@ def multiBeaufortExample():
     L = lcm( *[len(i) for i in key] )
     print("Effective Key Length: {}\n".format(L))
         
-    example(multiBeaufort,ptext,key)
+    ctext, dtext = example(multiBeaufort,ptext,key)
+    print(ctext)
         
 beaufortExample()
+print()
 multiBeaufortExample()
