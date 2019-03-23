@@ -7,7 +7,7 @@ def VICRank(S):
     L = uniqueRank(S)
     return [ (i+1) % 10 for i in L]
     
-# Quickly apply the chain addition, fibonnaci 
+# Quickly apply the chain addition, a fibonnaci generator on decimal digits
 def chainAddition(L,n):
     for i in range(n):
         L.append( (L[i] + L[i+1]) % 10 )
