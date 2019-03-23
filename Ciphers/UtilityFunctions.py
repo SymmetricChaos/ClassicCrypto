@@ -431,6 +431,10 @@ def addNulls(text,total_len,sep="XXX",alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     
     return text
     
-    
-    
-    
+# Insert a defined amount of random padding letters at the beginning and end
+# of the message. This makes guessing common beginning and ending characters
+# much more difficult.
+def addPadding(text,head,tail,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
+    H = "".join(random.choices(alphabet,k=head))
+    T = "".join(random.choices(alphabet,k=tail))
+    return H + text + T
