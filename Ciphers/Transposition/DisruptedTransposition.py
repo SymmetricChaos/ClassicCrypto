@@ -87,7 +87,7 @@ def disruptedTransposition(text,key,decode=False,complete=False):
                 
             out2 += X[num][L:]
         
-        
-        return out1 + out2
+        out = out1 + out2
+        return out.replace(" ","")
         
         
