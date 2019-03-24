@@ -1,6 +1,6 @@
 from Ciphers.UtilityFunctions import uniqueRank, find_all, printColumns, groups
 from Ciphers import straddlingCheckerboard
-from Ciphers.Transposition import columnarTransport
+from Ciphers.Transposition import columnarTransport, disruptedTransposition
 
 # The VIC cipher (apparently) treated 0 as greater than 9 in ordering
 def VICRank(S):
@@ -23,14 +23,34 @@ def subLists(A,B):
 # layout used for a VIC style checkerboard
 def VICboard(L):
     keys = ["",[]]
-    board = ["ET AONR IS","BCDFGHJKLM","PQ/UVWXYZ."]
+    board = [" ATNEOETSI R","BCDFGHJKLM","PQ/UVWXYZ."]
     for i in range(3):
         board[i] = columnarTransport(board[i],L)
         
     keys[1] = [i for i in find_all(board[0]," ")]
     keys[0] = board[0].replace(" ","") + board[1] + board[2]
     
+    #print(keys[1])
+    
     return keys
+
+def VICtranskeys(kstr,num):
+    
+    # Turn the first ten outputs into a unique list, treating 10 as the largest
+    transKey = [ (i-2) % 10 for i in VICRank(kstr[:10])]
+    # Break the rest of the keystream into ten rows
+    G = groups(kstr[10:],10)
+    
+    
+    transLens = [num+kstr[-2], num+kstr[-1]]
+    #print(transLens)
+    out = []
+    for col in range(10):
+        for row in G:
+            out.append( row[transKey.index(col)] )
+            if len(out) == sum(transLens):
+                return out[:transLens[0]], out[transLens[0]:]
+        
 
 def VICkeystream(keys):
     
@@ -48,8 +68,8 @@ def VICkeystream(keys):
     # Use VICRank to turn the keyphrase into two lists of 10 numbers
     n1 = VICRank(S[:10])
     n2 = VICRank(S[10:])
-    print(n1)
-    print(n2)
+    #print(n1)
+    #print(n2)
         
     # Add the first list of numbers to the keystream
     #print(n1)
@@ -70,25 +90,47 @@ def VICkeystream(keys):
 
 
 def VIC(text,keys,decode=False):
+    
 
     if len(keys[2]) != 20:
         raise Exception("Keyphrase must be exactly 20 letters")
-        
-    kstr = VICkeystream(keys)
-    printColumns(kstr[10:],10)
     
-    transKey = [ (i-2) % 10 for i in VICRank(kstr[:10])]
-    print(kstr[:10])
-    print(transKey)
-    G = groups(kstr[10:],10)
-    print(G)
+    # Create the keystream
+    kstr = VICkeystream(keys)
+    #printColumns(kstr[10:],10)
+    
+    # Use the keystream to set up the straddling checkerboard
+    board = VICboard(kstr[50:])
+    
+    #print(board)
+    
+    # Use the keystream and the personal number to create the keys for transposition
+    simpleK, disruptedK = VICtranskeys(kstr,keys[3])
+    
     
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ./"
-
-    K = VICboard(kstr[50:])
-    print(K)
-
-    print(straddlingCheckerboard(text,keys=K,alphabet=alphabet))
     
+    if decode == False:
+        
+        T = straddlingCheckerboard(text,keys=board,alphabet=alphabet)
 
-VIC("THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG",["77651","74177","IDREAMOFJEANNIEWITHT",8])
+        T = columnarTransport(T,simpleK)
+
+        T = disruptedTransposition(T,disruptedK)
+
+        return T
+
+    if decode == True:
+        
+        T = disruptedTransposition(text,disruptedK,decode=True)
+        
+        T = columnarTransport(T,simpleK,decode=True)
+        
+        T = straddlingCheckerboard(T,keys=board,decode=True,alphabet=alphabet)
+        
+        return T
+    
+ptext = "WEAREPLEASEDTOHEAROFYOURSUCCESSINESTABLISHINGYOURFALSEIDENTITY.YOUWILLBESENTSOMEMONEYTOCOVEREXPENSESWITHINAMONTH."
+ctext = VIC(ptext,["77651","74177","IDREAMOFJEANNIEWITHT",8])
+print("\n\n")
+dtext = VIC(ctext,["77651","74177","IDREAMOFJEANNIEWITHT",8],decode=True)
