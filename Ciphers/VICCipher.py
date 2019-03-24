@@ -2,6 +2,8 @@ from Ciphers.UtilityFunctions import uniqueRank, find_all, groups
 from Ciphers import straddlingCheckerboard
 from Ciphers.Transposition import columnarTransport, disruptedTransposition
 
+# TODO program the use of the escape character to allow numbers
+
 # The VIC cipher (apparently) treated 0 as greater than 9 in ordering
 def VICRank(S):
     L = uniqueRank(S)
@@ -29,9 +31,7 @@ def VICboard(L):
         
     keys[1] = [i for i in find_all(board[0]," ")]
     keys[0] = board[0].replace(" ","") + board[1] + board[2]
-    
-    #print(keys[1])
-    
+        
     return keys
 
 def VICtranskeys(kstr,num):
@@ -40,8 +40,7 @@ def VICtranskeys(kstr,num):
     transKey = uniqueRank(kstr[:10])
     # Break the rest of the keystream into ten rows
     G = groups(kstr[10:],10)
-    
-    
+        
     transLens = [num+kstr[-2], num+kstr[-1]]
     #print(transLens)
     out = []
@@ -50,7 +49,7 @@ def VICtranskeys(kstr,num):
             out.append( row[transKey.index(col)] )
             if len(out) == sum(transLens):
                 return out[:transLens[0]], out[transLens[0]:]
-        
+    return out[:transLens[0]], out[transLens[0]:]   
 
 def VICkeystream(keys):
     
@@ -66,15 +65,21 @@ def VICkeystream(keys):
     chainAddition(kstr,5)
     
     # Use VICRank to turn the keyphrase into two lists of 10 numbers
+    # Can't get rid of this for some reason? Want to simplify to just use uniqueRank
     n1 = VICRank(S[:10])
     n2 = VICRank(S[10:])
-    print(n1)
-    print(n2)
+    #print(n1)
+    #print(n2)
+    #n1 = uniqueRank(S[:10])
+    #n2 = uniqueRank(S[10:])
+    #print(n1)
+    #print(n2)
         
     # Add the first list of numbers to the keystream
     #print(n1)
     #print(kstr)
     kstr = addLists(n1,kstr)
+
 
     # Used the second list of numbers to encode the keystream
     nums = [1,2,3,4,5,6,7,8,9,0]
@@ -104,6 +109,8 @@ def VIC(text,keys,decode=False):
     
     #print(board)
     
+    #print(kstr)
+    #print(keys[3])
     # Use the keystream and the personal number to create the keys for transposition
     simpleK, disruptedK = VICtranskeys(kstr,keys[3])
     
