@@ -1,4 +1,4 @@
-from Ciphers.UtilityFunctions import uniqueRank, find_all, printColumns, groups
+from Ciphers.UtilityFunctions import uniqueRank, find_all, groups
 from Ciphers import straddlingCheckerboard
 from Ciphers.Transposition import columnarTransport, disruptedTransposition
 
@@ -129,11 +129,3 @@ def VIC(text,keys,decode=False):
         T = straddlingCheckerboard(T,keys=board,decode=True,alphabet=alphabet)
         
         return T
-    
-ptext = "WEAREPLEASEDTOHEAROFYOURSUCCESSINESTABLISHINGYOURFALSEIDENTITY.YOUWILLBESENTSOMEMONEYTOCOVEREXPENSESWITHINAMONTH."
-ctext = VIC(ptext,["77651","74177","IDREAMOFJEANNIEWITHT",8])
-print("\n\n")
-dtext = VIC(ctext,["77651","74177","IDREAMOFJEANNIEWITHT",8],decode=True)
-
-print(ctext)
-print(dtext)
