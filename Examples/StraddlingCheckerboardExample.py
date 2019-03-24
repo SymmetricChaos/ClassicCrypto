@@ -36,4 +36,4 @@ def straddlingCheckerboardExample():
     print("Ciphertext is: {}".format(ctext))
     print("Decodes As:    {}".format(dtext))
     
-#straddlingCheckerboardExample()
+straddlingCheckerboardExample()

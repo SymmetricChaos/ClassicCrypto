@@ -46,7 +46,7 @@ def disruptedTranspositionExample():
     print("Then it is read off by columns starting with the one marked zero, then one, and so on.\n")
     
     print("The completed cipher:")
-    ctext, dtext = example(disruptedTransposition,ptext,key,complete=False)
+    ctext, dtext = example(disruptedTransposition,ptext,key)
     print(ctext)
     
 disruptedTranspositionExample()
