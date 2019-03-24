@@ -36,8 +36,8 @@ def VICboard(L):
 
 def VICtranskeys(kstr,num):
     
-    # Turn the first ten outputs into a unique list, treating 10 as the largest
-    transKey = [ (i-2) % 10 for i in VICRank(kstr[:10])]
+    # Turn the first ten outputs into a unique list of integers
+    transKey = uniqueRank(kstr[:10])
     # Break the rest of the keystream into ten rows
     G = groups(kstr[10:],10)
     
@@ -68,8 +68,8 @@ def VICkeystream(keys):
     # Use VICRank to turn the keyphrase into two lists of 10 numbers
     n1 = VICRank(S[:10])
     n2 = VICRank(S[10:])
-    #print(n1)
-    #print(n2)
+    print(n1)
+    print(n2)
         
     # Add the first list of numbers to the keystream
     #print(n1)
@@ -134,3 +134,6 @@ ptext = "WEAREPLEASEDTOHEAROFYOURSUCCESSINESTABLISHINGYOURFALSEIDENTITY.YOUWILLB
 ctext = VIC(ptext,["77651","74177","IDREAMOFJEANNIEWITHT",8])
 print("\n\n")
 dtext = VIC(ctext,["77651","74177","IDREAMOFJEANNIEWITHT",8],decode=True)
+
+print(ctext)
+print(dtext)

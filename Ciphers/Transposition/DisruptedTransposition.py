@@ -3,7 +3,7 @@ from numpy import argsort
 
 
 def disruptedTransposition(text,key,decode=False,complete=False):
-    
+        
     if len(text) > len(key)**2:
         raise Exception("Grid will be too small to fit the text")
     
