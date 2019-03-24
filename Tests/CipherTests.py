@@ -43,7 +43,8 @@ from Ciphers import quagmire1, quagmire2, quagmire3, quagmire4
 from Ciphers import chaocipher, hutton
 
 # Everything else
-from Ciphers import cipherDisk, nomenclator, straddlingCheckerboard, hillCipher, nihilist
+from Ciphers import cipherDisk, nomenclator, straddlingCheckerboard, hillCipher, nihilist, \
+                    VIC
 
 
 decodetest(caesar,ptext,1)
@@ -136,3 +137,5 @@ decodetest(turningGrilleExtended, ptext,grille, N=6)
 
 
 decodetest(disruptedTransposition,ptext[:289],"GIANTZEBRACAVALRY")
+
+decodetest(VIC,ptext[:330],["77651","74177","IDREAMOFJEANNIEWITHT",12])
