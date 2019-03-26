@@ -33,7 +33,7 @@ from Ciphers.Transposition import AMSCO, columnarTransport, doubleColumnarTransp
 
 # Variation on the Vigenere cipher
 from Ciphers.Vigenere import vigenere, multiVigenere, trithemius, beaufort, \
-                             multiBeaufort, autokey, affineVigenere
+                             multiBeaufort, autokey, affineVigenere, recursiveKey
                              
 
 # The quagmire family of ciphers
@@ -56,7 +56,8 @@ decodetest(beaufort, ptext,"SUGARCANE")
 decodetest(multiVigenere, ptext,["THIS","IS","ABOUT","FARMING"])
 decodetest(multiBeaufort,ptext,["THIS","IS","ABOUT","FARMING"])
 decodetest(autokey, ptext,"FARMING")
-decodetest(affineVigenere, ptext,["SUGAR","CANE"],)
+decodetest(affineVigenere, ptext,["SUGAR","CANE"])
+decodetest(recursiveKey, ptext, ["ZEBRAS",5])
 decodetest(trithemius, ptext,"")
 
 decodetest(polybiusSquare, ptext,"ZEBRAS")
