@@ -36,7 +36,7 @@ def morseDecoder(text,crib):
         
         # If we have exhausted the symbols then check for the crib and check the
         # normalized score for the text. If that score is better than what is
-        # recorded 
+        # recorded print it out.
         if len(L) == 0:
             if crib in R:
                 scr = bigramScore(R)/len(R)
