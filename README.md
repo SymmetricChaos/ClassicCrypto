@@ -48,6 +48,7 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 * Autokey Cipher
 * Beaufort Cipher
 * Quagmire Cipher Family
+* Recursive Key
 
 #### Polybius Square:
 * Polybius Square
@@ -70,11 +71,12 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 * DRYAD
 * Straddling Checkerboard
 * Cipher Disk
-* Hutton Cipher
 * Chaocipher
+* Hutton Cipher
 
 #### Transposition Ciphers
 * Columnar Transport
+* Disrupted Transposition
 * Rail Fence Cipher
 * Route Cipher
 * Turning Grille
@@ -84,6 +86,7 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 * Nomenclator (based on Le Grand Chiffre)
 
 #### Composite Ciphers:
+* VIC Cipher
 * Checkboard/DRYAD
 * Vigenere/Columnar
 
@@ -92,6 +95,8 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 #### Binary Codes:
 * Bacon Code
 * Prefix Code
+* Baudot Code
+* ASCII
 * Binary Braille
 * Binary Morse
 
@@ -100,7 +105,7 @@ Each cipher has an example of the form `cipherNameExample()` which gives a quick
 * Brevity Code
 * Braille
 * Morse Code
-* Bacon Cipher
+* Bacon "Cipher"
 
 ## Random Number Generators:
 * Reihenschieber
