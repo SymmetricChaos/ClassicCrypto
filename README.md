@@ -19,15 +19,15 @@ All ciphers will return a string containing either the ciphertext or the deciphe
 
 ### Additional Arguments
 
+#### Alphabet
+Many ciphers have an argument `alphabet` that allows the user to specify a custom alphabet to act on. If no alphabet is supplied the standard uppercase English alphabet is used.
+
 #### Polybius Squares
 Ciphers based on the Polybius Square or on the Playfair Cipher have the argument `mode` which can be:
 *  `IJ` replaces J with I to get a 25 letter square
 *  `CK` replaces C with K to get a 25 letter square
 *  `QK` replaces Q with K to get a 25 letter square
 *  `EX` appends the digits 0 to 9 to the alphabet to get a 36 letter alphabet
-
-#### Vigenere Type Ciphers
-The Vigenere, Beaufort, Autokey, and Substitution ciphers have an argument `alphabet` that allows the user to specify a custom alphabet to act on. If no alphabet is supplied the standard uppercase English alphabet is used.
 
 ### Examples
 Each cipher has an example of the form `cipherNameExample()` which gives a quick example of the cipher and the kind of key it uses. A few ciphers provide additional information about how the cipher is used.
