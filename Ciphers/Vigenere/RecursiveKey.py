@@ -33,17 +33,3 @@ def recursiveKey(text,key,decode=False,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
         
     return "".join(numberToAlpha(out,alphabet))
 
-
-def recursiveKeyExample():
-
-    print("Example of the Recursive Key Cipher")
-    
-    ptext = "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG"
-    ctext = recursiveKey(ptext,["TABLE",3])
-    dtext = recursiveKey(ctext,["TABLE",3],decode=True)
-    
-    print("Plaintext is:  {}".format(ptext))
-    print("Ciphertext is: {}".format(ctext))
-    print("Decodes As:    {}".format(dtext))
-    
-#recursiveKeyExample()
