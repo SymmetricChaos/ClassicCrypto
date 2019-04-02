@@ -57,18 +57,24 @@ def cipherDisk(text,key=["","A"],decode=False,gaprange=[5,9],turn=0):
             if i in text:
                 raise Exception("Cannot include numbers in the plaintext.")
         
-        
+        # Choose were the first gap is
         gap = random.randint(gaprange[0],gaprange[1])
         for i in text:
+            # Encrypt letters one by one and count down to the gap
             out.append( inner[outer.index(i)] )
             gap -= 1
             if gap == 0:
+                # If we reached the gap encrypt a number, turn the wheel, and
+                # choose the size of the next gap
                 R = random.choice("0123456789")
                 out += inner[outer.index(R)]
                 inner = stepN(inner,int(R))
                 gap = random.randint(gaprange[0],gaprange[1])
+            # Turn the inner ring if the cipher is set to do that
             inner = stepN(inner,turn)
 
+    # Decoding works like simple substitution but numbers are skipped and the
+    # the inner ring turns instead
     if decode == True:
         for i in text:
             dec = outer[inner.index(i)]
