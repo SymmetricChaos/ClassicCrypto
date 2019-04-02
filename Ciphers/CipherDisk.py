@@ -28,7 +28,7 @@ def stepN(R,n):
     return x
 
 
-def cipherDisk(text,key=["","A"],decode=False,gaprange=[6,8],turn=0):
+def cipherDisk(text,key=["","A"],decode=False,gaprange=[5,9],turn=0):
     
     # The outer ring is in order
     outer = "ABCDEFGHIJKLMONPQRSTUVWXYZ0123456789"
