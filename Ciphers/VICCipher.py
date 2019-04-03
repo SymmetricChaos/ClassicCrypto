@@ -25,10 +25,9 @@ def subLists(A,B):
 # layout used for a VIC style checkerboard
 def VICboard(L):
     keys = ["",[]]
-    board = [" ATNEOETSI R","BCDFGHJKLM","PQ/UVWXYZ."]
+    board = ["ET AON RIS","BCDFGHJKLM","PQ/UVWXYZ."]
     for i in range(3):
         board[i] = columnarTransport(board[i],L)
-        
     keys[1] = [i for i in find_all(board[0]," ")]
     keys[0] = board[0].replace(" ","") + board[1] + board[2]
         
@@ -64,20 +63,12 @@ def VICkeystream(keys):
     kstr = subLists(aInd,rInd)
     chainAddition(kstr,5)
     
-    # Use VICRank to turn the keyphrase into two lists of 10 numbers
-    # Can't get rid of this for some reason? Want to simplify to just use uniqueRank
-    n1 = VICRank(S[:10])
-    n2 = VICRank(S[10:])
-    #print(n1)
-    #print(n2)
-    #n1 = uniqueRank(S[:10])
-    #n2 = uniqueRank(S[10:])
-    #print(n1)
-    #print(n2)
+    # Use uniqueRank to turn the keyphrase into two lists of 10 numbers
+    n1 = uniqueRank(S[:10])
+    n2 = uniqueRank(S[10:])
+
         
     # Add the first list of numbers to the keystream
-    #print(n1)
-    #print(kstr)
     kstr = addLists(n1,kstr)
 
 
@@ -132,7 +123,7 @@ def VIC(text,keys,decode=False):
         T = disruptedTransposition(text,disruptedK,decode=True)
         
         T = columnarTransport(T,simpleK,decode=True)
-        
+
         T = straddlingCheckerboard(T,keys=board,decode=True,alphabet=alphabet)
         
         return T

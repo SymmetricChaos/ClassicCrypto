@@ -3,8 +3,9 @@ from Ciphers import VIC
 def VICExample():
 
     ptext = "WEAREPLEASEDTOHEAROFYOURSUCCESSINESTABLISHINGYOURFALSEIDENTITY.YOUWILLBESENTSOMEMONEYTOCOVEREXPENSESWITHINAMONTH."
-    ctext = VIC(ptext,["77651","74177","IDREAMOFJEANNIEWITHT",12])
-    dtext = VIC(ctext,["77651","74177","IDREAMOFJEANNIEWITHT",12],decode=True)
+    K = ["77651","74177","IDREAMOFJEANNIEWITHT",12]
+    ctext = VIC(ptext,K)
+    dtext = VIC(ctext,K,decode=True)
     print(ptext)
     print()
     print(ctext)

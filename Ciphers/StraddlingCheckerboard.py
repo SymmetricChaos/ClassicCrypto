@@ -75,6 +75,6 @@ def straddlingCheckerboard(text,keys=["A",[0,1]],decode=False,alphabet="ABCDEFGH
                 L.append(text.pop(0)+text.pop(0))
             else:
                 L.append(text.pop(0))
-                
+
         return "".join([D[i] for i in L])
 
