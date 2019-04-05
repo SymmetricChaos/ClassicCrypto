@@ -139,4 +139,4 @@ decodetest(turningGrilleExtended, ptext,grille, N=6)
 
 decodetest(disruptedTransposition,ptext[:289],"GIANTZEBRACAVALRY")
 
-decodetest(VIC,ptext[:330],["77651","74177","IDREAMOFJEANNIEWITHT",12])
+decodetest(VIC,ptext[:180],["77651","74177","IDREAMOFJEANNIEWITHT",12])
