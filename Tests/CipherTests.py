@@ -57,7 +57,7 @@ decodetest(multiVigenere, ptext,["THIS","IS","ABOUT","FARMING"])
 decodetest(multiBeaufort,ptext,["THIS","IS","ABOUT","FARMING"])
 decodetest(autokey, ptext,"FARMING")
 decodetest(affineVigenere, ptext,["SUGAR","CANE"])
-decodetest(recursiveKey, ptext, ["ZEBRAS",5])
+decodetest(recursiveKey, ptext, "ZEBRAS")
 decodetest(trithemius, ptext,"")
 
 decodetest(polybiusSquare, ptext,"ZEBRAS")
