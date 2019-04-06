@@ -1,6 +1,7 @@
 from Ciphers.UtilityFunctions import validptext, validkeys, alphaToNumber, numberToAlpha
 from itertools import cycle
 
+# Create a stretched out version of the key
 def stretch(L,n):
     
     out = []
