@@ -99,6 +99,7 @@ def egcd(a, b):
         return (b, 0, 1)
     else:
         g, y, x = egcd(b % a, a)
+        print(g,y,x)
         return (g, x - (b // a) * y, y)
 
 # Use egcd to calculate the modular inverse
@@ -438,3 +439,6 @@ def addPadding(text,head,tail,alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
     H = "".join(random.choices(alphabet,k=head))
     T = "".join(random.choices(alphabet,k=tail))
     return H + text + T
+
+
+egcd(7,26)
